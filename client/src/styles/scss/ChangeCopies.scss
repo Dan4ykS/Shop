@@ -1,0 +1,17 @@
+@import "./main.scss";
+
+.changeCopies{
+  border: 1px solid #aba6a673;
+  input{
+    max-width: 40px;
+    text-align: center;
+    outline: none;
+    font-size: 20px;
+  }
+  button{
+    .fas{
+      font-size: 15px;
+      cursor: pointer;
+    }
+  }
+}

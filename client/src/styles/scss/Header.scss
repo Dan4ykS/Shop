@@ -1,0 +1,80 @@
+@import "./main.scss";
+
+.active {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  margin-top: 0 !important;
+}
+
+@keyframes swap {
+  from {
+    -webkit-transform: perspective(400px);
+    transform: perspective(400px);
+  }
+
+  30% {
+    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -15deg);
+    transform: perspective(400px) rotate3d(0, 1, 0, -15deg);
+    opacity: 1;
+  }
+
+  to {
+    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+    opacity: 0;
+  }
+}
+.header {
+  &_active {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin-top: 0 !important;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  &__item {
+    list-style-type: none;
+  }
+  a {
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.5s all;
+    &:hover {
+      color: $colorLink;
+      text-decoration: none;
+    }
+  }
+  .fas {
+    cursor: pointer;
+  }
+  &__top {
+    background-color: $textColor;
+    max-height: 50px;
+    font-size: 25px;
+    a {
+      color: $textColor2;
+    }
+    &_item {
+      margin-left: 10px;
+      animation-name: swap;
+    }
+  }
+  &__main {
+    z-index: 555555;
+    margin: 10px 0;
+    background-color: $headerBg;
+    font-size: 20px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    a {
+      color: $textColor;
+    }
+  }
+}

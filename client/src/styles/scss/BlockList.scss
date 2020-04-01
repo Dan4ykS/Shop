@@ -1,0 +1,33 @@
+@import "./main.scss";
+
+.infoBlock {
+  width: 50%;
+  padding: 10px;
+  &__img {
+    margin-right: 10px;
+    img {
+      width: 200px;
+    }
+  }
+  &__content {
+    h2 {
+      font-size: 22px;
+      text-transform: uppercase;
+    }
+    button {
+      @include button;
+    }
+    .buy {
+      span {
+        font-weight: 700;
+        font-size: 30px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .infoBlock {
+    width: 100%;
+  }
+}

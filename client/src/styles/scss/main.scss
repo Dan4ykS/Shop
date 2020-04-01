@@ -1,0 +1,34 @@
+@import "./variables.scss";
+@import "./mixins.scss";
+@import "./reuse.scss";
+
+* {
+  font-family: "Roboto", sans-serif;
+  // cursor: default;
+  user-select: none;
+  img {
+    pointer-events: none;
+  }
+  input {
+    cursor: text;
+  }
+}
+
+body {
+  background: url("../../img/mainBg.jpg") center/cover no-repeat fixed;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-align: center;
+}
+
+.content {
+  background-color: #ffffffad;
+  padding: 20px;
+  min-height: 2000px;
+}
