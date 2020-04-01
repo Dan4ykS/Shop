@@ -12,14 +12,11 @@ import RegistrationPage from '../pages/RegistrationPage';
 import withStore from '../utils/helpFuncsForRedux';
 import { mainItems, topItems, iconsForItems } from '../utils/headerConf';
 import { Route, Switch } from 'react-router-dom';
-import { updateTopHeaderMenu } from '../utils/helpFuncsForBrouser';
+import { updateTopHeaderMenu, chekToken } from '../utils/helpFuncsForBrouser';
 
 const App = ({ userData, actions: { isLogin } }) => {
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('userData'));
-    if (token) {
-      isLogin(token.userName, token.token);
-    }
+    chekToken(isLogin);
   }, [isLogin]);
   updateTopHeaderMenu(userData.userName, topItems);
   return (

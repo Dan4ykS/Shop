@@ -2,6 +2,7 @@
   "name": "shop",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@material-ui/core": "^4.9.7",
     "@testing-library/jest-dom": "^4.2.4",
@@ -25,7 +26,6 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "http://localhost:8000",
   "browserslist": {
     "production": [
       ">0.2%",

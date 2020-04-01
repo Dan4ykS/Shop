@@ -86,8 +86,25 @@ export const updateTopHeaderMenu = (userName, menu) => {
   if (userName !== null) {
     const index = menu.findIndex((el) => el.value === 'Вход');
     menu[index] = { name: '/MyAccount/', value: userName };
-  } else { 
+  } else {
     const index = menu.findIndex((el) => el.name === '/MyAccount/');
     menu[index] = { name: '/Login/', value: 'Вход' };
   }
+};
+
+export const chekToken = async (isLogin) => {
+  const localStorageData = JSON.parse(localStorage.getItem('userData'));
+  if (!localStorageData) {
+    return;
+  }
+  const req = await fetch('/api/isValid', {
+    headers: {
+      Authentication: `token ${localStorageData.token}`,
+    },
+  });
+  if (!req.ok) {
+    return;
+  }
+  const { userName } = await req.json();
+  isLogin(userName, localStorageData.token);
 };

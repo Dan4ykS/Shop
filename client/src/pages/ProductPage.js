@@ -3,7 +3,7 @@ import BookList from '../components/BookList';
 import withStore from '../utils/helpFuncsForRedux';
 import LoadingDataLogic from '../logicComponents/LoadingData';
 
-const ProductPage = ({ bookList, actions }) => {
+const ProductPage = ({ bookList, actions, userData: { token } }) => {
   const configData = {
     loading: bookList.loading,
     error: bookList.error,

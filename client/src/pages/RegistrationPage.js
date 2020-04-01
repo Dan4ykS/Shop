@@ -1,7 +1,7 @@
 import React from 'react';
 import withStore from '../utils/helpFuncsForRedux';
 import { Redirect } from 'react-router-dom';
-import { workWithUserApi } from '../utils/helpFuncsForBrouser';
+// import { workWithUserApi } from '../utils/helpFuncsForBrouser';
 import MaterialUiRegistrationForm from '../components/MaterialUiForm';
 import { Grid } from '@material-ui/core';
 

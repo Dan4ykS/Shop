@@ -4,8 +4,6 @@ import '../styles/scss/Login.scss';
 import { Redirect } from 'react-router-dom';
 import { workWithUserApi } from '../utils/helpFuncsForBrouser';
 import { Link } from 'react-router-dom';
-import { Grid } from '@material-ui/core';
-import MaterialUiRegistrationForm from '../components/MaterialUiForm';
 
 const LoginPage = ({ userData: { isAuth }, actions: { authorization } }) => {
   if (isAuth) {

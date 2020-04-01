@@ -8,8 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import axios from 'axios';
-import { useHistory } from 'react-router-dom';
 import { Icon, Grid } from '@material-ui/core';
 
 const MaterialUiRegistrationForm = ({ registration }) => {
@@ -19,7 +17,6 @@ const MaterialUiRegistrationForm = ({ registration }) => {
     email: '',
     showPassword: false,
   });
-  const history = useHistory();
   const submitForm = (e) => {
     e.preventDefault();
     const sendDate = { userName: values.userName, password: values.password, email: values.email };

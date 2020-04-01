@@ -19,6 +19,20 @@ const MainPage = ({ userData: { token } }) => {
       >
         Получить данные
       </button>
+      {/* <button
+        className='btn-warning'
+        onClick={() => {
+          fetch('/api/createBooks', {
+            headers: {
+              Authentication: `token ${token}`,
+            },
+          })
+            .then((resp) => resp.json())
+            .then((data) => console.log(data));
+        }}
+      >
+        Создать книги
+      </button> */}
     </>
   );
 };
