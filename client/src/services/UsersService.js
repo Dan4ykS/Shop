@@ -9,12 +9,12 @@ export default class UsersService {
       body: JSON.stringify(data),
     });
     if (!request.ok) {
-      throw new Error(`Ошибка ${request.status}`);
+      throw new Error(`Ошибка ${request.massage}`);
     }
-    return await request;
+    return await request.json();
   };
 
-  createNewUser = async (data) => {
+  createUser = async (data) => {
     return await this.requestToApi('createUser', data);
   };
 

@@ -4,7 +4,7 @@ const Goods = require('../models/Goods');
 
 const router = Router();
 
-router.get('/getGoods', async (req, res) => {
+router.get('/getGoods', auth, async (req, res) => {
   try {
     res.json(await Goods.find());
   } catch (error) {
@@ -21,7 +21,7 @@ router.get('/findGoods', async (req, res) => {
   }
 });
 
-router.post('/createCommodity', async ({ body: { title, shortDescr, descr, previewImg, price, img = null } }, res) => {
+router.post('/createCommodity', auth, async ({ body: { title, shortDescr, descr, previewImg, price, img = null } }, res) => {
   try {
     const newCommodity = new Goods({
       title,
@@ -39,18 +39,19 @@ router.post('/createCommodity', async ({ body: { title, shortDescr, descr, previ
   }
 });
 
-router.post('/updateCommodity', async ({ body: { id, updateData } }, res) => {
+router.patch('/updateCommodity', auth, async ({ body: { id, updateData } }, res) => {
   try {
     await Goods.findByIdAndUpdate(id, updateData);
-    res.status(201).json({ massage: `товар с id:${id} обновлен` });
+    res.status(200).json({ massage: `товар с id:${id} обновлен` });
   } catch (error) {
     res.sendStatus(500);
   }
 });
 
-router.post('/removeCommodity', async (req, res) => {
+router.delete('/removeCommodity', auth, async (req, res) => {
   try {
-    await Goods.deleteOne({_id: req.body.id})
+    await Goods.deleteOne({ _id: req.body.id });
+    res.status(204).json({massage: `товар с id:${req.body.id} удален`})
   } catch (error) {
     res.sendStatus(500);
   }

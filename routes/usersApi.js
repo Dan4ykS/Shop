@@ -10,11 +10,11 @@ const router = Router();
 router.post('/createUser', async ({ body: { userName, password, email } }, res) => {
   const newUser = new User({
     userName,
-    password,
+    password: await bcrypt.hash(password, 10),
     email,
     cart: {
       cartItems: [],
-      totalPrice: 0
+      totalPrice: 0,
     },
   });
   try {

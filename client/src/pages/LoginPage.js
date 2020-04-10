@@ -41,7 +41,6 @@ const LoginPage = ({ userData: { isAuth }, actions: { authorization } }) => {
         </div>
         <div className='col-lg-6'></div>
       </div>
-      ;
     </>
   );
 };

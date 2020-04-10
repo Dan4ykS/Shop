@@ -3,11 +3,11 @@ const cors = require('cors');
 const usersApi = require('./routes/usersApi');
 const goodsApi = require('./routes/goodsApi');
 const mongoose = require('mongoose');
-const config = require('./config/config')
+const config = require('./config/config');
 const path = require('path');
 
 const app = express();
-const port =  process.env.NODE_ENV === 'production' ? 80 : config.PORT
+const port = process.env.NODE_ENV === 'production' ? 80 : config.PORT;
 
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));

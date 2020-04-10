@@ -6,12 +6,14 @@ export default class BookStoreService {
   // requestToApi = async (url, data) => {
   //   cosnst
   //  };
-  
 
-  getBooks = async (token) => { 
+  getBooks = async (token) => {
     const request = await fetch('/api/getGoods');
-    return await request.json()
-  }
+    if (!request.ok) {
+       throw new Error(`Ошибка ${request.massage}`);
+    }
+    return await request.json();
+  };
 
   getCartItems() {
     return new Promise((resolve, reject) => {

@@ -55,14 +55,15 @@ export const redirectToLink = (link) => {
   window.open(link);
 };
 
-export const workWithUserApi = (e, func, selector) => {
+export const workWithUserApi = async (e, func, selector) => {
+  e.persist();
   e.preventDefault();
-  let data = {};
+  const data = {};
   const inputs = document.querySelectorAll(`${selector} .form-control`);
   inputs.forEach((el) => {
     data[el.name] = el.value;
   });
-  func(data, inputs);
+  await func(data, inputs);
   const mode = e.target.classList.value === 'registrationForm' ? false : true;
   clearInputs(inputs, mode);
 };

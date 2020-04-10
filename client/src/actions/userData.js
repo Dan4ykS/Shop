@@ -20,26 +20,24 @@ const userLogout = () => {
   };
 };
 
-export const authorization = (dispatch, { usersService }) => (data, form) => {
-  usersService
-    .authUser(data)
-    .then((response) => response.json())
-    .then((respData) => {
-      dispatch(userLogin(data.userName, respData.token));
-      localStorage.setItem('userData', JSON.stringify(respData));
-    })
-    .catch((err) => isInvalid(form));
+export const authorization = (dispatch, { usersService }) => async (data, form) => {
+  try {
+    const token = await usersService.authUser(data);
+    dispatch(userLogin(data.userName, token));
+    localStorage.setItem('userData', JSON.stringify(token));
+  } catch (err) {
+    isInvalid(form);
+  }
 };
 
-export const registration = (dispatch, { usersService }) => (data, form) => {
-  usersService
-    .createNewUser(data)
-    .then((response) => response.json())
-    .then((respData) => {
-      dispatch(createUser(data.userName, respData.token));
-      localStorage.setItem('userData', JSON.stringify(respData));
-    })
-    .catch((err) => console.log(err));
+export const registration = (dispatch, { usersService }) => async (data, form) => {
+  try {
+    const token = await usersService.createUser(data);
+    dispatch(createUser(data.userName, token));
+    localStorage.setItem('userData', JSON.stringify(token));
+  } catch (error) {
+    isInvalid(form)
+  }
 };
 
 export const isLogin = (dispatch) => (userName, token) => {
