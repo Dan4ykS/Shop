@@ -5,9 +5,9 @@ import { Redirect } from 'react-router-dom';
 import { workWithUserApi } from '../utils/helpFuncsForBrouser';
 import { Link } from 'react-router-dom';
 
-const LoginPage = ({ userData: { isAuth }, actions: { authorization } }) => {
-  if (isAuth) {
-    return <Redirect to='/' />;
+const LoginPage = ({ userData: { token }, actions: { authorization } }) => {
+  if (token) {
+    return <Redirect to='/' />
   }
   return (
     <>

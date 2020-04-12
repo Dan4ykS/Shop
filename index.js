@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const morgan = require('morgan')
 const usersApi = require('./routes/usersApi');
 const goodsApi = require('./routes/goodsApi');
 const mongoose = require('mongoose');
@@ -10,13 +11,13 @@ const app = express();
 const port = process.env.NODE_ENV === 'production' ? 80 : config.PORT;
 
 app.use(cors());
+app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use('/api', usersApi, goodsApi);
 
 if (process.env.NODE_ENV === 'production') {
   app.use('/', express.static(path.join(__dirname, 'client', 'build')));
-
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });

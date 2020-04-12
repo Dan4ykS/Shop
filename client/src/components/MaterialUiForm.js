@@ -16,18 +16,26 @@ const MaterialUiRegistrationForm = ({ registration }) => {
     password: '',
     email: '',
     showPassword: false,
+    error: false,
   });
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
+    e.persist();
     e.preventDefault();
-    const sendDate = { userName: values.userName, password: values.password, email: values.email };
-    registration(sendDate)
-    // axios.post('http://127.0.0.1:8000/api/createUser', sendDate);
-    setValues({
-      userName: '',
-      password: '',
-      email: '',
-      showPassword: false,
-    });
+    if (values.email === '' || values.password === '' || values.userName === '') {
+      setValues({
+        ...values,
+        error: true,
+      });
+    } else {
+      const sendDate = { userName: values.userName, password: values.password, email: values.email };
+      await registration(sendDate);
+      setValues({
+        userName: '',
+        password: '',
+        email: '',
+        showPassword: false,
+      });
+    }
   };
 
   const handleChange = (prop) => (event) => {
@@ -44,12 +52,13 @@ const MaterialUiRegistrationForm = ({ registration }) => {
       <form noValidate autoComplete='off' onSubmit={(e) => submitForm(e)}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TextField fullWidth={true} label='Введите имя' value={values.userName} onChange={(event) => setValues({ ...values, userName: event.target.value })} />
+            <TextField error={values.error} fullWidth={true} label='Введите имя' value={values.userName} onChange={(event) => setValues({ ...values, userName: event.target.value })} />
           </Grid>
           <Grid item xs={12}>
             <FormControl fullWidth={true}>
-              <InputLabel htmlFor='standard-adornment-password'>Придумайте пароль</InputLabel>
-              <Input
+              <InputLabel error={values.error} htmlFor='standard-adornment-password'>Придумайте пароль</InputLabel>
+              <Input 
+                error={values.error}
                 id='standard-adornment-password'
                 type={values.showPassword ? 'text' : 'password'}
                 value={values.password}
@@ -65,7 +74,7 @@ const MaterialUiRegistrationForm = ({ registration }) => {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <TextField fullWidth={true} label='Введите email' value={values.email} onChange={(event) => setValues({ ...values, email: event.target.value })} />
+            <TextField error={values.error} fullWidth={true} label='Введите email' value={values.email} onChange={(event) => setValues({ ...values, email: event.target.value })} />
           </Grid>
           <Grid container item justify='flex-end' spacing={2}>
             <Grid item>

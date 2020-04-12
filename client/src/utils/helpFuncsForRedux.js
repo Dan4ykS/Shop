@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { fetchBooks } from '../actions/bookList';
 import { onAddedToCart, onDeletedFromCart } from '../actions/shopingCart';
 import { authorization, registration, isLogin, isLogout } from '../actions/userData';
+import { updateTopHeaderMenu} from '../actions/menuItems'
 
-const mapStateToProps = ({ bookList, shopingCart, userData }) => {
-  return { bookList, shopingCart, userData };
+const mapStateToProps = ({ bookList, shopingCart, userData, menuItems }) => {
+  return { bookList, shopingCart, userData, menuItems};
 };
 
 const mapDispatchToProps = (dispatch, { services }) => {
@@ -18,6 +19,7 @@ const mapDispatchToProps = (dispatch, { services }) => {
     registration: registration(dispatch, services),
     isLogin: isLogin(dispatch),
     isLogout: isLogout(dispatch),
+    updateTopHeaderMenu: updateTopHeaderMenu(dispatch)
   };
   return { actions };
 };

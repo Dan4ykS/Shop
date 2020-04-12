@@ -4,10 +4,10 @@ import { createItems } from '../utils/helpFuncsForCreateReactElem';
 import { headerFixMenu } from '../utils/helpFuncsForBrouser';
 import '../styles/scss/Header.scss';
 
-const Heder = ({ mainItems: itemsMain, topItems: itemsTop, iconsForItems }) => {
+const Heder = ({ mainItems: itemsMain, topItems: itemsTop, iconsForItems: { headerIcons }, updated }) => {
   headerFixMenu();
   const mainItems = createItems(itemsMain, 'header__item header__main_item');
-  const topItems = createItems(itemsTop, 'header__item header__top_item', iconsForItems);
+  const topItems = createItems(itemsTop, 'header__item', headerIcons, updated);
   return (
     <header className='header'>
       <nav>

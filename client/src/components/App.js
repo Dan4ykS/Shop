@@ -10,18 +10,17 @@ import LoginPage from '../pages/LoginPage';
 import Footer from '../components/Footer';
 import RegistrationPage from '../pages/RegistrationPage';
 import withStore from '../utils/helpFuncsForRedux';
-import { mainItems, topItems, iconsForItems } from '../utils/headerConf';
 import { Route, Switch } from 'react-router-dom';
-import { updateTopHeaderMenu, chekToken } from '../utils/helpFuncsForBrouser';
+import { chekToken } from '../utils/helpFuncsForBrouser';
 
-const App = ({ userData, actions: { isLogin } }) => {
+const App = ({ userData, menuItems: { topItems, mainItems, iconsForItems, updated }, actions: { isLogin, updateTopHeaderMenu } }) => {
   useEffect(() => {
     chekToken(isLogin);
-  }, [isLogin]);
-  updateTopHeaderMenu(userData.userName, topItems);
+    updateTopHeaderMenu(userData.userName);
+  }, [isLogin, userData.userName, updateTopHeaderMenu]);
   return (
     <>
-      <Heder iconsForItems={iconsForItems} topItems={topItems} mainItems={mainItems} />
+      <Heder iconsForItems={iconsForItems} topItems={topItems} mainItems={mainItems} updated={updated} />
       <div className='container content'>
         <Switch>
           <Route path='/' component={MainPage} exact />

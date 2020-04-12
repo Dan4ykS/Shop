@@ -2,8 +2,8 @@ import React from 'react';
 import withStore from '../utils/helpFuncsForRedux';
 import { Redirect } from 'react-router-dom';
 
-const AccountPage = ({ userData: { isAuth }, actions: { isLogout } }) => {
-  if (!isAuth) {
+const AccountPage = ({ userData: { token }, actions: { isLogout } }) => {
+  if (!token) {
     return <Redirect to='/' />;
   }
   return (

@@ -4,7 +4,7 @@ const Goods = require('../models/Goods');
 
 const router = Router();
 
-router.get('/getGoods', auth, async (req, res) => {
+router.get('/getGoods', async (req, res) => {
   try {
     res.json(await Goods.find());
   } catch (error) {

@@ -1,17 +1,13 @@
 import React from 'react';
-import { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { redirectToURL } from '../utils/helpFuncsForBrouser';
 
 const Page404 = () => {
-  const [redirect, setRedirect] = useState(false);
-
-  if (redirect) {
-    return <Redirect to='/' />;
-  }
+  const hisory = useHistory();
   return (
     <>
       <h1>Ошибка, страница не найдена</h1>
-      <button onClick={() => setRedirect(true)}>На главную </button>
+      <button onClick={() => redirectToURL(hisory, '/')}>На главную </button>
     </>
   );
 };
