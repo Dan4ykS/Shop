@@ -16,8 +16,10 @@ import { chekToken } from '../utils/helpFuncsForBrouser';
 const App = ({ userData, menuItems: { topItems, mainItems, iconsForItems, updated }, actions: { isLogin, updateTopHeaderMenu } }) => {
   useEffect(() => {
     chekToken(isLogin);
+  }, [isLogin]);
+  useEffect(() => {
     updateTopHeaderMenu(userData.userName);
-  }, [isLogin, userData.userName, updateTopHeaderMenu]);
+  }, [userData.userName, updateTopHeaderMenu]);
   return (
     <>
       <Heder iconsForItems={iconsForItems} topItems={topItems} mainItems={mainItems} updated={updated} />

@@ -20,6 +20,7 @@ export const showHidenElements = () => {
   window.addEventListener('scroll', () => {
     if (window.pageYOffset > 298) {
       document.querySelector('footer .feedback').classList.remove('hidenElem');
+      document.querySelector('footer .upArrow').classList.remove('hidenElem');
     }
     if (window.pageYOffset > 300) {
       document.querySelectorAll('footer .fas').forEach((el) => {
@@ -30,6 +31,7 @@ export const showHidenElements = () => {
         el.classList.remove('fas_active');
       });
       document.querySelector('footer .feedback').classList.add('hidenElem');
+      document.querySelector('footer .upArrow').classList.add('hidenElem');
     }
   });
 };

@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const sendRegistationLetter = require('../mail/registation');
 const auth = require('../middleware/auth.middleware');
 const createJwtToken = require('../utils/createJwtToken');
+const errorHandler = require('../utils/errorHandler');
 
 const router = Router();
 
@@ -23,8 +24,7 @@ router.post('/createUser', async ({ body: { userName, password, email } }, res) 
     res.status(201).json({ token });
     await sendRegistationLetter(email, userName);
   } catch (error) {
-    res.sendStatus(400);
-    throw error;
+    errorHandler(res, error);
   }
 });
 
@@ -49,8 +49,7 @@ router.post('/authUser', async ({ body: { userName, password } }, res) => {
     const token = createJwtToken({ userId: user.id });
     res.json({ token });
   } catch (error) {
-    res.status(500).json({ message: 'Ошибка запроса авторизации' });
-    throw error;
+    errorHandler(res, error);
   }
 });
 
@@ -62,8 +61,7 @@ router.get('/isValid', auth, async (req, res) => {
     }
     res.json({ userName: user.userName });
   } catch (error) {
-    res.sendStatus(500);
-    throw error;
+    errorHandler(res, error);
   }
 });
 

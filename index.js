@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const morgan = require('morgan')
+const morgan = require('morgan');
 const usersApi = require('./routes/usersApi');
 const goodsApi = require('./routes/goodsApi');
 const mongoose = require('mongoose');
@@ -11,7 +11,7 @@ const app = express();
 const port = process.env.NODE_ENV === 'production' ? 80 : config.PORT;
 
 app.use(cors());
-app.use(morgan('dev'))
+app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use('/api', usersApi, goodsApi);

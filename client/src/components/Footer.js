@@ -7,10 +7,10 @@ const Footer = () => {
   showHidenElements();
   return (
     <footer className='footer'>
-      <Link className='upArrow' to='header' smooth={true}>
+      <Link className='upArrow hidenElem' to='header' smooth={true}>
         <i className='fas fa-chevron-up'></i>
       </Link>
-      <div onMouseLeave={() => feedbackMouseLeave()} className='feedback .hidenElem'>
+      <div onMouseLeave={() => feedbackMouseLeave()} className='feedback hidenElem'>
         <div onMouseEnter={() => feedbackMouseEnter()} className='mainIcon'>
           <i className='fas fa-phone'></i>
         </div>

@@ -19,6 +19,11 @@ const MainPage = ({ userData: { token } }) => {
       >
         Получить данные
       </button>
+      <form>
+        <div className='form-group'>
+          <input type='file' className='form-control-file' id='exampleFormControlFile1' onChange={(e) => console.log(e.target.value)}/>
+        </div>
+      </form>
     </>
   );
 };
