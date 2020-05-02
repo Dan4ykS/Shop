@@ -1,15 +1,15 @@
 import React from 'react';
 import { scrollToElem } from './helpFuncsForBrouser';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const createElementWithIcon = (icon, item, className, updated) => {
-  const { className: iconClassName } = icon;
   const { name, value } = item;
   const animationClass = updated && value !== 'Корзина' ? `${className} header__top_item` : className;
   return (
     <li className={animationClass}>
       <Link className='flexWrap' key={name} to={name}>
-        <i className={iconClassName}></i>
+        <FontAwesomeIcon icon={icon}/>
         <div style={{ marginLeft: '10px' }}>{value}</div>
       </Link>
     </li>

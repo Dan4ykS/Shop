@@ -20,7 +20,7 @@
   "author": "Sokolov Daniil <dan28012000@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^5.1.0",
+    "concurrently": "^5.2.0",
     "cross-env": "^7.0.2",
     "nodemon": "^2.0.3"
   },
@@ -31,7 +31,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.5",
+    "mongoose": "^5.9.11",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0"

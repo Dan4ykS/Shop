@@ -15,7 +15,7 @@
     }
   }
   .fas {
-    font-size: 45px;
+    font-size: 60px;
     opacity: 0;
     transition: all 0.5s;
     &_active {
@@ -27,14 +27,20 @@
     position: fixed;
     bottom: 3%;
     right: 2%;
-    width: 150px;
-    height: 150px;
+    width: 135px;
+    height: 135px;
     .mainIcon {
       position: absolute;
       bottom: 0;
       right: 0;
       .fa-phone {
-        @include feedbackIconsStyle(45px, 15px);
+        @include feedbackIconsStyle(60px, 15px);
+      }
+    }
+    .helperIcon{
+      .fa-instagram, .fa-vk, .fa-facebook {
+        max-width: 40px;
+        max-height: 40px;
       }
     }
     .helperIcon1 {
@@ -44,18 +50,18 @@
       opacity: 0;
       transition: all ease-in-out 0.5s;
       .fa-instagram {
-        @include feedbackIconsStyle(30px, 7px);
+        @include feedbackIconsStyle(43px, 7px);
       }
     }
     .helperIcon2 {
       position: absolute;
-      top: 45%;
-      left: 30%;
+      top: 50%;
+      left: 37%;
       transform: translateY(-50%);
       opacity: 0;
       transition: all ease-in-out 0.5s;
       .fa-vk {
-        @include feedbackIconsStyle(25px, 7px);
+        @include feedbackIconsStyle(43px, 8px);
       }
     }
     .helperIcon3 {
@@ -65,7 +71,7 @@
       opacity: 0;
       transition: all ease-in-out 0.5s;
       .fa-facebook {
-        @include feedbackIconsStyle(30px, 7px);
+        @include feedbackIconsStyle(43px, 7px);
       }
     }
     .helperIcon_active {
@@ -76,7 +82,7 @@
       }
       &:nth-child(3) {
         top: 35%;
-        left: 20%;
+        left: 25%;
       }
       &:nth-child(4) {
         left: 10%;

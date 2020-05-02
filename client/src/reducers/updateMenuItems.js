@@ -1,3 +1,5 @@
+import { faUserCircle, faCartPlus } from '@fortawesome/free-solid-svg-icons'
+
 const updateMenuItems = (state, action) => {
   if (state === undefined) {
     return {
@@ -11,7 +13,7 @@ const updateMenuItems = (state, action) => {
         { name: '/Cart/', value: 'Корзина' },
       ],
       iconsForItems: {
-        headerIcons: [{ className: 'fas fa-user-circle' }, { className: 'fas fa-cart-plus' }],
+        headerIcons: [faUserCircle, faCartPlus],
       },
       updated: false,
     };

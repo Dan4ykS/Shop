@@ -102,6 +102,18 @@ export const chekToken = async (isLogin) => {
   isLogin(userName, localStorageData.token);
 };
 
-export const redirectToURL = (history, url) => {
-  history.push(url);
-};
+export const changePasswordType = (iconSelector, inputSelector) => { 
+  const icon = document.querySelector(iconSelector);
+  const input = document.querySelector(inputSelector);
+  if (icon.classList.contains(`${iconSelector.split('.')[1]}_crosOut`)) {
+    icon.classList.remove(`${iconSelector.split('.')[1]}_crosOut`);
+    input.type = 'text';
+  } else {
+    icon.classList.add(`${iconSelector.split('.')[1]}_crosOut`);
+    input.type = 'password';
+  };
+}
+
+export const redirectToPage = (history, page) => { 
+  history.push(page)
+}

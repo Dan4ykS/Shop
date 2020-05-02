@@ -1,13 +1,14 @@
 import React from 'react';
 import withStore from '../utils/helpFuncsForRedux';
 import '../styles/scss/Login.scss';
-import { Redirect } from 'react-router-dom';
-import { workWithUserApi } from '../utils/helpFuncsForBrouser';
+import { workWithUserApi, changePasswordType, redirectToPage } from '../utils/helpFuncsForBrouser';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 
-const LoginPage = ({ userData: { token }, actions: { authorization } }) => {
+const LoginPage = ({ userData: { token }, actions: { authorization }, history }) => {
   if (token) {
-    return <Redirect to='/' />
+   redirectToPage(history, '/')
   }
   return (
     <>
@@ -24,8 +25,11 @@ const LoginPage = ({ userData: { token }, actions: { authorization } }) => {
             </div>
             <div className='form-group row'>
               <label className='col-sm-2 col-form-label'>Пароль:</label>
-              <div className='col-sm-10'>
-                <input name='password' type='password' className='form-control' placeholder='Введите ваш пароль' required />
+              <div className='col-sm-10 password'>
+                <span className='showPasswordIcon showPasswordIcon_crosOut'>
+                  <FontAwesomeIcon onClick={() => changePasswordType('.showPasswordIcon', '.form-control_password')} icon={faEye} />
+                </span>
+                <input name='password' type='password' className='form-control form-control_password' placeholder='Введите ваш пароль' required />
                 <div className='invalid-feedback'>Неверный пароль</div>
               </div>
             </div>

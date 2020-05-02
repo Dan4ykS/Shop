@@ -1,10 +1,10 @@
 import React from 'react';
 import withStore from '../utils/helpFuncsForRedux';
-import { Redirect } from 'react-router-dom';
+import { redirectToPage } from '../utils/helpFuncsForBrouser';
 
-const AccountPage = ({ userData: { token }, actions: { isLogout } }) => {
+const AccountPage = ({ userData: { token }, actions: { isLogout }, history }) => {
   if (!token) {
-    return <Redirect to='/' />;
+    redirectToPage(history, '/')
   }
   return (
     <>

@@ -1,15 +1,15 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { redirectToURL } from '../utils/helpFuncsForBrouser';
+import withStore from '../utils/helpFuncsForRedux';
+import { redirectToPage } from '../utils/helpFuncsForBrouser';
 
-const Page404 = () => {
-  const hisory = useHistory();
+
+const Page404 = ({ history }) => {
   return (
     <>
       <h1>Ошибка, страница не найдена</h1>
-      <button onClick={() => redirectToURL(hisory, '/')}>На главную </button>
+      <button className='btn btn-success' onClick={() => redirectToPage(history, '/')}>На главную </button>
     </>
   );
 };
 
-export default Page404;
+export default withStore(Page404);

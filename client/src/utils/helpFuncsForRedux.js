@@ -5,6 +5,7 @@ import { fetchBooks } from '../actions/bookList';
 import { onAddedToCart, onDeletedFromCart } from '../actions/shopingCart';
 import { authorization, registration, isLogin, isLogout } from '../actions/userData';
 import { updateTopHeaderMenu} from '../actions/menuItems'
+import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = ({ bookList, shopingCart, userData, menuItems }) => {
   return { bookList, shopingCart, userData, menuItems};
@@ -24,6 +25,6 @@ const mapDispatchToProps = (dispatch, { services }) => {
   return { actions };
 };
 
-const withStore = (Component) => compose(withServices(), connect(mapStateToProps, mapDispatchToProps))(Component);
+const withStore = (Component) => compose(withServices(), connect(mapStateToProps, mapDispatchToProps))(withRouter(Component));
 
 export default withStore;

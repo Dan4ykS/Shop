@@ -15,7 +15,7 @@ const MaterialUiRegistrationForm = ({ registration }) => {
     userName: '',
     password: '',
     email: '',
-    showPassword: false,
+    changePasswordType: false,
     error: false,
   });
   const submitForm = async (e) => {
@@ -33,7 +33,7 @@ const MaterialUiRegistrationForm = ({ registration }) => {
         userName: '',
         password: '',
         email: '',
-        showPassword: false,
+        changePasswordType: false,
       });
     }
   };
@@ -41,8 +41,8 @@ const MaterialUiRegistrationForm = ({ registration }) => {
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+  const handleClickchangePasswordType = () => {
+    setValues({ ...values, changePasswordType: !values.changePasswordType });
   };
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -60,13 +60,13 @@ const MaterialUiRegistrationForm = ({ registration }) => {
               <Input 
                 error={values.error}
                 id='standard-adornment-password'
-                type={values.showPassword ? 'text' : 'password'}
+                type={values.changePasswordType ? 'text' : 'password'}
                 value={values.password}
                 onChange={handleChange('password')}
                 endAdornment={
                   <InputAdornment position='end'>
-                    <IconButton aria-label='toggle password visibility' onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
-                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    <IconButton aria-label='toggle password visibility' onClick={handleClickchangePasswordType} onMouseDown={handleMouseDownPassword}>
+                      {values.changePasswordType ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
                   </InputAdornment>
                 }

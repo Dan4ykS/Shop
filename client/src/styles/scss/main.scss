@@ -4,13 +4,13 @@
 
 * {
   font-family: "Roboto", sans-serif;
-  // cursor: default;
   user-select: none;
   img {
     pointer-events: none;
   }
   input {
     cursor: text;
+    user-select: auto;
   }
 }
 
@@ -27,8 +27,3 @@ h6 {
   text-align: center;
 }
 
-.content {
-  background-color: #ffffffad;
-  padding: 20px;
-  min-height: 2000px;
-}

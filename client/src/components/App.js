@@ -10,6 +10,7 @@ import LoginPage from '../pages/LoginPage';
 import Footer from '../components/Footer';
 import RegistrationPage from '../pages/RegistrationPage';
 import withStore from '../utils/helpFuncsForRedux';
+import '../styles/scss/App.scss';
 import { Route, Switch } from 'react-router-dom';
 import { chekToken } from '../utils/helpFuncsForBrouser';
 
