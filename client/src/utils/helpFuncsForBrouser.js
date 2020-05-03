@@ -77,11 +77,13 @@ export const clearInputs = (inputs, mode) => {
     }
     el.addEventListener('focus', () => {
       inputs.forEach((el) => el.classList.remove('is-invalid'));
+      document.querySelector('.showPasswordIcon').style.display = 'block';
     });
   });
 };
 
 export const isInvalid = (inputs) => {
+  document.querySelector('.showPasswordIcon').style.display = 'none';
   inputs.forEach((el) => el.classList.add('is-invalid'));
 };
 

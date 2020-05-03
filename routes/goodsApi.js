@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const auth = require('../middleware/auth.middleware');
+const errorHandler = require('../utils/errorHandler');
 const Goods = require('../models/Goods');
 
 const router = Router();
@@ -8,8 +9,7 @@ router.get('/getGoods', async (req, res) => {
   try {
     res.json(await Goods.find());
   } catch (error) {
-    res.sendStatus(500);
-    throw error;
+    errorHandler(res, error);
   }
 });
 
@@ -17,7 +17,7 @@ router.get('/findGoods', async (req, res) => {
   try {
     res.json(await Goods.find({ title: req.body.title }));
   } catch (error) {
-    res.sendStatus(500);
+    errorHandler(res, error);
   }
 });
 
@@ -34,8 +34,7 @@ router.post('/createCommodity', auth, async ({ body: { title, shortDescr, descr,
     await newCommodity.save();
     res.json({ massage: 'Товар был успешно добавлен!' });
   } catch (error) {
-    res.sendStatus(500);
-    throw error;
+    errorHandler(res, error);
   }
 });
 
@@ -44,16 +43,16 @@ router.patch('/updateCommodity', auth, async ({ body: { id, updateData } }, res)
     await Goods.findByIdAndUpdate(id, updateData);
     res.status(200).json({ massage: `товар с id:${id} обновлен` });
   } catch (error) {
-    res.sendStatus(500);
+    errorHandler(res, error);
   }
 });
 
 router.delete('/removeCommodity', auth, async (req, res) => {
   try {
     await Goods.deleteOne({ _id: req.body.id });
-    res.status(204).json({massage: `товар с id:${req.body.id} удален`})
+    res.status(204).json({ massage: `товар с id:${req.body.id} удален` });
   } catch (error) {
-    res.sendStatus(500);
+    errres, errororHandler(res, error);
   }
 });
 
