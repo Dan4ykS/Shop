@@ -1,10 +1,10 @@
 import React from 'react';
 import '../styles/scss/BlockList.scss';
 
-const BookList = ({ bookList: { books }, actions: { onAddedToCart } }) => {
+const goodsList = ({ goodsList: { goods }, token, actions: { onAddedToCart } }) => {
   return (
     <div className='row'>
-      {books.map((book) => {
+      {goods.map((book) => {
         return (
           <div key={book._id} className='infoBlock flexWrap'>
             <div className='infoBlock__img'>
@@ -17,7 +17,7 @@ const BookList = ({ bookList: { books }, actions: { onAddedToCart } }) => {
                 <div className='buy'>
                   <span>{book.price}</span> Рублей
                 </div>
-                <button onClick={() => onAddedToCart(book._id)}>В корзину</button>
+                <button onClick={() => onAddedToCart(book._id, token)}>В корзину</button>
               </div>
             </div>
           </div>
@@ -27,4 +27,4 @@ const BookList = ({ bookList: { books }, actions: { onAddedToCart } }) => {
   );
 };
 
-export default BookList;
+export default goodsList;

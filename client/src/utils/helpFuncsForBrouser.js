@@ -1,3 +1,6 @@
+import UsersService from '../services/UsersService';
+const usersService = new UsersService();
+
 export const feedbackMouseLeave = () => {
   document.querySelectorAll('.helperIcon').forEach((el) => {
     el.classList.remove('helperIcon_active');
@@ -77,34 +80,28 @@ export const clearInputs = (inputs, mode) => {
     }
     el.addEventListener('focus', () => {
       inputs.forEach((el) => el.classList.remove('is-invalid'));
-      document.querySelector('.showPasswordIcon').style.display = 'block';
+      // document.querySelector('.showPasswordIcon').style.display = 'block';
     });
   });
 };
 
 export const isInvalid = (inputs) => {
-  document.querySelector('.showPasswordIcon').style.display = 'none';
+  console.log(inputs)
+  // document.querySelector('.showPasswordIcon').style.display = 'none';
   inputs.forEach((el) => el.classList.add('is-invalid'));
 };
 
-export const chekToken = async (isLogin) => {
-  const localStorageData = JSON.parse(localStorage.getItem('userData'));
-  if (!localStorageData) {
+export const chekToken = async (userToken, isLogin, loadCart, fetchGoods) => {
+  if (!userToken) {
     return;
   }
-  const req = await fetch('/api/isValid', {
-    headers: {
-      Authentication: `token ${localStorageData.token}`,
-    },
-  });
-  if (!req.ok) {
-    return;
-  }
-  const { userName } = await req.json();
-  isLogin(userName, localStorageData.token);
+  const { token } = userToken;
+  isLogin(token);
+  loadCart(token);
+  fetchGoods();
 };
 
-export const changePasswordType = (iconSelector, inputSelector) => { 
+export const changePasswordType = (iconSelector, inputSelector) => {
   const icon = document.querySelector(iconSelector);
   const input = document.querySelector(inputSelector);
   if (icon.classList.contains(`${iconSelector.split('.')[1]}_crosOut`)) {
@@ -113,9 +110,29 @@ export const changePasswordType = (iconSelector, inputSelector) => {
   } else {
     icon.classList.add(`${iconSelector.split('.')[1]}_crosOut`);
     input.type = 'password';
-  };
-}
+  }
+};
 
-export const redirectToPage = (history, page) => { 
-  history.push(page)
-}
+export const redirectToPage = (history, page) => {
+  history.push(page);
+};
+
+export const reqForResetPassword = async (e) => {
+  e.persist();
+  e.preventDefault();
+  const data = {}
+  const inputs = document.querySelectorAll('.form-control');
+  inputs.forEach((el) => {
+    data[el.name] = el.value;
+  });
+  console.log(data)
+  clearInputs(inputs, true);
+  try {
+    await usersService.resetPassword(data);
+    e.target.style.display = 'none';
+    document.querySelector('.reset__successMsg').style.display = 'block';
+  } catch (error) {
+    console.log(error)
+    isInvalid(inputs);
+  }
+};

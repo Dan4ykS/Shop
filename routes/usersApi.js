@@ -3,6 +3,7 @@ const User = require('../models/User');
 const Goods = require('../models/Goods');
 const bcrypt = require('bcryptjs');
 const sendRegistationLetter = require('../mail/registation');
+const sendResetPasswordLetter = require('../mail/resetPassword');
 const auth = require('../middleware/auth.middleware');
 const createJwtToken = require('../utils/createJwtToken');
 const errorHandler = require('../utils/errorHandler');
@@ -21,8 +22,8 @@ router.post('/createUser', async ({ body: { userName, password, email } }, res) 
   });
   try {
     await newUser.save();
-    const token = createJwtToken({ userId: newUser.id });
-    res.status(201).json({ token });
+    const token = createJwtToken({ userId: newUser.id }, '1d');
+    res.status(201).json(token);
     await sendRegistationLetter(email, userName);
   } catch (error) {
     errorHandler(res, error);
@@ -39,7 +40,7 @@ router.get('/getUsers', auth, async (req, res) => {
 
 router.post('/authUser', async ({ body: { userName, password } }, res) => {
   try {
-    const user = await User.findOne({ userName: userName });
+    const user = await User.findOne({ userName });
     if (!user) {
       return res.status(400).json({ message: 'Такого пользователя нет' });
     }
@@ -47,8 +48,8 @@ router.post('/authUser', async ({ body: { userName, password } }, res) => {
     if (!validPassword) {
       return res.status(400).json({ message: 'Неверный пароль' });
     }
-    const token = createJwtToken({ userId: user.id });
-    res.json({ token });
+    const token = createJwtToken({ userId: user.id }, '1d');
+    res.json(token);
   } catch (error) {
     errorHandler(res, error);
   }
@@ -60,7 +61,7 @@ router.get('/isValid', auth, async (req, res) => {
     if (!user) {
       return res.status(400).json({ message: 'Извините, но такого пользователя уже нет' });
     }
-    res.json({ userName: user.userName });
+    res.json({ userName: user.userName, cart: user.cart });
   } catch (error) {
     errorHandler(res, error);
   }
@@ -103,6 +104,20 @@ router.get('/getUserCart', auth, async (req, res) => {
       userCart,
       totalPrice: user.cart.totalPrice,
     });
+  } catch (error) {
+    errorHandler(res, error);
+  }
+});
+
+router.post('/resetPassword', async ({ body: { email } }, res) => {
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: 'Неверная почта' });
+    }
+    const token = createJwtToken({ userId: user.id });
+    res.status(201).json({ message: 'Токен для восстановления пароля создан' });
+    await sendResetPasswordLetter(email, token);
   } catch (error) {
     errorHandler(res, error);
   }

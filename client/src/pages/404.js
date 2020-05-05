@@ -4,6 +4,7 @@ import { redirectToPage } from '../utils/helpFuncsForBrouser';
 
 
 const Page404 = ({ history }) => {
+  console.log(history.location.pathname.split('=')[1]);
   return (
     <>
       <h1>Ошибка, страница не найдена</h1>

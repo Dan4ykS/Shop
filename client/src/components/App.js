@@ -7,6 +7,8 @@ import Heder from '../components/Header';
 import MainPage from '../pages/MainPage';
 import CustomizingPage from '../pages/CustomizingPage';
 import LoginPage from '../pages/LoginPage';
+import ResetPasswordPage from '../pages/ResetPasswordPage';
+import HelpLoginPage from '../pages/HelpLoginPage';
 import Footer from '../components/Footer';
 import RegistrationPage from '../pages/RegistrationPage';
 import withStore from '../utils/helpFuncsForRedux';
@@ -14,10 +16,11 @@ import '../styles/scss/App.scss';
 import { Route, Switch } from 'react-router-dom';
 import { chekToken } from '../utils/helpFuncsForBrouser';
 
-const App = ({ userData, menuItems: { topItems, mainItems, iconsForItems, updated }, actions: { isLogin, updateTopHeaderMenu } }) => {
+const App = ({ userData, menuItems: { topItems, mainItems, iconsForItems, updated }, actions: { isLogin, updateTopHeaderMenu, loadCart, fetchGoods } }) => {
   useEffect(() => {
-    chekToken(isLogin);
-  }, [isLogin]);
+    const localStorageUserData = JSON.parse(localStorage.getItem('userData'));
+    chekToken(localStorageUserData, isLogin, loadCart, fetchGoods);
+  }, [isLogin, loadCart, fetchGoods]);
   useEffect(() => {
     updateTopHeaderMenu(userData.userName);
   }, [userData.userName, updateTopHeaderMenu]);
@@ -33,6 +36,8 @@ const App = ({ userData, menuItems: { topItems, mainItems, iconsForItems, update
           <Route path='/Login/' component={LoginPage} exact />
           <Route path='/Registration/' component={RegistrationPage} exact />
           <Route path='/MyAccount/' component={AccountPage} exact />
+          <Route path='/helpLogin/' component={HelpLoginPage} exact />
+          <Route path='/resetPassword/token=:id' component={ResetPasswordPage} exact />
           <Route component={Page404} exact />
         </Switch>
       </div>

@@ -1,40 +1,40 @@
-const updateBookList = (state, action) => {
+const updategoodsList = (state, action) => {
   if (state === undefined) {
     return {
-      books: [],
+      goods: [],
       loading: true,
       error: null,
     };
   }
   
   switch (action.type) {
-    case 'FETCH_BOOKS_REQUEST':
+    case 'FETCH_GOODS_REQUEST':
       return {
-        books: [],
+        goods: [],
         error: null,
         loading: true,
       };
-    case 'FETCH_BOOKS_SUCCUESS':
+    case 'FETCH_GOODS_SUCCUESS':
       return {
-        books: action.payload,
+        goods: action.payload,
         error: null,
         loading: false,
       };
-    case 'FETCH_BOOKS_FAILURE':
+    case 'FETCH_GOODS_FAILURE':
       return {
-        books: [],
+        goods: [],
         error: action.payload,
         loading: false,
       };
     case 'DELETE_ERROR_INDICATOR':
       return {
-        books: [],
+        goods: [],
         loading: true,
         error: null,
       };
     default:
-      return state.bookList;
+      return state.goodsList;
   }
 };
 
-export default updateBookList;
+export default updategoodsList;

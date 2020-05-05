@@ -1,26 +1,27 @@
 import withServices from '../hoc/withServices';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { fetchBooks } from '../actions/bookList';
-import { onAddedToCart, onDeletedFromCart } from '../actions/shopingCart';
+import { fetchGoods } from '../actions/goodsList';
+import { onAddedToCart, onDeletedFromCart, loadCart } from '../actions/shopingCart';
 import { authorization, registration, isLogin, isLogout } from '../actions/userData';
-import { updateTopHeaderMenu} from '../actions/menuItems'
+import { updateTopHeaderMenu } from '../actions/menuItems';
 import { withRouter } from 'react-router-dom';
 
-const mapStateToProps = ({ bookList, shopingCart, userData, menuItems }) => {
-  return { bookList, shopingCart, userData, menuItems};
+const mapStateToProps = ({ goodsList, shopingCart, userData, menuItems }) => {
+  return { goodsList, shopingCart, userData, menuItems };
 };
 
 const mapDispatchToProps = (dispatch, { services }) => {
   const actions = {
-    fetchBooks: fetchBooks(dispatch, services),
-    onAddedToCart: onAddedToCart(dispatch),
-    onDeletedFromCart: onDeletedFromCart(dispatch),
+    fetchGoods: fetchGoods(dispatch, services),
+    onAddedToCart: onAddedToCart(dispatch, services),
+    onDeletedFromCart: onDeletedFromCart(dispatch, services),
     authorization: authorization(dispatch, services),
     registration: registration(dispatch, services),
-    isLogin: isLogin(dispatch),
+    isLogin: isLogin(dispatch, services),
     isLogout: isLogout(dispatch),
-    updateTopHeaderMenu: updateTopHeaderMenu(dispatch)
+    updateTopHeaderMenu: updateTopHeaderMenu(dispatch),
+    loadCart: loadCart(dispatch, services),
   };
   return { actions };
 };

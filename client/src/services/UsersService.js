@@ -1,28 +1,19 @@
-export default class UsersService {
-  _paiBase = '/api/';
-  requestToApi = async (url, data) => {
-    const request = await fetch(`${this._paiBase}${url}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-      body: JSON.stringify(data),
-    });
-    if (!request.ok) {
-      throw new Error(`Ошибка ${request.massage}`);
-    }
-    return await request.json();
-  };
+import BaseApiClass from './BaseApiClass';
 
+export default class UsersService extends BaseApiClass {
   createUser = async (data) => {
-    return await this.requestToApi('createUser', data);
+    return await this._requestToApi('POST', 'createUser', data);
   };
-
   authUser = async (data) => {
-    return await this.requestToApi('authUser', data);
+    return await this._requestToApi('POST', 'authUser', data);
   };
-
   getUserById = async (id) => {
-    return await this.requestToApi('getUser', id);
+    return await this._requestToApi('POST', 'getUser', id);
+  };
+  checkUserValid = async (token) => {
+    return await this._requestToApi('GET', 'isValid', {}, this._headerWithToken(token));
+  };
+  resetPassword = async (email) => {
+    return await this._requestToApi('POST', 'resetPassword', email);
   };
 }

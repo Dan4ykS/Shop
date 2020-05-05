@@ -1,4 +1,5 @@
 import { isInvalid } from '../utils/helpFuncsForBrouser';
+import { clearCart, loadCartFromServer } from './shopingCart';
 
 const userLogin = (userName, token) => {
   return {
@@ -20,31 +21,49 @@ const userLogout = () => {
   };
 };
 
-export const authorization = (dispatch, { usersService }) => async (data, form) => {
+const invalidToken = () => {
+  return {
+    type: 'INVALID_TOKEN',
+  };
+};
+
+export const authorization = (dispatch, { usersService, goodsService }) => async (data, form) => {
   try {
     const token = await usersService.authUser(data);
+    const cart = await goodsService.loadCart(token);
     dispatch(userLogin(data.userName, token));
-    localStorage.setItem('userData', JSON.stringify(token));
+    dispatch(loadCartFromServer(cart));
+    localStorage.setItem('userData', JSON.stringify({ token }));
   } catch (err) {
     isInvalid(form);
   }
 };
 
-export const registration = (dispatch, { usersService }) => async (data, form) => {
+export const registration = (dispatch, { usersService, goodsService }) => async (data, form) => {
   try {
     const token = await usersService.createUser(data);
+    const cart = await goodsService.loadCart(token);
     dispatch(createUser(data.userName, token));
-    localStorage.setItem('userData', JSON.stringify(token));
+    dispatch(loadCartFromServer(cart));
+    localStorage.setItem('userData', JSON.stringify({ token }));
   } catch (error) {
-    isInvalid(form)
+    isInvalid(form);
   }
 };
 
-export const isLogin = (dispatch) => (userName, token) => {
-  dispatch(userLogin(userName, token));
+export const isLogin = (dispatch, { usersService }) => async (token) => {
+  try {
+    const { userName } = await usersService.checkUserValid(token);
+    dispatch(userLogin(userName, token));
+  } catch (error) {
+    // Подумать над обработкой ошибки
+    dispatch(invalidToken());
+    console.log(error);
+  }
 };
 
 export const isLogout = (dispatch) => () => {
   dispatch(userLogout());
+  dispatch(clearCart());
   localStorage.removeItem('userData');
 };

@@ -40,6 +40,9 @@ const LoginPage = ({ userData: { token }, actions: { authorization }, history })
               <Link to='/Registration/' className='btn btn-primary'>
                 Зарегистрироваться
               </Link>
+              <Link to='/helpLogin/' className='btn btn-primary'>
+                Забыли пароль?
+              </Link>
             </div>
           </form>
         </div>

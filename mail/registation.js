@@ -1,11 +1,9 @@
-const sendMail = require('./sendGridMailer');
+const sendLettr = require('./nodemailer');
 
-const sendRegistationLetter = async (email, userName) => {
-  const content = `
-  <h1>Привет ${userName}</h1>
-  <p>Спасибо за регистрацию</p>
-  `;
-  await sendMail(email, 'Регистрация на сайте React Shop', content.trim());
+module.exports = async (email, userName) => {
+  const content = {
+    subject: 'Регистрация на сайте',
+    text: `${userName}, спасибо за регистрацию !`,
+  };
+  await sendLettr(email, content);
 };
-
-module.exports = sendRegistationLetter;

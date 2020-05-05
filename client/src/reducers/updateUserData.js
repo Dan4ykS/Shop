@@ -3,6 +3,7 @@ const updateUserData = (state, action) => {
     return {
       userName: null,
       token: null,
+      error: null,
     };
   }
   switch (action.type) {
@@ -10,16 +11,24 @@ const updateUserData = (state, action) => {
       return {
         userName: action.payload.userName,
         token: action.payload.token,
+        error: null,
       };
     case 'CREATE_NEW_USER':
       return {
         userName: action.payload.userName,
         token: action.payload.token,
+        error: null,
       };
     case 'USER_LOGOUT':
       return {
         userName: null,
         token: null,
+        error: null,
+      };
+    case 'INVALID_TOKEN':
+      return {
+        ...state.userData,
+        error: true,
       };
     default:
       return state.userData;

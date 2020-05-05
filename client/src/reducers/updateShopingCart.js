@@ -21,18 +21,28 @@ const updateCartItems = (cartItems, item, index) => {
 
 const updateOrder = (state, bookId, quantity) => {
   const {
-      bookList: { books },
+      goodsList: { goods },
       shopingCart: { cartItems },
     } = state,
-    book = books.find((book) => book._id === bookId),
+    book = goods.find((book) => book._id === bookId),
     itemIndex = cartItems.findIndex((item) => item.id === bookId),
     item = cartItems[itemIndex],
     newItem = updateCartItem(book, item, quantity),
     totalPrice = updateCartItems(cartItems, newItem, itemIndex).reduce((summ, elem) => summ + elem.price, 0);
   return {
     cartItems: updateCartItems(cartItems, newItem, itemIndex),
-    totalPrice
+    totalPrice,
   };
+};
+
+const transformCartItems = (userCart) => {
+  return userCart.map((item) => {
+    return {
+      ...item,
+      id: item._id,
+      img: item.previewImg,
+    };
+  });
 };
 
 const updateShopingCart = (state, action) => {
@@ -44,15 +54,24 @@ const updateShopingCart = (state, action) => {
   }
 
   switch (action.type) {
+    case 'LOAD_CART_FROM_SERVER':
+      return {
+        cartItems: transformCartItems(action.payload.userCart),
+        totalPrice: action.payload.totalPrice,
+      };
     case 'BOOK_ADD_TO_CART':
       return updateOrder(state, action.payload, 1);
     case 'BOOK_DELETE_FROM_CART':
       return updateOrder(state, action.payload, -1);
+    case 'CLEAR_CART':
+      return {
+        cartItems: [],
+        totalPrice: 0,
+      };
     default:
       return state.shopingCart;
   }
 };
-
 
 export default updateShopingCart;
 
@@ -60,7 +79,7 @@ export default updateShopingCart;
 // const loadingCartItems = (state, data) => {
 //   const {
 //     shopingCart: { cartItems },
-//     bookList: { books },
+//     goodsList: { goods },
 //   } = state;
 //   if (cartItems.length !== 0) {
 //     const stateSopingCartBooksId = cartItems.map((item) => item.id);

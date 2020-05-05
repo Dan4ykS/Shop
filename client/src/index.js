@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
-import BookstoreService from './services/BookstoreService';
+import GoodsService from './services/GoodsService';
 import UsersService from './services/UsersService';
 import store from './store';
 import { Provider } from 'react-redux';
@@ -9,7 +9,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ServicesProvider } from './components/Context';
 
 const services = {
-  bookstoreService: new BookstoreService(),
+  goodsService: new GoodsService(),
   usersService: new UsersService(),
 };
 
