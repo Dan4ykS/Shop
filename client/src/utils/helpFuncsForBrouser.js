@@ -60,14 +60,23 @@ export const redirectToLink = (link) => {
   window.open(link);
 };
 
-export const workWithUserApi = async (e, func, selector) => {
-  e.persist();
-  e.preventDefault();
+const findNeedElements = (selector) => {
+  return document.querySelectorAll(selector);
+};
+
+const createObjForRequest = (inputs) => {
   const data = {};
-  const inputs = document.querySelectorAll(`${selector} .form-control`);
   inputs.forEach((el) => {
     data[el.name] = el.value;
   });
+  return data;
+};
+
+export const workWithUserApi = async (e, func, selector) => {
+  e.persist();
+  e.preventDefault();
+  const inputs = findNeedElements(`${selector} .form-control`);
+  const data = createObjForRequest(inputs);
   await func(data, inputs);
   const mode = e.target.classList.value === 'registrationForm' ? false : true;
   clearInputs(inputs, mode);
@@ -80,14 +89,19 @@ export const clearInputs = (inputs, mode) => {
     }
     el.addEventListener('focus', () => {
       inputs.forEach((el) => el.classList.remove('is-invalid'));
-      // document.querySelector('.showPasswordIcon').style.display = 'block';
+      const showPasswordElement = document.querySelector('.showPasswordIcon');
+      if (showPasswordElement !== null) {
+        document.querySelector('.showPasswordIcon').style.display = 'block';
+      }
     });
   });
 };
 
 export const isInvalid = (inputs) => {
-  console.log(inputs)
-  // document.querySelector('.showPasswordIcon').style.display = 'none';
+  const showPasswordElement = document.querySelector('.showPasswordIcon');
+  if (showPasswordElement !== null) {
+    document.querySelector('.showPasswordIcon').style.display = 'none';
+  }
   inputs.forEach((el) => el.classList.add('is-invalid'));
 };
 
@@ -117,22 +131,33 @@ export const redirectToPage = (history, page) => {
   history.push(page);
 };
 
-export const reqForResetPassword = async (e) => {
+export const resetPassword = async (e, type, token = null) => {
   e.persist();
   e.preventDefault();
-  const data = {}
-  const inputs = document.querySelectorAll('.form-control');
-  inputs.forEach((el) => {
-    data[el.name] = el.value;
-  });
-  console.log(data)
-  clearInputs(inputs, true);
+  const inputs = findNeedElements('.form-control');
+  const data = createObjForRequest(inputs);
   try {
-    await usersService.resetPassword(data);
+    if (type === 'req') {
+      await usersService.resetPassword(data);
+    } else if (type === 'create') {
+      await usersService.createNewPassword(token, data);
+      localStorage.setItem('userData', JSON.stringify({ token }));
+    }
+    clearInputs(inputs, true);
     e.target.style.display = 'none';
     document.querySelector('.reset__successMsg').style.display = 'block';
   } catch (error) {
-    console.log(error)
+    clearInputs(inputs, true);
     isInvalid(inputs);
+  }
+};
+
+export const setNewToken = (token) => {
+  const localStorageUserData = localStorage.getItem('userData');
+  if (!localStorageUserData) {
+    localStorage.setItem('userData', JSON.stringify({ token }));
+  }
+  if (JSON.parse(localStorageUserData).token !== token) {
+    localStorage.setItem('userData', JSON.stringify({ token }));
   }
 };

@@ -4,7 +4,7 @@ const fetchGoodsRequest = () => {
   };
 };
 
-const fetchGoodsSuccuess = (newBooks) => {
+export const fetchGoodsSuccuess = (newBooks) => {
   return {
     type: 'FETCH_GOODS_SUCCUESS',
     payload: newBooks,
@@ -18,10 +18,10 @@ const fetchGoodsFailure = (error) => {
   };
 };
 
-export const fetchGoods = (dispatch, { goodsService }) => (token) => {
+export const fetchGoods = (dispatch, { goodsService }) => () => {
   dispatch(fetchGoodsRequest());
   goodsService
-    .getGoods(token)
+    .getGoods()
     .then((data) => dispatch(fetchGoodsSuccuess(data)))
     .catch((error) => dispatch(fetchGoodsFailure(error)));
 };

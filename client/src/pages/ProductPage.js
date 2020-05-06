@@ -5,15 +5,17 @@ import LoadingDataLogic from '../logicComponents/LoadingData';
 import { useCallback } from 'react';
 
 const ProductPage = ({ goodsList, actions, userData: { token } }) => {
-  const configData = {
-    loading: goodsList.loading,
-    error: goodsList.error,
-    loadingData: useCallback(actions.fetchGoods, []),
-  };
+  const { loading, error } = goodsList;
   return (
     <>
       <h2>Товары</h2>
-      <LoadingDataLogic configData={configData}>
+      <LoadingDataLogic
+        configData={{
+          loading,
+          error,
+          funcForReq: useCallback(actions.fetchGoods, []),
+        }}
+      >
         <GoodsList token={token} goodsList={goodsList} actions={actions} />
       </LoadingDataLogic>
     </>

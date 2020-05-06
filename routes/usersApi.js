@@ -61,7 +61,8 @@ router.get('/isValid', auth, async (req, res) => {
     if (!user) {
       return res.status(400).json({ message: 'Извините, но такого пользователя уже нет' });
     }
-    res.json({ userName: user.userName, cart: user.cart });
+    const newToken = createJwtToken({ userId: user.id }, '1d');
+    res.json({ userName: user.userName, cart: user.cart, newToken });
   } catch (error) {
     errorHandler(res, error);
   }
@@ -118,6 +119,17 @@ router.post('/resetPassword', async ({ body: { email } }, res) => {
     const token = createJwtToken({ userId: user.id });
     res.status(201).json({ message: 'Токен для восстановления пароля создан' });
     await sendResetPasswordLetter(email, token);
+  } catch (error) {
+    errorHandler(res, error);
+  }
+});
+
+router.patch('/createNewPassword', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId);
+    user.password = await bcrypt.hash(req.body.password, 10);
+    await user.save();
+    res.status(201).json({ message: 'Пароль изменен' });
   } catch (error) {
     errorHandler(res, error);
   }

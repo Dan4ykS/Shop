@@ -9,7 +9,7 @@ const createElementWithIcon = (icon, item, className, updated) => {
   return (
     <li className={animationClass}>
       <Link className='flexWrap' key={name} to={name}>
-        <FontAwesomeIcon icon={icon}/>
+        <FontAwesomeIcon icon={icon} />
         <div style={{ marginLeft: '10px' }}>{value}</div>
       </Link>
     </li>

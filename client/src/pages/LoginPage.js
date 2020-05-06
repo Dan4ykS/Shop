@@ -1,6 +1,6 @@
 import React from 'react';
 import withStore from '../utils/helpFuncsForRedux';
-import '../styles/scss/Login.scss';
+import '../styles/scss/LoginPage.scss';
 import { workWithUserApi, changePasswordType, redirectToPage } from '../utils/helpFuncsForBrouser';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,7 +8,7 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 const LoginPage = ({ userData: { token }, actions: { authorization }, history }) => {
   if (token) {
-   redirectToPage(history, '/')
+    redirectToPage(history, '/');
   }
   return (
     <>
@@ -30,8 +30,12 @@ const LoginPage = ({ userData: { token }, actions: { authorization }, history })
                   <FontAwesomeIcon onClick={() => changePasswordType('.showPasswordIcon', '.form-control_password')} icon={faEye} />
                 </span>
                 <input name='password' type='password' className='form-control form-control_password' placeholder='Введите ваш пароль' required />
+
                 <div className='invalid-feedback'>Неверный пароль</div>
               </div>
+              <Link to='/helpLogin/' className='authorization__forgotPassword'>
+                Забыли пароль?
+              </Link>
             </div>
             <div className='btn-group col-8 offset-4' role='group'>
               <button type='submit' className='btn btn-primary'>
@@ -39,9 +43,6 @@ const LoginPage = ({ userData: { token }, actions: { authorization }, history })
               </button>
               <Link to='/Registration/' className='btn btn-primary'>
                 Зарегистрироваться
-              </Link>
-              <Link to='/helpLogin/' className='btn btn-primary'>
-                Забыли пароль?
               </Link>
             </div>
           </form>

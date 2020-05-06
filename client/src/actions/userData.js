@@ -1,5 +1,6 @@
-import { isInvalid } from '../utils/helpFuncsForBrouser';
+import { isInvalid, setNewToken } from '../utils/helpFuncsForBrouser';
 import { clearCart, loadCartFromServer } from './shopingCart';
+import { fetchGoodsSuccuess } from './goodsList';
 
 const userLogin = (userName, token) => {
   return {
@@ -31,9 +32,11 @@ export const authorization = (dispatch, { usersService, goodsService }) => async
   try {
     const token = await usersService.authUser(data);
     const cart = await goodsService.loadCart(token);
+    const goods = await goodsService.getGoods();
     dispatch(userLogin(data.userName, token));
     dispatch(loadCartFromServer(cart));
-    localStorage.setItem('userData', JSON.stringify({ token }));
+    dispatch(fetchGoodsSuccuess(goods));
+    setNewToken(token);
   } catch (err) {
     isInvalid(form);
   }
@@ -43,9 +46,11 @@ export const registration = (dispatch, { usersService, goodsService }) => async 
   try {
     const token = await usersService.createUser(data);
     const cart = await goodsService.loadCart(token);
+    const goods = await goodsService.getGoods();
     dispatch(createUser(data.userName, token));
     dispatch(loadCartFromServer(cart));
-    localStorage.setItem('userData', JSON.stringify({ token }));
+    dispatch(fetchGoodsSuccuess(goods));
+    setNewToken(token);
   } catch (error) {
     isInvalid(form);
   }
@@ -53,8 +58,9 @@ export const registration = (dispatch, { usersService, goodsService }) => async 
 
 export const isLogin = (dispatch, { usersService }) => async (token) => {
   try {
-    const { userName } = await usersService.checkUserValid(token);
-    dispatch(userLogin(userName, token));
+    const { userName, newToken } = await usersService.checkUserValid(token);
+    dispatch(userLogin(userName, newToken));
+    setNewToken(newToken);
   } catch (error) {
     // Подумать над обработкой ошибки
     dispatch(invalidToken());

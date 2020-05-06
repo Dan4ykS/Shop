@@ -16,4 +16,7 @@ export default class UsersService extends BaseApiClass {
   resetPassword = async (email) => {
     return await this._requestToApi('POST', 'resetPassword', email);
   };
+  createNewPassword = async (token, password) => {
+    return await this._requestToApi('PATCH', 'createNewPassword', password, this._headerWithToken(token));
+  };
 }

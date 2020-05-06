@@ -1,7 +1,3 @@
-@import "./variables.scss";
-@import "./mixins.scss";
-@import "./reuse.scss";
-
 * {
   font-family: "Roboto", sans-serif;
   user-select: none;
@@ -16,6 +12,60 @@
 
 body {
   background: url("../../img/mainBg.jpg") center/cover no-repeat fixed;
+  .password {
+    position: relative;
+    .showPasswordIcon {
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      max-width: 30px;
+      max-height: 30px;
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -10%;
+        height: 2px;
+        width: 2px;
+        transform: rotate(-50deg);
+        transition: all 0.2s;
+      }
+      &_crosOut {
+        &::after {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 50%;
+          height: 85%;
+          width: 2px;
+          transform: translateX(-50%) rotate(-50deg);
+          background-color: #212529;
+          z-index: -5;
+        }
+      }
+      .fa-eye {
+        font-size: 20px;
+      }
+    }
+  }
+  .flexWrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .hidenElem {
+    display: none;
+  }
+  .reset {
+    // &__form{};
+    &__successMsg {
+      display: none;
+    }
+  }
 }
 
 h1,
@@ -26,4 +76,3 @@ h5,
 h6 {
   text-align: center;
 }
-

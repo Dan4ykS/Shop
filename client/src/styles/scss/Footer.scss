@@ -1,4 +1,5 @@
-@import "./main.scss";
+@import "./variables.scss";
+@import "./mixins.scss";
 
 .footer {
   background: $footerBg;
@@ -37,8 +38,10 @@
         @include feedbackIconsStyle(60px, 15px);
       }
     }
-    .helperIcon{
-      .fa-instagram, .fa-vk, .fa-facebook {
+    .helperIcon {
+      .fa-instagram,
+      .fa-vk,
+      .fa-facebook {
         max-width: 40px;
         max-height: 40px;
       }

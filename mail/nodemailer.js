@@ -6,12 +6,12 @@ const transporter = nodemailer.createTransport(
     port: 587,
     secure: false,
     auth: {
-      user: 'dan28012000@gmail.com',
-      pass: 'Ut91nk2tdan',
+      user: 'dan4yks.shop@gmail.com',
+      pass: 'bzZ8888q',
     },
   },
   {
-    from: 'Best shop on React <dan28012000@gmail.com>',
+    from: 'Best shop on React <dan4yks.shop@gmail.com>',
   }
 );
 

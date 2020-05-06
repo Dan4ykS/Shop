@@ -1,12 +1,12 @@
 import React from 'react';
 import LoadingIndicator from '../components/LoadingIndicator';
 import ErrorIndicator from '../components/ErrorIndicator';
-import {  useEffect } from 'react';
+import { useEffect } from 'react';
 
-const LoadingDataLogic = ({ children, configData: { loading, error, loadingData, token = null } }) => {
+const LoadingDataLogic = ({ children, configData: { loading, error, funcForReq } }) => {
   useEffect(() => {
-    loadingData();
-  }, [loadingData]);
+    funcForReq();
+  }, [funcForReq]);
   if (loading) {
     return <LoadingIndicator />;
   }

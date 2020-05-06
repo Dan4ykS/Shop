@@ -1,0 +1,17 @@
+.authorization {
+  margin-top: 20px;
+  .btn-group {
+    padding: 0;
+    .btn {
+      padding: 3px;
+    }
+  }
+  &__forgotPassword {
+    font-size: 15px;
+    display: block;
+    margin-left: 76%;
+    &:hover{
+      text-decoration: none;
+    }
+  }
+}
