@@ -156,6 +156,7 @@ export const setNewToken = (token) => {
   const localStorageUserData = localStorage.getItem('userData');
   if (!localStorageUserData) {
     localStorage.setItem('userData', JSON.stringify({ token }));
+    return;
   }
   if (JSON.parse(localStorageUserData).token !== token) {
     localStorage.setItem('userData', JSON.stringify({ token }));

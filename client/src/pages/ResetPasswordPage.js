@@ -6,12 +6,12 @@ import { chekToken, resetPassword, changePasswordType } from '../utils/helpFuncs
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 
-const ResetPasswordPage = ({ history, actions: { isLogin, loadCart, fetchGoods }, userData: { error, token } }) => {
+const ResetPasswordPage = ({ history, actions: { isLogin, loadCart, fetchGoods }, userData: { error, token, loading } }) => {
   const userToken = { token: history.location.pathname.split('=')[1] };
   return (
     <LoadingDataLogic
       configData={{
-        loading: false,
+        loading,
         error,
         // eslint-disable-next-line
         funcForReq: useCallback(() => chekToken(userToken, isLogin, loadCart, fetchGoods), []),
@@ -24,7 +24,7 @@ const ResetPasswordPage = ({ history, actions: { isLogin, loadCart, fetchGoods }
             <span className='showPasswordIcon showPasswordIcon_crosOut'>
               <FontAwesomeIcon onClick={() => changePasswordType('.showPasswordIcon', '.form-control_password')} icon={faEye} />
             </span>
-            <input type='password' name='password' className='form-control form-control_password' placeholder='Введите новый пароль' required/>
+            <input type='password' name='password' className='form-control form-control_password' placeholder='Введите новый пароль' required />
           </div>
           <button type='submit' className='btn btn-primary'>
             Изменить пароль

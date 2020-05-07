@@ -16,14 +16,14 @@ import '../styles/scss/App.scss';
 import { Route, Switch } from 'react-router-dom';
 import { chekToken } from '../utils/helpFuncsForBrouser';
 
-const App = ({ userData, menuItems: { topItems, mainItems, iconsForItems, updated }, actions: { isLogin, updateTopHeaderMenu, loadCart, fetchGoods } }) => {
+const App = ({ userData: { userName }, menuItems: { topItems, mainItems, iconsForItems, updated }, actions: { isLogin, updateTopHeaderMenu, loadCart, fetchGoods } }) => {
   useEffect(() => {
     const localStorageUserData = JSON.parse(localStorage.getItem('userData'));
     chekToken(localStorageUserData, isLogin, loadCart, fetchGoods);
   }, [isLogin, loadCart, fetchGoods]);
   useEffect(() => {
-    updateTopHeaderMenu(userData.userName);
-  }, [userData.userName, updateTopHeaderMenu]);
+    updateTopHeaderMenu(userName);
+  }, [userName, updateTopHeaderMenu]);
   return (
     <>
       <Heder iconsForItems={iconsForItems} topItems={topItems} mainItems={mainItems} updated={updated} />

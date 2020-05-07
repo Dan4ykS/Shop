@@ -28,16 +28,20 @@ const invalidToken = () => {
   };
 };
 
+const requestsToApi = (dispatch, cart, goods) => {
+  dispatch(loadCartFromServer(cart));
+  dispatch(fetchGoodsSuccuess(goods));
+};
+
 export const authorization = (dispatch, { usersService, goodsService }) => async (data, form) => {
   try {
     const token = await usersService.authUser(data);
+    dispatch(userLogin(data.userName, token));
     const cart = await goodsService.loadCart(token);
     const goods = await goodsService.getGoods();
-    dispatch(userLogin(data.userName, token));
-    dispatch(loadCartFromServer(cart));
-    dispatch(fetchGoodsSuccuess(goods));
+    requestsToApi(dispatch, cart, goods);
     setNewToken(token);
-  } catch (err) {
+  } catch (error) {
     isInvalid(form);
   }
 };
@@ -45,13 +49,13 @@ export const authorization = (dispatch, { usersService, goodsService }) => async
 export const registration = (dispatch, { usersService, goodsService }) => async (data, form) => {
   try {
     const token = await usersService.createUser(data);
+    dispatch(createUser(data.userName, token));
     const cart = await goodsService.loadCart(token);
     const goods = await goodsService.getGoods();
-    dispatch(createUser(data.userName, token));
-    dispatch(loadCartFromServer(cart));
-    dispatch(fetchGoodsSuccuess(goods));
+    requestsToApi(dispatch, cart, goods);
     setNewToken(token);
   } catch (error) {
+    console.log(error)
     isInvalid(form);
   }
 };
