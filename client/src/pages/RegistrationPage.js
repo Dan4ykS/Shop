@@ -12,7 +12,7 @@ const RegistrationPage = ({ userData: { token }, actions: { registration }, hist
     <>
       <h2>Регистрация</h2>
       <div className='row justify-content-center'>
-        <form className='registration col-6' onSubmit={(e) => workWithUserApi(e, registration, '.registration')}>
+        <form className='registration col-lg-6' onSubmit={(e) => workWithUserApi(e, registration, '.registration')}>
           <div className='form-group row'>
             <label className='col-sm-2 col-form-label'>Логин:</label>
             <div className='col-sm-10'>

@@ -6,9 +6,10 @@ import { onAddedToCart, onDeletedFromCart, loadCart } from '../actions/shopingCa
 import { authorization, registration, isLogin, isLogout } from '../actions/userData';
 import { updateTopHeaderMenu } from '../actions/menuItems';
 import { withRouter } from 'react-router-dom';
+import { changeSelectedDate } from '../actions/calendarData';
 
-const mapStateToProps = ({ goodsList, shopingCart, userData, menuItems }) => {
-  return { goodsList, shopingCart, userData, menuItems };
+const mapStateToProps = ({ goodsList, shopingCart, userData, menuItems, calendarData }) => {
+  return { goodsList, shopingCart, userData, menuItems, calendarData };
 };
 
 const mapDispatchToProps = (dispatch, { services }) => {
@@ -22,6 +23,7 @@ const mapDispatchToProps = (dispatch, { services }) => {
     isLogout: isLogout(dispatch),
     updateTopHeaderMenu: updateTopHeaderMenu(dispatch),
     loadCart: loadCart(dispatch, services),
+    changeSelectedDate: changeSelectedDate(dispatch),
   };
   return { actions };
 };

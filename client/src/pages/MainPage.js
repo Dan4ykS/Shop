@@ -1,9 +1,11 @@
 import React from 'react';
 import withSore from '../utils/helpFuncsForRedux';
+import Calendar from '../components/Calendar';
 
 const MainPage = ({}) => {
   return (
     <>
+      <Calendar />
       <h2>Главная страница! </h2>
       <form>
         <div className='form-group'>

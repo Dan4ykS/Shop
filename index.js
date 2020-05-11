@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-async function start() {
+(async () => {
   try {
     await mongoose.connect(config.MONGOURL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
     app.listen(port, () => {
@@ -32,6 +32,4 @@ async function start() {
   } catch (err) {
     throw err;
   }
-}
-
-start();
+})();
