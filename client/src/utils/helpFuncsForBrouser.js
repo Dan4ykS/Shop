@@ -1,5 +1,4 @@
 import UsersService from '../services/UsersService';
-const usersService = new UsersService();
 
 export const feedbackMouseLeave = () => {
   document.querySelectorAll('.helperIcon').forEach((el) => {
@@ -138,9 +137,9 @@ export const resetPassword = async (e, type, token = null) => {
   const data = createObjForRequest(inputs);
   try {
     if (type === 'req') {
-      await usersService.resetPassword(data);
+      await UsersService.resetPassword(data);
     } else if (type === 'create') {
-      await usersService.createNewPassword(token, data);
+      await UsersService.createNewPassword(token, data);
       localStorage.setItem('userData', JSON.stringify({ token }));
     }
     clearInputs(inputs, true);

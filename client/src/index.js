@@ -9,8 +9,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ServicesProvider } from './components/Context';
 
 const services = {
-  goodsService: new GoodsService(),
-  usersService: new UsersService(),
+  goodsService: GoodsService,
+  usersService: UsersService,
 };
 
 ReactDOM.render(

@@ -4,20 +4,20 @@ import '../styles/scss/BlockList.scss';
 const goodsList = ({ goodsList: { goods }, token, actions: { onAddedToCart } }) => {
   return (
     <div className='row'>
-      {goods.map((book) => {
+      {goods.map((commodity) => {
         return (
-          <div key={book._id} className='infoBlock flexWrap'>
+          <div key={commodity._id} className='infoBlock flexWrap'>
             <div className='infoBlock__img'>
-              <img src={book.previewImg} alt={`Книга ${book._id}`} />
+              <img src={commodity.previewImg} alt={`Книга ${commodity._id}`} />
             </div>
             <div className='infoBlock__content'>
-              <h2>{book.title}</h2>
-              <div className='description'>{book.descr}</div>
+              <h2>{commodity.title}</h2>
+              <div className='description'>{commodity.descr}</div>
               <div className='flexWrap'>
                 <div className='buy'>
-                  <span>{book.price}</span> Рублей
+                  <span>{commodity.price}</span> Рублей
                 </div>
-                <button onClick={() => onAddedToCart(book._id, token)}>В корзину</button>
+                <button onClick={() => onAddedToCart(commodity._id, token)}>В корзину</button>
               </div>
             </div>
           </div>

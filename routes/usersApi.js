@@ -4,9 +4,10 @@ const Goods = require('../models/Goods');
 const bcrypt = require('bcryptjs');
 const sendRegistationLetter = require('../mail/registation');
 const sendResetPasswordLetter = require('../mail/resetPassword');
-const auth = require('../middleware/auth.middleware');
+const auth = require('../middlewares/auth.middleware');
 const createJwtToken = require('../utils/createJwtToken');
 const errorHandler = require('../utils/errorHandler');
+const uploadFile = require('../middlewares/uploadFile.middleware');
 
 const router = Router();
 
@@ -40,6 +41,7 @@ router.get('/getUsers', auth, async (req, res) => {
 
 router.post('/authUser', async ({ body: { userName, password } }, res) => {
   try {
+    console.log(userName)
     const user = await User.findOne({ userName });
     if (!user) {
       return res.status(400).json({ message: 'Такого пользователя нет' });
@@ -68,9 +70,9 @@ router.get('/isValid', auth, async (req, res) => {
   }
 });
 
-router.patch('/addToCart', auth, async (req, res) => {
+router.patch('/addToCart/:id', auth, async (req, res) => {
   try {
-    const commodity = await Goods.findById(req.body.id);
+    const commodity = await Goods.findById(req.params.id);
     const user = await User.findById(req.user.userId);
     await user.addToCart(commodity);
     res.json({ message: 'Товар добавлен' });
@@ -79,9 +81,9 @@ router.patch('/addToCart', auth, async (req, res) => {
   }
 });
 
-router.delete('/removeFormCart', auth, async (req, res) => {
+router.delete('/removeFormCart/:id', auth, async (req, res) => {
   try {
-    const commodity = await Goods.findById(req.body.id);
+    const commodity = await Goods.findById(req.params.id);
     const user = await User.findById(req.user.userId);
     await user.removeFormCart(commodity);
     res.json({ message: 'Товар удален' });
@@ -132,6 +134,15 @@ router.patch('/createNewPassword', auth, async (req, res) => {
     res.status(201).json({ message: 'Пароль изменен' });
   } catch (error) {
     errorHandler(res, error);
+  }
+});
+
+router.post('/testData', uploadFile.single('image'), async (req, res) => {
+  try {
+    console.log(req.body);
+    res.status(200);
+  } catch (error) {
+    errorHandler(error);
   }
 });
 

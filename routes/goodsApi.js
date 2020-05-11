@@ -1,6 +1,7 @@
 const { Router } = require('express');
-const auth = require('../middleware/auth.middleware');
+const auth = require('../middlewares/auth.middleware');
 const errorHandler = require('../utils/errorHandler');
+const uploadFile = require('../middlewares/uploadFile.middleware');
 const Goods = require('../models/Goods');
 
 const router = Router();
@@ -21,7 +22,7 @@ router.get('/findGoods', async (req, res) => {
   }
 });
 
-router.post('/createCommodity', auth, async ({ body: { title, shortDescr, descr, previewImg, price, img = null } }, res) => {
+router.post('/createCommodity', auth, uploadFile.single('image'), async ({ body: { title, shortDescr, descr, previewImg, price }, file }, res) => {
   try {
     const newCommodity = new Goods({
       title,
@@ -29,7 +30,7 @@ router.post('/createCommodity', auth, async ({ body: { title, shortDescr, descr,
       descr,
       previewImg,
       price,
-      img,
+      img: file ? file.path : null,
     });
     await newCommodity.save();
     res.json({ massage: 'Товар был успешно добавлен!' });
@@ -38,7 +39,7 @@ router.post('/createCommodity', auth, async ({ body: { title, shortDescr, descr,
   }
 });
 
-router.patch('/updateCommodity', auth, async ({ body: { id, updateData } }, res) => {
+router.patch('/updateCommodity/:id', auth, async ({ body: { updateData }, params: { id } }, res) => {
   try {
     await Goods.findByIdAndUpdate(id, updateData);
     res.status(200).json({ massage: `товар с id:${id} обновлен` });
@@ -47,10 +48,10 @@ router.patch('/updateCommodity', auth, async ({ body: { id, updateData } }, res)
   }
 });
 
-router.delete('/removeCommodity', auth, async (req, res) => {
+router.delete('/removeCommodity/:id', auth, async (req, res) => {
   try {
-    await Goods.deleteOne({ _id: req.body.id });
-    res.status(204).json({ massage: `товар с id:${req.body.id} удален` });
+    await Goods.deleteOne({ _id: req.params.id });
+    res.status(200).json({ massage: `товар с id:${req.params.id} удален` });
   } catch (error) {
     errres, errororHandler(res, error);
   }

@@ -1,6 +1,6 @@
 import BaseApiClass from './BaseApiClass';
 
-export default class UsersService extends BaseApiClass {
+class UsersService extends BaseApiClass {
   createUser = async (data) => {
     return await this._requestToApi('POST', 'createUser', data);
   };
@@ -19,4 +19,14 @@ export default class UsersService extends BaseApiClass {
   createNewPassword = async (token, password) => {
     return await this._requestToApi('PATCH', 'createNewPassword', password, this._headerWithToken(token));
   };
+  testData = async (data) => {
+    console.log(data)
+    const req = await fetch(`${this._paiBase}testData`, {
+      method: 'POST',
+      body: data,
+    });
+    return await req.json();
+  };
 }
+
+export default new UsersService();

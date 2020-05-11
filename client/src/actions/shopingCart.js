@@ -28,7 +28,7 @@ export const clearCart = () => {
 export const onAddedToCart = (dispatch, { goodsService }) => async (id, token) => {
   try {
     dispatch(commodityAddToCart(id));
-    await goodsService.addToCart({ id }, token);
+    await goodsService.addToCart(id, token);
   } catch (error) {
     console.log(error);
   }
@@ -37,7 +37,7 @@ export const onAddedToCart = (dispatch, { goodsService }) => async (id, token) =
 export const onDeletedFromCart = (dispatch, { goodsService }) => async (id, token) => {
   try {
     dispatch(commodityDeletedFromCart(id));
-    await goodsService.removeFormCart({ id }, token);
+    await goodsService.removeFormCart(id, token);
   } catch (error) {
     console.log(error);
   }
