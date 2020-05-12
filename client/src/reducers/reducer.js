@@ -3,6 +3,7 @@ import updateShopingCart from './updateShopingCart';
 import updateUserData from './updateUserData';
 import updateMenuItems from './updateMenuItems';
 import updateCalendarData from './updateCalendarData';
+import updateCommodityData from './updateCommodityData';
 
 const reducer = (state, action) => {
   return {
@@ -11,6 +12,7 @@ const reducer = (state, action) => {
     userData: updateUserData(state, action),
     menuItems: updateMenuItems(state, action),
     calendarData: updateCalendarData(state, action),
+    commodityData: updateCommodityData(state, action),
   };
 };
 

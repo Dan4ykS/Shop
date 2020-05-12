@@ -12,7 +12,7 @@ const port = process.env.NODE_ENV === 'production' ? 80 : config.PORT;
 
 app.use(cors());
 app.use(morgan('dev'));
-app.use('/uploads', express.static('uploads'))
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use('/api', usersApi, goodsApi);

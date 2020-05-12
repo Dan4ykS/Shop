@@ -1,0 +1,13 @@
+.fileUploader {
+  max-height: 100px;
+  padding: 20px 5px;
+  input {
+    display: none;
+  }
+  button {
+    position: relative;
+  }
+  &__dndText{
+    text-align: center;
+  }
+}

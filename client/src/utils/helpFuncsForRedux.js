@@ -7,9 +7,10 @@ import { authorization, registration, isLogin, isLogout } from '../actions/userD
 import { updateTopHeaderMenu } from '../actions/menuItems';
 import { withRouter } from 'react-router-dom';
 import { changeSelectedDate } from '../actions/calendarData';
+import { updateDataAboutCommodityImg } from '../actions/commodityData';
 
-const mapStateToProps = ({ goodsList, shopingCart, userData, menuItems, calendarData }) => {
-  return { goodsList, shopingCart, userData, menuItems, calendarData };
+const mapStateToProps = ({ goodsList, shopingCart, userData, menuItems, calendarData, commodityData }) => {
+  return { goodsList, shopingCart, userData, menuItems, calendarData, commodityData };
 };
 
 const mapDispatchToProps = (dispatch, { services }) => {
@@ -24,6 +25,7 @@ const mapDispatchToProps = (dispatch, { services }) => {
     updateTopHeaderMenu: updateTopHeaderMenu(dispatch),
     loadCart: loadCart(dispatch, services),
     changeSelectedDate: changeSelectedDate(dispatch),
+    updateDataAboutCommodityImg: updateDataAboutCommodityImg(dispatch),
   };
   return { actions };
 };
