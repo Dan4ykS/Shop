@@ -1,6 +1,6 @@
-const updateTopMenu = (userName) => {
+const updateMenu = (userName) => {
   return {
-    type: 'UPDATE_TOPITEMS',
+    type: 'UPDATE_ITEMS',
     payload: userName,
   };
 };
@@ -11,6 +11,6 @@ const notUpdate = () => {
   };
 };
 export const updateTopHeaderMenu = (dispatch) => (userName) => {
-  dispatch(updateTopMenu(userName));
+  dispatch(updateMenu(userName));
   setTimeout(() => dispatch(notUpdate()), 500);
 };

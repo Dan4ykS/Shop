@@ -3,7 +3,7 @@ import AccountPage from '../pages/AccountPage';
 import ProductPage from '../pages/ProductPage';
 import CartPage from '../pages/CartPage';
 import Page404 from '../pages/404';
-import Heder from '../components/Header';
+import Header from '../components/Header';
 import MainPage from '../pages/MainPage';
 import CustomizingPage from '../pages/CustomizingPage';
 import LoginPage from '../pages/LoginPage';
@@ -15,6 +15,7 @@ import withStore from '../utils/helpFuncsForRedux';
 import '../styles/scss/App.scss';
 import { Route, Switch } from 'react-router-dom';
 import { chekToken } from '../utils/helpFuncsForBrouser';
+import AdminPage from '../pages/AdminPage';
 
 const App = ({ userData: { userName }, menuItems: { topItems, mainItems, iconsForItems, updated }, actions: { isLogin, updateTopHeaderMenu, loadCart, fetchGoods } }) => {
   useEffect(() => {
@@ -26,7 +27,7 @@ const App = ({ userData: { userName }, menuItems: { topItems, mainItems, iconsFo
   }, [userName, updateTopHeaderMenu]);
   return (
     <>
-      <Heder iconsForItems={iconsForItems} topItems={topItems} mainItems={mainItems} updated={updated} />
+      <Header iconsForItems={iconsForItems} topItems={topItems} mainItems={mainItems} updated={updated} userName={userName} />
       <div className='container content'>
         <Switch>
           <Route path='/' component={MainPage} exact />
@@ -38,6 +39,7 @@ const App = ({ userData: { userName }, menuItems: { topItems, mainItems, iconsFo
           <Route path='/MyAccount/' component={AccountPage} exact />
           <Route path='/helpLogin/' component={HelpLoginPage} exact />
           <Route path='/resetPassword/token=:id' component={ResetPasswordPage} exact />
+          <Route path='/admin' component={AdminPage} exact/>
           <Route component={Page404} exact />
         </Switch>
       </div>

@@ -6,6 +6,9 @@
   }
   button {
     position: relative;
+    .fa-upload{
+      margin-left: 15px;
+    }
   }
   &__dndText{
     text-align: center;

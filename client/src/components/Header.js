@@ -4,7 +4,7 @@ import { createItems } from '../utils/helpFuncsForCreateReactElem';
 import { headerFixMenu } from '../utils/helpFuncsForBrouser';
 import '../styles/scss/Header.scss';
 
-const Heder = ({ mainItems: itemsMain, topItems: itemsTop, iconsForItems: { headerIcons }, updated }) => {
+const Header = ({ mainItems: itemsMain, topItems: itemsTop, iconsForItems: { headerIcons }, updated, userName }) => {
   headerFixMenu();
   const mainItems = createItems(itemsMain, 'header__item header__main_item');
   const topItems = createItems(itemsTop, 'header__item', headerIcons, updated);
@@ -26,15 +26,15 @@ const Heder = ({ mainItems: itemsMain, topItems: itemsTop, iconsForItems: { head
   );
 };
 
-Heder.defaultProps = {
+Header.defaultProps = {
   mainItems: [
     { name: '/MainPage/', value: 'Главная' },
     { name: '/Bascket/', value: 'Корзина' },
   ],
 };
 
-Heder.propTypes = {
+Header.propTypes = {
   mainItems: PropTypes.array.isRequired,
 };
 
-export default Heder;
+export default Header;

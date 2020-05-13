@@ -55,7 +55,6 @@ export const registration = (dispatch, { usersService, goodsService }) => async 
     requestsToApi(dispatch, cart, goods);
     setNewToken(token);
   } catch (error) {
-    console.log(error)
     isInvalid(form);
   }
 };
@@ -66,7 +65,6 @@ export const isLogin = (dispatch, { usersService }) => async (token) => {
     dispatch(userLogin(userName, newToken));
     setNewToken(newToken);
   } catch (error) {
-    // Подумать над обработкой ошибки
     dispatch(invalidToken());
     console.log(error);
   }

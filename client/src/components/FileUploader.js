@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import '../styles/scss/FileUploader.scss';
-import { triggerUploadInput, uploadFile, preventDefaultFaileUpload, removePreventDefault, dragAndDropForFile } from '../utils/helpFuncsForBrouser';
 import withStore from '../utils/helpFuncsForRedux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUpload } from '@fortawesome/free-solid-svg-icons'
+import { triggerUploadInput, uploadFile, preventDefaultFaileUpload, removePreventDefault, dragAndDropForFile } from '../utils/helpFuncsForBrouser';
 
 const FileUploader = ({ actions: { updateDataAboutCommodityImg } }) => {
   useEffect(() => {
@@ -28,6 +30,7 @@ const FileUploader = ({ actions: { updateDataAboutCommodityImg } }) => {
         className='btn btn-danger'
       >
         Загрузить файл
+         <FontAwesomeIcon icon={faUpload}/>
       </button>
       <div className='fileUploader__dndText hidenElem'>Место для загрузки файла</div>
     </div>

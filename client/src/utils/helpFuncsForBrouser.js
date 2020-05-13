@@ -167,7 +167,6 @@ export const triggerUploadInput = () => {
 };
 
 export const uploadFile = (file, updateFileDataFunc) => {
-  console.log(file);
   const reader = new FileReader();
   reader.readAsDataURL(file);
   reader.onload = () => {
@@ -175,15 +174,18 @@ export const uploadFile = (file, updateFileDataFunc) => {
   };
 };
 
-const preventDefault = (e, btn) => {
+const preventDefault = (e) => {
   e.preventDefault();
-  e.stopPropagation();
-  e.dataTransfer.dropEffect = 'none';
+  if (e.currentTarget.classList.contains('fileUploader')) {
+    e.stopPropagation();
+    e.dataTransfer.dropEffect = 'copy';
+  } else {
+    e.dataTransfer.dropEffect = 'none';
+  }
 };
 
 export const preventDefaultFaileUpload = () => {
   const body = document.body;
-  body.addEventListener('drag', () => console.log('драг'));
   ['dragenter', 'dragleave', 'dragover', 'drop'].forEach((eventName) => {
     body.addEventListener(eventName, preventDefault);
   });
@@ -204,9 +206,7 @@ export const dragAndDropForFile = (updateFileDataFunc) => {
     fileUploader.addEventListener(eventName, preventDefault);
   });
   ['dragenter', 'dragover'].forEach((eventName) => {
-    fileUploader.addEventListener(eventName, (e) => {
-      e.stopPropagation();
-      e.dataTransfer.dropEffect = 'copy';
+    fileUploader.addEventListener(eventName, () => {
       fileUploader.style.border = '2px dashed black';
       uploaderBtn.classList.add('hidenElem');
       dndText.classList.remove('hidenElem');
@@ -219,6 +219,11 @@ export const dragAndDropForFile = (updateFileDataFunc) => {
       dndText.classList.remove('hidenElem');
       fileUploader.style.border = '2px dashed black';
     });
+    // body.addEventListener(eventName, (e) => {
+    //   uploaderBtn.classList.add('hidenElem');
+    //   dndText.classList.remove('hidenElem');
+    //   fileUploader.style.border = '2px dashed black';
+    // }, true);
   });
 
   ['dragleave', 'drop'].forEach((eventName) => {
@@ -227,6 +232,11 @@ export const dragAndDropForFile = (updateFileDataFunc) => {
       dndText.classList.add('hidenElem');
       fileUploader.style.border = 'none';
     });
+    // body.addEventListener(eventName, (e) => {
+    //   uploaderBtn.classList.remove('hidenElem');
+    //   dndText.classList.add('hidenElem');
+    //   fileUploader.style.border = 'none';
+    // }, true);
   });
 
   fileUploader.addEventListener('drop', (e) => {
