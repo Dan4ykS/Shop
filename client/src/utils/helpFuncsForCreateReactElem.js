@@ -1,5 +1,5 @@
 import React from 'react';
-import { scrollToElem } from './helpFuncsForBrouser';
+import { scrollToElem, getDateFromLocalStorage } from './workWithBrowser';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -32,4 +32,17 @@ export const createItems = (items, className, iconsForItems = [], updated = fals
     const item = iconsForItems.length === 0 ? createElementWithOutIcon(elem, className) : createElementWithIcon(iconsForItems[index], elem, className, updated);
     return <React.Fragment key={index}>{item}</React.Fragment>;
   });
+};
+
+export const configForUthPages = (userName, token, loading, error, invalidRoute) => {
+  return {
+    loading: getDateFromLocalStorage('userData') !== null || token !== null ? loading : false,
+    error: userName !== null ? error : null,
+    funcForRender: () => {
+      if (token !== null) {
+        invalidRoute();
+      }
+    },
+    roteForRedirect: '/',
+  };
 };

@@ -1,21 +1,21 @@
 import React from 'react';
 import withStore from '../utils/helpFuncsForRedux';
+import LoadingDataLogic from '../logicComponents/LoadingData';
 import '../styles/scss/LoginPage.scss';
-import { workWithUserApi, changePasswordType, redirectToPage } from '../utils/helpFuncsForBrouser';
+import { workWithUserApi } from '../utils/workWithApiRequest';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { changePasswordType } from '../utils/workWithBrowser';
+import { configForUthPages } from '../utils/helpFuncsForCreateReactElem';
 
-const LoginPage = ({ userData: { token }, actions: { authorization }, history }) => {
-  if (token) {
-    redirectToPage(history, '/');
-  }
+const LoginPage = ({ userData: { token, loading, error, userName }, actions: { authorization, invalidRoute }, history }) => {
   return (
-    <>
+    <LoadingDataLogic configData={configForUthPages(userName, token, loading, error, invalidRoute)}>
       <h2>Страница авторизации</h2>
       <div className='row'>
         <div className='authorization col-lg-6'>
-          <form className='authorizationForm' onSubmit={(e) => workWithUserApi(e, authorization, '.authorization')}>
+          <form className='authorizationForm' onSubmit={(e) => workWithUserApi(e, authorization, '.authorization', history)}>
             <div className='form-group row'>
               <label className='col-sm-2 col-form-label'>Логин:</label>
               <div className='col-sm-10'>
@@ -49,8 +49,9 @@ const LoginPage = ({ userData: { token }, actions: { authorization }, history })
         </div>
         <div className='col-lg-6'></div>
       </div>
-    </>
+    </LoadingDataLogic>
   );
 };
 
 export default withStore(LoginPage);
+// getDateFromLocalStorage('userData') !== null || token !== null ? loading : false,

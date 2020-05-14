@@ -13,7 +13,7 @@ const ProductPage = ({ goodsList, actions, userData: { token } }) => {
         configData={{
           loading,
           error,
-          funcForReq: useCallback(actions.fetchGoods, []),
+          funcForRender: useCallback(actions.fetchGoods, []),
         }}
       >
         <GoodsList token={token} goodsList={goodsList} actions={actions} />

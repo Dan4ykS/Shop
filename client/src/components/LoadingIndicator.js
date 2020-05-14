@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/css/LoadingIndicator.css';
+import '../styles/scss/LoadingIndicator.scss';
 
 const LoadingIndicator = () => {
   return (

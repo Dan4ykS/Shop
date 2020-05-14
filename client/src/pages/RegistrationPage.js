@@ -1,18 +1,18 @@
 import React from 'react';
 import withStore from '../utils/helpFuncsForRedux';
+import LoadingDataLogic from '../logicComponents/LoadingData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
-import { changePasswordType, workWithUserApi, redirectToPage } from '../utils/helpFuncsForBrouser';
+import { changePasswordType } from '../utils/workWithBrowser';
+import { workWithUserApi } from '../utils/workWithApiRequest';
+import { configForUthPages } from '../utils/helpFuncsForCreateReactElem';
 
-const RegistrationPage = ({ userData: { token }, actions: { registration }, history }) => {
-  if (token) {
-    redirectToPage(history, '/');
-  }
+const RegistrationPage = ({ userData: { token, loading, error, userName }, actions: { registration, invalidRoute }, history }) => {
   return (
-    <>
+    <LoadingDataLogic configData={configForUthPages(userName, token, loading, error, invalidRoute)}>
       <h2>Регистрация</h2>
       <div className='row justify-content-center'>
-        <form className='registration col-lg-6' onSubmit={(e) => workWithUserApi(e, registration, '.registration')}>
+        <form className='registration col-lg-6' onSubmit={(e) => workWithUserApi(e, registration, '.registration', history)}>
           <div className='form-group row'>
             <label className='col-sm-2 col-form-label'>Логин:</label>
             <div className='col-sm-10'>
@@ -43,7 +43,7 @@ const RegistrationPage = ({ userData: { token }, actions: { registration }, hist
           </div>
         </form>
       </div>
-    </>
+    </LoadingDataLogic>
   );
 };
 export default withStore(RegistrationPage);

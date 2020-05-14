@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import withStore from '../utils/helpFuncsForRedux';
-import { redirectToPage } from '../utils/helpFuncsForBrouser';
+import {  getDateFromLocalStorage } from '../utils/workWithBrowser';
+import LoadingDataLogic from '../logicComponents/LoadingData';
+import { chekAdmin } from '../utils/workWithApiRequest';
 
-const AdminPage = ({ userData: { userName }, history }) => {
-  if (userName !== 'admin') {
-    redirectToPage(history, '/Login/')
-  }
+const AdminPage = ({ userData: { userName, loading, error }, actions: { isLogin, loadCart, fetchGoods, invalidRoute } }) => {
   return (
-    <>
+    <LoadingDataLogic
+      configData={{
+        loading,
+        error,
+        // eslint-disable-next-line
+        funcForRender: useCallback(() => chekAdmin(getDateFromLocalStorage('userData'), userName, isLogin, loadCart, fetchGoods, invalidRoute)),
+      }}
+    >
       <h2>Страница админа!</h2>
-    </>
+    </LoadingDataLogic>
   );
 };
 

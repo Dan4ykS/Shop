@@ -2,9 +2,10 @@ import React, { useCallback } from 'react';
 import withStore from '../utils/helpFuncsForRedux';
 import LoadingDataLogic from '../logicComponents/LoadingData';
 import { Link } from 'react-router-dom';
-import { chekToken, resetPassword, changePasswordType } from '../utils/helpFuncsForBrouser';
+import { chekToken, resetPassword } from '../utils/workWithApiRequest';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { changePasswordType } from '../utils/workWithBrowser';
 
 const ResetPasswordPage = ({ history, actions: { isLogin, loadCart, fetchGoods }, userData: { error, token, loading } }) => {
   const userToken = { token: history.location.pathname.split('=')[1] };
@@ -14,7 +15,8 @@ const ResetPasswordPage = ({ history, actions: { isLogin, loadCart, fetchGoods }
         loading,
         error,
         // eslint-disable-next-line
-        funcForReq: useCallback(() => chekToken(userToken, isLogin, loadCart, fetchGoods), []),
+        funcForRender: useCallback(() => chekToken(userToken, isLogin, loadCart, fetchGoods), []),
+        roteForRedirect: '/',
       }}
     >
       <div className='row reset justify-content-center'>

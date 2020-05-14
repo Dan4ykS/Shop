@@ -3,23 +3,23 @@ import '../styles/scss/FileUploader.scss';
 import withStore from '../utils/helpFuncsForRedux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUpload } from '@fortawesome/free-solid-svg-icons'
-import { triggerUploadInput, uploadFile, preventDefaultFaileUpload, removePreventDefault, dragAndDropForFile } from '../utils/helpFuncsForBrouser';
+import { triggerUploadInput, uploadFile, preventDefaultFaileUpload, removePreventDefault, dragAndDropForFile } from '../utils/workWithFiles';
 
-const FileUploader = ({ actions: { updateDataAboutCommodityImg } }) => {
+const FileUploader = ({ actions: { updateImg } }) => {
   useEffect(() => {
     preventDefaultFaileUpload();
-    dragAndDropForFile(updateDataAboutCommodityImg);
+    dragAndDropForFile(updateImg);
     return () => {
       removePreventDefault();
     };
-  }, [updateDataAboutCommodityImg]);
+  }, [updateImg]);
   return (
     <div className='fileUploader'>
       <input
         type='file'
         name='uploader'
         onChange={(e) => {
-          uploadFile(e.target.files[0], updateDataAboutCommodityImg);
+          uploadFile(e.target.files[0], updateImg);
         }}
       />
       <button

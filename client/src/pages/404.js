@@ -1,10 +1,9 @@
 import React from 'react';
 import withStore from '../utils/helpFuncsForRedux';
-import { redirectToPage } from '../utils/helpFuncsForBrouser';
+import { redirectToPage } from '../utils/workWithBrowser';
 
 
 const Page404 = ({ history }) => {
-  console.log(history.location.pathname.split('=')[1]);
   return (
     <>
       <h1>Ошибка, страница не найдена</h1>

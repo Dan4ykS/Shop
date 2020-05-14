@@ -1,17 +1,18 @@
 import React from 'react';
 import LoadingIndicator from '../components/LoadingIndicator';
-import ErrorIndicator from '../components/ErrorIndicator';
+import { Redirect } from 'react-router-dom';
 import { useEffect } from 'react';
 
-const LoadingDataLogic = ({ children, configData: { loading, error, funcForReq } }) => {
+const LoadingDataLogic = ({ children, configData: { loading, error, funcForRender, roteForRedirect = '/Login/' } }) => {
   useEffect(() => {
-    funcForReq();
-  }, [funcForReq]);
+    // console.log(`Вызвался эффект из компонента логики!`)
+    funcForRender();
+  }, [funcForRender]);
   if (loading) {
     return <LoadingIndicator />;
   }
   if (error) {
-    return <ErrorIndicator />;
+    return <Redirect to={roteForRedirect} />;
   }
   return <>{children}</>;
 };

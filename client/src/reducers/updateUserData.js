@@ -35,6 +35,12 @@ const updateUserData = (state, action) => {
         error: true,
         loading: false,
       };
+    case 'INVALID_ROUTE':
+      return {
+        ...state.userData,
+        error: true,
+        loading: false,
+      };
     default:
       return state.userData;
   }

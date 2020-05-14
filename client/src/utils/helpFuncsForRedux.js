@@ -3,11 +3,11 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { fetchGoods } from '../actions/goodsList';
 import { onAddedToCart, onDeletedFromCart, loadCart } from '../actions/shopingCart';
-import { authorization, registration, isLogin, isLogout } from '../actions/userData';
+import { authorization, registration, isLogin, isLogout, invalidRoute } from '../actions/userData';
 import { updateTopHeaderMenu } from '../actions/menuItems';
 import { withRouter } from 'react-router-dom';
-import { changeSelectedDate } from '../actions/calendarData';
-import { updateDataAboutCommodityImg } from '../actions/commodityData';
+import { selectDate } from '../actions/calendarData';
+import { updateImg } from '../actions/commodityData';
 
 const mapStateToProps = ({ goodsList, shopingCart, userData, menuItems, calendarData, commodityData }) => {
   return { goodsList, shopingCart, userData, menuItems, calendarData, commodityData };
@@ -24,8 +24,11 @@ const mapDispatchToProps = (dispatch, { services }) => {
     isLogout: isLogout(dispatch),
     updateTopHeaderMenu: updateTopHeaderMenu(dispatch),
     loadCart: loadCart(dispatch, services),
-    changeSelectedDate: changeSelectedDate(dispatch),
-    updateDataAboutCommodityImg: updateDataAboutCommodityImg(dispatch),
+    selectDate: (date) => dispatch(selectDate(date)),
+    updateImg: (img, imgSrc) => dispatch(updateImg(img, imgSrc)),
+    invalidRoute: () => dispatch(invalidRoute()),
+    // loadCartFromServer: (cart) => dispatch(loadCartFromServer(cart)),
+    // userLogin: (userName, token) => dispatch(user)
   };
   return { actions };
 };

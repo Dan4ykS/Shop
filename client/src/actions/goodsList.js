@@ -18,15 +18,13 @@ const fetchGoodsFailure = (error) => {
   };
 };
 
-export const fetchGoods = (dispatch, { goodsService }) => () => {
-  dispatch(fetchGoodsRequest());
-  goodsService
-    .getGoods()
-    .then((data) => dispatch(fetchGoodsSuccuess(data)))
-    .catch((error) => dispatch(fetchGoodsFailure(error)));
+export const fetchGoods = (dispatch, { goodsService }) => async () => {
+  try {
+    dispatch(fetchGoodsRequest());
+    const data = await goodsService.getGoods();
+    dispatch(fetchGoodsSuccuess(data))
+  } catch (error) {
+    dispatch(fetchGoodsFailure(error))
+  } 
 };
 
-// export const loadBooks = (dispatch, { GoodsService }) => () => { 
-//   GoodsService.getGoods()
-//   .then(())
-// }

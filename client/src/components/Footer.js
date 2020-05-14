@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/scss/Footer.scss';
 import { Link } from 'react-scroll';
-import { feedbackMouseEnter, feedbackMouseLeave, showHidenElements, redirectToLink } from '../utils/helpFuncsForBrouser';
+import { feedbackMouseEnter, feedbackMouseLeave, showHidenElements, redirectToLink } from '../utils/workWithBrowser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { faInstagram, faVk, faFacebook } from '@fortawesome/free-brands-svg-icons';
