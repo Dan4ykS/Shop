@@ -1,5 +1,6 @@
 const multer = require('multer');
 const moment = require('moment');
+const voca = require('voca')
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
@@ -7,7 +8,7 @@ const storage = multer.diskStorage({
   },
   filename(req, file, cb) {
     const date = moment().format('DDMMYYYY-HHmmss_SSS');
-    cb(null, `${date}-${file.originalname}`);
+    cb(null, `${date}-${voca.latinise(file.originalname)}`);
   },
 });
 const fileFilter = (req, file, cb) => {

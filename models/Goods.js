@@ -7,7 +7,7 @@ const goods = new Schema({
   },
   shortDescr: {
     type: String,
-    maxlength: 100,
+    maxlength: 200,
     required: true,
   },
   descr: {
@@ -24,7 +24,7 @@ const goods = new Schema({
   price: {
     type: Number,
     required: true
-  }
+  },
 });
 
 module.exports = model('Goods', goods);

@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === 'production') {
 
 (async () => {
   try {
-    await mongoose.connect(config.MONGOURL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
+    await mongoose.connect(config.MONGOURL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false });
     app.listen(port, () => {
       console.log(`Запуск сервера на порту ${port}...`);
     });

@@ -2,6 +2,7 @@ const { Router } = require('express');
 const auth = require('../middlewares/auth.middleware');
 const errorHandler = require('../utils/errorHandler');
 const uploadFile = require('../middlewares/uploadFile.middleware');
+const { createDataUpdateObj, createFilesForUpdateObj, deleteFile } = require('../utils/helpFunc');
 const Goods = require('../models/Goods');
 
 const router = Router();
@@ -22,15 +23,15 @@ router.get('/findGoods', async (req, res) => {
   }
 });
 
-router.post('/createCommodity', auth, uploadFile.single('image'), async ({ body: { title, shortDescr, descr, previewImg, price }, file }, res) => {
+router.post('/createCommodity', auth, uploadFile.array('images'), async ({ body: { title, shortDescr, descr, previewImg, price }, files }, res) => {
   try {
     const newCommodity = new Goods({
       title,
       shortDescr,
       descr,
-      previewImg,
+      previewImg: files[0].path,
       price,
-      img: file ? file.path : null,
+      img: files ? files[1].path : null,
     });
     await newCommodity.save();
     res.json({ massage: 'Товар был успешно добавлен!' });
@@ -39,10 +40,23 @@ router.post('/createCommodity', auth, uploadFile.single('image'), async ({ body:
   }
 });
 
-router.patch('/updateCommodity/:id', auth, async ({ body: { updateData }, params: { id } }, res) => {
+router.patch('/updateCommodity/:id', auth, uploadFile.fields([{ name: 'previewImg' }, { name: 'img' }]), async ({ body, params: { id }, files }, res) => {
   try {
-    await Goods.findByIdAndUpdate(id, updateData);
+    const { previewImg: oldPreviewImgSrc, img: oldImgSrc } = await Goods.findById(id);
+    const filesForUpfate = createFilesForUpdateObj(files.previewImg, oldPreviewImgSrc, files.img, oldImgSrc);
+    const dataForUpdate = createDataUpdateObj(body, filesForUpfate);
+    let filesForDelete = {};
+    if ('filesForDelete' in dataForUpdate) {
+      filesForDelete = dataForUpdate.filesForDelete;
+      delete dataForUpdate.filesForDelete;
+    }
+    await Goods.findByIdAndUpdate(id, dataForUpdate);
     res.status(200).json({ massage: `товар с id:${id} обновлен` });
+    if (Object.keys(filesForDelete).length !== 0) {
+      filesForDelete.forEach((fileName) => {
+        deleteFile(fileName);
+      });
+    }
   } catch (error) {
     errorHandler(res, error);
   }

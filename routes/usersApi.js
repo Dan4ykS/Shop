@@ -7,6 +7,7 @@ const sendResetPasswordLetter = require('../mail/resetPassword');
 const auth = require('../middlewares/auth.middleware');
 const createJwtToken = require('../utils/createJwtToken');
 const errorHandler = require('../utils/errorHandler');
+const { createDataUpdateObj, createFilesForUpdateObj, deleteFile } = require('../utils/helpFunc');
 const uploadFile = require('../middlewares/uploadFile.middleware');
 
 const router = Router();
@@ -41,7 +42,6 @@ router.get('/getUsers', auth, async (req, res) => {
 
 router.post('/authUser', async ({ body: { userName, password } }, res) => {
   try {
-    console.log(userName)
     const user = await User.findOne({ userName });
     if (!user) {
       return res.status(400).json({ message: 'Такого пользователя нет' });
@@ -137,13 +137,25 @@ router.patch('/createNewPassword', auth, async (req, res) => {
   }
 });
 
-router.post('/testData', uploadFile.single('image'), async (req, res) => {
-  try {
-    console.log(req.body);
-    res.status(200);
-  } catch (error) {
-    errorHandler(error);
-  }
-});
+// router.post('/testData', uploadFile.fields([{ name: 'previewImg' }, { name: 'img' }]), async (req, res) => {
+//   try {
+//     const { previewImg: oldPreviewImgSrc, img: oldImgSrc } = await Goods.findById('5ebecd0dc37b0c4bd858d663');
+//     const filesForUpfate = createFilesForUpdateObj(req.files.previewImg, oldPreviewImgSrc, req.files.img, oldImgSrc);
+//     const dataForUpdate = createDataUpdateObj(req.body.updateData, filesForUpfate);
+//     let filesForDelete = {};
+//     if ('filesForDelete' in dataForUpdate) {
+//       filesForDelete = dataForUpdate.filesForDelete;
+//       delete dataForUpdate.filesForDelete;
+//     }
+//     if (filesForDelete) {
+//       filesForDelete.forEach((fileName) => {
+//         deleteFile(fileName);
+//       });
+//     }
+//     res.sendStatus(200);
+//   } catch (error) {
+//     errorHandler(error);
+//   }
+// });
 
 module.exports = router;
