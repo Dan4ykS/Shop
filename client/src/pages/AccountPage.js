@@ -1,11 +1,10 @@
 import React, { useCallback } from 'react';
-import withStore from '../utils/helpFuncsForRedux';
+import withStore from '../utils/workWithRedux';
 import { getDateFromLocalStorage, logOut } from '../utils/workWithBrowser';
 import { chekUser } from '../utils/workWithApiRequest';
 import LoadingDataLogic from '../logicComponents/LoadingData';
 
-const AccountPage = ({ userData: { loading, error, userName }, actions: { isLogout, isLogin, loadCart, fetchGoods, blockDuplicateRequests }, history }) => {
-  console.log(error);
+const AccountPage = ({ userData: { loading, error, userName }, actions: { isLogout, isLogin, loadCart, fetchGoods }, history }) => {
   return (
     <LoadingDataLogic
       configData={{

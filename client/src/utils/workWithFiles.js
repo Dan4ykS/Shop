@@ -12,8 +12,10 @@ export const uploadFile = (file, updateFileDataFunc) => {
 
 const preventDefault = (e) => {
   e.preventDefault();
+  console.log(e.currentTarget);
   if (e.currentTarget.classList.contains('fileUploader')) {
     e.stopPropagation();
+
     e.dataTransfer.dropEffect = 'copy';
   } else {
     e.dataTransfer.dropEffect = 'none';
@@ -38,9 +40,11 @@ export const dragAndDropForFile = (updateFileDataFunc) => {
     uploaderBtn = document.querySelector('.fileUploader button'),
     body = document.body,
     dndText = document.querySelector('.fileUploader__dndText');
+
   ['dragenter', 'dragleave', 'dragover', 'drop'].forEach((eventName) => {
     fileUploader.addEventListener(eventName, preventDefault);
   });
+
   ['dragenter', 'dragover'].forEach((eventName) => {
     fileUploader.addEventListener(eventName, () => {
       fileUploader.style.border = '2px dashed black';

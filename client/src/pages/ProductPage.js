@@ -1,24 +1,23 @@
 import React from 'react';
-import GoodsList from '../components/GoodsList';
-import withStore from '../utils/helpFuncsForRedux';
+import CommodityDetail from '../components/CommodityDetail';
+import withStore from '../utils/workWithRedux';
 import LoadingDataLogic from '../logicComponents/LoadingData';
+import RenderList from '../components/RenderList';
 import { useCallback } from 'react';
 
-const ProductPage = ({ goodsList, actions, userData: { token } }) => {
-  const { loading, error } = goodsList;
+const ProductPage = ({ goodsList: { goods, loading, error }, actions, userData: { token, userName } }) => {
   return (
-    <>
+    <LoadingDataLogic
+      configData={{
+        loading,
+        error,
+        funcForRender: useCallback(actions.fetchGoods, []),
+        roteForRedirect: '/Product/',
+      }}
+    >
       <h2>Товары</h2>
-      <LoadingDataLogic
-        configData={{
-          loading,
-          error,
-          funcForRender: useCallback(actions.fetchGoods, []),
-        }}
-      >
-        <GoodsList token={token} goodsList={goodsList} actions={actions} />
-      </LoadingDataLogic>
-    </>
+      <RenderList listForRender={goods} ComponentForRender={CommodityDetail} actions={actions} token={token} userName={userName} />
+    </LoadingDataLogic>
   );
 };
 

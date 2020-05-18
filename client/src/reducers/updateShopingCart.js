@@ -1,3 +1,5 @@
+import { changeArrayElement, removeArrayElement } from "../utils/workWithRedux";
+
 const updateCartItem = (book, item = {}, quantity) => {
   const { id = book._id, title = book.title, copies = 0, price = 0, img = book.previewImg } = item;
   return {
@@ -9,28 +11,28 @@ const updateCartItem = (book, item = {}, quantity) => {
   };
 };
 
-const updateCartItems = (cartItems, item, index) => {
+const updateCartItems = (cart, item, index) => {
   if (index === -1) {
-    return [...cartItems, item];
+    return [...cart, item];
   }
   if (item.copies === 0) {
-    return [...cartItems.slice(0, index), ...cartItems.slice(index + 1)];
+    return removeArrayElement(cart, index);
   }
-  return [...cartItems.slice(0, index), item, ...cartItems.slice(index + 1)];
+  return changeArrayElement(cart, index, item);
 };
 
 const updateOrder = (state, bookId, quantity) => {
   const {
       goodsList: { goods },
-      shopingCart: { cartItems },
+      shopingCart: { cart },
     } = state,
     book = goods.find((book) => book._id === bookId),
-    itemIndex = cartItems.findIndex((item) => item.id === bookId),
-    item = cartItems[itemIndex],
+    itemIndex = cart.findIndex((item) => item.id === bookId),
+    item = cart[itemIndex],
     newItem = updateCartItem(book, item, quantity),
-    totalPrice = updateCartItems(cartItems, newItem, itemIndex).reduce((summ, elem) => summ + elem.price, 0);
+    totalPrice = updateCartItems(cart, newItem, itemIndex).reduce((summ, elem) => summ + elem.price, 0);
   return {
-    cartItems: updateCartItems(cartItems, newItem, itemIndex),
+    cart: updateCartItems(cart, newItem, itemIndex),
     totalPrice,
   };
 };
@@ -48,7 +50,7 @@ const transformCartItems = (userCart) => {
 const updateShopingCart = (state, action) => {
   if (state === undefined) {
     return {
-      cartItems: [],
+      cart: [],
       totalPrice: 0,
     };
   }
@@ -56,7 +58,7 @@ const updateShopingCart = (state, action) => {
   switch (action.type) {
     case 'LOAD_CART_FROM_SERVER':
       return {
-        cartItems: transformCartItems(action.payload.userCart),
+        cart: transformCartItems(action.payload.userCart),
         totalPrice: action.payload.totalPrice,
       };
     case 'BOOK_ADD_TO_CART':
@@ -65,7 +67,7 @@ const updateShopingCart = (state, action) => {
       return updateOrder(state, action.payload, -1);
     case 'CLEAR_CART':
       return {
-        cartItems: [],
+        cart: [],
         totalPrice: 0,
       };
     default:
@@ -78,24 +80,24 @@ export default updateShopingCart;
 // Добавить поддержку загрузки данных из корзины (подумать над реализацией синхронизации товаров в state и с сервера)
 // const loadingCartItems = (state, data) => {
 //   const {
-//     shopingCart: { cartItems },
+//     shopingCart: { cart },
 //     goodsList: { goods },
 //   } = state;
-//   if (cartItems.length !== 0) {
-//     const stateSopingCartBooksId = cartItems.map((item) => item.id);
+//   if (cart.length !== 0) {
+//     const stateSopingCartBooksId = cart.map((item) => item.id);
 //     const serverSopingCartBooksId = data.map((item) => item.id);
 //     const allId = [...stateSopingCartBooksId, ...serverSopingCartBooksId];
 //   }
 // };
 // case 'FETCH_CARTITEMS_SUCCUESS':
 //       return {
-//         cartItems: action.payload,
+//         cart: action.payload,
 //         loading: false,
 //         error: null,
 //       };
 //     case 'FETCH_CARTITEMS_FAILURE':
 //       return {
-//         cartItems: [],
+//         cart: [],
 //         loading: false,
 //         error: action.payload,
 //       };

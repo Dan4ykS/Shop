@@ -1,11 +1,12 @@
 .fileUploader {
-  max-height: 100px;
+  height: 100%;
   padding: 20px 5px;
   input {
     display: none;
   }
   button {
-    position: relative;
+    padding: 10px;
+    width: 40%;
     .fa-upload{
       margin-left: 15px;
     }

@@ -116,4 +116,3 @@ export const logOut = (func, history) => {
   redirectToPage(history, '/');
   func();
 };
-

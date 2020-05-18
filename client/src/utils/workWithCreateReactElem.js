@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { scrollToElem, getDateFromLocalStorage } from './workWithBrowser';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -45,4 +45,34 @@ export const configForUthPages = (userName, token, loading, error, invalidRoute)
     },
     roteForRedirect: '/',
   };
+};
+
+export const switchProductBtn = (userName, ...eventHendlers) => {
+  const [onAddedToCart, id = null, token = null] = eventHendlers;
+  if (userName === 'admin') {
+    return (
+      <Link className='btn btn-success' to='/admin/'>
+        Редактировать товар
+      </Link>
+    );
+  }
+  if (!userName) {
+    return (
+      <div className='btnGroup flexWrap'>
+        <button onClick={() => onAddedToCart(id, token)}>Купить в один клик</button>
+        <Link className='btn btn-primary' to='/'>
+          Подробнее
+        </Link>
+      </div>
+    );
+  }
+  if (userName) {
+    return (
+      <div className='btnGroup flexWrap'>
+        <button>Купить в один клик!</button>
+        <button onClick={() => onAddedToCart(id, token)}>В корзину</button>
+        <Link to='/'>Подробнее</Link>
+      </div>
+    );
+  }
 };

@@ -1,17 +1,30 @@
 .authorization {
   margin-top: 20px;
-  .btn-group {
-    padding: 0;
-    .btn {
-      padding: 3px;
+  .btn {
+    padding: 3px;
+    border: none;
+    border-radius: 10px;
+    &:nth-child(2) {
+      padding-left: 8px;
+      padding-right: 8px;
     }
   }
   &__forgotPassword {
     font-size: 15px;
     display: block;
     margin-left: 76%;
-    &:hover{
+    &:hover {
       text-decoration: none;
     }
   }
 }
+
+@media (min-width: 991px) and (max-width: 1200px){
+  .authorization{
+    .btn{
+      &:nth-child(2){
+        padding: 3px 5px;
+      }
+    }
+  }
+};

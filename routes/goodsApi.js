@@ -4,7 +4,7 @@ const errorHandler = require('../utils/errorHandler');
 const uploadFile = require('../middlewares/uploadFile.middleware');
 const Goods = require('../models/Goods');
 const authAdmin = require('../middlewares/authAdmin.middleware');
-const { createDataUpdateObj, createFilesForUpdateObj, deleteFile } = require('../utils/helpFunc');
+const { createDataUpdateObj, createFilesForUpdateObj, deleteFile } = require('../utils/helpFuncs');
 
 const router = Router();
 

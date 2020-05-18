@@ -42,6 +42,7 @@ export const authorization = (dispatch, { usersService, goodsService }) => async
     const goods = await goodsService.getGoods();
     requestsToApi(dispatch, cart, goods);
     redirectToPage(history, '/');
+    console.log(token)
     setNewToken(token);
   } catch (error) {
     isInvalid(form);

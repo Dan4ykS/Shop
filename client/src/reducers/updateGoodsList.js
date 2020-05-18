@@ -26,12 +26,6 @@ const updategoodsList = (state, action) => {
         error: action.payload,
         loading: false,
       };
-    case 'DELETE_ERROR_INDICATOR':
-      return {
-        goods: [],
-        loading: true,
-        error: null,
-      };
     default:
       return state.goodsList;
   }

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import withStore from '../utils/helpFuncsForRedux';
+import withStore from '../utils/workWithRedux';
 import LoadingDataLogic from '../logicComponents/LoadingData';
 import { Link } from 'react-router-dom';
 import { chekToken, resetPassword } from '../utils/workWithApiRequest';

@@ -1,5 +1,5 @@
 import React from 'react';
-import withStore from '../utils/helpFuncsForRedux';
+import withStore from '../utils/workWithRedux';
 import CalendarComp from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../styles/scss/Calendar.scss';

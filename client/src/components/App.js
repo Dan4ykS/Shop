@@ -12,7 +12,7 @@ import HelpLoginPage from '../pages/HelpLoginPage';
 import AdminPage from '../pages/AdminPage';
 import Footer from '../components/Footer';
 import RegistrationPage from '../pages/RegistrationPage';
-import withStore from '../utils/helpFuncsForRedux';
+import withStore from '../utils/workWithRedux';
 import '../styles/scss/App.scss';
 import { Route, Switch } from 'react-router-dom';
 import { chekToken } from '../utils/workWithApiRequest';

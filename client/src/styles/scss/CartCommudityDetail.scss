@@ -1,0 +1,56 @@
+@import "./variables.scss";
+
+.cartItem {
+  margin-top: 20px;
+  &__img {
+    width: 18%;
+  }
+  &__info {
+    padding: 3px 10px;
+    width: 50%;
+  }
+  &__copies {
+    padding: 0 3px;
+    width: 10%;
+    height: 30px;
+    border-radius: 30px;
+  }
+  &__price {
+    width: 16%;
+    padding: 3px 5px;
+  }
+  &:nth-child(1) {
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .cartItem {
+    &__img {
+      width: 15%;
+    }
+    &__info {
+      width: 40%;
+    }
+    &__price {
+      width: 25%;
+    }
+    &__copies {
+      width: 20%;
+      input {
+        width: 40%;
+      }
+      button {
+        width: 30%;
+        .fa-plus,
+        .fa-minus {
+          font-size: 15px;
+        }
+      }
+    }
+    &:nth-child(1),
+    &:nth-child(2) {
+      margin-top: 0;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import withStore from '../utils/helpFuncsForRedux';
+import withStore from '../utils/workWithRedux';
 import { redirectToPage } from '../utils/workWithBrowser';
 
 

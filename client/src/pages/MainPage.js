@@ -1,5 +1,5 @@
 import React from 'react';
-import withSore from '../utils/helpFuncsForRedux';
+import withSore from '../utils/workWithRedux';
 import Calendar from '../components/Calendar';
 import FileUploader from '../components/FileUploader';
 

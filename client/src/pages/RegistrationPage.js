@@ -1,11 +1,11 @@
 import React from 'react';
-import withStore from '../utils/helpFuncsForRedux';
+import withStore from '../utils/workWithRedux';
 import LoadingDataLogic from '../logicComponents/LoadingData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { changePasswordType } from '../utils/workWithBrowser';
 import { workWithUserApi } from '../utils/workWithApiRequest';
-import { configForUthPages } from '../utils/helpFuncsForCreateReactElem';
+import { configForUthPages } from '../utils/workWithCreateReactElem';
 
 const RegistrationPage = ({ userData: { token, loading, error, userName }, actions: { registration, invalidRoute }, history }) => {
   return (

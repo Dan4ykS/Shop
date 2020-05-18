@@ -1,5 +1,5 @@
 import React from 'react';
-import withStore from '../utils/helpFuncsForRedux';
+import withStore from '../utils/workWithRedux';
 import LoadingDataLogic from '../logicComponents/LoadingData';
 import '../styles/scss/LoginPage.scss';
 import { workWithUserApi } from '../utils/workWithApiRequest';
@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { changePasswordType } from '../utils/workWithBrowser';
-import { configForUthPages } from '../utils/helpFuncsForCreateReactElem';
+import { configForUthPages } from '../utils/workWithCreateReactElem';
 
 const LoginPage = ({ userData: { token, loading, error, userName }, actions: { authorization, invalidRoute }, history }) => {
   return (
@@ -37,11 +37,11 @@ const LoginPage = ({ userData: { token, loading, error, userName }, actions: { a
                 Забыли пароль?
               </Link>
             </div>
-            <div className='btn-group col-8 offset-4' role='group'>
+            <div className='btnGroup col-lg-8 offset-lg-4 col-xl-7 offset-xl-5 flexWrap'>
               <button type='submit' className='btn btn-primary'>
                 Войти
               </button>
-              <Link to='/Registration/' className='btn btn-primary'>
+              <Link to='/Registration/' type='button' className='btn btn-primary'>
                 Зарегистрироваться
               </Link>
             </div>

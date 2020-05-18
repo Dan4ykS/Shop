@@ -32,6 +32,13 @@ const mapDispatchToProps = (dispatch, { services }) => {
   };
   return { actions };
 };
+export const changeArrayElement = (array, indexElForChange, newElement) => {
+  return [...array.slice(0, indexElForChange), newElement, ...array.slice(indexElForChange + 1)];
+};
+
+export const removeArrayElement = (array, indexElForRemove) => {
+  return [...array.slice(0, indexElForRemove), ...array.slice(indexElForRemove + 1)];
+};
 
 const withStore = (Component) => compose(withServices(), connect(mapStateToProps, mapDispatchToProps))(withRouter(Component));
 

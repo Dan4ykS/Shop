@@ -4,10 +4,13 @@ const fetchGoodsRequest = () => {
   };
 };
 
-export const fetchGoodsSuccuess = (newBooks) => {
+export const fetchGoodsSuccuess = (goods) => {
   return {
     type: 'FETCH_GOODS_SUCCUESS',
-    payload: newBooks,
+    payload: goods.map((commodity) => ({
+      ...commodity,
+      id: commodity._id,
+    })),
   };
 };
 
@@ -22,9 +25,8 @@ export const fetchGoods = (dispatch, { goodsService }) => async () => {
   try {
     dispatch(fetchGoodsRequest());
     const data = await goodsService.getGoods();
-    dispatch(fetchGoodsSuccuess(data))
+    dispatch(fetchGoodsSuccuess(data));
   } catch (error) {
-    dispatch(fetchGoodsFailure(error))
-  } 
+    dispatch(fetchGoodsFailure(error));
+  }
 };
-
