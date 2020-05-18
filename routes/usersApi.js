@@ -5,10 +5,9 @@ const bcrypt = require('bcryptjs');
 const sendRegistationLetter = require('../mail/registation');
 const sendResetPasswordLetter = require('../mail/resetPassword');
 const auth = require('../middlewares/auth.middleware');
+const authAdmin = require('../middlewares/authAdmin.middleware')
 const createJwtToken = require('../utils/createJwtToken');
 const errorHandler = require('../utils/errorHandler');
-const { createDataUpdateObj, createFilesForUpdateObj, deleteFile } = require('../utils/helpFunc');
-const uploadFile = require('../middlewares/uploadFile.middleware');
 
 const router = Router();
 
@@ -32,7 +31,7 @@ router.post('/createUser', async ({ body: { userName, password, email } }, res) 
   }
 });
 
-router.get('/getUsers', auth, async (req, res) => {
+router.get('/getUsers', authAdmin, async (req, res) => {
   try {
     res.json(await User.find());
   } catch (error) {
@@ -136,26 +135,5 @@ router.patch('/createNewPassword', auth, async (req, res) => {
     errorHandler(res, error);
   }
 });
-
-// router.post('/testData', uploadFile.fields([{ name: 'previewImg' }, { name: 'img' }]), async (req, res) => {
-//   try {
-//     const { previewImg: oldPreviewImgSrc, img: oldImgSrc } = await Goods.findById('5ebecd0dc37b0c4bd858d663');
-//     const filesForUpfate = createFilesForUpdateObj(req.files.previewImg, oldPreviewImgSrc, req.files.img, oldImgSrc);
-//     const dataForUpdate = createDataUpdateObj(req.body.updateData, filesForUpfate);
-//     let filesForDelete = {};
-//     if ('filesForDelete' in dataForUpdate) {
-//       filesForDelete = dataForUpdate.filesForDelete;
-//       delete dataForUpdate.filesForDelete;
-//     }
-//     if (filesForDelete) {
-//       filesForDelete.forEach((fileName) => {
-//         deleteFile(fileName);
-//       });
-//     }
-//     res.sendStatus(200);
-//   } catch (error) {
-//     errorHandler(error);
-//   }
-// });
 
 module.exports = router;

@@ -2,8 +2,9 @@ const { Router } = require('express');
 const auth = require('../middlewares/auth.middleware');
 const errorHandler = require('../utils/errorHandler');
 const uploadFile = require('../middlewares/uploadFile.middleware');
-const { createDataUpdateObj, createFilesForUpdateObj, deleteFile } = require('../utils/helpFunc');
 const Goods = require('../models/Goods');
+const authAdmin = require('../middlewares/authAdmin.middleware');
+const { createDataUpdateObj, createFilesForUpdateObj, deleteFile } = require('../utils/helpFunc');
 
 const router = Router();
 
@@ -23,7 +24,7 @@ router.get('/findGoods', async (req, res) => {
   }
 });
 
-router.post('/createCommodity', auth, uploadFile.array('images'), async ({ body: { title, shortDescr, descr, previewImg, price }, files }, res) => {
+router.post('/createCommodity', authAdmin, uploadFile.array('images'), async ({ body: { title, shortDescr, descr, previewImg, price }, files }, res) => {
   try {
     const newCommodity = new Goods({
       title,
@@ -40,19 +41,19 @@ router.post('/createCommodity', auth, uploadFile.array('images'), async ({ body:
   }
 });
 
-router.patch('/updateCommodity/:id', auth, uploadFile.fields([{ name: 'previewImg' }, { name: 'img' }]), async ({ body, params: { id }, files }, res) => {
+router.patch('/updateCommodity/:id', authAdmin, uploadFile.fields([{ name: 'previewImg' }, { name: 'img' }]), async ({ body, params: { id }, files }, res) => {
   try {
     const { previewImg: oldPreviewImgSrc, img: oldImgSrc } = await Goods.findById(id);
     const filesForUpfate = createFilesForUpdateObj(files.previewImg, oldPreviewImgSrc, files.img, oldImgSrc);
     const dataForUpdate = createDataUpdateObj(body, filesForUpfate);
-    let filesForDelete = {};
+    let filesForDelete = [];
     if ('filesForDelete' in dataForUpdate) {
       filesForDelete = dataForUpdate.filesForDelete;
       delete dataForUpdate.filesForDelete;
     }
     await Goods.findByIdAndUpdate(id, dataForUpdate);
     res.status(200).json({ massage: `товар с id:${id} обновлен` });
-    if (Object.keys(filesForDelete).length !== 0) {
+    if (filesForDelete.length !== 0) {
       filesForDelete.forEach((fileName) => {
         deleteFile(fileName);
       });
@@ -62,7 +63,7 @@ router.patch('/updateCommodity/:id', auth, uploadFile.fields([{ name: 'previewIm
   }
 });
 
-router.delete('/removeCommodity/:id', auth, async (req, res) => {
+router.delete('/removeCommodity/:id', authAdmin, async (req, res) => {
   try {
     await Goods.deleteOne({ _id: req.params.id });
     res.status(200).json({ massage: `товар с id:${req.params.id} удален` });
