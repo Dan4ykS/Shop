@@ -1,25 +1,25 @@
 import React, { useEffect } from 'react';
 import '../styles/scss/FileUploader.scss';
 import withStore from '../utils/workWithRedux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUpload } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { triggerUploadInput, uploadFile, preventDefaultFaileUpload, removePreventDefault, dragAndDropForFile } from '../utils/workWithFiles';
 
-const FileUploader = ({ actions: { updateImg } }) => {
+const FileUploader = ({ action }) => {
   useEffect(() => {
     preventDefaultFaileUpload();
-    dragAndDropForFile(updateImg);
+    dragAndDropForFile(action);
     return () => {
       removePreventDefault();
     };
-  }, [updateImg]);
+  }, [action]);
   return (
     <div className='fileUploader'>
       <input
         type='file'
         name='uploader'
         onChange={(e) => {
-          uploadFile(e.target.files[0], updateImg);
+          uploadFile(e.target.files[0], action);
         }}
       />
       <button
@@ -30,11 +30,11 @@ const FileUploader = ({ actions: { updateImg } }) => {
         className='btn btn-danger'
       >
         Загрузить файл
-         <FontAwesomeIcon icon={faUpload}/>
+        <FontAwesomeIcon icon={faUpload} />
       </button>
       <div className='fileUploader__dndText hidenElem'>Место для загрузки файла</div>
     </div>
   );
 };
 
-export default withStore(FileUploader);
+export default FileUploader;

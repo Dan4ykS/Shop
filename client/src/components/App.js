@@ -12,11 +12,13 @@ import HelpLoginPage from '../pages/HelpLoginPage';
 import AdminPage from '../pages/AdminPage';
 import Footer from '../components/Footer';
 import RegistrationPage from '../pages/RegistrationPage';
+import UpdateCommodityPage from '../pages/UpdateCommodityPage';
 import withStore from '../utils/workWithRedux';
 import '../styles/scss/App.scss';
 import { Route, Switch } from 'react-router-dom';
 import { chekAccess } from '../utils/workWithApiRequest';
 import { getDateFromLocalStorage } from '../utils/workWithBrowser';
+import CreateСommodityPage from '../pages/CreateСommodityPage';
 
 const App = ({ userData: { userName }, menuItems: { topItems, mainItems, iconsForItems, updated }, actions: { isLogin, updateTopHeaderMenu, loadCart, fetchGoods, invalidRoute }, history }) => {
   useEffect(() => {
@@ -42,6 +44,8 @@ const App = ({ userData: { userName }, menuItems: { topItems, mainItems, iconsFo
           <Route path='/helpLogin/' component={HelpLoginPage} exact />
           <Route path='/resetPassword/token=:id' component={ResetPasswordPage} exact />
           <Route path='/admin' component={AdminPage} exact />
+          <Route path='/admin/createCommodity/' component={CreateСommodityPage} />
+          <Route path='/admin/updateCommodity/:id' component={UpdateCommodityPage} />
           <Route component={Page404} exact />
         </Switch>
       </div>

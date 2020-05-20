@@ -5,3 +5,10 @@ export const updateImg = (img, imgSrc) => {
   };
 };
 
+export const updatePreviewImg = (previewImg, previewImgSrc) => { 
+  return {
+    type: 'UPDATE_PREVIWIMG',
+    payload: {previewImg, previewImgSrc}
+  };
+}
+

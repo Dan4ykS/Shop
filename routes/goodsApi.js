@@ -24,6 +24,15 @@ router.get('/findGoods', async (req, res) => {
   }
 });
 
+router.get('/findCommodity/:id', async ({ params: { id } }, res) => {
+  try {
+    const commodity = await Goods.findById(id);
+    res.status(200).json(commodity)
+  } catch (error) {
+    errorHandler(res, { message: `Товар с id=${id} не найден!` });
+  }
+});
+
 router.post('/createCommodity', authAdmin, uploadFile.array('images'), async ({ body: { title, shortDescr, descr, previewImg, price }, files }, res) => {
   try {
     const newCommodity = new Goods({
@@ -35,7 +44,7 @@ router.post('/createCommodity', authAdmin, uploadFile.array('images'), async ({ 
       img: files ? files[1].path : null,
     });
     await newCommodity.save();
-    res.json({ massage: 'Товар был успешно добавлен!' });
+    res.json({ message: 'Товар был успешно добавлен!' });
   } catch (error) {
     errorHandler(res, error);
   }
@@ -52,7 +61,7 @@ router.patch('/updateCommodity/:id', authAdmin, uploadFile.fields([{ name: 'prev
       delete dataForUpdate.filesForDelete;
     }
     await Goods.findByIdAndUpdate(id, dataForUpdate);
-    res.status(200).json({ massage: `товар с id:${id} обновлен` });
+    res.status(200).json({ message: `товар с id:${id} обновлен` });
     if (filesForDelete.length !== 0) {
       filesForDelete.forEach((fileName) => {
         deleteFile(fileName);
@@ -66,7 +75,7 @@ router.patch('/updateCommodity/:id', authAdmin, uploadFile.fields([{ name: 'prev
 router.delete('/removeCommodity/:id', authAdmin, async (req, res) => {
   try {
     await Goods.deleteOne({ _id: req.params.id });
-    res.status(200).json({ massage: `товар с id:${req.params.id} удален` });
+    res.status(200).json({ message: `товар с id:${req.params.id} удален` });
   } catch (error) {
     errres, errororHandler(res, error);
   }

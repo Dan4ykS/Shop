@@ -7,7 +7,7 @@ import { authorization, registration, isLogin, isLogout, invalidRoute, userLogin
 import { updateTopHeaderMenu } from '../actions/menuItems';
 import { withRouter } from 'react-router-dom';
 import { selectDate } from '../actions/calendarData';
-import { updateImg } from '../actions/commodityData';
+import { updateImg, updatePreviewImg } from '../actions/commodityData';
 
 const mapStateToProps = ({ goodsList, shopingCart, userData, menuItems, calendarData, commodityData }) => {
   return { goodsList, shopingCart, userData, menuItems, calendarData, commodityData };
@@ -27,9 +27,8 @@ const mapDispatchToProps = (dispatch, { services }) => {
     selectDate: (date) => dispatch(selectDate(date)),
     updateImg: (img, imgSrc) => dispatch(updateImg(img, imgSrc)),
     invalidRoute: () => dispatch(invalidRoute()),
-    userLogin: (userName, token) => dispatch(userLogin(userName, token)) 
-    // loadCartFromServer: (cart) => dispatch(loadCartFromServer(cart)),
-    // userLogin: (userName, token) => dispatch(user)
+    userLogin: (userName, token) => dispatch(userLogin(userName, token)),
+    updatePreviewImg: (previewImg, previewImgSrc) => dispatch(updatePreviewImg(previewImg, previewImgSrc)),
   };
   return { actions };
 };

@@ -1,8 +1,7 @@
 {
-  "name": "shop",
+  "name": "shop-client",
   "version": "1.0.0",
   "private": true,
-  "description": "",
   "proxy": "http://localhost:5000",
   "author": "Sokolov Daniil <dan28012000@gmail.com>",
   "main": "index.js",
@@ -11,7 +10,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.13.0",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.9",
-    "moment": "^2.25.3",
+    "moment": "^2.26.0",
     "react": "^16.13.1",
     "react-calendar": "^3.1.0",
     "react-dom": "^16.13.1",

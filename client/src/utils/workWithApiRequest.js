@@ -32,6 +32,7 @@ const defaultActions = async (userToken, isLogin, loadCart, fetchGoods, extraPar
 };
 
 export const chekAccess = async (userToken, isLogin, loadCart, fetchGoods, invalidRoute, history, resetError) => {
+  console.log(history.location);
   switch (history.location.pathname.split('/')[1]) {
     case 'Registration':
     case 'Login': {
@@ -41,6 +42,14 @@ export const chekAccess = async (userToken, isLogin, loadCart, fetchGoods, inval
     }
 
     case 'admin': {
+      const pathParams = history.location.search;
+      if (pathParams) {
+        console.log(pathParams.split('?')[2]);
+        if (pathParams.split('?')[2].split('=')) {
+          // alert(`Вы хотите редактировать товар с id=${pathParams.split('?')[2].split('=')[1]}`);
+        }
+      }
+      
       if (!userToken) {
         console.log(userToken);
         await isLogin(userToken);

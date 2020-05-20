@@ -19,6 +19,12 @@ const updateCommodityData = (state, action) => {
         img: action.payload.img,
         imgSrc: action.payload.imgSrc,
       };
+    case 'UPDATE_PREVIWIMG':
+      return {
+        ...state.commodityData,
+        previewImg: action.payload.img,
+        previewImgSrc: action.payload.imgSrc,
+      };
     default:
       return state.commodityData;
   }
