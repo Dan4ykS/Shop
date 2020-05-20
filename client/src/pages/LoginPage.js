@@ -11,7 +11,7 @@ import { configForUthPages } from '../utils/workWithCreateReactElem';
 
 const LoginPage = ({ userData: { token, loading, error, userName }, actions: { authorization, invalidRoute }, history }) => {
   return (
-    <LoadingDataLogic configData={configForUthPages(userName, token, loading, error, invalidRoute)}>
+    <LoadingDataLogic configData={configForUthPages(userName, token, loading, error, invalidRoute, history)}>
       <h2>Страница авторизации</h2>
       <div className='row'>
         <div className='authorization col-lg-6'>

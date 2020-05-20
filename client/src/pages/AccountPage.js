@@ -10,8 +10,7 @@ const AccountPage = ({ userData: { loading, error, userName }, actions: { isLogo
       configData={{
         loading,
         error: userName !== null ? null : error,
-        // eslint-disable-next-line
-        funcForRender: useCallback(() => chekUser(getDateFromLocalStorage('userData'), isLogin, loadCart, fetchGoods, userName), []),
+        funcForRender: () => console.log('Я вызвалась!'),
       }}
     >
       <h2>Здесь будет личный кабинет</h2>

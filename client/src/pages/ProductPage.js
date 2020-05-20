@@ -11,8 +11,8 @@ const ProductPage = ({ goodsList: { goods, loading, error }, actions, userData: 
       configData={{
         loading,
         error,
-        funcForRender: useCallback(actions.fetchGoods, []),
-        roteForRedirect: '/Product/',
+        funcForRender: actions.fetchGoods,
+        routeForRedirect: '/Product/',
       }}
     >
       <h2>Товары</h2>

@@ -2,11 +2,10 @@ const updategoodsList = (state, action) => {
   if (state === undefined) {
     return {
       goods: [],
-      loading: true,
+      loading: null,
       error: null,
     };
   }
-  
   switch (action.type) {
     case 'FETCH_GOODS_REQUEST':
       return {
@@ -25,6 +24,11 @@ const updategoodsList = (state, action) => {
         goods: [],
         error: action.payload,
         loading: false,
+      };
+    case 'RESET_LOADING':
+      return {
+        ...state.goodsList,
+        loading: true,
       };
     default:
       return state.goodsList;

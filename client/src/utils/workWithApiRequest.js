@@ -1,5 +1,5 @@
 import UsersService from '../services/UsersService';
-import { clearInputs, findNeedElements, createObjForRequest, isInvalid } from './workWithBrowser';
+import { clearInputs, findNeedElements, createObjForRequest, isInvalid, redirectToPage } from './workWithBrowser';
 
 export const workWithUserApi = async (e, func, selector, history) => {
   e.persist();
@@ -11,14 +11,27 @@ export const workWithUserApi = async (e, func, selector, history) => {
   clearInputs(inputs, mode);
 };
 
-export const chekToken = async (userToken, isLogin, loadCart, fetchGoods) => {
-  if (!userToken) {
-    return;
+export const chekAccesss = async (userToken, isLogin, loadCart, fetchGoods, invalidRoute, history) => {
+  try {
+    const { token } = userToken;
+    const userName = await isLogin(token);
+    if (userName !== 'admin') {
+      console.log(history);
+      if (history.location.pathname === '/admin') {
+        history.push('/MyAccount/');
+      }
+      await loadCart(token);
+      await fetchGoods();
+    } else {
+      console.log(history);
+    }
+  } catch (error) {
+    console.log(history);
+    invalidRoute();
   }
-  const { token } = userToken;
-  await isLogin(token);
-  await loadCart(token);
-  await fetchGoods();
+  // if (!userToken) {
+  //   return;
+  // }
 };
 
 export const resetPassword = async (e, type, token = null) => {
@@ -53,35 +66,34 @@ export const setNewToken = (token) => {
   }
 };
 
-export const chekUser = async (userToken, isLogin, loadCart, fetchGoods, userName) => {
-  if (!userName) {
-    if (!userToken) {
-      await isLogin(userToken);
-    } else {
-      await chekToken(userToken, isLogin, loadCart, fetchGoods);
-    }
-  }
-};
+// export const chekUser = async (userToken, isLogin, loadCart, fetchGoods, userName) => {
+//   if (!userName) {
+//     if (!userToken) {
+//       // console.log('a')
+//       // await isLogin(userToken);
+//     }
+//   }
+// };
 
-export const chekAdmin = async (userToken, userName, isLogin, loadCart, fetchGoods, invalidRoute) => {
+export const chekAdmin = async (userToken, userName, isLogin, userLogin, invalidRoute, history) => {
   if (!userName) {
-    // console.log(userToken);
-    if (!userToken) {
-      await isLogin(userToken);
-    } else {
-      const { token } = userToken;
-      // console.log('Запросы на сервер');
-      try {
-        // console.log(token);
-        const { userName: user } = await UsersService.checkUserValid(token);
-        // console.log(userName);
-        if (user !== 'admin') {
-          invalidRoute();
-        }
-      } catch (error) {
-        invalidRoute();
-        console.log(error);
-      }
-    }
+    // if (!userToken) {
+    //   await isLogin(userToken);
+    // } else {
+    //   const { token } = userToken;
+    //   try {
+    //     const { userName } = await UsersService.checkUserValid(token);
+    //     console.log(userName);
+    //     if (userName !== 'admin') {
+    //       console.log('Перенаправление!');
+    //       redirectToPage(history, '/MyAccount/');
+    //       return;
+    //     }
+    //     userLogin(userName, token);
+    //   } catch (error) {
+    //     invalidRoute();
+    //     console.log(error);
+    //   }
+    // }
   }
 };

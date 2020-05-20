@@ -29,18 +29,19 @@ const updateUserData = (state, action) => {
         error: null,
         loading: true,
       };
-    case 'INVALID_TOKEN':
-      return {
-        ...state.userData,
-        error: true,
-        loading: false,
-      };
     case 'INVALID_ROUTE':
       return {
         ...state.userData,
         error: true,
         loading: false,
       };
+    case 'RESET_ERROR': {
+      return {
+        ...state.userData,
+        error: null,
+        loading: true,
+      };
+    }
     default:
       return state.userData;
   }

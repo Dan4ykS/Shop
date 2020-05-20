@@ -3,7 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { fetchGoods } from '../actions/goodsList';
 import { onAddedToCart, onDeletedFromCart, loadCart } from '../actions/shopingCart';
-import { authorization, registration, isLogin, isLogout, invalidRoute } from '../actions/userData';
+import { authorization, registration, isLogin, isLogout, invalidRoute, userLogin } from '../actions/userData';
 import { updateTopHeaderMenu } from '../actions/menuItems';
 import { withRouter } from 'react-router-dom';
 import { selectDate } from '../actions/calendarData';
@@ -27,6 +27,7 @@ const mapDispatchToProps = (dispatch, { services }) => {
     selectDate: (date) => dispatch(selectDate(date)),
     updateImg: (img, imgSrc) => dispatch(updateImg(img, imgSrc)),
     invalidRoute: () => dispatch(invalidRoute()),
+    userLogin: (userName, token) => dispatch(userLogin(userName, token)) 
     // loadCartFromServer: (cart) => dispatch(loadCartFromServer(cart)),
     // userLogin: (userName, token) => dispatch(user)
   };

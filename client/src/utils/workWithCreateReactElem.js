@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { scrollToElem, getDateFromLocalStorage } from './workWithBrowser';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { chekUser } from './workWithApiRequest';
+import UsersService from '../services/UsersService';
 
 const createElementWithIcon = (icon, item, className, updated) => {
   const { name, value } = item;
@@ -34,16 +36,21 @@ export const createItems = (items, className, iconsForItems = [], updated = fals
   });
 };
 
-export const configForUthPages = (userName, token, loading, error, invalidRoute) => {
+export const configForUthPages = (userName, token, loading, error, invalidRoute, history) => {
+  console.log('Функция для создания элементов вызвалась!', history);
   return {
     loading: getDateFromLocalStorage('userData') !== null || token !== null ? loading : false,
-    error: userName !== null ? error : null,
-    funcForRender: () => {
-      if (token !== null) {
+    error: null,
+    funcForRender: async () => {
+      try {
+        await UsersService.checkUserValid(getDateFromLocalStorage('userData').token);
         invalidRoute();
+        console.log('Вы уже авторизированы');
+      } catch (error) {
+        return;
       }
     },
-    roteForRedirect: '/',
+    routeForRedirect: '/',
   };
 };
 
@@ -71,7 +78,9 @@ export const switchProductBtn = (userName, ...eventHendlers) => {
       <div className='btnGroup flexWrap'>
         <button>Купить в один клик!</button>
         <button onClick={() => onAddedToCart(id, token)}>В корзину</button>
-        <Link to='/'>Подробнее</Link>
+        <Link className='btn btn-primary' to='/'>
+          Подробнее
+        </Link>
       </div>
     );
   }

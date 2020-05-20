@@ -15,8 +15,8 @@ const ResetPasswordPage = ({ history, actions: { isLogin, loadCart, fetchGoods }
         loading,
         error,
         // eslint-disable-next-line
-        funcForRender: useCallback(() => chekToken(userToken, isLogin, loadCart, fetchGoods), []),
-        roteForRedirect: '/',
+        funcForRender: useCallback(() => console.log('Я вызвалась'), []),
+        routeForRedirect: '/',
       }}
     >
       <div className='row reset justify-content-center'>
