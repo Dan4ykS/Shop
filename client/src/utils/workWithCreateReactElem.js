@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { scrollToElem, getDateFromLocalStorage } from './workWithBrowser';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { chekUser } from './workWithApiRequest';
-import UsersService from '../services/UsersService';
 
 const createElementWithIcon = (icon, item, className, updated) => {
   const { name, value } = item;
@@ -37,20 +35,9 @@ export const createItems = (items, className, iconsForItems = [], updated = fals
 };
 
 export const configForUthPages = (userName, token, loading, error, invalidRoute, history) => {
-  console.log('Функция для создания элементов вызвалась!', history);
   return {
     loading: getDateFromLocalStorage('userData') !== null || token !== null ? loading : false,
-    error: null,
-    funcForRender: async () => {
-      try {
-        await UsersService.checkUserValid(getDateFromLocalStorage('userData').token);
-        invalidRoute();
-        console.log('Вы уже авторизированы');
-      } catch (error) {
-        return;
-      }
-    },
-    routeForRedirect: '/',
+    error
   };
 };
 

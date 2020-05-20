@@ -1,7 +1,6 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import withStore from '../utils/workWithRedux';
-import { getDateFromLocalStorage, logOut } from '../utils/workWithBrowser';
-import { chekUser } from '../utils/workWithApiRequest';
+import {logOut } from '../utils/workWithBrowser';
 import LoadingDataLogic from '../logicComponents/LoadingData';
 
 const AccountPage = ({ userData: { loading, error, userName }, actions: { isLogout, isLogin, loadCart, fetchGoods }, history }) => {
@@ -10,7 +9,6 @@ const AccountPage = ({ userData: { loading, error, userName }, actions: { isLogo
       configData={{
         loading,
         error: userName !== null ? null : error,
-        funcForRender: () => console.log('Я вызвалась!'),
       }}
     >
       <h2>Здесь будет личный кабинет</h2>
@@ -20,4 +18,3 @@ const AccountPage = ({ userData: { loading, error, userName }, actions: { isLogo
 };
 
 export default withStore(AccountPage);
-// () => chekUser(getDateFromLocalStorage('userData'), isLogin, loadCart, fetchGoods, userName);

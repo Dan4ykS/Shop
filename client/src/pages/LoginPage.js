@@ -10,6 +10,7 @@ import { changePasswordType } from '../utils/workWithBrowser';
 import { configForUthPages } from '../utils/workWithCreateReactElem';
 
 const LoginPage = ({ userData: { token, loading, error, userName }, actions: { authorization, invalidRoute }, history }) => {
+  // console.log('Я на странице логина')
   return (
     <LoadingDataLogic configData={configForUthPages(userName, token, loading, error, invalidRoute, history)}>
       <h2>Страница авторизации</h2>

@@ -7,6 +7,7 @@ const updateUserData = (state, action) => {
       loading: true,
     };
   }
+
   switch (action.type) {
     case 'USER_LOGIN':
       return {
@@ -39,7 +40,6 @@ const updateUserData = (state, action) => {
       return {
         ...state.userData,
         error: null,
-        loading: true,
       };
     }
     default:

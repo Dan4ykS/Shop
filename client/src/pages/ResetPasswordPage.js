@@ -1,21 +1,18 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import withStore from '../utils/workWithRedux';
 import LoadingDataLogic from '../logicComponents/LoadingData';
 import { Link } from 'react-router-dom';
-import { chekToken, resetPassword } from '../utils/workWithApiRequest';
+import { resetPassword } from '../utils/workWithApiRequest';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { changePasswordType } from '../utils/workWithBrowser';
 
-const ResetPasswordPage = ({ history, actions: { isLogin, loadCart, fetchGoods }, userData: { error, token, loading } }) => {
-  const userToken = { token: history.location.pathname.split('=')[1] };
+const ResetPasswordPage = ({ userData: { error, token, loading } }) => {
   return (
     <LoadingDataLogic
       configData={{
         loading,
         error,
-        // eslint-disable-next-line
-        funcForRender: useCallback(() => console.log('Я вызвалась'), []),
         routeForRedirect: '/',
       }}
     >

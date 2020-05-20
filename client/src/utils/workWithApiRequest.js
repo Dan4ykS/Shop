@@ -1,5 +1,5 @@
 import UsersService from '../services/UsersService';
-import { clearInputs, findNeedElements, createObjForRequest, isInvalid, redirectToPage } from './workWithBrowser';
+import { clearInputs, findNeedElements, createObjForRequest, isInvalid } from './workWithBrowser';
 
 export const workWithUserApi = async (e, func, selector, history) => {
   e.persist();
@@ -11,27 +11,58 @@ export const workWithUserApi = async (e, func, selector, history) => {
   clearInputs(inputs, mode);
 };
 
-export const chekAccesss = async (userToken, isLogin, loadCart, fetchGoods, invalidRoute, history) => {
-  try {
-    const { token } = userToken;
-    const userName = await isLogin(token);
-    if (userName !== 'admin') {
-      console.log(history);
-      if (history.location.pathname === '/admin') {
+const defaultActions = async (userToken, isLogin, loadCart, fetchGoods, extraParams = {}) => {
+  const { history = null, routeForRedirect = '/', errorMessage = null } = extraParams;
+  if (!userToken) {
+    await isLogin(userToken);
+    return;
+  }
+  const { token } = userToken;
+  const userName = await isLogin(token);
+  if (history) {
+    history.push(routeForRedirect);
+  }
+  if (errorMessage) {
+    alert(errorMessage);
+  }
+  if (userName !== 'admin') {
+    await loadCart(token);
+    await fetchGoods();
+  }
+};
+
+export const chekAccess = async (userToken, isLogin, loadCart, fetchGoods, invalidRoute, history, resetError) => {
+  switch (history.location.pathname.split('/')[1]) {
+    case 'Registration':
+    case 'Login': {
+      const extraParams = { history, errorMessage: 'Вы уже зарегистрированы!' };
+      await defaultActions(userToken, isLogin, loadCart, fetchGoods, extraParams);
+      return;
+    }
+
+    case 'admin': {
+      if (!userToken) {
+        console.log(userToken);
+        await isLogin(userToken);
+        return;
+      }
+      const userName = await isLogin(userToken.token);
+      if (userName !== 'admin') {
         history.push('/MyAccount/');
       }
-      await loadCart(token);
-      await fetchGoods();
-    } else {
-      console.log(history);
+      return;
     }
-  } catch (error) {
-    console.log(history);
-    invalidRoute();
+
+    case 'resetPassword': {
+      const token = { token: history.location.pathname.split('=')[1] };
+      const extraParams = { errorMessage: 'Ваш токен больше не валиден, попробуйте снова!' };
+      await defaultActions(token, isLogin, loadCart, fetchGoods, extraParams);
+      return;
+    }
+
+    default:
+      await defaultActions(userToken, isLogin, loadCart, fetchGoods);
   }
-  // if (!userToken) {
-  //   return;
-  // }
 };
 
 export const resetPassword = async (e, type, token = null) => {
@@ -63,37 +94,5 @@ export const setNewToken = (token) => {
   }
   if (JSON.parse(localStorageUserData).token !== token) {
     localStorage.setItem('userData', JSON.stringify({ token }));
-  }
-};
-
-// export const chekUser = async (userToken, isLogin, loadCart, fetchGoods, userName) => {
-//   if (!userName) {
-//     if (!userToken) {
-//       // console.log('a')
-//       // await isLogin(userToken);
-//     }
-//   }
-// };
-
-export const chekAdmin = async (userToken, userName, isLogin, userLogin, invalidRoute, history) => {
-  if (!userName) {
-    // if (!userToken) {
-    //   await isLogin(userToken);
-    // } else {
-    //   const { token } = userToken;
-    //   try {
-    //     const { userName } = await UsersService.checkUserValid(token);
-    //     console.log(userName);
-    //     if (userName !== 'admin') {
-    //       console.log('Перенаправление!');
-    //       redirectToPage(history, '/MyAccount/');
-    //       return;
-    //     }
-    //     userLogin(userName, token);
-    //   } catch (error) {
-    //     invalidRoute();
-    //     console.log(error);
-    //   }
-    // }
   }
 };

@@ -1,7 +1,6 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
-import { useEffect } from 'react';
 import LoadingIndicator from '../components/LoadingIndicator';
+import { Redirect } from 'react-router-dom';
 
 // const LoadingDataLogic = ({ children, configData: { loading, error, funcForRender, routeForRedirect = '/Login/' } }) => {
 //   useEffect(() => {
@@ -19,8 +18,10 @@ import LoadingIndicator from '../components/LoadingIndicator';
 
 export default class LoadingDataLogic extends React.Component {
   componentDidMount() {
-    // console.log('Вызвался эффект из LodingDataLogic');
-    this.props.configData.funcForRender();
+    const { funcForRender = null } = this.props.configData;
+    if (funcForRender) {
+      funcForRender();
+    }
   }
   render() {
     const { loading, error, routeForRedirect = '/Login/' } = this.props.configData;

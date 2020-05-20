@@ -15,14 +15,14 @@ import RegistrationPage from '../pages/RegistrationPage';
 import withStore from '../utils/workWithRedux';
 import '../styles/scss/App.scss';
 import { Route, Switch } from 'react-router-dom';
-import { chekAccesss } from '../utils/workWithApiRequest';
+import { chekAccess } from '../utils/workWithApiRequest';
 import { getDateFromLocalStorage } from '../utils/workWithBrowser';
 
 const App = ({ userData: { userName }, menuItems: { topItems, mainItems, iconsForItems, updated }, actions: { isLogin, updateTopHeaderMenu, loadCart, fetchGoods, invalidRoute }, history }) => {
   useEffect(() => {
-    console.log('Вызвался UseEffect из App', userName);
-    chekAccesss(getDateFromLocalStorage('userData'), isLogin, loadCart, fetchGoods, invalidRoute, history);
-  }, [isLogin, loadCart, fetchGoods]);
+    // console.log('Вызвался UseEffect из App', userName);
+    chekAccess(getDateFromLocalStorage('userData'), isLogin, loadCart, fetchGoods, invalidRoute, history);
+  }, [isLogin, loadCart, fetchGoods, history, invalidRoute]);
   useEffect(() => {
     // console.log('Вызвался UseEffect из App 2', userName);
     updateTopHeaderMenu(userName);

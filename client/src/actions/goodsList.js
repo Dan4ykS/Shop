@@ -4,12 +4,6 @@ const fetchGoodsRequest = () => {
   };
 };
 
-const resetLoading = () => {
-  return {
-    type: 'RESET_LOADING',
-  };
-};
-
 export const fetchGoodsSuccuess = (goods) => {
   return {
     type: 'FETCH_GOODS_SUCCUESS',
@@ -32,7 +26,6 @@ export const fetchGoods = (dispatch, { goodsService }) => async () => {
     dispatch(fetchGoodsRequest());
     const data = await goodsService.getGoods();
     dispatch(fetchGoodsSuccuess(data));
-    // dispatch(resetLoading());
   } catch (error) {
     dispatch(fetchGoodsFailure(error));
   }

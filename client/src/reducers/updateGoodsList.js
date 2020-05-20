@@ -25,11 +25,6 @@ const updategoodsList = (state, action) => {
         error: action.payload,
         loading: false,
       };
-    case 'RESET_LOADING':
-      return {
-        ...state.goodsList,
-        loading: true,
-      };
     default:
       return state.goodsList;
   }
