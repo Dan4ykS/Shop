@@ -9,10 +9,10 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { changePasswordType } from '../utils/workWithBrowser';
 import { configForUthPages } from '../utils/workWithCreateReactElem';
 
-const LoginPage = ({ userData: { token, loading, error, userName }, actions: { authorization, invalidRoute }, history }) => {
+const LoginPage = ({ userData: { token, loading, error }, actions: { authorization }, history }) => {
   // console.log('Я на странице логина')
   return (
-    <LoadingDataLogic configData={configForUthPages(userName, token, loading, error, invalidRoute, history)}>
+    <LoadingDataLogic configData={configForUthPages(token, loading, error)}>
       <h2>Страница авторизации</h2>
       <div className='row'>
         <div className='authorization col-lg-6'>

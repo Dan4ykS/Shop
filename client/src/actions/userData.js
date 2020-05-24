@@ -1,6 +1,6 @@
 import { clearCart, loadCartFromServer } from './shopingCart';
 import { fetchGoodsSuccuess } from './goodsList';
-import { isInvalid, redirectToPage } from '../utils/workWithBrowser';
+import { isInvalid, redirectToPage, clearInputs } from '../utils/workWithBrowser';
 import { setNewToken } from '../utils/workWithApiRequest';
 
 const createUser = (userName, token) => {
@@ -35,12 +35,12 @@ export const invalidRoute = () => {
   };
 };
 
-const requestsToApi = (dispatch, cart, goods) => {
+const dispatchDataFromApi = (dispatch, cart, goods) => {
   dispatch(loadCartFromServer(cart));
   dispatch(fetchGoodsSuccuess(goods));
 };
 
-export const authorization = (dispatch, { usersService, goodsService }) => async (data, form, history) => {
+export const authorization = (dispatch, { usersService, goodsService }) => async (data, Fromm, history) => {
   try {
     const token = await usersService.authUser(data);
     redirectToPage(history, '/');
@@ -48,25 +48,26 @@ export const authorization = (dispatch, { usersService, goodsService }) => async
     if (data.userName !== 'admin') {
       const cart = await goodsService.loadCart(token);
       const goods = await goodsService.getGoods();
-      requestsToApi(dispatch, cart, goods);
+      dispatchDataFromApi(dispatch, cart, goods);
     }
     setNewToken(token);
   } catch (error) {
-    isInvalid(form);
+    isInvalid(Fromm);
+    clearInputs(Fromm);
   }
 };
 
-export const registration = (dispatch, { usersService, goodsService }) => async (data, form, history) => {
+export const registration = (dispatch, { usersService, goodsService }) => async (data, Fromm, history) => {
   try {
     const token = await usersService.createUser(data);
     redirectToPage(history, '/');
     dispatch(createUser(data.userName, token));
     const cart = await goodsService.loadCart(token);
     const goods = await goodsService.getGoods();
-    requestsToApi(dispatch, cart, goods);
+    dispatchDataFromApi(dispatch, cart, goods);
     setNewToken(token);
   } catch (error) {
-    isInvalid(form);
+    isInvalid(Fromm);
   }
 };
 
@@ -88,5 +89,3 @@ export const isLogout = (dispatch) => () => {
   dispatch(clearCart());
   localStorage.removeItem('userData');
 };
-
-

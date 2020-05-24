@@ -23,8 +23,8 @@ import CreateСommodityPage from '../pages/CreateСommodityPage';
 const App = ({ userData: { userName }, menuItems: { topItems, mainItems, iconsForItems, updated }, actions: { isLogin, updateTopHeaderMenu, loadCart, fetchGoods, invalidRoute }, history }) => {
   useEffect(() => {
     // console.log('Вызвался UseEffect из App', userName);
-    chekAccess(getDateFromLocalStorage('userData'), isLogin, loadCart, fetchGoods, invalidRoute, history);
-  }, [isLogin, loadCart, fetchGoods, history, invalidRoute]);
+    chekAccess(getDateFromLocalStorage('userData'), isLogin, loadCart, fetchGoods, history);
+  }, [isLogin, loadCart, fetchGoods, history]);
   useEffect(() => {
     // console.log('Вызвался UseEffect из App 2', userName);
     updateTopHeaderMenu(userName);

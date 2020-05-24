@@ -69,25 +69,25 @@ export const createObjForRequest = (inputs) => {
   return data;
 };
 
-export const clearInputs = (inputs, mode) => {
+export const clearInputs = ({ inputs, selector }) => {
+  findNeedElements(`${selector} button`)[0].removeAttribute('disabled');
   inputs.forEach((el) => {
-    if (mode) {
-      el.value = '';
-    }
+    el.value = '';
     el.addEventListener('focus', () => {
       inputs.forEach((el) => el.classList.remove('is-invalid'));
       const showPasswordElement = document.querySelector('.showPasswordIcon');
       if (showPasswordElement !== null) {
-        document.querySelector('.showPasswordIcon').style.display = 'block';
+        showPasswordElement.style.display = 'block';
       }
     });
   });
 };
 
-export const isInvalid = (inputs) => {
+export const isInvalid = ({inputs, selector}) => {
+  findNeedElements(`${selector} button`)[0].removeAttribute('disabled');
   const showPasswordElement = document.querySelector('.showPasswordIcon');
   if (showPasswordElement !== null) {
-    document.querySelector('.showPasswordIcon').style.display = 'none';
+   showPasswordElement.style.display = 'none';
   }
   inputs.forEach((el) => el.classList.add('is-invalid'));
 };

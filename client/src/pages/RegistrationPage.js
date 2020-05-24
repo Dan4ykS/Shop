@@ -7,9 +7,9 @@ import { changePasswordType } from '../utils/workWithBrowser';
 import { workWithUserApi } from '../utils/workWithApiRequest';
 import { configForUthPages } from '../utils/workWithCreateReactElem';
 
-const RegistrationPage = ({ userData: { token, loading, error, userName }, actions: { registration, invalidRoute }, history }) => {
+const RegistrationPage = ({ userData: { token, loading }, actions: { registration }, history }) => {
   return (
-    <LoadingDataLogic configData={configForUthPages(userName, token, loading, error, invalidRoute)}>
+    <LoadingDataLogic configData={configForUthPages(token, loading)}>
       <h2>Регистрация</h2>
       <div className='row justify-content-center'>
         <form className='registration col-lg-6' onSubmit={(e) => workWithUserApi(e, registration, '.registration', history)}>

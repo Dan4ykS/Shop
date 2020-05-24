@@ -34,7 +34,7 @@ export const createItems = (items, className, iconsForItems = [], updated = fals
   });
 };
 
-export const configForUthPages = (userName, token, loading, error, invalidRoute, history) => {
+export const configForUthPages = (token, loading, error) => {
   return {
     loading: getDateFromLocalStorage('userData') !== null || token !== null ? loading : false,
     error,
@@ -74,7 +74,7 @@ export const switchProductBtn = (userName, ...eventHendlers) => {
 };
 
 export const setValues = (data) => {
-  console.log('cascdscds')
+  console.log('cascdscds');
   const elementsForSetData = document.querySelectorAll('[name=forSetData]');
-  elementsForSetData.forEach((element, index) => element.value = data[index])
+  elementsForSetData.forEach((element, index) => (element.value = data[index]));
 };

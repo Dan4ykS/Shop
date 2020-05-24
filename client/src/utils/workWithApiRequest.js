@@ -1,14 +1,12 @@
 import UsersService from '../services/UsersService';
 import { clearInputs, findNeedElements, createObjForRequest, isInvalid } from './workWithBrowser';
 
-export const workWithUserApi = async (e, func, selector, history) => {
-  e.persist();
+export const workWithUserApi = (e, requestsToApi, selector, history) => {
   e.preventDefault();
+  findNeedElements(`${selector} button`)[0].setAttribute('disabled', true);
   const inputs = findNeedElements(`${selector} .form-control`);
   const data = createObjForRequest(inputs);
-  await func(data, inputs, history);
-  const mode = e.target.classList.value === 'registrationForm' ? false : true;
-  clearInputs(inputs, mode);
+  requestsToApi(data, { inputs, selector }, history);
 };
 
 const defaultActions = async (userToken, isLogin, loadCart, fetchGoods, extraParams = {}) => {
@@ -19,10 +17,11 @@ const defaultActions = async (userToken, isLogin, loadCart, fetchGoods, extraPar
   }
   const { token } = userToken;
   const userName = await isLogin(token);
+  console.log(userName);
   if (history) {
     history.push(routeForRedirect);
   }
-  if (errorMessage) {
+  if (errorMessage && !userName) {
     alert(errorMessage);
   }
   if (userName !== 'admin') {
@@ -31,8 +30,8 @@ const defaultActions = async (userToken, isLogin, loadCart, fetchGoods, extraPar
   }
 };
 
-export const chekAccess = async (userToken, isLogin, loadCart, fetchGoods, invalidRoute, history, resetError) => {
-  console.log(history.location);
+export const chekAccess = async (userToken, isLogin, loadCart, fetchGoods, history) => {
+  // console.log(history.location);
   switch (history.location.pathname.split('/')[1]) {
     case 'Registration':
     case 'Login': {
@@ -49,7 +48,7 @@ export const chekAccess = async (userToken, isLogin, loadCart, fetchGoods, inval
           // alert(`Вы хотите редактировать товар с id=${pathParams.split('?')[2].split('=')[1]}`);
         }
       }
-      
+
       if (!userToken) {
         console.log(userToken);
         await isLogin(userToken);
