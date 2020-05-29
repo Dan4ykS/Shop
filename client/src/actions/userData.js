@@ -40,7 +40,7 @@ const dispatchDataFromApi = (dispatch, cart, goods) => {
   dispatch(fetchGoodsSuccuess(goods));
 };
 
-export const authorization = (dispatch, { usersService, goodsService }) => async (data, Fromm, history) => {
+export const authorization = (dispatch, { usersService, goodsService }) => async (data, form, history) => {
   try {
     const token = await usersService.authUser(data);
     redirectToPage(history, '/');
@@ -52,12 +52,12 @@ export const authorization = (dispatch, { usersService, goodsService }) => async
     }
     setNewToken(token);
   } catch (error) {
-    isInvalid(Fromm);
-    clearInputs(Fromm);
+    isInvalid(form);
+    clearInputs(form);
   }
 };
 
-export const registration = (dispatch, { usersService, goodsService }) => async (data, Fromm, history) => {
+export const registration = (dispatch, { usersService, goodsService }) => async (data, form, history) => {
   try {
     const token = await usersService.createUser(data);
     redirectToPage(history, '/');
@@ -67,7 +67,8 @@ export const registration = (dispatch, { usersService, goodsService }) => async 
     dispatchDataFromApi(dispatch, cart, goods);
     setNewToken(token);
   } catch (error) {
-    isInvalid(Fromm);
+    isInvalid(form);
+    clearInputs(form);
   }
 };
 

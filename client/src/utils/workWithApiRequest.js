@@ -18,12 +18,12 @@ const defaultActions = async (userToken, isLogin, loadCart, fetchGoods, extraPar
   const { token } = userToken;
   const userName = await isLogin(token);
   console.log(userName);
-  if (history) {
+  if (history && userName) {
     history.push(routeForRedirect);
   }
-  if (errorMessage && !userName) {
-    alert(errorMessage);
-  }
+  // if (errorMessage && !userName) {
+  //   alert(errorMessage);
+  // }
   if (userName !== 'admin') {
     await loadCart(token);
     await fetchGoods();

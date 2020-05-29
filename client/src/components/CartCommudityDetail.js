@@ -8,9 +8,7 @@ const CartCommudityDetail = ({ data: { id, img, title, price, copies }, token, a
       <div className='flexWrap'>
         <img className='cartItem__img' src={`/${img}`} alt={`img:${id}`} />
         <div className='cartItem__info'>Книга "{title}"</div>
-        <div className='cartItem__copies flexWrap'>
-          <ChangeCopies onDeletedFromCart={onDeletedFromCart} bookId={id} onAddedToCart={onAddedToCart} token={token} copies={copies} />
-        </div>
+        <ChangeCopies onDeletedFromCart={onDeletedFromCart} bookId={id} onAddedToCart={onAddedToCart} token={token} copies={copies} />
         <div className='cartItem__price'>Сумма: {price}</div>
       </div>
     </div>

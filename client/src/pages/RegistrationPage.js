@@ -36,8 +36,8 @@ const RegistrationPage = ({ userData: { token, loading }, actions: { registratio
               <div className='invalid-feedback'>Изините, но такая почта уже используется</div>
             </div>
           </div>
-          <div className='col-8 offset-4 text-right' role='group'>
-            <button type='submit' className='btn btn-primary'>
+          <div className='col-12 text-center' role='group'>
+            <button type='submit' style={{ width: '100%' }} className='btn btn-primary'>
               Зарегистрироваться
             </button>
           </div>
