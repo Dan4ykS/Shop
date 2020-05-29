@@ -2,22 +2,22 @@ import BaseApiClass from './BaseApiClass';
 
 class UsersService extends BaseApiClass {
   createUser = async (data) => {
-    return await this._requestToApi('POST', 'createUser', data);
+    return await this.requestToApi('POST', 'createUser', data);
   };
   authUser = async (data) => {
-    return await this._requestToApi('POST', 'authUser', data);
+    return await this.requestToApi('POST', 'authUser', data);
   };
   getUserById = async (id) => {
-    return await this._requestToApi('POST', 'getUser', id);
+    return await this.requestToApi('POST', 'getUser', id);
   };
   checkUserValid = async (token) => {
-    return await this._requestToApi('GET', 'isValid', {}, this._headerWithToken(token));
+    return await this.requestToApi('GET', 'isValid', {}, this.headerWithToken(token));
   };
   resetPassword = async (email) => {
-    return await this._requestToApi('POST', 'resetPassword', email);
+    return await this.requestToApi('POST', 'resetPassword', email);
   };
   createNewPassword = async (token, password) => {
-    return await this._requestToApi('PATCH', 'createNewPassword', password, this._headerWithToken(token));
+    return await this.requestToApi('PATCH', 'createNewPassword', password, this.headerWithToken(token));
   };
   testData = async (data) => {
     console.log(data)

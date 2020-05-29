@@ -1,6 +1,6 @@
 export default class BaseApiClass {
-  _paiBase = '/api/';
-  _requestToApi = async (method, url, data, requestHeaders) => {
+  #apiBase = '/api/';
+  requestToApi = async (method, url, data, requestHeaders) => {
     let headers;
     if (['POST', 'PATCH', 'DELETE'].includes(method)) {
       headers = { ...requestHeaders, 'Content-Type': 'application/json;charset=utf-8' };
@@ -8,17 +8,18 @@ export default class BaseApiClass {
       headers = { ...requestHeaders };
     }
     const body = Object.keys(data).length !== 0 ? JSON.stringify(data) : null;
-    const request = await fetch(`${this._paiBase}${url}`, {
+    const request = await fetch(`${this.#apiBase}${url}`, {
       method,
       headers,
       body,
     });
     if (!request.ok) {
-      throw new Error(`Ошибка ${request.massage}`);
+      const { message } = await request.json()
+      throw new Error(`Ошибка ${message}`);
     }
     return await request.json();
   };
-  _headerWithToken = (token) => ({
+  headerWithToken = (token) => ({
     Authentication: `token ${token}`,
   });
 }
