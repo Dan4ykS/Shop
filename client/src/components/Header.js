@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import '../styles/scss/Header.scss';
 import { createItems } from '../utils/workWithCreateReactElem';
 import { headerFixMenu } from '../utils/workWithBrowser';
-import '../styles/scss/Header.scss';
 
 const Header = ({ mainItems: itemsMain, topItems: itemsTop, iconsForItems, updated, userName }) => {
-  headerFixMenu();
+  useEffect(() => {
+    headerFixMenu();
+  }, []);
+  
   const { headerIcons } = iconsForItems;
   const mainItems = createItems(itemsMain, 'header__item header__main_item');
   const topItems = createItems(itemsTop, 'header__item', headerIcons, updated);

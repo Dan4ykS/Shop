@@ -12,7 +12,6 @@ export const uploadFile = (file, updateFileDataFunc) => {
 
 const preventDefault = (e) => {
   e.preventDefault();
-  console.log(e.currentTarget);
   if (e.currentTarget.classList.contains('fileUploader')) {
     e.stopPropagation();
 

@@ -2,7 +2,7 @@ const updategoodsList = (state, action) => {
   if (state === undefined) {
     return {
       goods: [],
-      loading: null,
+      loading: true,
       error: null,
     };
   }

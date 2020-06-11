@@ -16,6 +16,10 @@ class GoodsService extends BaseApiClass {
   removeFormCart = async (id, token) => {
     return await this.requestToApi('DELETE', `removeFormCart/${id}`, {}, this.headerWithToken(token));
   };
+
+  getCommodity = async (id, token) => {
+    return await this.requestToApi('GET', `findCommodity/${id}`, {}, this.headerWithToken(token));
+  };
 }
 
 export default new GoodsService();

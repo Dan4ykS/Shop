@@ -1,8 +1,8 @@
 import React from 'react';
 
-const RenderList = ({ listForRender, ComponentForRender, ComponentForNoData = null, ...extraParams }) => {
+const RenderList = ({ listForRender, ComponentForRender, ComponentWithoutData = null, ...extraParams }) => {
   if (listForRender.length === 0) {
-    const componentForRender = ComponentForNoData ? ComponentForNoData : null;
+    const componentForRender = ComponentWithoutData ? ComponentWithoutData : null;
     return <>{componentForRender}</>;
   }
   return (

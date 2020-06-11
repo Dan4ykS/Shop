@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../styles/scss/Footer.scss';
 import { Link } from 'react-scroll';
 import { feedbackMouseEnter, feedbackMouseLeave, showHidenElements, redirectToLink } from '../utils/workWithBrowser';
@@ -7,7 +7,10 @@ import { faPhone, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { faInstagram, faVk, faFacebook } from '@fortawesome/free-brands-svg-icons';
 
 const Footer = () => {
-  showHidenElements();
+  useEffect(() => {
+    showHidenElements();
+  }, []);
+  
   return (
     <footer className='footer'>
       <Link className='upArrow hidenElem' to='header' smooth={true}>

@@ -1,4 +1,4 @@
-import { changeArrayElement, removeArrayElement } from "../utils/workWithRedux";
+import { changeArrayElement, removeArrayElement } from '../utils/workWithRedux';
 
 const updateCartItem = (book, item = {}, quantity) => {
   const { id = book._id, title = book.title, copies = 0, price = 0, img = book.previewImg } = item;
@@ -52,6 +52,7 @@ const updateShopingCart = (state, action) => {
     return {
       cart: [],
       totalPrice: 0,
+      loading: true,
     };
   }
 
@@ -60,6 +61,7 @@ const updateShopingCart = (state, action) => {
       return {
         cart: transformCartItems(action.payload.userCart),
         totalPrice: action.payload.totalPrice,
+        loading: false
       };
     case 'BOOK_ADD_TO_CART':
       return updateOrder(state, action.payload, 1);

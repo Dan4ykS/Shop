@@ -3,18 +3,20 @@ import FileUploader from './FileUploader';
 import '../styles/scss/DetailForWorkWithCommodity.scss';
 import { setValues } from '../utils/workWithCreateReactElem';
 import withStore from '../utils/workWithRedux';
-
+/**
+ * 
+ * Подумать над тем нужно ли подключать компонент к Store
+ */
 const DetailForWorkWithCommodity = ({ data = null, actions: { updateImg, updatePreviewImg } }) => {
   useEffect(() => {
     if (data) {
-      const { previewImg, img } = data;
-      const valuesForElement = [];
-      for (const key in data) {
-        if (key !== 'previewImg' || key !== 'img') {
-          valuesForElement.push(data[key]);
-        }
+    const valuesForElement = [];
+    for (const key in data) {
+      if (key !== 'previewImg' || key !== 'img') {
+        valuesForElement.push(data[key]);
       }
-      setValues(valuesForElement);
+    }
+    setValues(valuesForElement);  
     }
   }, [data]);
   return (

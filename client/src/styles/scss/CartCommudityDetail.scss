@@ -8,6 +8,9 @@
   &__info {
     padding: 3px 10px;
     width: 50%;
+    a{
+      color: $textColor2;
+    }
   }
   &__copies {
     padding: 0 3px;
