@@ -9,6 +9,7 @@ import withStore from '../utils/workWithRedux';
  */
 const DetailForWorkWithCommodity = ({ data = null, actions: { updateImg, updatePreviewImg } }) => {
   useEffect(() => {
+    console.log(data)
     if (data) {
     const valuesForElement = [];
     for (const key in data) {

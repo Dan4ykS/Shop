@@ -2,23 +2,26 @@ import React, { useMemo } from 'react';
 import LoadingDataLogic from '../logicComponents/LoadingData';
 import withStore from '../utils/workWithRedux';
 import DetailForWorkWithCommodity from '../components/DetailForWorkWithCommodity';
+import { findId } from '../utils/workWithBrowser';
 
-const UpdateCommodityPage = ({ commodityData: { loading, error } }) => {
+const UpdateCommodityPage = ({ commodityData: { loading, error: noCommodity, title, shortDescr, descr, previewImg, previewImgSrc }, actions: { fetchCommodity }, userData: { token, error: invalidUser }, history }) => {
   return (
     <LoadingDataLogic
       configData={{
-        loading: false,
-        error,
+        loading,
+        error: invalidUser ? invalidUser : noCommodity,
+        funcForRender: token ? () => fetchCommodity(findId(history), token, history) : null,
       }}
     >
       <DetailForWorkWithCommodity
         data={useMemo(
           () => ({
-            title: 'Ведьмак',
-            shortDescr: 'Описание 3',
-            descr: '«Сага о ведьмаке» — цикл книг польского писателя Анджея Сапковского в жанре фэнтези. Первый рассказ цикла увидел свет в 1986 году, а последняя книга — в 2013.',
+            title,
+            shortDescr,
+            descr,
+            previewImgSrc
           }),
-          []
+          [title, descr, shortDescr, previewImgSrc]
         )}
       />
     </LoadingDataLogic>

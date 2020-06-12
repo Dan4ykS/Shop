@@ -108,6 +108,10 @@ export const redirectToPage = (history, page) => {
   history.push(page);
 };
 
+export const findId = (history) => { 
+  return history.location.pathname.split('/').find((el) => el.match(/[0-9]/));
+}
+
 export const getDateFromLocalStorage = (name) => {
   return JSON.parse(localStorage.getItem(name));
 };

@@ -14,11 +14,11 @@ const goods = new Schema({
     type: String,
     required: true,
   },
-  previewImg: {
+  previewImgSrc: {
     type: String,
     required: true,
   },
-  img: {
+  imgSrc: {
     type: String
   },
   price: {

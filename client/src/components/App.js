@@ -21,11 +21,11 @@ import { Route, Switch } from 'react-router-dom';
 import { getDateFromLocalStorage } from '../utils/workWithBrowser';
 import { chekAccess } from '../access';
 
-const App = ({ userData: { userName }, menuItems: { topItems, mainItems, iconsForItems, updated }, actions: { isLogin, updateTopHeaderMenu, loadCart, fetchGoods, invalidRoute }, history }) => {
+const App = ({ userData: { userName }, menuItems: { topItems, mainItems, iconsForItems, updated }, actions: { isLogin, updateTopHeaderMenu, loadCart, fetchGoods, fetchCommodity }, history }) => {
   useEffect(() => {
     // console.log('Вызвался UseEffect из App', userName);
-    chekAccess(getDateFromLocalStorage('userData'), isLogin, loadCart, fetchGoods, history);
-  }, [isLogin, loadCart, fetchGoods, history]);
+    chekAccess(getDateFromLocalStorage('userData'), isLogin, loadCart, fetchGoods, fetchCommodity, history);
+  }, [isLogin, loadCart, fetchGoods, fetchCommodity, history]);
   useEffect(() => {
     // console.log('Вызвался UseEffect из App 2', userName);
     updateTopHeaderMenu(userName);
