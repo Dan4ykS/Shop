@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 body {
   background: url("../../img/mainBg.jpg") center/cover no-repeat fixed;
   font-family: "Roboto", sans-serif;
@@ -69,6 +71,26 @@ body {
     justify-content: space-around;
   }
 
+  .flexWrap_center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .flexWrapColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .flexWrapColumn_center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   .hidenElem {
     display: none;
   }
@@ -82,7 +104,16 @@ body {
 
   .btnGroup {
     // padding: 0;
-    
     justify-content: space-between;
+  }
+
+  .modalWraper {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    background-color: $hidenFormBg;
   }
 }

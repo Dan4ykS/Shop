@@ -15,7 +15,6 @@ const updateCommodityData = (state, action) => {
   }
   switch (action.type) {
     case 'FETCH_COMMODITY_SUCCUESS':
-      console.log(action.payload)
       return {
         ...state.commodityData,
         ...action.payload,
@@ -42,12 +41,14 @@ const updateCommodityData = (state, action) => {
         img: action.payload.img,
         imgSrc: action.payload.imgSrc,
       };
+    
     case 'UPDATE_PREVIWIMG':
       return {
         ...state.commodityData,
         previewImg: action.payload.img,
         previewImgSrc: action.payload.imgSrc,
       };
+    
     default:
       return state.commodityData;
   }

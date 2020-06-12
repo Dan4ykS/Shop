@@ -77,3 +77,16 @@ export const setValues = (data) => {
   const elementsForSetData = document.querySelectorAll('[name=forSetData]');
   elementsForSetData.forEach((element, index) => (element.value = data[index]));
 };
+
+export const createUpdateImgBtn = (updateFunc, img, imgSrc) => {
+  return (
+    <button className='btn btn-success'
+      onClick={(e) => {
+        e.preventDefault();
+        updateFunc(img, imgSrc);
+      }}
+    >
+      Обновить изображение
+    </button>
+  );
+};

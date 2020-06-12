@@ -1,23 +1,24 @@
 import React, { useEffect } from 'react';
-import FileUploader from './FileUploader';
-import '../styles/scss/DetailForWorkWithCommodity.scss';
+import '../styles/scss/ChangeCommodityDetail.scss';
 import { setValues } from '../utils/workWithCreateReactElem';
-import withStore from '../utils/workWithRedux';
+import ImgUploader from './ImgUploader';
+
 /**
- * 
+ *
  * Подумать над тем нужно ли подключать компонент к Store
  */
-const DetailForWorkWithCommodity = ({ data = null, actions: { updateImg, updatePreviewImg } }) => {
+
+const ChangeCommodityDetail = ({ data = null, actions: { updateImg, updatePreviewImg } }) => {
   useEffect(() => {
-    console.log(data)
+    // console.log(data)
     if (data) {
-    const valuesForElement = [];
-    for (const key in data) {
-      if (key !== 'previewImg' || key !== 'img') {
-        valuesForElement.push(data[key]);
+      const valuesForElement = [];
+      for (const key in data) {
+        if (key !== 'previewImg' || key !== 'img') {
+          valuesForElement.push(data[key]);
+        }
       }
-    }
-    setValues(valuesForElement);  
+      setValues(valuesForElement);
     }
   }, [data]);
   return (
@@ -36,8 +37,8 @@ const DetailForWorkWithCommodity = ({ data = null, actions: { updateImg, updateP
       </div>
       <div className='form-group row'>
         <label className='col-sm-3'>Превью:</label>
-        <div className='col-sm-9'>
-          <FileUploader action={updatePreviewImg} />
+        <div className='col-sm-9' style={{position: 'static'}}>
+          <ImgUploader imgSrc={data?.previewImgSrc} actionForUpload={updatePreviewImg} />
         </div>
       </div>
       <div className='form-group row'>
@@ -49,11 +50,11 @@ const DetailForWorkWithCommodity = ({ data = null, actions: { updateImg, updateP
       <div className='form-group row'>
         <label className='col-sm-3'>Изображение:</label>
         <div className='col-sm-9'>
-          <FileUploader action={updateImg} />
+          <ImgUploader imgSrc={data?.imgSrc} actionForUpload={updateImg} />
         </div>
       </div>
     </form>
   );
 };
 
-export default withStore(DetailForWorkWithCommodity);
+export default ChangeCommodityDetail;

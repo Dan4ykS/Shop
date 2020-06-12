@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import LoadingDataLogic from '../logicComponents/LoadingData';
 import withStore from '../utils/workWithRedux';
-import DetailForWorkWithCommodity from '../components/DetailForWorkWithCommodity';
+import ChangeCommodityDetail from '../components/ChangeCommodityDetail';
 import { findId } from '../utils/workWithBrowser';
 
-const UpdateCommodityPage = ({ commodityData: { loading, error: noCommodity, title, shortDescr, descr, previewImg, previewImgSrc }, actions: { fetchCommodity }, userData: { token, error: invalidUser }, history }) => {
+const UpdateCommodityPage = ({ commodityData: { loading, error: noCommodity, title, shortDescr, descr, previewImg, previewImgSrc }, actions: { fetchCommodity, updateImg, updatePreviewImg }, userData: { token, error: invalidUser }, history }) => {
   return (
     <LoadingDataLogic
       configData={{
@@ -13,7 +13,7 @@ const UpdateCommodityPage = ({ commodityData: { loading, error: noCommodity, tit
         funcForRender: token ? () => fetchCommodity(findId(history), token, history) : null,
       }}
     >
-      <DetailForWorkWithCommodity
+      <ChangeCommodityDetail
         data={useMemo(
           () => ({
             title,
@@ -23,6 +23,10 @@ const UpdateCommodityPage = ({ commodityData: { loading, error: noCommodity, tit
           }),
           [title, descr, shortDescr, previewImgSrc]
         )}
+        actions={
+          updatePreviewImg,
+          updateImg
+        }
       />
     </LoadingDataLogic>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import LoadingDataLogic from '../logicComponents/LoadingData';
 import withStore from '../utils/workWithRedux';
-import DetailForWorkWithCommodity from '../components/DetailForWorkWithCommodity';
+import ChangeCommodityDetail from '../components/ChangeCommodityDetail';
 
 const CreateСommodityPage = ({ userData: { loading, error } }) => {
   return (
@@ -11,7 +11,7 @@ const CreateСommodityPage = ({ userData: { loading, error } }) => {
         error,
       }}
     >
-      <DetailForWorkWithCommodity />
+      <ChangeCommodityDetail />
     </LoadingDataLogic>
   );
 };

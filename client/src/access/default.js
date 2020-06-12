@@ -5,7 +5,6 @@ export const defaultActions = async (localStorageData, isLogin, loadCart, fetchG
   }
   const { token } = localStorageData;
   const userName = await isLogin(token);
-  console.log(userName);
   if (errorFunc) {
     errorFunc(userName);
   }

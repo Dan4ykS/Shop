@@ -46,8 +46,8 @@ export const headerFixMenu = () => {
   });
 };
 
-export const scrollToElem = (elem) => {
-  document.querySelector(`.${elem}`).scrollIntoView({
+export const scrollToElem = (updateImgComp) => {
+  document.querySelector(`.${updateImgComp}`).scrollIntoView({
     behavior: 'smooth',
     block: 'start',
   });
@@ -59,6 +59,10 @@ export const redirectToLink = (link) => {
 
 export const findNeedElements = (selector) => {
   return document.querySelectorAll(selector);
+};
+
+export const findNeedElement = (selector) => {
+  return document.querySelector(selector);
 };
 
 export const createObjForRequest = (inputs) => {
@@ -83,11 +87,11 @@ export const clearInputs = ({ inputs, selector }) => {
   });
 };
 
-export const isInvalid = ({inputs, selector}) => {
+export const isInvalid = ({ inputs, selector }) => {
   findNeedElements(`${selector} button`)[0].removeAttribute('disabled');
   const showPasswordElement = document.querySelector('.showPasswordIcon');
   if (showPasswordElement !== null) {
-   showPasswordElement.style.display = 'none';
+    showPasswordElement.style.display = 'none';
   }
   inputs.forEach((el) => el.classList.add('is-invalid'));
 };
@@ -108,9 +112,9 @@ export const redirectToPage = (history, page) => {
   history.push(page);
 };
 
-export const findId = (history) => { 
+export const findId = (history) => {
   return history.location.pathname.split('/').find((el) => el.match(/[0-9]/));
-}
+};
 
 export const getDateFromLocalStorage = (name) => {
   return JSON.parse(localStorage.getItem(name));
@@ -119,4 +123,28 @@ export const getDateFromLocalStorage = (name) => {
 export const logOut = (func, history) => {
   redirectToPage(history, '/');
   func();
+};
+
+export const actionsForUpdateImgCopm = () => {
+  const modalWraper = findNeedElement('.modalWraper'),
+    body = findNeedElement('body'),
+    menu = findNeedElement('nav');
+
+  modalWraper.classList.remove('hidenElem');
+  const scrollWidth = +window.innerWidth - +menu.clientWidth;
+  if (scrollWidth > 0) {
+    body.style.marginRight = `${scrollWidth}px`;
+  }
+  body.style.overflow = 'hidden';
+
+  modalWraper.addEventListener('click', (e) => {
+    // if (e.target.dataset.close && e.target.dataset?.values) {
+    //   console.log(JSON.parse(e.target.dataset.values));
+    // }
+    if (e.target.dataset.close) {
+      modalWraper.classList.add('hidenElem');
+      body.style.overflow = 'auto';
+      body.style.marginRight = '0px';
+    }
+  });
 };

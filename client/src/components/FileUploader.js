@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { triggerUploadInput, uploadFile, preventDefaultFaileUpload, removePreventDefault, dragAndDropForFile } from '../utils/workWithFiles';
 
-const FileUploader = ({ action }) => {
+const FileUploader = ({ action, text = 'Загрузить файл' }) => {
   useEffect(() => {
     preventDefaultFaileUpload();
     dragAndDropForFile(action);
@@ -28,7 +28,7 @@ const FileUploader = ({ action }) => {
         }}
         className='btn btn-danger'
       >
-        Загрузить файл
+        {text}
         <FontAwesomeIcon icon={faUpload} />
       </button>
       <div className='fileUploader__dndText hidenElem'>Место для загрузки файла</div>

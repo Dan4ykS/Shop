@@ -1,0 +1,30 @@
+@import "./variables.scss";
+
+.updateImg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 70%;
+  background-color: $textColor;
+  border-radius: 10px;
+  padding: 20px;
+  transform: translateX(-50%) translateY(-50%);
+  span {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    right: 1%;
+    top: 0;
+    font-size: 40px;
+    height: 40px;
+    cursor: pointer;
+  }
+  &__preview {
+    img {
+      max-width: 100%;
+      max-height: 580px;
+      box-shadow: 20px 10px 30px rgba(0,0,0,0.5);
+    }
+  }
+}
