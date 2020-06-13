@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch, { services }) => {
     invalidRoute: () => dispatch(invalidRoute()),
     userLogin: (userName, token) => dispatch(userLogin(userName, token)),
     updatePreviewImg: (previewImg, previewImgSrc) => dispatch(updatePreviewImg(previewImg, previewImgSrc)),
-    fetchCommodity: fetchCommodity(dispatch, services)
+    fetchCommodity: fetchCommodity(dispatch, services),
   };
   return { actions };
 };
@@ -40,6 +40,19 @@ export const changeArrayElement = (array, indexElForChange, newElement) => {
 export const removeArrayElement = (array, indexElForRemove) => {
   return [...array.slice(0, indexElForRemove), ...array.slice(indexElForRemove + 1)];
 };
+
+// export const transformDataFromServer = (data, extraConditionals) => {
+//   const extraDataToConvert = extraConditionals.map((obj) => { 
+//     for (const key in obj) {
+//       return {key: obj[key]}
+//     }
+//   })
+//   return data.map((el) => ({
+//     ...el,
+//     id: el._id,
+//     ...extraConditionals[0]: ...extraConditionals[1]
+//   }));
+// };
 
 const withStore = (Component) => compose(withServices(), connect(mapStateToProps, mapDispatchToProps))(withRouter(Component));
 

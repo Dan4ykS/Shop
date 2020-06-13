@@ -1,13 +1,13 @@
 import { changeArrayElement, removeArrayElement } from '../utils/workWithRedux';
 
 const updateCartItem = (book, item = {}, quantity) => {
-  const { id = book._id, title = book.title, copies = 0, price = 0, img = book.previewImg } = item;
+  const { id = book._id, title = book.title, copies = 0, price = 0, imgSrc = book.previewImgSrc } = item;
   return {
     id,
     title,
     copies: copies + quantity,
     price: price + quantity * book.price,
-    img,
+    imgSrc,
   };
 };
 
@@ -37,16 +37,6 @@ const updateOrder = (state, bookId, quantity) => {
   };
 };
 
-const transformCartItems = (userCart) => {
-  return userCart.map((item) => {
-    return {
-      ...item,
-      id: item._id,
-      img: item.previewImg,
-    };
-  });
-};
-
 const updateShopingCart = (state, action) => {
   if (state === undefined) {
     return {
@@ -59,7 +49,7 @@ const updateShopingCart = (state, action) => {
   switch (action.type) {
     case 'LOAD_CART_FROM_SERVER':
       return {
-        cart: transformCartItems(action.payload.userCart),
+        cart: action.payload.userCart,
         totalPrice: action.payload.totalPrice,
         loading: false
       };
@@ -78,28 +68,3 @@ const updateShopingCart = (state, action) => {
 };
 
 export default updateShopingCart;
-
-// Добавить поддержку загрузки данных из корзины (подумать над реализацией синхронизации товаров в state и с сервера)
-// const loadingCartItems = (state, data) => {
-//   const {
-//     shopingCart: { cart },
-//     goodsList: { goods },
-//   } = state;
-//   if (cart.length !== 0) {
-//     const stateSopingCartBooksId = cart.map((item) => item.id);
-//     const serverSopingCartBooksId = data.map((item) => item.id);
-//     const allId = [...stateSopingCartBooksId, ...serverSopingCartBooksId];
-//   }
-// };
-// case 'FETCH_CARTITEMS_SUCCUESS':
-//       return {
-//         cart: action.payload,
-//         loading: false,
-//         error: null,
-//       };
-//     case 'FETCH_CARTITEMS_FAILURE':
-//       return {
-//         cart: [],
-//         loading: false,
-//         error: action.payload,
-//       };

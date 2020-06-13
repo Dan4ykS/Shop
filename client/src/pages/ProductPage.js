@@ -14,7 +14,7 @@ const ProductPage = ({ goodsList: { goods, loading, error }, actions, userData: 
       configData={{
         loading,
         error,
-        funcForRender:  !getDateFromLocalStorage('userData') ? actions.fetchGoods : null,
+        funcForRender: !getDateFromLocalStorage('userData') || userName === 'admin' ? actions.fetchGoods : null,
         routeForRedirect: '/',
       }}
     >

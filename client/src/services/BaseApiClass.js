@@ -1,24 +1,51 @@
 export default class BaseApiClass {
   #apiBase = '/api/';
-  requestToApi = async (method, url, data, requestHeaders) => {
+
+  #setHeaders = (method, requestHeaders, data) => {
     let headers;
-    if (['POST', 'PATCH', 'DELETE'].includes(method)) {
-      headers = { ...requestHeaders, 'Content-Type': 'application/json;charset=utf-8' };
-    } else {
+    if (data?.withFiles || method === 'GET') {
       headers = { ...requestHeaders };
+    } else {
+      headers = { ...requestHeaders, 'Content-Type': 'application/json;charset=utf-8' };
     }
-    const body = Object.keys(data).length !== 0 ? JSON.stringify(data) : null;
+    return headers;
+  };
+
+  #createBodyForRequest = (data) => {
+    let body;
+    if (data) {
+      if (data?.withFiles) {
+        const formData = new FormData();
+        delete data.withFiles;
+        for (const key in data) {
+          console.log(key, data[key])
+          formData.append(key, data[key]);
+        }
+        // console.log(formData, data)
+        body = formData;
+      } else {
+        body = JSON.stringify(data);
+      }
+    } else {
+      body = null;
+    }
+    console.log(body)
+    return body;
+  };
+
+  requestToApi = async (method, url, data, requestHeaders) => {
     const request = await fetch(`${this.#apiBase}${url}`, {
       method,
-      headers,
-      body,
+      headers: this.#setHeaders(method, requestHeaders, data),
+      body: this.#createBodyForRequest(data),
     });
     if (!request.ok) {
-      const { message } = await request.json()
+      const { message } = await request.json();
       throw new Error(`Ошибка ${message}`);
     }
     return await request.json();
   };
+
   headerWithToken = (token) => ({
     Authentication: `token ${token}`,
   });

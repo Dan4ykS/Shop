@@ -5,9 +5,10 @@ const bcrypt = require('bcryptjs');
 const sendRegistationLetter = require('../mail/registation');
 const sendResetPasswordLetter = require('../mail/resetPassword');
 const auth = require('../middlewares/auth.middleware');
-const authAdmin = require('../middlewares/authAdmin.middleware')
+const authAdmin = require('../middlewares/authAdmin.middleware');
 const createJwtToken = require('../utils/createJwtToken');
 const errorHandler = require('../utils/errorHandler');
+const uploadFile = require('../middlewares/uploadFile.middleware');
 
 const router = Router();
 

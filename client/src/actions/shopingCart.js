@@ -13,9 +13,17 @@ const commodityDeletedFromCart = (bookId) => {
 };
 
 export const loadCartFromServer = (cart) => {
+  const payload = {
+    ...cart,
+    userCart: cart.userCart.map((el) => ({
+      ...el,
+      id: el._id,
+      imgSrc: el.previewImgSrc,
+    })),
+  };
   return {
     type: 'LOAD_CART_FROM_SERVER',
-    payload: cart,
+    payload,
   };
 };
 

@@ -11,7 +11,7 @@ class UsersService extends BaseApiClass {
     return await this.requestToApi('POST', 'getUser', id);
   };
   checkUserValid = async (token) => {
-    return await this.requestToApi('GET', 'isValid', {}, this.headerWithToken(token));
+    return await this.requestToApi('GET', 'isValid', null, this.headerWithToken(token));
   };
   resetPassword = async (email) => {
     return await this.requestToApi('POST', 'resetPassword', email);
@@ -19,13 +19,9 @@ class UsersService extends BaseApiClass {
   createNewPassword = async (token, password) => {
     return await this.requestToApi('PATCH', 'createNewPassword', password, this.headerWithToken(token));
   };
-  testData = async (data) => {
+  testData = async (data, token) => {
     console.log(data)
-    const req = await fetch(`${this._paiBase}testData`, {
-      method: 'POST',
-      body: data,
-    });
-    return await req.json();
+    return await this.requestToApi('PATCH', 'updateCommodity/5e84c883e2286534184940dc', data, this.headerWithToken(token));
   };
 }
 
