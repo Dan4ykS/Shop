@@ -45,7 +45,7 @@ export const switchProductBtn = (userName, ...eventHendlers) => {
   const [onAddedToCart, id = null, token = null] = eventHendlers;
   if (userName === 'admin') {
     return (
-      <Link className='btn btn-success' to='/admin/'>
+      <Link className='btn btn-success' to={`/admin/updateCommodity/${id}`}>
         Редактировать товар
       </Link>
     );

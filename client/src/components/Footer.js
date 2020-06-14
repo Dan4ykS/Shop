@@ -30,6 +30,7 @@ const Footer = () => {
           <FontAwesomeIcon onClick={() => redirectToLink('https://www.facebook.com/profile.php?id=100007511921453')} icon={faFacebook} />
         </div>
       </div>
+      <div className='modalWraper hidenElem' data-close={true}></div>
     </footer>
   );
 };

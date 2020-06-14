@@ -1,7 +1,7 @@
 import { changeArrayElement, removeArrayElement } from '../utils/workWithRedux';
 
 const updateCartItem = (book, item = {}, quantity) => {
-  const { id = book._id, title = book.title, copies = 0, price = 0, imgSrc = book.previewImgSrc } = item;
+  const { id = book.id, title = book.title, copies = 0, price = 0, imgSrc = book.previewImgSrc } = item;
   return {
     id,
     title,
@@ -26,7 +26,7 @@ const updateOrder = (state, bookId, quantity) => {
       goodsList: { goods },
       shopingCart: { cart },
     } = state,
-    book = goods.find((book) => book._id === bookId),
+    book = goods.find((book) => book.id === bookId),
     itemIndex = cart.findIndex((item) => item.id === bookId),
     item = cart[itemIndex],
     newItem = updateCartItem(book, item, quantity),

@@ -1,31 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FileUploader from './FileUploader';
 import '../styles/scss/UpdateImg.scss';
 import { createUpdateImgBtn } from '../utils/workWithCreateReactElem';
 import { findNeedElement } from '../utils/workWithBrowser';
 
-const UpdateImg = ({ imgSrc, updateImgData }) => {
+const UpdateImg = ({ img: { src, alt }, updateImgData }) => {
   const [previewSrc, updatePreviewSrc] = useState(null),
     [img, updateLocalImg] = useState(null);
   return (
-    <div className='updateImg row'>
+    <div className={`updateImg updateImg_${alt} hidenElem row`}>
       <span data-close={true}>&#215;</span>
       <div className='updateImg__fileUploader flexWrapColumn_center col-4'>
         <FileUploader
-          action={(file, imgSrc) => {
-            updatePreviewSrc(imgSrc);
-            console.log(file);
+          action={(file, src) => {
+            updatePreviewSrc(src);
+            // console.log(file);
             updateLocalImg(file);
-            const values = JSON.stringify(imgSrc)
-            console.log(values)
-            findNeedElement('.modalWraper').setAttribute('data-values', JSON.stringify({ file, imgSrc }));
+            // const values = JSON.stringify(src)
+            // console.log(values)
+            // findNeedElement('.modalWraper').setAttribute('data-values', JSON.stringify({ file, src }));
           }}
           text='Загрузить новый файл'
         />
         {previewSrc ? createUpdateImgBtn(updateImgData, img, previewSrc) : null}
       </div>
       <div className='updateImg__preview flexWrap_center col-8'>
-        <img src={!previewSrc ? `/${imgSrc}` : previewSrc} alt={previewSrc} />
+        <img src={!previewSrc ? `/${src}` : previewSrc} alt={`img:${alt}`} />
       </div>
     </div>
   );

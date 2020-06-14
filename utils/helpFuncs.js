@@ -32,7 +32,24 @@ const createDataUpdateObj = (updateData, { previewImg, img }) => {
   }
 };
 
+const convertDataForClient = (data) => {
+  const dataObj = data.toObject();
+  const id = dataObj._id;
+  delete dataObj.__v;
+  delete dataObj._id;
+  return {
+    id,
+    ...dataObj,
+  };
+};
+
+const convertDataArrayForClient = (data) => {
+  return data.map((el) => convertDataForClient(el) )
+};
+
 module.exports = {
   createDataUpdateObj,
   deleteFile,
+  convertDataArrayForClient,
+  convertDataForClient,
 };

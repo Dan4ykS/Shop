@@ -19,11 +19,11 @@ const goods = new Schema({
     required: true,
   },
   imgSrc: {
-    type: String
+    type: String,
   },
   price: {
     type: Number,
-    required: true
+    required: true,
   },
 });
 

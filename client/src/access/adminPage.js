@@ -1,16 +1,14 @@
-export const chekAdminAccess = async (localStorageData, isLogin, history, id = null, fetchCommodity = null) => {
-  console.log(id);
-  if (!localStorageData) {
-    console.log('Нет токена');
-    await isLogin(localStorageData);
-    return;
+import { defaultActions } from "./default";
+
+export const chekAdminAccess = async (localStorageData, isLogin, fetchGoods, history, id = null, fetchCommodity = null) => {
+  const errorFunc = (userName) => { 
+    if (userName !== 'admin' && userName) {
+      history.push('/MyAccount/');
+    }
   }
-  const {token } = localStorageData 
-  const userName = await isLogin(token);
-  if (userName !== 'admin' && userName) {
-    history.push('/MyAccount/');
-  }
+
+  await defaultActions(localStorageData, isLogin, fetchGoods, null, errorFunc )
   if (id) {
-    await fetchCommodity(id, token, history);
+    await fetchCommodity(id, localStorageData?.token, history);
   }
 };

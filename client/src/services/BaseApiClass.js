@@ -18,10 +18,9 @@ export default class BaseApiClass {
         const formData = new FormData();
         delete data.withFiles;
         for (const key in data) {
-          console.log(key, data[key])
+          console.log(key, data[key]);
           formData.append(key, data[key]);
         }
-        // console.log(formData, data)
         body = formData;
       } else {
         body = JSON.stringify(data);
@@ -29,7 +28,6 @@ export default class BaseApiClass {
     } else {
       body = null;
     }
-    console.log(body)
     return body;
   };
 

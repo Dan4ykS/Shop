@@ -6,7 +6,6 @@ import { onAddedToCart, onDeletedFromCart, loadCart } from '../actions/shopingCa
 import { authorization, registration, isLogin, isLogout, invalidRoute, userLogin } from '../actions/userData';
 import { updateTopHeaderMenu } from '../actions/menuItems';
 import { withRouter } from 'react-router-dom';
-import { selectDate } from '../actions/calendarData';
 import { updateImg, updatePreviewImg, fetchCommodity } from '../actions/commodityData';
 
 const mapStateToProps = ({ goodsList, shopingCart, userData, menuItems, calendarData, commodityData }) => {
@@ -24,7 +23,6 @@ const mapDispatchToProps = (dispatch, { services }) => {
     isLogout: isLogout(dispatch),
     updateTopHeaderMenu: updateTopHeaderMenu(dispatch),
     loadCart: loadCart(dispatch, services),
-    selectDate: (date) => dispatch(selectDate(date)),
     updateImg: (img, imgSrc) => dispatch(updateImg(img, imgSrc)),
     invalidRoute: () => dispatch(invalidRoute()),
     userLogin: (userName, token) => dispatch(userLogin(userName, token)),

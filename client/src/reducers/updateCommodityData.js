@@ -2,6 +2,7 @@ const updateCommodityData = (state, action) => {
   if (state === undefined) {
     return {
       loading: true,
+      id: null,
       error: null,
       title: null,
       shortDescr: null,

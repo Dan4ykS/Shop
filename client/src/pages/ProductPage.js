@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import CommodityDetail from '../components/CommodityDetail';
 import withStore from '../utils/workWithRedux';
 import LoadingDataLogic from '../logicComponents/LoadingData';
@@ -6,15 +6,12 @@ import RenderList from '../components/RenderList';
 import { getDateFromLocalStorage } from '../utils/workWithBrowser';
 
 const ProductPage = ({ goodsList: { goods, loading, error }, actions, userData: { token, userName } }) => {
-  useEffect(() => {
-    console.log(loading);
-  }, []);
   return (
     <LoadingDataLogic
       configData={{
         loading,
         error,
-        funcForRender: !getDateFromLocalStorage('userData') || userName === 'admin' ? actions.fetchGoods : null,
+        funcForRender: !getDateFromLocalStorage('userData') ? actions.fetchGoods : null,
         routeForRedirect: '/',
       }}
     >

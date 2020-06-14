@@ -1,9 +1,7 @@
 .imgUploader{
-  display: flex;
-  justify-content: center;
   position: relative;
   &__img {
-    max-width: 100%;
+    max-width: 95%;
     max-height: 500px;
   }
   &__editing {

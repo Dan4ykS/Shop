@@ -3,13 +3,14 @@ const errorHandler = require('../utils/errorHandler');
 const uploadFile = require('../middlewares/uploadFile.middleware');
 const Goods = require('../models/Goods');
 const authAdmin = require('../middlewares/authAdmin.middleware');
-const { createDataUpdateObj, deleteFile } = require('../utils/helpFuncs');
+const { createDataUpdateObj, deleteFile, convertDataArrayForClient, convertDataForClient } = require('../utils/helpFuncs');
 
 const router = Router();
 
 router.get('/getGoods', async (req, res) => {
   try {
-    res.json(await Goods.find());
+    const goods = await Goods.find();
+    res.json(convertDataArrayForClient(goods));
   } catch (error) {
     errorHandler(res, error);
   }
@@ -17,7 +18,8 @@ router.get('/getGoods', async (req, res) => {
 
 router.get('/findGoods', async (req, res) => {
   try {
-    res.json(await Goods.find({ title: req.body.title }));
+    const goods = await Goods.find({ title: req.body.title });
+    res.json(convertDataArrayForClient(goods));
   } catch (error) {
     errorHandler(res, error);
   }
@@ -26,7 +28,7 @@ router.get('/findGoods', async (req, res) => {
 router.get('/findCommodity/:id', async ({ params: { id } }, res) => {
   try {
     const commodity = await Goods.findById(id);
-    res.status(200).json(commodity);
+    res.status(200).json(convertDataForClient(commodity));
   } catch (error) {
     errorHandler(res, { message: `Товар с id=${id} не найден!` });
   }
@@ -59,10 +61,10 @@ router.patch('/updateCommodity/:id', authAdmin, uploadFile.fields([{ name: 'prev
     const oldCommodityData = await Goods.findByIdAndUpdate(id, dataForUpdate);
     const { previewImgSrc, imgSrc } = oldCommodityData;
     res.status(200).json({ message: `товар с id:${id} обновлен` });
-    if (newFiles?.img) {
+    if (newFiles?.img && imgSrc) {
       deleteFile(imgSrc.split('\\')[1]);
     }
-    if (newFiles?.previewImg) {
+    if (newFiles?.previewImg && previewImgSrc) {
       deleteFile(previewImgSrc.split('\\')[1]);
     }
   } catch (error) {

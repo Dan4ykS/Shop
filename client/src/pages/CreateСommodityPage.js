@@ -3,7 +3,7 @@ import LoadingDataLogic from '../logicComponents/LoadingData';
 import withStore from '../utils/workWithRedux';
 import ChangeCommodityDetail from '../components/ChangeCommodityDetail';
 
-const CreateСommodityPage = ({ userData: { loading, error } }) => {
+const CreateСommodityPage = ({ userData: { loading, error }, actions }) => {
   return (
     <LoadingDataLogic
       configData={{
@@ -11,7 +11,7 @@ const CreateСommodityPage = ({ userData: { loading, error } }) => {
         error,
       }}
     >
-      <ChangeCommodityDetail />
+      <ChangeCommodityDetail actions={actions}/>
     </LoadingDataLogic>
   );
 };

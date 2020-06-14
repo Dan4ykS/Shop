@@ -4,13 +4,13 @@ import withStore from '../utils/workWithRedux';
 import ChangeCommodityDetail from '../components/ChangeCommodityDetail';
 import { findId } from '../utils/workWithBrowser';
 
-const UpdateCommodityPage = ({ commodityData: { loading, error: noCommodity, title, shortDescr, descr, previewImg, previewImgSrc }, actions: { fetchCommodity, updateImg, updatePreviewImg }, userData: { token, error: invalidUser }, history }) => {
+const UpdateCommodityPage = ({ commodityData: { loading, error: noCommodity, title, shortDescr, descr, previewImg, previewImgSrc, img, imgSrc, id }, actions, userData: { token, error: invalidUser }, history }) => {
   return (
     <LoadingDataLogic
       configData={{
         loading,
         error: invalidUser ? invalidUser : noCommodity,
-        funcForRender: token ? () => fetchCommodity(findId(history), token, history) : null,
+        funcForRender: token ? () => actions.fetchCommodity(findId(history), token, history) : null,
       }}
     >
       <ChangeCommodityDetail
@@ -19,14 +19,13 @@ const UpdateCommodityPage = ({ commodityData: { loading, error: noCommodity, tit
             title,
             shortDescr,
             descr,
-            previewImgSrc
+            previewImgSrc,
+            imgSrc,
+            id,
           }),
-          [title, descr, shortDescr, previewImgSrc]
+          [title, descr, shortDescr, previewImgSrc, id]
         )}
-        actions={
-          updatePreviewImg,
-          updateImg
-        }
+        actions={actions}
       />
     </LoadingDataLogic>
   );

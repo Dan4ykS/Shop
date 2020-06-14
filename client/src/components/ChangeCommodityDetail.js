@@ -1,20 +1,14 @@
 import React, { useEffect } from 'react';
+import ImgUploader from './ImgUploader';
 import '../styles/scss/ChangeCommodityDetail.scss';
 import { setValues } from '../utils/workWithCreateReactElem';
-import ImgUploader from './ImgUploader';
-
-/**
- *
- * Подумать над тем нужно ли подключать компонент к Store
- */
 
 const ChangeCommodityDetail = ({ data = null, actions: { updateImg, updatePreviewImg } }) => {
   useEffect(() => {
-    // console.log(data)
     if (data) {
       const valuesForElement = [];
       for (const key in data) {
-        if (key !== 'previewImg' || key !== 'img') {
+        if (key !== 'previewImgSrc' || key !== 'imgSrc') {
           valuesForElement.push(data[key]);
         }
       }
@@ -38,7 +32,12 @@ const ChangeCommodityDetail = ({ data = null, actions: { updateImg, updatePrevie
       <div className='form-group row'>
         <label className='col-sm-3'>Превью:</label>
         <div className='col-sm-9' style={{position: 'static'}}>
-          <ImgUploader imgSrc={data?.previewImgSrc} actionForUpload={updatePreviewImg} />
+          <ImgUploader
+            img={{
+              src: data?.previewImgSrc.src,
+              alt: data?.previewImgSrc.alt
+            }}
+            actionForUpload={updatePreviewImg} />
         </div>
       </div>
       <div className='form-group row'>
@@ -50,7 +49,12 @@ const ChangeCommodityDetail = ({ data = null, actions: { updateImg, updatePrevie
       <div className='form-group row'>
         <label className='col-sm-3'>Изображение:</label>
         <div className='col-sm-9'>
-          <ImgUploader imgSrc={data?.imgSrc} actionForUpload={updateImg} />
+          <ImgUploader
+            img={{
+              src: data?.imgSrc.src,
+              alt: data?.imgSrc.alt
+            }}
+            actionForUpload={updateImg} />
         </div>
       </div>
     </form>

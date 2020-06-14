@@ -97,8 +97,12 @@ router.get('/getUserCart', auth, async (req, res) => {
     const user = await User.findById(req.user.userId);
     const userCartData = await user.populate('cart.cartItems.commodityId').execPopulate();
     const userCart = userCartData.cart.cartItems.map((item) => {
+      const id = item.commodityId.id;
+      delete item.commodityId._doc._id
+      delete item.commodityId._doc.__v;
       return {
         ...item.commodityId._doc,
+        id,
         copies: item.copies,
         price: item.price,
       };

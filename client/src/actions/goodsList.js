@@ -5,12 +5,10 @@ const fetchGoodsRequest = () => {
 };
 
 export const fetchGoodsSuccuess = (goods) => {
+  console.log(goods)
   return {
     type: 'FETCH_GOODS_SUCCUESS',
-    payload: goods.map((el) => ({
-      ...el,
-      id: el._id,
-    })),
+    payload: goods
   };
 };
 

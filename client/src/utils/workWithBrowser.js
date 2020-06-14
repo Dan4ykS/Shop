@@ -62,6 +62,7 @@ export const findNeedElements = (selector) => {
 };
 
 export const findNeedElement = (selector) => {
+  console.log(selector);
   return document.querySelector(selector);
 };
 
@@ -125,26 +126,32 @@ export const logOut = (func, history) => {
   func();
 };
 
-export const actionsForUpdateImgCopm = () => {
+export const actionsForUpdateImgCopm = (id) => {
+  console.log(id)
   const modalWraper = findNeedElement('.modalWraper'),
+    modal = findNeedElement(`.updateImg.updateImg_${id}`),
     body = findNeedElement('body'),
     menu = findNeedElement('nav');
 
   modalWraper.classList.remove('hidenElem');
+  modal.classList.remove('hidenElem');
   const scrollWidth = +window.innerWidth - +menu.clientWidth;
   if (scrollWidth > 0) {
     body.style.marginRight = `${scrollWidth}px`;
   }
   body.style.overflow = 'hidden';
 
-  modalWraper.addEventListener('click', (e) => {
-    // if (e.target.dataset.close && e.target.dataset?.values) {
-    //   console.log(JSON.parse(e.target.dataset.values));
-    // }
-    if (e.target.dataset.close) {
-      modalWraper.classList.add('hidenElem');
-      body.style.overflow = 'auto';
-      body.style.marginRight = '0px';
-    }
+  [modalWraper, modal].forEach((el) => {
+    el.addEventListener('click', (e) => {
+      // if (e.target.dataset.close && e.target.dataset?.values) {
+      //   console.log(JSON.parse(e.target.dataset.values));
+      // }
+      if (e.target.dataset.close) {
+        modalWraper.classList.add('hidenElem');
+        modal.classList.add('hidenElem');
+        body.style.overflow = 'auto';
+        body.style.marginRight = '0px';
+      }
+    });
   });
 };
