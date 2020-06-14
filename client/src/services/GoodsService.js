@@ -20,6 +20,11 @@ class GoodsService extends BaseApiClass {
   getCommodity = async (id, token) => {
     return await this.requestToApi('GET', `findCommodity/${id}`, null, this.headerWithToken(token));
   };
+
+  testData = async (data, token) => {
+    console.log(data);
+    return await this.requestToApi('POST', 'testData', data, this.headerWithToken(token));
+  };
 }
 
 export default new GoodsService();

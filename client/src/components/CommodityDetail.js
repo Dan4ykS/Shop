@@ -2,11 +2,22 @@ import React from 'react';
 import '../styles/scss/CommodityDetail.scss';
 import { switchProductBtn } from '../utils/workWithCreateReactElem';
 
-const CommodityDetail = ({ data: { id, previewImgSrc, shortDescr, price, title }, token, userName, actions: { onAddedToCart } }) => {
+const CommodityDetail = ({
+  data: {
+    id,
+    previewImg: { previewImgSrc, previewImgAlt },
+    shortDescr,
+    price,
+    title,
+  },
+  token,
+  userName,
+  actions: { onAddedToCart },
+}) => {
   return (
     <div className='infoBlock col-12 col-xl-6 flexWrap'>
       <div className='infoBlock__img'>
-        <img src={`/${previewImgSrc}`} alt={`Книга ${id}`} />
+        <img src={`/${previewImgSrc}`} alt={previewImgAlt} />
       </div>
       <div className='infoBlock__content'>
         <h2>{title}</h2>

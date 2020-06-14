@@ -17,17 +17,7 @@ export const updatePreviewImg = (previewImg, previewImgSrc) => {
 const fetchCommoditySuccuess = (data) => {
   return {
     type: 'FETCH_COMMODITY_SUCCUESS',
-    payload: {
-      ...data,
-      imgSrc: {
-        src: data.imgSrc,
-        alt: `${data.id}img1`
-      },
-      previewImgSrc: {
-        src: data.previewImgSrc,
-        alt: `${data.id}img2`
-      }
-    },
+    payload: data,
   };
 };
 
@@ -37,8 +27,15 @@ const fetchCommodityFailure = () => {
   };
 };
 
+const fetchCommodityRequest = () => {
+  return {
+    type: 'FETCH_COMMODITY_REQUEST',
+  };
+};
+
 export const fetchCommodity = (dispatch, { goodsService }) => async (id, token, history) => {
   try {
+    dispatch(fetchCommodityRequest());
     const data = await goodsService.getCommodity(id, token);
     dispatch(fetchCommoditySuccuess(data));
   } catch (error) {

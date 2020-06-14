@@ -31,13 +31,15 @@ const ChangeCommodityDetail = ({ data = null, actions: { updateImg, updatePrevie
       </div>
       <div className='form-group row'>
         <label className='col-sm-3'>Превью:</label>
-        <div className='col-sm-9' style={{position: 'static'}}>
+        <div className='col-sm-9' style={{ position: 'static' }}>
           <ImgUploader
             img={{
-              src: data?.previewImgSrc.src,
-              alt: data?.previewImgSrc.alt
+              src: data?.previewImg.previewImgSrc,
+              alt: data?.previewImg.previewImgAlt,
+              id: data?.previewImg.previewImgId,
             }}
-            actionForUpload={updatePreviewImg} />
+            actionForUpload={updatePreviewImg}
+          />
         </div>
       </div>
       <div className='form-group row'>
@@ -51,10 +53,12 @@ const ChangeCommodityDetail = ({ data = null, actions: { updateImg, updatePrevie
         <div className='col-sm-9'>
           <ImgUploader
             img={{
-              src: data?.imgSrc.src,
-              alt: data?.imgSrc.alt
+              src: data?.img.imgSrc,
+              alt: data?.img.imgAlt,
+              id: data?.img.imgId
             }}
-            actionForUpload={updateImg} />
+            actionForUpload={updateImg}
+          />
         </div>
       </div>
     </form>

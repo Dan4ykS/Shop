@@ -1,6 +1,6 @@
 import { clearCart, loadCartFromServer } from './shopingCart';
 import { fetchGoodsSuccuess } from './goodsList';
-import { isInvalid, redirectToPage, clearInputs } from '../utils/workWithBrowser';
+import { isInvalid, redirectToPage, clearInputs, activateBtn } from '../utils/workWithBrowser';
 import { setNewToken } from '../utils/workWithApiRequest';
 
 const createUser = (userName, token) => {
@@ -35,40 +35,39 @@ export const invalidRoute = () => {
   };
 };
 
-const dispatchDataFromApi = (dispatch, cart, goods) => {
-  dispatch(loadCartFromServer(cart));
-  dispatch(fetchGoodsSuccuess(goods));
-};
-
-export const authorization = (dispatch, { usersService, goodsService }) => async (data, form, history) => {
+export const authorization = (dispatch, { usersService, goodsService }) => async (data, formData, history) => {
   try {
     const token = await usersService.authUser(data);
     redirectToPage(history, '/');
     dispatch(userLogin(data.userName, token));
     if (data.userName !== 'admin') {
       const cart = await goodsService.loadCart(token);
-      const goods = await goodsService.getGoods();
-      dispatchDataFromApi(dispatch, cart, goods);
+      dispatch(loadCartFromServer(cart));
     }
+    const goods = await goodsService.getGoods();
+    dispatch(fetchGoodsSuccuess(goods));
     setNewToken(token);
   } catch (error) {
-    isInvalid(form);
-    clearInputs(form);
+    clearInputs(formData.inputs);
+    activateBtn(formData.selector);
+    isInvalid(formData.inputs);
   }
 };
 
-export const registration = (dispatch, { usersService, goodsService }) => async (data, form, history) => {
+export const registration = (dispatch, { usersService, goodsService }) => async (data, formData, history) => {
   try {
     const token = await usersService.createUser(data);
     redirectToPage(history, '/');
     dispatch(createUser(data.userName, token));
     const cart = await goodsService.loadCart(token);
     const goods = await goodsService.getGoods();
-    dispatchDataFromApi(dispatch, cart, goods);
+    dispatch(loadCartFromServer(cart));
+    dispatch(fetchGoodsSuccuess(goods));
     setNewToken(token);
   } catch (error) {
-    isInvalid(form);
-    clearInputs(form);
+    isInvalid(formData.inputs);
+    activateBtn(formData.selector);
+    clearInputs(formData.inputs);
   }
 };
 

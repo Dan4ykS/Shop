@@ -1,9 +1,9 @@
 import UsersService from '../services/UsersService';
-import { clearInputs, findNeedElements, createObjForRequest, isInvalid } from './workWithBrowser';
+import { clearInputs, findNeedElements, createObjForRequest, isInvalid, findNeedElement } from './workWithBrowser';
 
 export const workWithUserApi = (e, requestsToApi, selector, history) => {
   e.preventDefault();
-  findNeedElements(`${selector} button`)[0].setAttribute('disabled', true);
+  findNeedElement(`${selector} button`).setAttribute('disabled', true);
   const inputs = findNeedElements(`${selector} .form-control`);
   const data = createObjForRequest(inputs);
   requestsToApi(data, { inputs, selector }, history);
@@ -12,7 +12,7 @@ export const workWithUserApi = (e, requestsToApi, selector, history) => {
 export const resetPassword = async (e, type, token = null) => {
   e.persist();
   e.preventDefault();
-  const inputs = findNeedElements('.form-control');
+  const inputs = findNeedElements('input');
   const data = createObjForRequest(inputs);
   try {
     if (type === 'req') {
@@ -21,11 +21,11 @@ export const resetPassword = async (e, type, token = null) => {
       await UsersService.createNewPassword(token, data);
       localStorage.setItem('userData', JSON.stringify({ token }));
     }
-    clearInputs(inputs, true);
+    clearInputs(inputs);
     e.target.style.display = 'none';
     document.querySelector('.reset__successMsg').style.display = 'block';
   } catch (error) {
-    clearInputs(inputs, true);
+    clearInputs(inputs);
     isInvalid(inputs);
   }
 };

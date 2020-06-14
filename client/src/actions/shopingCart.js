@@ -13,17 +13,9 @@ const commodityDeletedFromCart = (bookId) => {
 };
 
 export const loadCartFromServer = (cart) => {
-  console.log(cart)
-  const payload = {
-    ...cart,
-    userCart: cart.userCart.map((el) => ({
-      ...el,
-      imgSrc: el.previewImgSrc,
-    })),
-  };
   return {
     type: 'LOAD_CART_FROM_SERVER',
-    payload,
+    payload: cart
   };
 };
 

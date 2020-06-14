@@ -2,36 +2,37 @@ import { chekAccessToAuthPages } from './authPages';
 import { chekAdminAccess } from './adminPage';
 import { chekAccessToResetPasswordPage } from './resetPasswordPage';
 import { defaultActions } from './default';
-import { findId } from '../utils/workWithBrowser';
+import { findPathParams } from '../utils/workWithBrowser';
 
 export const chekAccess = async (localStorageData, isLogin, loadCart, fetchGoods, fetchCommodity, history) => {
   let path = history.location.pathname.slice(1);
-  let id;
+  let params;
   if (path.match(/[0-9]/)) {
-    id = findId(history);
-    path = path.replace(id, 'id');
+    params = findPathParams(history);
+    path = path.replace(params, 'params');
   }
   switch (path) {
     case 'Registration/':
     case 'Login/':
-      await chekAccessToAuthPages(history, localStorageData, isLogin, fetchGoods, loadCart);
+      await chekAccessToAuthPages(history, localStorageData?.token, isLogin, fetchGoods, loadCart);
       break;
 
-    case 'admin/updateCommodity/id/':
-      await chekAdminAccess(localStorageData, isLogin, fetchGoods, history, id, fetchCommodity);
+    case 'admin/updateCommodity/params':
+      await chekAdminAccess(localStorageData?.token, isLogin, fetchGoods, history, params, fetchCommodity);
       break;
 
     case 'admin/createCommodity/':
     case 'admin/':
-      await chekAdminAccess(localStorageData, isLogin, fetchGoods, history);
+      await chekAdminAccess(localStorageData?.token, isLogin, fetchGoods, history);
       break;
 
-    case 'resetPassword/':
-      await chekAccessToResetPasswordPage(history, isLogin, fetchGoods, loadCart);
+    case 'resetPassword/params':
+      const token = params.split('=')[1];
+      await chekAccessToResetPasswordPage(token, isLogin, fetchGoods, loadCart);
       break;
 
     default:
-      await defaultActions(localStorageData, isLogin, fetchGoods, loadCart);
+      await defaultActions(localStorageData?.token, isLogin, fetchGoods, loadCart);
       break;
   }
 };

@@ -8,7 +8,6 @@ const auth = require('../middlewares/auth.middleware');
 const authAdmin = require('../middlewares/authAdmin.middleware');
 const createJwtToken = require('../utils/createJwtToken');
 const errorHandler = require('../utils/errorHandler');
-const uploadFile = require('../middlewares/uploadFile.middleware');
 
 const router = Router();
 
@@ -97,14 +96,19 @@ router.get('/getUserCart', auth, async (req, res) => {
     const user = await User.findById(req.user.userId);
     const userCartData = await user.populate('cart.cartItems.commodityId').execPopulate();
     const userCart = userCartData.cart.cartItems.map((item) => {
-      const id = item.commodityId.id;
+      const id = item.commodityId.id,
+        imgSrc = item.commodityId._doc.previewImg.previewImgSrc,
+        alt = item.commodityId._doc.previewImg.previewImgAlt,
+        title = item.commodityId._doc.title;
       delete item.commodityId._doc._id
       delete item.commodityId._doc.__v;
       return {
-        ...item.commodityId._doc,
         id,
         copies: item.copies,
         price: item.price,
+        imgSrc,
+        alt,
+        title,
       };
     });
     res.json({

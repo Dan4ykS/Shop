@@ -7,31 +7,34 @@ const updateCommodityData = (state, action) => {
       title: null,
       shortDescr: null,
       descr: null,
-      previewImgSrc: null,
       previewImg: null,
-      imgSrc: null,
       img: null,
       price: null,
     };
   }
   switch (action.type) {
+    case 'FETCH_COMMODITY_REQUEST':
+      return {
+        ...state.commodityData,
+        loading: true,
+      }
+
     case 'FETCH_COMMODITY_SUCCUESS':
       return {
         ...state.commodityData,
         ...action.payload,
         loading: false,
       };
-    
+
     case 'FETCH_COMMODITY_FAILURE':
       return {
-        error: true,
-        loading: false,
+        loading: true,
+        id: null,
+        error: null,
         title: null,
         shortDescr: null,
         descr: null,
-        previewImgSrc: null,
         previewImg: null,
-        imgSrc: null,
         img: null,
         price: null,
       };
@@ -39,17 +42,21 @@ const updateCommodityData = (state, action) => {
     case 'UPDATE_IMG':
       return {
         ...state.commodityData,
-        img: action.payload.img,
-        imgSrc: action.payload.imgSrc,
+        img: {
+          ...state.commodityData.img,
+          imgFile: action.payload.img,
+        },
       };
-    
+
     case 'UPDATE_PREVIWIMG':
       return {
         ...state.commodityData,
-        previewImg: action.payload.img,
-        previewImgSrc: action.payload.imgSrc,
+        previewImg: {
+          ...state.commodityData.previewImg,
+          previewImgFile: action.payload.img,
+        },
       };
-    
+
     default:
       return state.commodityData;
   }

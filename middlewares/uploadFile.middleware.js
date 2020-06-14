@@ -1,6 +1,6 @@
 const multer = require('multer');
 const moment = require('moment');
-const voca = require('voca')
+const voca = require('voca');
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {

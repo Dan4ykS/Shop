@@ -13,7 +13,7 @@ const ImgUploader = ({ img, actionForUpload, extraClass = '' }) => {
         <div className={`imgUploader flexWrap ${extraClass}`}>
           <img className='imgUploader__img' src={`/${img.src}`} alt={img.alt} />
           <div className='imgUploader__editing'>
-            <FontAwesomeIcon onClick={() => actionsForUpdateImgCopm(img.alt)} icon={faPen} />
+            <FontAwesomeIcon onClick={() => actionsForUpdateImgCopm(img.id)} icon={faPen} />
           </div>
         </div>
         <UpdateImg img={img} />

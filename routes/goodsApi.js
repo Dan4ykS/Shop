@@ -3,7 +3,8 @@ const errorHandler = require('../utils/errorHandler');
 const uploadFile = require('../middlewares/uploadFile.middleware');
 const Goods = require('../models/Goods');
 const authAdmin = require('../middlewares/authAdmin.middleware');
-const { createDataUpdateObj, deleteFile, convertDataArrayForClient, convertDataForClient } = require('../utils/helpFuncs');
+const voca = require('voca');
+const { createDataUpdateObj, deleteFile, convertDataArrayForClient, convertDataForClient, createAltForImg } = require('../utils/helpFuncs');
 
 const router = Router();
 
@@ -34,15 +35,24 @@ router.get('/findCommodity/:id', async ({ params: { id } }, res) => {
   }
 });
 
-router.post('/createCommodity', authAdmin, uploadFile.array('images'), async ({ body: { title, shortDescr, descr, price }, files }, res) => {
+router.post('/createCommodity', authAdmin, uploadFile.array('images'), async ({ body: { title, shortDescr, descr, price, previewImgAlt = null, imgAlt = null }, files }, res) => {
   try {
     const newCommodity = new Goods({
-      title,
+      title: voca.titleCase(title, [' ']),
       shortDescr,
       descr,
-      previewImgSrc: files[0].path,
+      previewImg: {
+        previewImgSrc: files[0].path,
+        previewImgAlt: !previewImgAlt ? createAltForImg() : createAltForImg(previewImgAlt),
+      },
       price,
-      imgSrc: files ? files[1].path : null,
+      img:
+        files.length > 1
+          ? {
+              imgSrc: files[1].path,
+              imgAlt: !imgAlt ? createAltForImg() : createAltForImg(imgAlt),
+            }
+          : null,
     });
     await newCommodity.save();
     res.json({ message: 'Товар был успешно добавлен!' });
@@ -57,9 +67,14 @@ router.patch('/updateCommodity/:id', authAdmin, uploadFile.fields([{ name: 'prev
       previewImg: files?.previewImg,
       img: files?.img,
     };
-    const dataForUpdate = createDataUpdateObj(body, newFiles);
-    const oldCommodityData = await Goods.findByIdAndUpdate(id, dataForUpdate);
-    const { previewImgSrc, imgSrc } = oldCommodityData;
+    const oldCommodityData = await Goods.findById(id);
+    const dataForUpdate = createDataUpdateObj(body, newFiles, oldCommodityData);
+    await Goods.updateOne({_id: id}, dataForUpdate);
+    const {
+      previewImg: { previewImgSrc },
+      img: { imgSrc },
+    } = oldCommodityData;
+    console.log(previewImgSrc, imgSrc)
     res.status(200).json({ message: `товар с id:${id} обновлен` });
     if (newFiles?.img && imgSrc) {
       deleteFile(imgSrc.split('\\')[1]);
@@ -74,16 +89,25 @@ router.patch('/updateCommodity/:id', authAdmin, uploadFile.fields([{ name: 'prev
 
 router.delete('/removeCommodity/:id', authAdmin, async (req, res) => {
   try {
-    const oldCommodityData = await Goods.findByIdAndDelete({ _id: req.params.id });
+    const oldCommodityData = await Goods.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: `товар с id:${req.params.id} удален` });
-    if (oldCommodityData?.imgSrc) {
-      deleteFile(oldCommodityData.imgSrc.split('\\')[1]);
+    if (oldCommodityData?.img?.imgSrc) {
+      deleteFile(oldCommodityData.img.imgSrc.split('\\')[1]);
     }
-    if (oldCommodityData?.previewImgSrc) {
-      deleteFile(oldCommodityData.previewImgSrc.split('\\')[1]);
+    if (oldCommodityData?.previewImg?.previewImgSrc) {
+      deleteFile(oldCommodityData.previewImg.previewImgSrc.split('\\')[1]);
     }
   } catch (error) {
-    errres, errororHandler(res, error);
+    errororHandler(res, error);
+  }
+});
+
+router.post('/testData', authAdmin, uploadFile.none(), async (req, res) => {
+  try {
+    console.log(req.body.extraData.text2);
+    res.status(200);
+  } catch (error) {
+    errorHandler(error);
   }
 });
 

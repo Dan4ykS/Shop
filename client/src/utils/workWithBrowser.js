@@ -74,8 +74,7 @@ export const createObjForRequest = (inputs) => {
   return data;
 };
 
-export const clearInputs = ({ inputs, selector }) => {
-  findNeedElements(`${selector} button`)[0].removeAttribute('disabled');
+export const clearInputs = (inputs) => {
   inputs.forEach((el) => {
     el.value = '';
     el.addEventListener('focus', () => {
@@ -88,13 +87,16 @@ export const clearInputs = ({ inputs, selector }) => {
   });
 };
 
-export const isInvalid = ({ inputs, selector }) => {
-  findNeedElements(`${selector} button`)[0].removeAttribute('disabled');
+export const isInvalid = (inputs) => {
   const showPasswordElement = document.querySelector('.showPasswordIcon');
-  if (showPasswordElement !== null) {
+  if (showPasswordElement) {
     showPasswordElement.style.display = 'none';
   }
   inputs.forEach((el) => el.classList.add('is-invalid'));
+};
+
+export const activateBtn = (selector) => {
+  findNeedElements(`${selector} button`)[0].removeAttribute('disabled');
 };
 
 export const changePasswordType = (iconSelector, inputSelector) => {
@@ -113,7 +115,7 @@ export const redirectToPage = (history, page) => {
   history.push(page);
 };
 
-export const findId = (history) => {
+export const findPathParams = (history) => {
   return history.location.pathname.split('/').find((el) => el.match(/[0-9]/));
 };
 
@@ -127,7 +129,7 @@ export const logOut = (func, history) => {
 };
 
 export const actionsForUpdateImgCopm = (id) => {
-  console.log(id)
+  console.log(id);
   const modalWraper = findNeedElement('.modalWraper'),
     modal = findNeedElement(`.updateImg.updateImg_${id}`),
     body = findNeedElement('body'),

@@ -4,11 +4,11 @@ import '../styles/scss/UpdateImg.scss';
 import { createUpdateImgBtn } from '../utils/workWithCreateReactElem';
 import { findNeedElement } from '../utils/workWithBrowser';
 
-const UpdateImg = ({ img: { src, alt }, updateImgData }) => {
+const UpdateImg = ({ img: { src, id, alt }, updateImgData }) => {
   const [previewSrc, updatePreviewSrc] = useState(null),
     [img, updateLocalImg] = useState(null);
   return (
-    <div className={`updateImg updateImg_${alt} hidenElem row`}>
+    <div className={`updateImg updateImg_${id} hidenElem row`}>
       <span data-close={true}>&#215;</span>
       <div className='updateImg__fileUploader flexWrapColumn_center col-4'>
         <FileUploader

@@ -1,7 +1,7 @@
 import React from 'react';
 import withSore from '../utils/workWithRedux';
 import FileUploader from '../components/FileUploader';
-import UsersService from '../services/UsersService';
+import GoodsService from '../services/GoodsService';
 
 const MainPage = ({ commodityData: { imgSrc, img }, actions: { updateImg }, userData: { token } }) => {
   return (
@@ -12,7 +12,11 @@ const MainPage = ({ commodityData: { imgSrc, img }, actions: { updateImg }, user
         className='row'
         onSubmit={(e) => {
           e.preventDefault();
-          UsersService.testData({ withFiles: true, shortDescr: 'vrwefvreferfrefr', previewImg: img }, token);
+          const extraData = {
+            text1: '123',
+            text2: 123,
+          };
+          GoodsService.testData({ withFiles: true, shortDescr: 'vrwefvreferfrefr', extraData }, token);
         }}
       >
         <div className='col-lg-6'>

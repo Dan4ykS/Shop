@@ -1,13 +1,14 @@
 import { changeArrayElement, removeArrayElement } from '../utils/workWithRedux';
 
 const updateCartItem = (book, item = {}, quantity) => {
-  const { id = book.id, title = book.title, copies = 0, price = 0, imgSrc = book.previewImgSrc } = item;
+  const { id = book.id, title = book.title, copies = 0, price = 0, imgSrc = book.previewImg.previewImgSrc, alt = book.previewImg.previewImgAlt } = item;
   return {
     id,
     title,
     copies: copies + quantity,
     price: price + quantity * book.price,
     imgSrc,
+    alt,
   };
 };
 
