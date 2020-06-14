@@ -1,7 +1,7 @@
 import { findNeedElement } from './workWithBrowser';
 
-export const triggerUploadInput = () => {
-  findNeedElement('.fileUploader input').click();
+export const triggerUploadInput = (id) => {
+  findNeedElement(`[name=uploader${id}]`).click();
 };
 
 export const uploadFile = (file, updateFileDataFunc) => {

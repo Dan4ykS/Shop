@@ -62,7 +62,6 @@ export const findNeedElements = (selector) => {
 };
 
 export const findNeedElement = (selector) => {
-  console.log(selector);
   return document.querySelector(selector);
 };
 
@@ -72,6 +71,13 @@ export const createObjForRequest = (inputs) => {
     data[el.name] = el.value;
   });
   return data;
+};
+
+export const createValidImgSrc = (imgSrc) => {
+  if (imgSrc.startsWith('uploads')) {
+    return `/${imgSrc}`;
+  }
+  return imgSrc;
 };
 
 export const clearInputs = (inputs) => {
@@ -129,7 +135,6 @@ export const logOut = (func, history) => {
 };
 
 export const actionsForUpdateImgCopm = (id) => {
-  console.log(id);
   const modalWraper = findNeedElement('.modalWraper'),
     modal = findNeedElement(`.updateImg.updateImg_${id}`),
     body = findNeedElement('body'),

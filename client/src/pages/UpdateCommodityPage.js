@@ -4,13 +4,18 @@ import withStore from '../utils/workWithRedux';
 import ChangeCommodityDetail from '../components/ChangeCommodityDetail';
 import { findPathParams } from '../utils/workWithBrowser';
 
-const UpdateCommodityPage = ({ commodityData: { loading, error: noCommodity, title, shortDescr, descr, previewImg, img, id }, actions, userData: { token, error: invalidUser, userName }, history }) => {
+const UpdateCommodityPage = ({
+  commodityData: { loading, error: commodityError, title, shortDescr, descr, previewImg, img, id },
+  actions: { updateImg, updatePreviewImg ,fetchCommodity },
+  userData: { token, error: userError, userName },
+  history,
+}) => {
   return (
     <LoadingDataLogic
       configData={{
         loading,
-        error: invalidUser ? invalidUser : noCommodity,
-        funcForRender: token ? () => actions.fetchCommodity(findPathParams(history), token, history) : null,
+        error: userError ? userError : commodityError,
+        funcForRender: token ? () => fetchCommodity(findPathParams(history), token, history) : null,
       }}
     >
       <ChangeCommodityDetail
@@ -25,11 +30,13 @@ const UpdateCommodityPage = ({ commodityData: { loading, error: noCommodity, tit
           }),
           [title, descr, shortDescr, previewImg, img, id]
         )}
-        actions={actions}
+        actions={{
+          updateImg,
+          updatePreviewImg,
+        }}
       />
     </LoadingDataLogic>
   );
 };
 
 export default withStore(UpdateCommodityPage);
-// /admin/updateCommodity/5e84c883e2286534184940de/

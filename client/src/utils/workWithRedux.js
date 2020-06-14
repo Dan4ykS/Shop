@@ -23,10 +23,10 @@ const mapDispatchToProps = (dispatch, { services }) => {
     isLogout: isLogout(dispatch),
     updateTopHeaderMenu: updateTopHeaderMenu(dispatch),
     loadCart: loadCart(dispatch, services),
-    updateImg: (img, imgSrc) => dispatch(updateImg(img, imgSrc)),
+    updateImg: (imgFile, imgSrc, imgAlt) => dispatch(updateImg(imgFile, imgSrc, imgAlt)),
     invalidRoute: () => dispatch(invalidRoute()),
     userLogin: (userName, token) => dispatch(userLogin(userName, token)),
-    updatePreviewImg: (previewImg, previewImgSrc) => dispatch(updatePreviewImg(previewImg, previewImgSrc)),
+    updatePreviewImg: (previewImgFile, previewImgSrc, previewImgAlt) => dispatch(updatePreviewImg(previewImgFile, previewImgSrc, previewImgAlt)),
     fetchCommodity: fetchCommodity(dispatch, services),
   };
   return { actions };

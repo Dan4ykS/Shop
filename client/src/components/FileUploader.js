@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { triggerUploadInput, uploadFile, preventDefaultFaileUpload, removePreventDefault, dragAndDropForFile } from '../utils/workWithFiles';
 
-const FileUploader = ({ action, text = 'Загрузить файл' }) => {
+const FileUploader = ({ action, id, text = 'Загрузить файл' }) => {
   useEffect(() => {
     preventDefaultFaileUpload();
     dragAndDropForFile(action);
@@ -16,7 +16,7 @@ const FileUploader = ({ action, text = 'Загрузить файл' }) => {
     <div className='fileUploader'>
       <input
         type='file'
-        name='uploader'
+        name={`uploader${id}`}
         onChange={(e) => {
           uploadFile(e.target.files[0], action);
         }}
@@ -24,7 +24,7 @@ const FileUploader = ({ action, text = 'Загрузить файл' }) => {
       <button
         type='button'
         onClick={() => {
-          triggerUploadInput();
+          triggerUploadInput(id);
         }}
         className='btn btn-danger'
       >

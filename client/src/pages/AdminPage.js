@@ -17,7 +17,6 @@ const AdminPage = ({ userData: { userName, loading, error }, actions: { isLogin,
       <Link className='btn btn-success' to='/admin/createCommodity/'>
         Создать новый товар <FontAwesomeIcon icon={faPlus} />
       </Link>
-      <Link className='btn btn-primary' to='/admin/updateCommodity/5e84c883e2286534184940dc/'>Обновить товар</Link>
     </LoadingDataLogic>
   );
 };

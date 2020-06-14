@@ -1,15 +1,25 @@
+const updateImgData = (newData, oldData, type) => { 
+  console.log(newData)
+  return {
+    [`${type}File`]: !newData[`${type}File`] ? oldData[`${type}File`] : newData[`${type}File`],
+    [`${type}Src`]: !newData[`${type}Src`] ? oldData[`${type}Src`] : newData[`${type}Src`],
+    [`${type}Alt`]: !newData[`${type}Alt`] ? oldData[`${type}Alt`] : newData[`${type}Alt`],
+    [`${type}Id`]: oldData[`${type}Id`],
+  };
+}
+
 const updateCommodityData = (state, action) => {
   if (state === undefined) {
     return {
-      loading: true,
       id: null,
-      error: null,
       title: null,
       shortDescr: null,
       descr: null,
       previewImg: null,
       img: null,
       price: null,
+      loading: true,
+      error: null,
     };
   }
   switch (action.type) {
@@ -17,20 +27,20 @@ const updateCommodityData = (state, action) => {
       return {
         ...state.commodityData,
         loading: true,
-      }
+      };
 
     case 'FETCH_COMMODITY_SUCCUESS':
       return {
-        ...state.commodityData,
         ...action.payload,
         loading: false,
+        error: null,
       };
 
     case 'FETCH_COMMODITY_FAILURE':
       return {
-        loading: true,
+        error: true,
+        loading: false,
         id: null,
-        error: null,
         title: null,
         shortDescr: null,
         descr: null,
@@ -42,19 +52,13 @@ const updateCommodityData = (state, action) => {
     case 'UPDATE_IMG':
       return {
         ...state.commodityData,
-        img: {
-          ...state.commodityData.img,
-          imgFile: action.payload.img,
-        },
+        img: updateImgData(action.payload, state.commodityData.img, 'img'),
       };
 
-    case 'UPDATE_PREVIWIMG':
+    case 'UPDATE_PREVIEWIMG':
       return {
         ...state.commodityData,
-        previewImg: {
-          ...state.commodityData.previewImg,
-          previewImgFile: action.payload.img,
-        },
+        previewImg: updateImgData(action.payload, state.commodityData.previewImg, 'previewImg'),
       };
 
     default:

@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/scss/CommodityDetail.scss';
 import { switchProductBtn } from '../utils/workWithCreateReactElem';
+import { createValidImgSrc } from '../utils/workWithBrowser';
 
 const CommodityDetail = ({
   data: {
@@ -17,7 +18,7 @@ const CommodityDetail = ({
   return (
     <div className='infoBlock col-12 col-xl-6 flexWrap'>
       <div className='infoBlock__img'>
-        <img src={`/${previewImgSrc}`} alt={previewImgAlt} />
+        <img src={createValidImgSrc(previewImgSrc)} alt={previewImgAlt} />
       </div>
       <div className='infoBlock__content'>
         <h2>{title}</h2>

@@ -38,7 +38,7 @@ const ChangeCommodityDetail = ({ data = null, actions: { updateImg, updatePrevie
               alt: data?.previewImg.previewImgAlt,
               id: data?.previewImg.previewImgId,
             }}
-            actionForUpload={updatePreviewImg}
+            actionForUpdateImgData={updatePreviewImg}
           />
         </div>
       </div>
@@ -55,9 +55,9 @@ const ChangeCommodityDetail = ({ data = null, actions: { updateImg, updatePrevie
             img={{
               src: data?.img.imgSrc,
               alt: data?.img.imgAlt,
-              id: data?.img.imgId
+              id: data?.img.imgId,
             }}
-            actionForUpload={updateImg}
+            actionForUpdateImgData={updateImg}
           />
         </div>
       </div>

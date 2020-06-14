@@ -1,16 +1,16 @@
 import { redirectToPage } from '../utils/workWithBrowser';
 
-export const updateImg = (img, imgSrc) => {
+export const updateImg = (imgFile, imgSrc, imgAlt) => {
   return {
     type: 'UPDATE_IMG',
-    payload: { img, imgSrc },
+    payload: { imgFile, imgSrc, imgAlt },
   };
 };
 
-export const updatePreviewImg = (previewImg, previewImgSrc) => {
+export const updatePreviewImg = (previewImgFile, previewImgSrc, previewImgAlt) => {
   return {
-    type: 'UPDATE_PREVIWIMG',
-    payload: { previewImg, previewImgSrc },
+    type: 'UPDATE_PREVIEWIMG',
+    payload: { previewImgFile, previewImgSrc, previewImgAlt },
   };
 };
 

@@ -78,13 +78,14 @@ export const setValues = (data) => {
   elementsForSetData.forEach((element, index) => (element.value = data[index]));
 };
 
-export const createUpdateImgBtn = (updateFunc, img, imgSrc) => {
+export const createUpdateImgBtn = (updateFunc, img, imgSrc , alt) => {
   return (
     <button className='btn btn-success'
       onClick={(e) => {
         e.preventDefault();
-        updateFunc(img, imgSrc);
+        updateFunc(img, imgSrc, alt);
       }}
+      data-close={true}
     >
       Обновить изображение
     </button>
