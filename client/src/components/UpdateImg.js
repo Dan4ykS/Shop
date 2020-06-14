@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import FileUploader from './FileUploader';
 import '../styles/scss/UpdateImg.scss';
 import { createUpdateImgBtn } from '../utils/workWithCreateReactElem';
-import { findNeedElement } from '../utils/workWithBrowser';
 
 const UpdateImg = ({ img: { src, id, alt }, funcForUpdateData }) => {
   const [previewSrc, updatePreviewSrc] = useState(null),
     [imgAlt, updateImgAlt] = useState(alt),
     [img, updateLocalImg] = useState(null);
   return (
-    <div className={`updateImg updateImg_${id} hidenElem row`}>
+    <div className={`modalWindow updateImg updateImg_${id} row hidenElem`}>
       <span data-close={true}>&#215;</span>
 
       <div className='updateImg__imgDetail flexWrapColumn_center col-4'>
