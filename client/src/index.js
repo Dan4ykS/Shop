@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
-import GoodsService from './services/GoodsService';
-import UsersService from './services/UsersService';
+import goodsService from './services/GoodsService';
+import usersService from './services/UsersService';
 import store from './store';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ServicesProvider } from './components/Context';
 
 const services = {
-  goodsService: GoodsService,
-  usersService: UsersService,
+  goodsService,
+  usersService,
 };
 
 ReactDOM.render(
@@ -21,5 +21,5 @@ ReactDOM.render(
       </Router>
     </ServicesProvider>
   </Provider>,
-  document.getElementById('reduxApp')
+  document.getElementById('appMountPoint')
 );

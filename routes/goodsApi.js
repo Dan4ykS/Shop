@@ -35,31 +35,36 @@ router.get('/findCommodity/:id', async ({ params: { id } }, res) => {
   }
 });
 
-router.post('/createCommodity', authAdmin, uploadFile.array('images'), async ({ body: { title, shortDescr, descr, price, previewImgAlt = null, imgAlt = null }, files }, res) => {
-  try {
-    const newCommodity = new Goods({
-      title: voca.titleCase(title, [' ']),
-      shortDescr,
-      descr,
-      previewImg: {
-        previewImgSrc: files[0].path,
-        previewImgAlt: !previewImgAlt ? createAltForImg() : createAltForImg(previewImgAlt),
-      },
-      price,
-      img:
-        files.length > 1
-          ? {
-              imgSrc: files[1].path,
-              imgAlt: !imgAlt ? createAltForImg() : createAltForImg(imgAlt),
-            }
-          : null,
-    });
-    await newCommodity.save();
-    res.json({ message: 'Товар был успешно добавлен!' });
-  } catch (error) {
-    errorHandler(res, error);
+router.post(
+  '/createCommodity',
+  authAdmin,
+  uploadFile.fields([{ name: 'previewImg' }, { name: 'img' }]),
+  async ({ body: { title, shortDescr, descr, price, previewImgAlt = null, imgAlt = null }, files }, res) => {
+    try {
+      const newCommodity = new Goods({
+        title: voca.titleCase(title, [' ']),
+        shortDescr,
+        descr,
+        previewImg: {
+          previewImgSrc: files.previewImg[0].path,
+          previewImgAlt: !previewImgAlt ? createAltForImg() : createAltForImg(previewImgAlt),
+        },
+        price,
+        img:
+          files?.img
+            ? {
+                imgSrc: files.img[0].path,
+                imgAlt: !imgAlt ? createAltForImg() : createAltForImg(imgAlt),
+              }
+            : null,
+      });
+      await newCommodity.save();
+      res.json({ message: 'Товар был успешно добавлен!' });
+    } catch (error) {
+      errorHandler(res, error);
+    }
   }
-});
+);
 
 router.patch('/updateCommodity/:id', authAdmin, uploadFile.fields([{ name: 'previewImg' }, { name: 'img' }]), async ({ body, params: { id }, files }, res) => {
   try {
@@ -74,7 +79,6 @@ router.patch('/updateCommodity/:id', authAdmin, uploadFile.fields([{ name: 'prev
       previewImg: { previewImgSrc },
       img: { imgSrc },
     } = oldCommodityData;
-    console.log(previewImgSrc, imgSrc)
     res.status(200).json({ message: `товар с id:${id} обновлен` });
     if (newFiles?.img && imgSrc) {
       deleteFile(imgSrc.split('\\')[1]);
