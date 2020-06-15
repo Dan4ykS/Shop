@@ -17,22 +17,21 @@ const LoginPage = ({ userData: { token, loading, error }, actions: { authorizati
       <div className='row'>
         <div className='authorization col-lg-6'>
           <form className='authorizationForm' onSubmit={(e) => workWithUserApi(e, authorization, '.authorization', history)}>
-            <div className='form-group row'>
-              <label className='col-sm-2 col-form-label'>Логин:</label>
+            <div className='formGroup row'>
+              <label className='col-sm-2 colFormLable'>Логин:</label>
               <div className='col-sm-10'>
-                <input name='userName' type='text' className='form-control' placeholder='Введите ваш логин' required />
-                <div className='invalid-feedback'>Неверный логин</div>
+                <input name='userName' type='text' className='formControl' placeholder='Введите ваш логин' required />
+                <div className='invalidFeedback'>Неверный логин</div>
               </div>
             </div>
-            <div className='form-group row'>
-              <label className='col-sm-2 col-form-label'>Пароль:</label>
+            <div className='formGroup row'>
+              <label className='col-sm-2 colFormLable'>Пароль:</label>
               <div className='col-sm-10 password'>
                 <span className='showPasswordIcon showPasswordIcon_crosOut'>
-                  <FontAwesomeIcon onClick={() => changePasswordType('.showPasswordIcon', '.form-control_password')} icon={faEye} />
+                  <FontAwesomeIcon onClick={() => changePasswordType('.showPasswordIcon', '.formControl_password')} icon={faEye} />
                 </span>
-                <input name='password' type='password' className='form-control form-control_password' placeholder='Введите ваш пароль' required />
-
-                <div className='invalid-feedback'>Неверный пароль</div>
+                <input name='password' type='password' className='formControl formControl_password' placeholder='Введите ваш пароль' required />
+                <div className='invalidFeedback'>Неверный пароль</div>
               </div>
               <Link to='/helpLogin/' className='authorization__forgotPassword'>
                 Забыли пароль?

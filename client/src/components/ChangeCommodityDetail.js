@@ -3,7 +3,7 @@ import ImgUploader from './ImgUploader';
 import '../styles/scss/ChangeCommodityDetail.scss';
 import { setValues } from '../utils/workWithCreateReactElem';
 
-const ChangeCommodityDetail = ({ data = null, actions: { updateImg, updatePreviewImg } }) => {
+const ChangeCommodityDetail = ({ data = null, actions: { updateImg, updatePreviewImg, updateServerData } }) => {
   useEffect(() => {
     if (data) {
       const valuesForElement = [];
@@ -16,21 +16,21 @@ const ChangeCommodityDetail = ({ data = null, actions: { updateImg, updatePrevie
     }
   }, [data]);
   return (
-    <form onSubmit={() => {}}>
-      <div className='form-group row'>
-        <label className='col-sm-3'>Название:</label>
+    <form className='changeCommodityDetail' onSubmit={() => updateServerData()}>
+      <div className='formGroup row'>
+        <label className='col-sm-3 colFormLable'>Название:</label>
         <div className='col-sm-9'>
-          <input name='forSetData' type='text' className='form-control' />
+          <input name='forSetData' type='text' className='formControl' />
         </div>
       </div>
-      <div className='form-group row'>
-        <label className='col-sm-3'>Краткое описание:</label>
+      <div className='formGroup row'>
+        <label className='col-sm-3 colFormLable'>Краткое описание:</label>
         <div className='col-sm-9'>
-          <textarea name='forSetData' className='form-control'></textarea>
+          <textarea name='forSetData' className='formControl'></textarea>
         </div>
       </div>
-      <div className='form-group row'>
-        <label className='col-sm-3'>Превью:</label>
+      <div className='formGroup row'>
+        <label className='col-sm-3 colFormLable'>Превью:</label>
         <div className='col-sm-9' style={{ position: 'static' }}>
           <ImgUploader
             img={{
@@ -42,14 +42,14 @@ const ChangeCommodityDetail = ({ data = null, actions: { updateImg, updatePrevie
           />
         </div>
       </div>
-      <div className='form-group row'>
-        <label className='col-sm-3'>Полное описание:</label>
+      <div className='formGroup row'>
+        <label className='col-sm-3 colFormLable'>Полное описание:</label>
         <div className='col-sm-9'>
-          <textarea name='forSetData' className='form-control'></textarea>
+          <textarea name='forSetData' className='formControl'></textarea>
         </div>
       </div>
-      <div className='form-group row'>
-        <label className='col-sm-3'>Изображение:</label>
+      <div className='formGroup row'>
+        <label className='col-sm-3 colFormLable'>Изображение:</label>
         <div className='col-sm-9'>
           <ImgUploader
             img={{

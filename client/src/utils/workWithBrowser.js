@@ -84,8 +84,8 @@ export const clearInputs = (inputs) => {
   inputs.forEach((el) => {
     el.value = '';
     el.addEventListener('focus', () => {
-      inputs.forEach((el) => el.classList.remove('is-invalid'));
-      const showPasswordElement = document.querySelector('.showPasswordIcon');
+      inputs.forEach((el) => el.classList.remove('isInvalid'));
+      const showPasswordElement = findNeedElement('.showPasswordIcon');
       if (showPasswordElement !== null) {
         showPasswordElement.style.display = 'block';
       }
@@ -94,11 +94,11 @@ export const clearInputs = (inputs) => {
 };
 
 export const isInvalid = (inputs) => {
-  const showPasswordElement = document.querySelector('.showPasswordIcon');
+  const showPasswordElement = findNeedElement('.showPasswordIcon');
   if (showPasswordElement) {
     showPasswordElement.style.display = 'none';
   }
-  inputs.forEach((el) => el.classList.add('is-invalid'));
+  inputs.forEach((el) => el.classList.add('isInvalid'));
 };
 
 export const activateBtn = (selector) => {

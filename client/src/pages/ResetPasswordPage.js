@@ -19,17 +19,17 @@ const ResetPasswordPage = ({ userData: { error, token, loading } }) => {
       <div className='row reset justify-content-center'>
         <form className='col-6 reset__form' onSubmit={(e) => resetPassword(e, 'create', token)}>
           <h2>Восстановление пароля</h2>
-          <div className='form-group password'>
+          <div className='formGroup password'>
             <span className='showPasswordIcon showPasswordIcon_crosOut'>
-              <FontAwesomeIcon onClick={() => changePasswordType('.showPasswordIcon', '.form-control_password')} icon={faEye} />
+              <FontAwesomeIcon onClick={() => changePasswordType('.showPasswordIcon', '.formControl_password')} icon={faEye} />
             </span>
-            <input type='password' name='password' className='form-control form-control_password' placeholder='Введите новый пароль' required />
+            <input type='password' name='password' className='formControl formControl_password' placeholder='Введите новый пароль' required />
           </div>
           <button type='submit' className='btn btn-primary'>
             Изменить пароль
           </button>
         </form>
-        <div className='col-6 reset__successMsg'>
+        <div className='col-6 reset__successMsg hidenElem'>
           <p>Ваш пароль был успешно изменен!</p>
           <div className='text-center'>
             <Link to='/' className='btn btn-primary text-center'>

@@ -12,10 +12,10 @@ const UpdateImg = ({ img: { src, id, alt }, funcForUpdateData }) => {
       <span data-close={true}>&#215;</span>
 
       <div className='updateImg__imgDetail flexWrapColumn_center col-4'>
-        <div className='form-group row'>
+        <div className='formGroup row'>
           <label className='col-sm-3'>Alt:</label>
           <div className='col-sm-9'>
-            <input type='text' className='form-control' value={imgAlt} onChange={(e) => updateImgAlt(e.target.value)} />
+            <input type='text' className='formControl' value={imgAlt} onChange={(e) => updateImgAlt(e.target.value)} />
           </div>
         </div>
         <FileUploader

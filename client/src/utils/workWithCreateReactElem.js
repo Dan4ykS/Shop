@@ -52,7 +52,7 @@ export const switchProductBtn = (userName, ...eventHendlers) => {
   }
   if (!userName) {
     return (
-      <div className='btnGroup flexWrap'>
+      <div className='flexWrap'>
         <button onClick={() => onAddedToCart(id, token)}>Купить в один клик</button>
         <Link className='btn btn-primary' to='/'>
           Подробнее
@@ -62,7 +62,7 @@ export const switchProductBtn = (userName, ...eventHendlers) => {
   }
   if (userName) {
     return (
-      <div className='btnGroup flexWrap'>
+      <div className='flexWrap'>
         <button>Купить в один клик!</button>
         <button onClick={() => onAddedToCart(id, token)}>В корзину</button>
         <Link className='btn btn-primary' to='/'>

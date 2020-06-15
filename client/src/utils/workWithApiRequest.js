@@ -4,7 +4,7 @@ import { clearInputs, findNeedElements, createObjForRequest, isInvalid, findNeed
 export const workWithUserApi = (e, requestsToApi, selector, history) => {
   e.preventDefault();
   findNeedElement(`${selector} button`).setAttribute('disabled', true);
-  const inputs = findNeedElements(`${selector} .form-control`);
+  const inputs = findNeedElements(`${selector} .formControl`);
   const data = createObjForRequest(inputs);
   requestsToApi(data, { inputs, selector }, history);
 };
@@ -23,7 +23,7 @@ export const resetPassword = async (e, type, token = null) => {
     }
     clearInputs(inputs);
     e.target.style.display = 'none';
-    document.querySelector('.reset__successMsg').style.display = 'block';
+    findNeedElement('.reset__successMsg').classList.remove('hidenElem')
   } catch (error) {
     clearInputs(inputs);
     isInvalid(inputs);
