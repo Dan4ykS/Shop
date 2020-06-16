@@ -25,7 +25,7 @@ const ResetPasswordPage = ({ userData: { error, token, loading } }) => {
             </span>
             <input type='password' name='password' className='formControl formControl_password' placeholder='Введите новый пароль' required />
           </div>
-          <button type='submit' className='btn btn-primary'>
+          <button type='submit' className='btn-primary'>
             Изменить пароль
           </button>
         </form>

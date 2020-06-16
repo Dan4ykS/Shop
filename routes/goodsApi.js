@@ -35,11 +35,15 @@ router.get('/findCommodity/:id', async ({ params: { id } }, res) => {
   }
 });
 
+/**
+ * Переписать функцию учитывая, что все параметры приходят с фронта валидными
+ */
+
 router.post(
   '/createCommodity',
   authAdmin,
   uploadFile.fields([{ name: 'previewImg' }, { name: 'img' }]),
-  async ({ body: { title, shortDescr, descr, price, previewImgAlt = null, imgAlt = null }, files }, res) => {
+  async ({ body: { title, shortDescr, descr, price, previewImgAlt = null, imgAlt = null,  }, files }, res) => {
     try {
       const newCommodity = new Goods({
         title: voca.titleCase(title, [' ']),
@@ -47,14 +51,14 @@ router.post(
         descr,
         previewImg: {
           previewImgSrc: files.previewImg[0].path,
-          previewImgAlt: !previewImgAlt ? createAltForImg() : createAltForImg(previewImgAlt),
+          previewImgAlt,
         },
         price,
         img:
           files?.img
             ? {
                 imgSrc: files.img[0].path,
-                imgAlt: !imgAlt ? createAltForImg() : createAltForImg(imgAlt),
+                imgAlt,
               }
             : null,
       });
@@ -74,12 +78,12 @@ router.patch('/updateCommodity/:id', authAdmin, uploadFile.fields([{ name: 'prev
     };
     const oldCommodityData = await Goods.findById(id);
     const dataForUpdate = createDataUpdateObj(body, newFiles, oldCommodityData);
-    await Goods.updateOne({_id: id}, dataForUpdate);
+    await Goods.updateOne({ _id: id }, dataForUpdate);
+    res.status(200).json({ message: `товар с id:${id} обновлен` });
     const {
       previewImg: { previewImgSrc },
       img: { imgSrc },
     } = oldCommodityData;
-    res.status(200).json({ message: `товар с id:${id} обновлен` });
     if (newFiles?.img && imgSrc) {
       deleteFile(imgSrc.split('\\')[1]);
     }

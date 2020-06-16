@@ -7,7 +7,7 @@ const Page404 = ({ history }) => {
   return (
     <>
       <h1>Ошибка, страница не найдена</h1>
-      <button className='btn btn-success' onClick={() => redirectToPage(history, '/')}>На главную </button>
+      <button className='btn-success' onClick={() => redirectToPage(history, '/')}>На главную </button>
     </>
   );
 };

@@ -57,13 +57,17 @@ export const redirectToLink = (link) => {
   window.open(link);
 };
 
-export const findNeedElements = (selector) => {
-  return document.querySelectorAll(selector);
+export const findNeedElements = (btnSelector) => {
+  return document.querySelectorAll(btnSelector);
 };
 
-export const findNeedElement = (selector) => {
-  return document.querySelector(selector);
+export const findNeedElement = (btnSelector) => {
+  return document.querySelector(btnSelector);
 };
+
+export const disableBtn = (btnSelector) => {
+  findNeedElement(`${btnSelector}`).setAttribute('disabled', true);
+ }
 
 export const createObjForRequest = (inputs) => {
   const data = {};
@@ -101,8 +105,8 @@ export const isInvalid = (inputs) => {
   inputs.forEach((el) => el.classList.add('isInvalid'));
 };
 
-export const activateBtn = (selector) => {
-  findNeedElements(`${selector} button`)[0].removeAttribute('disabled');
+export const activateBtn = (btnSelector) => {
+  findNeedElement(`${btnSelector}`).removeAttribute('disabled');
 };
 
 export const changePasswordType = (iconSelector, inputSelector) => {

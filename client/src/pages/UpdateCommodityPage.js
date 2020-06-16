@@ -1,13 +1,36 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import LoadingDataLogic from '../logicComponents/LoadingData';
 import withStore from '../utils/workWithRedux';
 import ChangeCommodityDetail from '../components/ChangeCommodityDetail';
 import { findPathParams } from '../utils/workWithBrowser';
 
 const UpdateCommodityPage = ({
-  commodityData: { loading, error: commodityError, title, shortDescr, descr, previewImg, img, id },
-  actions: { updateImg, updatePreviewImg ,fetchCommodity },
-  userData: { token, error: userError, userName },
+  commodityData: {
+    loading,
+    error: commodityError,
+    title,
+    shortDescr,
+    descr,
+    previewImg,
+    img,
+    id,
+    updatedFields,
+    price,
+  },
+  actions: {
+    updateCommodityImg,
+    updateCommodityPreviewImg,
+    fetchCommodity,
+    updateCommodityTitle,
+    updateCommodityPrice,
+    updateCommodityDescr,
+    updateCommodityShortDescr,
+    updateCommodityData
+  },
+  userData: {
+    token,
+    error: userError,
+  },
   history,
 }) => {
   return (
@@ -19,20 +42,26 @@ const UpdateCommodityPage = ({
       }}
     >
       <ChangeCommodityDetail
-        data={useMemo(
-          () => ({
-            title,
-            shortDescr,
-            descr,
-            previewImg,
-            img,
-            id,
-          }),
-          [title, descr, shortDescr, previewImg, img, id]
-        )}
+        data={{
+          title,
+          shortDescr,
+          descr,
+          previewImg,
+          img,
+          id,
+          price,
+          token,
+          updatedFields,
+          type: 'update'
+        }}
         actions={{
-          updateImg,
-          updatePreviewImg,
+          updateCommodityImg,
+          updateCommodityPreviewImg,
+          updateCommodityTitle,
+          updateCommodityDescr,
+          updateCommodityShortDescr,
+          updateCommodityPrice,
+          updateServerData: updateCommodityData,
         }}
       />
     </LoadingDataLogic>

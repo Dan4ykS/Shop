@@ -37,10 +37,10 @@ export const removePreventDefault = () => {
 };
 
 export const dragAndDropForFile = (updateFileDataFunc) => {
-  const fileUploader = document.querySelector('.fileUploader'),
-    uploaderBtn = document.querySelector('.fileUploader button'),
+  const fileUploader = findNeedElement('.fileUploader'),
+    uploaderBtn = findNeedElement('.fileUploader button'),
     body = document.body,
-    dndText = document.querySelector('.fileUploader__dndText');
+    dndText = findNeedElement('.fileUploader__dndText');
 
   ['dragenter', 'dragleave', 'dragover', 'drop'].forEach((eventName) => {
     fileUploader.addEventListener(eventName, preventDefault);

@@ -6,7 +6,7 @@ import { createValidImgSrc } from '../utils/workWithBrowser';
 const CommodityDetail = ({
   data: {
     id,
-    previewImg: { previewImgSrc, previewImgAlt },
+    previewImg,
     shortDescr,
     price,
     title,
@@ -18,7 +18,7 @@ const CommodityDetail = ({
   return (
     <div className='infoBlock col-12 col-xl-6 flexWrap'>
       <div className='infoBlock__img'>
-        <img src={createValidImgSrc(previewImgSrc)} alt={previewImgAlt} />
+        <img src={createValidImgSrc(previewImg?.previewImgSrc)} alt={previewImg?.previewImgAlt} />
       </div>
       <div className='infoBlock__content'>
         <h2>{title}</h2>

@@ -6,7 +6,7 @@ import { onAddedToCart, onDeletedFromCart, loadCart } from '../actions/shopingCa
 import { authorization, registration, isLogin, isLogout, invalidRoute, userLogin } from '../actions/userData';
 import { updateTopHeaderMenu } from '../actions/menuItems';
 import { withRouter } from 'react-router-dom';
-import { updateImg, updatePreviewImg, fetchCommodity } from '../actions/commodityData';
+import { updateImg, updatePreviewImg, fetchCommodity, updateTitle, updateDescr, updateShortDescr, updatePrice, reloadCommodityData, updateCommodityData } from '../actions/commodityData';
 
 const mapStateToProps = ({ goodsList, shopingCart, userData, menuItems, calendarData, commodityData }) => {
   return { goodsList, shopingCart, userData, menuItems, calendarData, commodityData };
@@ -23,11 +23,17 @@ const mapDispatchToProps = (dispatch, { services }) => {
     isLogout: isLogout(dispatch),
     updateTopHeaderMenu: updateTopHeaderMenu(dispatch),
     loadCart: loadCart(dispatch, services),
-    updateImg: (imgFile, imgSrc, imgAlt) => dispatch(updateImg(imgFile, imgSrc, imgAlt)),
     invalidRoute: () => dispatch(invalidRoute()),
     userLogin: (userName, token) => dispatch(userLogin(userName, token)),
-    updatePreviewImg: (previewImgFile, previewImgSrc, previewImgAlt) => dispatch(updatePreviewImg(previewImgFile, previewImgSrc, previewImgAlt)),
     fetchCommodity: fetchCommodity(dispatch, services),
+    updateCommodityPreviewImg: (previewImgFile, previewImgSrc, previewImgAlt) => dispatch(updatePreviewImg(previewImgFile, previewImgSrc, previewImgAlt)),
+    updateCommodityImg: (imgFile, imgSrc, imgAlt) => dispatch(updateImg(imgFile, imgSrc, imgAlt)),
+    updateCommodityTitle: (title) => dispatch(updateTitle(title)),
+    updateCommodityDescr: (descr) => dispatch(updateDescr(descr)),
+    updateCommodityShortDescr: (shortDescr) => dispatch(updateShortDescr(shortDescr)),
+    updateCommodityPrice: (price) => dispatch(updatePrice(price)),
+    reloadCommodityData: () => dispatch(reloadCommodityData()),
+    updateCommodityData: updateCommodityData(dispatch, services)
   };
   return { actions };
 };
@@ -39,18 +45,9 @@ export const removeArrayElement = (array, indexElForRemove) => {
   return [...array.slice(0, indexElForRemove), ...array.slice(indexElForRemove + 1)];
 };
 
-// export const transformDataFromServer = (data, extraConditionals) => {
-//   const extraDataToConvert = extraConditionals.map((obj) => { 
-//     for (const key in obj) {
-//       return {key: obj[key]}
-//     }
-//   })
-//   return data.map((el) => ({
-//     ...el,
-//     id: el._id,
-//     ...extraConditionals[0]: ...extraConditionals[1]
-//   }));
-// };
+export const addArrayElement = (array, newElement) => {
+  return [...array, newElement];
+};
 
 const withStore = (Component) => compose(withServices(), connect(mapStateToProps, mapDispatchToProps))(withRouter(Component));
 

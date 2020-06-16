@@ -26,7 +26,7 @@ const FileUploader = ({ action, id, text = 'Загрузить файл' }) => {
         onClick={() => {
           triggerUploadInput(id);
         }}
-        className='btn btn-danger'
+        className='btn-danger'
       >
         {text}
         <FontAwesomeIcon icon={faUpload} />

@@ -11,7 +11,7 @@ const HelpLoginPage = () => {
           <input type='email' name='email' className='formControl' id='exampleInputEmail1' aria-describedby='emailHelp' placeholder='Введите ваш email' />
           <div className='invalidFeedback'>Неверный email</div>
         </div>
-        <button type='submit' className='btn btn-primary'>
+        <button type='submit' className='btn-primary'>
           Восстановить пароль
         </button>
       </form>

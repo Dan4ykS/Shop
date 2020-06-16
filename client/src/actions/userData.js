@@ -35,6 +35,12 @@ export const invalidRoute = () => {
   };
 };
 
+const authErrorHeandler = ({ inputs, selector }) => {
+  clearInputs(inputs);
+  activateBtn(`${selector} button`);
+  isInvalid(inputs);
+};
+
 export const authorization = (dispatch, { usersService, goodsService }) => async (data, formData, history) => {
   try {
     const token = await usersService.authUser(data);
@@ -48,9 +54,7 @@ export const authorization = (dispatch, { usersService, goodsService }) => async
     dispatch(fetchGoodsSuccuess(goods));
     setNewToken(token);
   } catch (error) {
-    clearInputs(formData.inputs);
-    activateBtn(formData.selector);
-    isInvalid(formData.inputs);
+    authErrorHeandler(formData);
   }
 };
 
@@ -65,9 +69,7 @@ export const registration = (dispatch, { usersService, goodsService }) => async 
     dispatch(fetchGoodsSuccuess(goods));
     setNewToken(token);
   } catch (error) {
-    isInvalid(formData.inputs);
-    activateBtn(formData.selector);
-    clearInputs(formData.inputs);
+    authErrorHeandler(formData);
   }
 };
 

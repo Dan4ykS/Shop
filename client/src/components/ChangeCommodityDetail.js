@@ -1,32 +1,43 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ImgUploader from './ImgUploader';
 import '../styles/scss/ChangeCommodityDetail.scss';
-import { setValues } from '../utils/workWithCreateReactElem';
+import { updateCommodityData } from '../utils/workWithApiRequest';
 
-const ChangeCommodityDetail = ({ data = null, actions: { updateImg, updatePreviewImg, updateServerData } }) => {
-  useEffect(() => {
-    if (data) {
-      const valuesForElement = [];
-      for (const key in data) {
-        if (key !== 'previewImgSrc' || key !== 'imgSrc') {
-          valuesForElement.push(data[key]);
-        }
-      }
-      setValues(valuesForElement);
-    }
-  }, [data]);
+const setValues = (data) => {
+  return !data ? '' : data;
+};
+
+const ChangeCommodityDetail = ({
+  data: { title, descr, shortDescr, img, previewImg, price, updatedFields, token, type, id },
+  actions: { updateCommodityImg, updateCommodityPreviewImg, updateServerData, updateCommodityTitle, updateCommodityDescr, updateCommodityPrice, updateCommodityShortDescr },
+}) => {
   return (
-    <form className='changeCommodityDetail' onSubmit={() => updateServerData()}>
+    <form className='changeCommodityDetail' onSubmit={(e) => updateCommodityData(e, updatedFields, token, type, id)}>
       <div className='formGroup row'>
         <label className='col-sm-3 colFormLable'>Название:</label>
         <div className='col-sm-9'>
-          <input name='forSetData' type='text' className='formControl' />
+          <input
+            name='forSetData'
+            type='text'
+            className='formControl'
+            value={setValues(title)}
+            onChange={(e) => {
+              updateCommodityTitle(e.target.value);
+            }}
+          />
         </div>
       </div>
       <div className='formGroup row'>
         <label className='col-sm-3 colFormLable'>Краткое описание:</label>
         <div className='col-sm-9'>
-          <textarea name='forSetData' className='formControl'></textarea>
+          <textarea
+            name='forSetData'
+            className='formControl'
+            value={setValues(shortDescr)}
+            onChange={(e) => {
+              updateCommodityShortDescr(e.target.value);
+            }}
+          ></textarea>
         </div>
       </div>
       <div className='formGroup row'>
@@ -34,18 +45,25 @@ const ChangeCommodityDetail = ({ data = null, actions: { updateImg, updatePrevie
         <div className='col-sm-9' style={{ position: 'static' }}>
           <ImgUploader
             img={{
-              src: data?.previewImg.previewImgSrc,
-              alt: data?.previewImg.previewImgAlt,
-              id: data?.previewImg.previewImgId,
+              src: previewImg?.previewImgSrc,
+              alt: previewImg?.previewImgAlt,
+              id: previewImg?.previewImgId,
             }}
-            actionForUpdateImgData={updatePreviewImg}
+            actionForUpdateImgData={updateCommodityPreviewImg}
           />
         </div>
       </div>
       <div className='formGroup row'>
         <label className='col-sm-3 colFormLable'>Полное описание:</label>
         <div className='col-sm-9'>
-          <textarea name='forSetData' className='formControl'></textarea>
+          <textarea
+            name='forSetData'
+            className='formControl'
+            value={setValues(descr)}
+            onChange={(e) => {
+              updateCommodityDescr(e.target.value);
+            }}
+          ></textarea>
         </div>
       </div>
       <div className='formGroup row'>
@@ -53,14 +71,28 @@ const ChangeCommodityDetail = ({ data = null, actions: { updateImg, updatePrevie
         <div className='col-sm-9'>
           <ImgUploader
             img={{
-              src: data?.img.imgSrc,
-              alt: data?.img.imgAlt,
-              id: data?.img.imgId,
+              src: img?.imgSrc,
+              alt: img?.imgAlt,
+              id: img?.imgId,
             }}
-            actionForUpdateImgData={updateImg}
+            actionForUpdateImgData={updateCommodityImg}
           />
         </div>
       </div>
+      <div className='formGroup row'>
+        <label className='col-sm-3 colFormLable'>Цена:</label>
+        <div className='col-sm-9'>
+          <input
+            name='forSetData'
+            className='formControl'
+            value={setValues(price)}
+            onChange={(e) => {
+              updateCommodityPrice(e.target.value);
+            }}
+          />
+        </div>
+      </div>
+      {Object.keys(updatedFields).length > 0 ? <button type='submit'>{type === 'update' ? 'Обновить данные' : 'Создать товар'}</button> : null}
     </form>
   );
 };

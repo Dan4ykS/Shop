@@ -53,13 +53,13 @@ const createDataUpdateObj = (updateData, { previewImg, img }, oldData) => {
             ...oldData.img,
             imgAlt: createAltForImg(imgAlt),
           }
-        : null,
+        : oldData?.img,
       previewImg: previewImgAlt
         ? {
             ...oldData.previewImg,
             previewImgAlt: createAltForImg(previewImgAlt),
           }
-        : null,
+        : oldData?.previewImg,
     };
   }
 };
@@ -83,7 +83,7 @@ const createAltForImg = (alt = null) => {
   if (alt && alt !== ' ') {
     return `${voca.titleCase(alt, [' '])}`;
   }
-  return `img:${moment().format('ss_SSS')}`;
+  return `img${moment().format('ss_SSS')}`;
 };
 
 module.exports = {

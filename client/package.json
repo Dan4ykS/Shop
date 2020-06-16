@@ -10,6 +10,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.13.0",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.10",
+    "moment": "^2.26.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
@@ -17,7 +18,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-scroll": "^1.7.16",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "voca": "^1.4.0"
   },
   "scripts": {
     "start": "react-scripts start",

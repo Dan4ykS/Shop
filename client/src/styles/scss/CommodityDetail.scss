@@ -17,10 +17,6 @@
     }
     .btnGroup {
       margin-top: 10px;
-      button {
-        width: 50%;
-        @include button;
-      }
       .buy {
         width: 50%;
         span {

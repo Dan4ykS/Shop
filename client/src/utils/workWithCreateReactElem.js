@@ -74,6 +74,7 @@ export const switchProductBtn = (userName, ...eventHendlers) => {
 };
 
 export const setValues = (data) => {
+  console.log('Установка значений')
   const elementsForSetData = document.querySelectorAll('[name=forSetData]');
   elementsForSetData.forEach((element, index) => (element.value = data[index]));
 };

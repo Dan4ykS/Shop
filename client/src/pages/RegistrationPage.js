@@ -4,7 +4,7 @@ import LoadingDataLogic from '../logicComponents/LoadingData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { changePasswordType } from '../utils/workWithBrowser';
-import { workWithUserApi } from '../utils/workWithApiRequest';
+import { authRequests } from '../utils/workWithApiRequest';
 import { configForUthPages } from '../utils/workWithCreateReactElem';
 
 const RegistrationPage = ({ userData: { token, loading }, actions: { registration }, history }) => {
@@ -12,7 +12,7 @@ const RegistrationPage = ({ userData: { token, loading }, actions: { registratio
     <LoadingDataLogic configData={configForUthPages(token, loading)}>
       <h2>Регистрация</h2>
       <div className='row justify-content-center'>
-        <form className='registration col-lg-6' onSubmit={(e) => workWithUserApi(e, registration, '.registration', history)}>
+        <form className='registration col-lg-6' onSubmit={(e) => authRequests(e, registration, '.registration', history)}>
           <div className='formGroup row'>
             <label className='col-sm-2 colFormLable'>Логин:</label>
             <div className='col-sm-10'>
@@ -37,7 +37,7 @@ const RegistrationPage = ({ userData: { token, loading }, actions: { registratio
             </div>
           </div>
           <div className='col-12 text-center' role='group'>
-            <button type='submit' style={{ width: '100%' }} className='btn btn-primary'>
+            <button type='submit' style={{ width: '100%' }} className='btn-primary'>
               Зарегистрироваться
             </button>
           </div>
