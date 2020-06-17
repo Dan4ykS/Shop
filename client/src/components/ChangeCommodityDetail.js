@@ -92,7 +92,11 @@ const ChangeCommodityDetail = ({
           />
         </div>
       </div>
-      {Object.keys(updatedFields).length > 0 ? <button type='submit'>{type === 'update' ? 'Обновить данные' : 'Создать товар'}</button> : null}
+      {Object.keys(updatedFields).length > 0 ? (
+        <button className='changeCommodityDetail__btn' type='submit'>
+          {type === 'update' ? 'Обновить данные' : 'Создать товар'}
+        </button>
+      ) : null}
     </form>
   );
 };

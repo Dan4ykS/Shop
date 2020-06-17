@@ -1,15 +1,9 @@
-const updateMenu = (userName) => {
-  return {
-    type: 'UPDATE_ITEMS',
-    payload: userName,
-  };
-};
+import { createAction } from "../utils/workWithRedux";
 
-const notUpdate = () => {
-  return {
-    type: 'NOT_UPDATE',
-  };
-};
+const updateMenu = (userName) => createAction('UPDATE_ITEMS', userName)
+
+const notUpdate = () => createAction('NOT_UPDATE') 
+
 export const updateTopHeaderMenu = (dispatch) => (userName) => {
   dispatch(updateMenu(userName));
   setTimeout(() => dispatch(notUpdate()), 500);

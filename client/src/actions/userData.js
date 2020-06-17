@@ -2,38 +2,17 @@ import { clearCart, loadCartFromServer } from './shopingCart';
 import { fetchGoodsSuccuess } from './goodsList';
 import { isInvalid, redirectToPage, clearInputs, activateBtn } from '../utils/workWithBrowser';
 import { setNewToken } from '../utils/workWithApiRequest';
+import { createAction } from '../utils/workWithRedux';
 
-const createUser = (userName, token) => {
-  return {
-    type: 'CREATE_NEW_USER',
-    payload: { userName, token },
-  };
-};
+const createUser = (userName, token) => createAction('CREATE_NEW_USER', { userName, token });
 
-const resetError = () => {
-  return {
-    type: 'RESET_ERROR',
-  };
-};
+const resetError = () => createAction('RESET_ERROR');
 
-export const userLogin = (userName, token) => {
-  return {
-    type: 'USER_LOGIN',
-    payload: { userName, token },
-  };
-};
+export const userLogin = (userName, token) => createAction('USER_LOGIN', { userName, token });
 
-export const userLogout = () => {
-  return {
-    type: 'USER_LOGOUT',
-  };
-};
+export const userLogout = () => createAction('USER_LOGOUT');
 
-export const invalidRoute = () => {
-  return {
-    type: 'INVALID_ROUTE',
-  };
-};
+export const invalidRoute = () => createAction('INVALID_ROUTE');
 
 const authErrorHeandler = ({ inputs, selector }) => {
   clearInputs(inputs);
@@ -82,7 +61,6 @@ export const isLogin = (dispatch, { usersService }) => async (token) => {
   } catch (error) {
     dispatch(invalidRoute());
     dispatch(resetError());
-    console.log(error);
   }
 };
 

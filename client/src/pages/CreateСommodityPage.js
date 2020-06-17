@@ -16,7 +16,6 @@ const CreateСommodityPage = ({
     previewImg,
     img,
     id,
-    updatedFields,
     price,
   },
   actions: {
@@ -47,8 +46,8 @@ const CreateСommodityPage = ({
           id,
           price,
           token,
-          updatedFields,
-          type: 'create'
+          updatedFields: { title, shortDescr, descr, previewImg, img, price },
+          type: 'create',
         }}
         actions={{
           updateCommodityImg,

@@ -6,7 +6,7 @@ import { onAddedToCart, onDeletedFromCart, loadCart } from '../actions/shopingCa
 import { authorization, registration, isLogin, isLogout, invalidRoute, userLogin } from '../actions/userData';
 import { updateTopHeaderMenu } from '../actions/menuItems';
 import { withRouter } from 'react-router-dom';
-import { updateImg, updatePreviewImg, fetchCommodity, updateTitle, updateDescr, updateShortDescr, updatePrice, reloadCommodityData, updateCommodityData } from '../actions/commodityData';
+import { updateImg, updatePreviewImg, fetchCommodity, updateTitle, updateDescr, updateShortDescr, updatePrice, reloadCommodityData } from '../actions/commodityData';
 
 const mapStateToProps = ({ goodsList, shopingCart, userData, menuItems, calendarData, commodityData }) => {
   return { goodsList, shopingCart, userData, menuItems, calendarData, commodityData };
@@ -33,7 +33,6 @@ const mapDispatchToProps = (dispatch, { services }) => {
     updateCommodityShortDescr: (shortDescr) => dispatch(updateShortDescr(shortDescr)),
     updateCommodityPrice: (price) => dispatch(updatePrice(price)),
     reloadCommodityData: () => dispatch(reloadCommodityData()),
-    updateCommodityData: updateCommodityData(dispatch, services)
   };
   return { actions };
 };
@@ -47,6 +46,13 @@ export const removeArrayElement = (array, indexElForRemove) => {
 
 export const addArrayElement = (array, newElement) => {
   return [...array, newElement];
+};
+
+export const createAction = (action, payload = null) => {
+  return {
+    type: action,
+    payload,
+  };
 };
 
 const withStore = (Component) => compose(withServices(), connect(mapStateToProps, mapDispatchToProps))(withRouter(Component));

@@ -1,29 +1,12 @@
-const commodityAddToCart = (bookId) => {
-  return {
-    type: 'BOOK_ADD_TO_CART',
-    payload: bookId,
-  };
-};
+import { createAction } from '../utils/workWithRedux';
 
-const commodityDeletedFromCart = (bookId) => {
-  return {
-    type: 'BOOK_DELETE_FROM_CART',
-    payload: bookId,
-  };
-};
+const commodityAddToCart = (bookId) => createAction('BOOK_ADD_TO_CART', bookId);
 
-export const loadCartFromServer = (cart) => {
-  return {
-    type: 'LOAD_CART_FROM_SERVER',
-    payload: cart
-  };
-};
+const commodityDeletedFromCart = (bookId) => createAction('BOOK_DELETE_FROM_CART', bookId);
 
-export const clearCart = () => {
-  return {
-    type: 'CLEAR_CART',
-  };
-};
+export const loadCartFromServer = (cart) => createAction('LOAD_CART_FROM_SERVER', cart);
+
+export const clearCart = () => createAction('CLEAR_CART');
 
 export const onAddedToCart = (dispatch, { goodsService }) => async (id, token) => {
   try {

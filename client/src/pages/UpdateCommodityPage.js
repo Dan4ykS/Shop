@@ -25,7 +25,6 @@ const UpdateCommodityPage = ({
     updateCommodityPrice,
     updateCommodityDescr,
     updateCommodityShortDescr,
-    updateCommodityData
   },
   userData: {
     token,
@@ -61,7 +60,6 @@ const UpdateCommodityPage = ({
           updateCommodityDescr,
           updateCommodityShortDescr,
           updateCommodityPrice,
-          updateServerData: updateCommodityData,
         }}
       />
     </LoadingDataLogic>

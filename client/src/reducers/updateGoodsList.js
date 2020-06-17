@@ -13,18 +13,21 @@ const updategoodsList = (state, action) => {
         error: null,
         loading: true,
       };
+    
     case 'FETCH_GOODS_SUCCUESS':
       return {
         goods: action.payload,
         error: null,
         loading: false,
       };
+    
     case 'FETCH_GOODS_FAILURE':
       return {
         goods: [],
-        error: action.payload,
+        error: true,
         loading: false,
       };
+    
     default:
       return state.goodsList;
   }

@@ -1,4 +1,3 @@
-import { addArrayElement, changeArrayElement } from '../utils/workWithRedux';
 import m from 'moment';
 import v from 'voca';
 
@@ -99,7 +98,7 @@ const updateCommodityData = (state, action) => {
         error: true,
       };
 
-    case 'RELOAD_COMMODITY_DATA':
+    case 'RESET_COMMODITY_DATA':
       return defaultCommodityDataState;
 
     case 'UPDATE_IMG':
@@ -119,9 +118,6 @@ const updateCommodityData = (state, action) => {
 
     case 'UPDATE_PRICE':
       return updateField(state.commodityData, 'price', action.payload);
-
-    case 'UPDATE_COMMODITY_DATA_ON_SERVER':
-      return state.commodityData;
 
     default:
       return state.commodityData;

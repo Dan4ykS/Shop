@@ -1,22 +1,10 @@
-const fetchGoodsRequest = () => {
-  return {
-    type: 'FETCH_GOODS_REQUEST',
-  };
-};
+import { createAction } from '../utils/workWithRedux';
 
-export const fetchGoodsSuccuess = (goods) => {
-  return {
-    type: 'FETCH_GOODS_SUCCUESS',
-    payload: goods
-  };
-};
+const fetchGoodsRequest = () => createAction('FETCH_GOODS_REQUEST');
 
-const fetchGoodsFailure = (error) => {
-  return {
-    type: 'FETCH_GOODS_FAILURE',
-    payload: error,
-  };
-};
+const fetchGoodsFailure = () => createAction('FETCH_GOODS_FAILURE');
+
+export const fetchGoodsSuccuess = (goods) => createAction('FETCH_GOODS_SUCCUESS', goods);
 
 export const fetchGoods = (dispatch, { goodsService }) => async () => {
   try {

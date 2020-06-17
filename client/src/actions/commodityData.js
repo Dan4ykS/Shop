@@ -1,56 +1,25 @@
 import { redirectToPage } from '../utils/workWithBrowser';
+import { createAction } from '../utils/workWithRedux';
 
-const createActionFunc = (action, payload = null) => {
-  return {
-    type: action,
-    payload,
-  };
-};
+export const updateImg = (imgFile, imgSrc, imgAlt) => createAction('UPDATE_IMG', { imgFile, imgSrc, imgAlt });
 
-const updateCommodityDataOnServer = () => createActionFunc('UPDATE_COMMODITY_DATA_ON_SERVER');
+export const updatePreviewImg = (previewImgFile, previewImgSrc, previewImgAlt) => createAction('UPDATE_PREVIEWIMG', { previewImgFile, previewImgSrc, previewImgAlt });
 
-export const updateImg = (imgFile, imgSrc, imgAlt) => {
-  return {
-    type: 'UPDATE_IMG',
-    payload: { imgFile, imgSrc, imgAlt },
-  };
-};
+export const updateTitle = (title) => createAction('UPDATE_TITLE', title);
 
-export const updatePreviewImg = (previewImgFile, previewImgSrc, previewImgAlt) => {
-  return {
-    type: 'UPDATE_PREVIEWIMG',
-    payload: { previewImgFile, previewImgSrc, previewImgAlt },
-  };
-};
+export const updatePrice = (price) => createAction('UPDATE_PRICE', price);
 
-export const updateTitle = (title) => createActionFunc('UPDATE_TITLE', title);
+export const updateDescr = (descr) => createAction('UPDATE_DESCR', descr);
 
-export const updatePrice = (price) => createActionFunc('UPDATE_PRICE', price);
+export const updateShortDescr = (shortDescr) => createAction('UPDATE_SHORTDESCR', shortDescr);
 
-export const updateDescr = (descr) => createActionFunc('UPDATE_DESCR', descr);
+export const reloadCommodityData = () => createAction('RESET_COMMODITY_DATA');
 
-export const updateShortDescr = (shortDescr) => createActionFunc('UPDATE_SHORTDESCR', shortDescr);
+const fetchCommoditySuccuess = (data) => createAction('FETCH_COMMODITY_SUCCUESS', data);
 
-export const reloadCommodityData = () => createActionFunc('RELOAD_COMMODITY_DATA');
+const fetchCommodityFailure = () => createAction('FETCH_COMMODITY_FAILURE');
 
-const fetchCommoditySuccuess = (data) => {
-  return {
-    type: 'FETCH_COMMODITY_SUCCUESS',
-    payload: data,
-  };
-};
-
-const fetchCommodityFailure = () => {
-  return {
-    type: 'FETCH_COMMODITY_FAILURE',
-  };
-};
-
-const fetchCommodityRequest = () => {
-  return {
-    type: 'FETCH_COMMODITY_REQUEST',
-  };
-};
+const fetchCommodityRequest = () => createAction('FETCH_COMMODITY_REQUEST');
 
 export const fetchCommodity = (dispatch, { goodsService }) => async (id, token, history) => {
   try {
@@ -62,11 +31,3 @@ export const fetchCommodity = (dispatch, { goodsService }) => async (id, token, 
     redirectToPage(history, `/admin/updateCommodity?id=${id}`);
   }
 };
-
-export const updateCommodityData = (dispatch, { goodsService }) => async (updatedFields = [], token) => { 
-  try {
-    updatedFields.forEach((field) => console.log(field))
-  } catch (error) {
-    console.log(error)
-  }
-}

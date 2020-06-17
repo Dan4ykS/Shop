@@ -66,12 +66,12 @@ const createObjForUpdateCommodity = (data) => {
 export const updateCommodityData = async (e, updatedFields, token, type, commodityId) => {
   e.persist();
   e.preventDefault();
-  disableBtn('.changeCommodityDetail button');
+  disableBtn('.changeCommodityDetail__btn');
   const objForRequest = createObjForUpdateCommodity(updatedFields);
   if (type === 'update') {
     try {
       await GoodsService.updateCommodity(commodityId, objForRequest, token);
-      alert(`Товар с ID:${commodityId}`);
+      alert(`Товар с ID:${commodityId} обновлен`);
     } catch (error) {
       alert(`Ошибка создания товара с ID:${commodityId}`);
     }
@@ -83,7 +83,7 @@ export const updateCommodityData = async (e, updatedFields, token, type, commodi
       alert(`Ошибка создания товара с названием ${objForRequest.title}`);
     }
   }
-  activateBtn('.changeCommodityDetail button');
+  activateBtn('.changeCommodityDetail__btn');
 };
 
 export const setNewToken = (token) => {

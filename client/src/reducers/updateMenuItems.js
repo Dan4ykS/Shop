@@ -38,8 +38,10 @@ const updateMenuItems = (state, action) => {
     switch (userName) {
       case 'admin':
         return [createNewItem('/MyAccount/', userName), createNewItem('/admin/', 'Панель администратора')];
+
       case null:
         return [createNewItem('/Login/', 'Вход'), createNewItem('/Cart/', 'Корзина')];
+
       default:
         const index = topItems.findIndex((el) => el.value === 'Вход');
         const newItem = createNewItem('/MyAccount/', userName);
@@ -52,6 +54,7 @@ const updateMenuItems = (state, action) => {
       case 'admin':
         const index = iconsForItems.headerIcons.findIndex((el) => el.iconName === 'cart-plus');
         return { headerIcons: changeArrayElement(iconsForItems.headerIcons, index, faTools) };
+
       default:
         return {
           headerIcons: [faUserCircle, faCartPlus],
@@ -72,11 +75,13 @@ const updateMenuItems = (state, action) => {
   switch (action.type) {
     case 'UPDATE_ITEMS':
       return updateItems(state.menuItems, action.payload);
+
     case 'NOT_UPDATE':
       return {
         ...state.menuItems,
         updated: false,
       };
+
     default:
       return state.menuItems;
   }

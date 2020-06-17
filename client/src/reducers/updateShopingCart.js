@@ -56,13 +56,16 @@ const updateShopingCart = (state, action) => {
       };
     case 'BOOK_ADD_TO_CART':
       return updateOrder(state, action.payload, 1);
+    
     case 'BOOK_DELETE_FROM_CART':
       return updateOrder(state, action.payload, -1);
+    
     case 'CLEAR_CART':
       return {
         cart: [],
         totalPrice: 0,
       };
+    
     default:
       return state.shopingCart;
   }
