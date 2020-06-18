@@ -15,7 +15,10 @@ const ImgUploader = ({ img, actionForUpdateImgData, extraClass = '' }) => {
         <div className={`imgUploader flexWrap ${extraClass}`}>
           <img className='imgUploader__img' src={createValidImgSrc(img.src)} alt={img.alt} />
           <div className='imgUploader__editing'>
-            <FontAwesomeIcon onClick={() => actionsForModalWindow(img.id)} icon={faPen} />
+            <FontAwesomeIcon
+              onClick={() => actionsForModalWindow(`.updateImg_${img.id}`)}
+              icon={faPen}
+            />
           </div>
         </div>
         <UpdateImg img={img} funcForUpdateData={actionForUpdateImgData} />

@@ -13,18 +13,15 @@ export default class BaseApiClass {
 
   #createBodyForRequest = (data) => {
     let body;
-    if (data) {
-      if (data?.withFiles) {
-        const formData = new FormData();
-        delete data.withFiles;
-        for (const key in data) {
-          console.log(key, data[key]);
-          formData.append(key, data[key]);
-        }
-        body = formData;
-      } else {
-        body = JSON.stringify(data);
+    if (data && data?.withFiles) {
+      const formData = new FormData();
+      delete data.withFiles;
+      for (const key in data) {
+        formData.append(key, data[key]);
       }
+      body = formData;
+    } else if (data && !data?.withFiles) {
+      body = JSON.stringify(data);
     } else {
       body = null;
     }

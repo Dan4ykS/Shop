@@ -29,10 +29,9 @@ class GoodsService extends BaseApiClass {
     return this.requestToApi('POST', 'createCommodity', data, this.headerWithToken(token));
   };
 
-  testData = async (data, token) => {
-    console.log(data);
-    return await this.requestToApi('POST', 'testData', data, this.headerWithToken(token));
-  };
+  removeCommodity = async (id, token) => { 
+    return this.requestToApi('DELETE', `removeCommodity/${id}`, null, this.headerWithToken(token));
+  }
 }
 
 export default new GoodsService();

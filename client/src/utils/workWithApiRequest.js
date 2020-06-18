@@ -7,6 +7,9 @@ import {
   findNeedElement,
   disableBtn,
   activateBtn,
+  redirectToPage,
+  scrollToElem,
+  hidenModal,
 } from './workWithBrowser';
 import GoodsService from '../services/GoodsService';
 
@@ -78,6 +81,7 @@ export const workWithCommodityData = async (e, updatedFields, token, type, commo
   const objForRequest = createObjForUpdateCommodity(updatedFields);
   if (type === 'update') {
     try {
+      console.log(objForRequest)
       await GoodsService.updateCommodity(commodityId, objForRequest, token);
       alert(`Товар с ID:${commodityId} обновлен`);
     } catch (error) {
@@ -85,6 +89,7 @@ export const workWithCommodityData = async (e, updatedFields, token, type, commo
     }
   } else {
     try {
+      console.log(objForRequest);
       await GoodsService.createCommodity(objForRequest, token);
       alert(`Создан товар с названием ${objForRequest.title}`);
     } catch (error) {
@@ -102,5 +107,16 @@ export const setNewToken = (token) => {
   }
   if (JSON.parse(localStorageUserData).token !== token) {
     localStorage.setItem('userData', JSON.stringify({ token }));
+  }
+};
+
+export const deleteCommodity = async (id, token, history) => {
+  try {
+    await GoodsService.removeCommodity(id, token);
+    hidenModal();
+    scrollToElem('header');
+    redirectToPage(history, '/admin');
+  } catch (error) {
+    alert(`Ошибка при удалении книги с id:${id}`);
   }
 };

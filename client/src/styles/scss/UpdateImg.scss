@@ -1,16 +1,6 @@
 @import "./variables.scss";
 
 .updateImg {
-  span {
-    display: flex;
-    position: absolute;
-    align-items: center;
-    right: 1%;
-    top: 0;
-    font-size: 40px;
-    height: 40px;
-    cursor: pointer;
-  }
   &__preview {
     img {
       max-width: 100%;

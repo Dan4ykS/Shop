@@ -4,25 +4,29 @@ import '../styles/scss/Header.scss';
 import { createItems } from '../utils/workWithCreateReactElem';
 import { headerFixMenu } from '../utils/workWithBrowser';
 
-const Header = ({ mainItems: itemsMain, topItems: itemsTop, iconsForItems, updated, userName }) => {
+const Header = ({
+  mainItems: itemsMain,
+  topItems: itemsTop,
+  iconsForItems: { headerIcons },
+  updated,
+}) => {
   useEffect(() => {
     headerFixMenu();
   }, []);
-  
-  const { headerIcons } = iconsForItems;
-  const mainItems = createItems(itemsMain, 'header__item header__main_item');
-  const topItems = createItems(itemsTop, 'header__item', headerIcons, updated);
+
   return (
     <header className='header'>
       <nav>
         <div className='header__top'>
           <div className='container'>
-            <ul className='flexWrap'>{topItems}</ul>
+            <ul className='flexWrap'>
+              {createItems(itemsTop, 'header__item', headerIcons, updated)}
+            </ul>
           </div>
         </div>
         <div className='header__main'>
           <div className='container'>
-            <ul className='flexWrap'>{mainItems}</ul>
+            <ul className='flexWrap'>{createItems(itemsMain, 'header__item header__main_item')}</ul>
           </div>
         </div>
       </nav>

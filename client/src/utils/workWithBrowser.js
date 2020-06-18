@@ -138,9 +138,9 @@ export const logOut = (func, history) => {
   func();
 };
 
-export const actionsForModalWindow = (id) => {
+export const actionsForModalWindow = (modalSelector) => {
   const modalWraper = findNeedElement('.modalWraper'),
-    modal = findNeedElement(`.updateImg.updateImg_${id}`),
+    modal = findNeedElement(`${modalSelector}`),
     body = findNeedElement('body'),
     menu = findNeedElement('nav');
 
@@ -189,3 +189,8 @@ export const chekValidDataInForm = (formSelector) => {
 export const setValues = (data) => {
   return !data ? '' : data;
 };
+
+export const hidenModal = () => { 
+  findNeedElement('.modalWraper').classList.add('hidenElem');
+  findNeedElement('.modalWindow').classList.add('hidenElem');
+}

@@ -79,17 +79,9 @@ const convertDataArrayForClient = (data) => {
   return data.map((el) => convertDataForClient(el));
 };
 
-const createAltForImg = (alt = null) => {
-  if (alt && alt !== ' ') {
-    return `${voca.titleCase(alt, [' '])}`;
-  }
-  return `img${moment().format('ss_SSS')}`;
-};
-
 module.exports = {
   createDataUpdateObj,
   deleteFile,
   convertDataArrayForClient,
   convertDataForClient,
-  createAltForImg,
 };

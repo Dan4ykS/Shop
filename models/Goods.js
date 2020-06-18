@@ -26,7 +26,6 @@ const goods = new Schema({
     },
     previewImgId: {
       type: String,
-      default: `img${m().format('DDMMHHmmssSSS')}`,
     },
   },
   img: {
@@ -38,7 +37,6 @@ const goods = new Schema({
     },
     imgId: {
       type: String,
-      default: `img${m().format('DDMMHHmmssSSS')}`,
     },
   },
   price: {

@@ -11,6 +11,7 @@ body {
 img {
   pointer-events: none;
 }
+
 input {
   cursor: text;
   user-select: auto;
@@ -115,16 +116,35 @@ h6 {
   z-index: 100;
   top: 50%;
   left: 50%;
-  width: 50%;
+  width: 950px;
   height: 70%;
   background-color: $textColor;
   border-radius: 10px;
   padding: 20px;
   transform: translateX(-50%) translateY(-50%);
+
+  span {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    right: 1%;
+    top: 0;
+    font-size: 40px;
+    height: 40px;
+    cursor: pointer;
+  }
+
+  @media (max-width: 1000px) {
+    width: 80%;
+  }
 }
 
 .formGroup {
   margin-bottom: 20px;
+}
+
+.btnGroup {
+  margin-top: 20px;
 }
 
 .formControl {

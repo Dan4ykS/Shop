@@ -61,6 +61,7 @@ const UpdateCommodityPage = ({
           updateCommodityShortDescr,
           updateCommodityPrice,
         }}
+        history={history}
       />
     </LoadingDataLogic>
   );
