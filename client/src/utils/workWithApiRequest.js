@@ -1,10 +1,18 @@
 import UsersService from '../services/UsersService';
-import { clearInputs, findNeedElements, createObjForRequest, isInvalid, findNeedElement, disableBtn, activateBtn } from './workWithBrowser';
+import {
+  clearInputs,
+  findNeedElements,
+  createObjForRequest,
+  isInvalid,
+  findNeedElement,
+  disableBtn,
+  activateBtn,
+} from './workWithBrowser';
 import GoodsService from '../services/GoodsService';
 
 export const authRequests = (e, requestsToApi, selector, history) => {
   e.preventDefault();
-  disableBtn(`${selector} button`)
+  disableBtn(`${selector} button`);
   const inputs = findNeedElements(`${selector} .formControl`);
   const data = createObjForRequest(inputs);
   requestsToApi(data, { inputs, selector }, history);
@@ -63,7 +71,7 @@ const createObjForUpdateCommodity = (data) => {
   };
 };
 
-export const updateCommodityData = async (e, updatedFields, token, type, commodityId) => {
+export const workWithCommodityData = async (e, updatedFields, token, type, commodityId) => {
   e.persist();
   e.preventDefault();
   disableBtn('.changeCommodityDetail__btn');

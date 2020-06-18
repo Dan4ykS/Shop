@@ -1,11 +1,12 @@
 import React from 'react';
-import { scrollToElem, getDateFromLocalStorage } from './workWithBrowser';
+import { scrollToElem, getDateFromLocalStorage, chekValidDataInForm } from './workWithBrowser';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const createElementWithIcon = (icon, item, className, updated) => {
   const { name, value } = item;
-  const animationClass = updated && value !== 'Корзина' ? `${className} header__top_item` : className;
+  const animationClass =
+    updated && value !== 'Корзина' ? `${className} header__top_item` : className;
   return (
     <li className={animationClass}>
       <Link className='flexWrap' key={name} to={name}>
@@ -29,7 +30,10 @@ const createElementWithOutIcon = (item, className, index) => {
 
 export const createItems = (items, className, iconsForItems = [], updated = false) => {
   return items.map((elem, index) => {
-    const item = iconsForItems.length === 0 ? createElementWithOutIcon(elem, className) : createElementWithIcon(iconsForItems[index], elem, className, updated);
+    const item =
+      iconsForItems.length === 0
+        ? createElementWithOutIcon(elem, className)
+        : createElementWithIcon(iconsForItems[index], elem, className, updated);
     return <React.Fragment key={index}>{item}</React.Fragment>;
   });
 };
@@ -74,21 +78,50 @@ export const switchProductBtn = (userName, ...eventHendlers) => {
 };
 
 export const setValues = (data) => {
-  console.log('Установка значений')
+  console.log('Установка значений');
   const elementsForSetData = document.querySelectorAll('[name=forSetData]');
   elementsForSetData.forEach((element, index) => (element.value = data[index]));
 };
 
-export const createUpdateImgBtn = (updateFunc, img, imgSrc , alt) => {
-  return (
-    <button className='btn btn-success'
-      onClick={(e) => {
-        e.preventDefault();
-        updateFunc(img, imgSrc, alt);
-      }}
-      data-close={true}
-    >
-      Обновить изображение
-    </button>
-  );
+export const createUpdateImgBtn = (updateFunc, img, imgSrc, newAlt, oldAlt) => {
+  if ((img && imgSrc && newAlt !== '') || (newAlt !== oldAlt && newAlt !== '')) {
+    return (
+      <button
+        className='btn btn-success'
+        onClick={(e) => {
+          e.preventDefault();
+          updateFunc(img, imgSrc, newAlt);
+        }}
+        data-close={true}
+      >
+        Обновить изображение
+      </button>
+    );
+  }
+  return null;
+};
+
+export const createUpdateDataBtn = (updatedFields, form, type) => {
+  const formIsValid = chekValidDataInForm(form);
+  let allFieldsAreFilled = true;
+  for (const key in updatedFields) {
+    if (!updatedFields[key] && key !== 'img') {
+      allFieldsAreFilled = false;
+    }
+  }
+  if (Object.keys(updatedFields).length > 0 && type === 'update' && formIsValid) {
+    return (
+      <button className='changeCommodityDetail__btn' type='submit'>
+        Обновить данные
+      </button>
+    );
+  } else if (type === 'create' && formIsValid && allFieldsAreFilled) {
+    return (
+      <button className='changeCommodityDetail__btn' type='submit'>
+        Создать новый товар
+      </button>
+    );
+  } else {
+    return null;
+  }
 };

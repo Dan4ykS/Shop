@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import FileUploader from './FileUploader';
 import '../styles/scss/UpdateImg.scss';
 import { createUpdateImgBtn } from '../utils/workWithCreateReactElem';
-import { createValidImgSrc } from '../utils/workWithBrowser';
+import { createValidImgSrc, validateInput } from '../utils/workWithBrowser';
 
 const UpdateImg = ({ img: { src, id, alt }, funcForUpdateData }) => {
   const [previewSrc, updatePreviewSrc] = useState(null),
@@ -11,12 +11,17 @@ const UpdateImg = ({ img: { src, id, alt }, funcForUpdateData }) => {
   return (
     <div className={`modalWindow updateImg updateImg_${id} row hidenElem`}>
       <span data-close={true}>&#215;</span>
-
       <div className='updateImg__imgDetail flexWrapColumn_center col-4'>
         <div className='formGroup row'>
           <label className='col-sm-3 colFormLable'>Alt:</label>
           <div className='col-sm-9'>
-            <input type='text' className='formControl' value={imgAlt} onChange={(e) => updateImgAlt(e.target.value)} />
+            <input
+              type='text'
+              className='formControl'
+              value={imgAlt}
+              onChange={(e) => validateInput(e, updateImgAlt)}
+            />
+            <div className='invalidFeedback'>Поле обязательно и не должно быть пустым</div>
           </div>
         </div>
         <FileUploader
@@ -30,10 +35,13 @@ const UpdateImg = ({ img: { src, id, alt }, funcForUpdateData }) => {
           id={id}
           text='Загрузить новый файл'
         />
-        {previewSrc || alt !== imgAlt ? createUpdateImgBtn(funcForUpdateData, img, previewSrc, alt !== imgAlt ? imgAlt : null) : null}
+        {createUpdateImgBtn(funcForUpdateData, img, previewSrc, imgAlt, alt )}
       </div>
       <div className='updateImg__preview flexWrap_center col-8'>
-        <img src={!previewSrc ? `${createValidImgSrc(src)}` : previewSrc} alt={`img:${alt}`} />
+        <img
+          src={!previewSrc ? `${createValidImgSrc(src)}` : createValidImgSrc(previewSrc)}
+          alt={`img:${alt}`}
+        />
       </div>
     </div>
   );

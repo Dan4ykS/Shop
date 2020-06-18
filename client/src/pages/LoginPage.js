@@ -9,18 +9,31 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { changePasswordType } from '../utils/workWithBrowser';
 import { configForUthPages } from '../utils/workWithCreateReactElem';
 
-const LoginPage = ({ userData: { token, loading, error }, actions: { authorization }, history }) => {
+const LoginPage = ({
+  userData: { token, loading, error },
+  actions: { authorization },
+  history,
+}) => {
   // console.log('Я на странице логина')
   return (
     <LoadingDataLogic configData={configForUthPages(token, loading, error)}>
       <h2>Страница авторизации</h2>
       <div className='row'>
         <div className='authorization col-lg-6'>
-          <form className='authorizationForm' onSubmit={(e) => authRequests(e, authorization, '.authorization', history)}>
+          <form
+            className='authorizationForm'
+            onSubmit={(e) => authRequests(e, authorization, '.authorization', history)}
+          >
             <div className='formGroup row'>
               <label className='col-sm-2 colFormLable'>Логин:</label>
               <div className='col-sm-10'>
-                <input name='userName' type='text' className='formControl' placeholder='Введите ваш логин' required />
+                <input
+                  name='userName'
+                  type='text'
+                  className='formControl'
+                  placeholder='Введите ваш логин'
+                  required
+                />
                 <div className='invalidFeedback'>Неверный логин</div>
               </div>
             </div>
@@ -28,9 +41,18 @@ const LoginPage = ({ userData: { token, loading, error }, actions: { authorizati
               <label className='col-sm-2 colFormLable'>Пароль:</label>
               <div className='col-sm-10 password'>
                 <span className='showPasswordIcon showPasswordIcon_crosOut'>
-                  <FontAwesomeIcon onClick={() => changePasswordType('.showPasswordIcon', '.formControl_password')} icon={faEye} />
+                  <FontAwesomeIcon
+                    onClick={() => changePasswordType('.showPasswordIcon', '.formControl_password')}
+                    icon={faEye}
+                  />
                 </span>
-                <input name='password' type='password' className='formControl formControl_password' placeholder='Введите ваш пароль' required />
+                <input
+                  name='password'
+                  type='password'
+                  className='formControl formControl_password'
+                  placeholder='Введите ваш пароль'
+                  required
+                />
                 <div className='invalidFeedback'>Неверный пароль</div>
               </div>
               <Link to='/helpLogin/' className='authorization__forgotPassword'>

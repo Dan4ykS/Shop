@@ -57,17 +57,17 @@ export const redirectToLink = (link) => {
   window.open(link);
 };
 
-export const findNeedElements = (btnSelector) => {
-  return document.querySelectorAll(btnSelector);
+export const findNeedElements = (selector) => {
+  return document.querySelectorAll(selector);
 };
 
-export const findNeedElement = (btnSelector) => {
-  return document.querySelector(btnSelector);
+export const findNeedElement = (selector) => {
+  return document.querySelector(selector);
 };
 
 export const disableBtn = (btnSelector) => {
   findNeedElement(`${btnSelector}`).setAttribute('disabled', true);
- }
+};
 
 export const createObjForRequest = (inputs) => {
   const data = {};
@@ -138,7 +138,7 @@ export const logOut = (func, history) => {
   func();
 };
 
-export const actionsForUpdateImgCopm = (id) => {
+export const actionsForModalWindow = (id) => {
   const modalWraper = findNeedElement('.modalWraper'),
     modal = findNeedElement(`.updateImg.updateImg_${id}`),
     body = findNeedElement('body'),
@@ -154,9 +154,6 @@ export const actionsForUpdateImgCopm = (id) => {
 
   [modalWraper, modal].forEach((el) => {
     el.addEventListener('click', (e) => {
-      // if (e.target.dataset.close && e.target.dataset?.values) {
-      //   console.log(JSON.parse(e.target.dataset.values));
-      // }
       if (e.target.dataset.close) {
         modalWraper.classList.add('hidenElem');
         modal.classList.add('hidenElem');
@@ -165,4 +162,30 @@ export const actionsForUpdateImgCopm = (id) => {
       }
     });
   });
+};
+
+export const validateInput = (e, updateFunction, validationCondition = null) => {
+  const input = e.target;
+  if ((validationCondition && !validationCondition(input)) || input.value === '') {
+    input.classList.add('isInvalid');
+    updateFunction(input.value);
+    return;
+  }
+  updateFunction(input.value);
+  input.classList.remove('isInvalid');
+};
+
+export const chekValidDataInForm = (formSelector) => {
+  const inputs = findNeedElements(`${formSelector} .formControl`);
+  let inputsIsValid = true;
+  inputs.forEach((el) => {
+    if (el.classList.contains('isInvalid')) {
+      inputsIsValid = false;
+    }
+  });
+  return inputsIsValid;
+};
+
+export const setValues = (data) => {
+  return !data ? '' : data;
 };

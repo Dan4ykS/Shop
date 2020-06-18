@@ -1,18 +1,26 @@
 import React from 'react';
 import ImgUploader from './ImgUploader';
 import '../styles/scss/ChangeCommodityDetail.scss';
-import { updateCommodityData } from '../utils/workWithApiRequest';
-
-const setValues = (data) => {
-  return !data ? '' : data;
-};
+import { workWithCommodityData } from '../utils/workWithApiRequest';
+import { validateInput, setValues } from '../utils/workWithBrowser';
+import { createUpdateDataBtn } from '../utils/workWithCreateReactElem';
 
 const ChangeCommodityDetail = ({
   data: { title, descr, shortDescr, img, previewImg, price, updatedFields, token, type, id },
-  actions: { updateCommodityImg, updateCommodityPreviewImg, updateServerData, updateCommodityTitle, updateCommodityDescr, updateCommodityPrice, updateCommodityShortDescr },
+  actions: {
+    updateCommodityImg,
+    updateCommodityPreviewImg,
+    updateCommodityTitle,
+    updateCommodityDescr,
+    updateCommodityPrice,
+    updateCommodityShortDescr,
+  },
 }) => {
   return (
-    <form className='changeCommodityDetail' onSubmit={(e) => updateCommodityData(e, updatedFields, token, type, id)}>
+    <form
+      className='changeCommodityDetail'
+      onSubmit={(e) => workWithCommodityData(e, updatedFields, token, type, id)}
+    >
       <div className='formGroup row'>
         <label className='col-sm-3 colFormLable'>Название:</label>
         <div className='col-sm-9'>
@@ -21,10 +29,9 @@ const ChangeCommodityDetail = ({
             type='text'
             className='formControl'
             value={setValues(title)}
-            onChange={(e) => {
-              updateCommodityTitle(e.target.value);
-            }}
+            onChange={(e) => validateInput(e, updateCommodityTitle)}
           />
+          <div className='invalidFeedback'>Поле обязательно и не должно быть пустым</div>
         </div>
       </div>
       <div className='formGroup row'>
@@ -34,10 +41,9 @@ const ChangeCommodityDetail = ({
             name='forSetData'
             className='formControl'
             value={setValues(shortDescr)}
-            onChange={(e) => {
-              updateCommodityShortDescr(e.target.value);
-            }}
+            onChange={(e) => validateInput(e, updateCommodityShortDescr)}
           ></textarea>
+          <div className='invalidFeedback'>Поле обязательно и не должно быть пустым</div>
         </div>
       </div>
       <div className='formGroup row'>
@@ -60,10 +66,9 @@ const ChangeCommodityDetail = ({
             name='forSetData'
             className='formControl'
             value={setValues(descr)}
-            onChange={(e) => {
-              updateCommodityDescr(e.target.value);
-            }}
+            onChange={(e) => validateInput(e, updateCommodityDescr)}
           ></textarea>
+          <div className='invalidFeedback'>Поле обязательно и не должно быть пустым</div>
         </div>
       </div>
       <div className='formGroup row'>
@@ -86,17 +91,14 @@ const ChangeCommodityDetail = ({
             name='forSetData'
             className='formControl'
             value={setValues(price)}
-            onChange={(e) => {
-              updateCommodityPrice(e.target.value);
-            }}
+            onChange={(e) =>
+              validateInput(e, updateCommodityPrice, (input) => Number.isInteger(+input.value))
+            }
           />
+          <div className='invalidFeedback'>Поле обязательно (число) и не должно быть пустым</div>
         </div>
       </div>
-      {Object.keys(updatedFields).length > 0 ? (
-        <button className='changeCommodityDetail__btn' type='submit'>
-          {type === 'update' ? 'Обновить данные' : 'Создать товар'}
-        </button>
-      ) : null}
+      {createUpdateDataBtn(updatedFields, '.changeCommodityDetail', type)}
     </form>
   );
 };

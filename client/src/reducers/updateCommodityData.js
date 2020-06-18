@@ -73,7 +73,7 @@ const defaultCommodityDataState = {
   updatedFields: {},
 };
 
-const updateCommodityData = (state, action) => {
+const workWithCommodityData = (state, action) => {
   if (state === undefined) {
     return defaultCommodityDataState;
   }
@@ -124,4 +124,4 @@ const updateCommodityData = (state, action) => {
   }
 };
 
-export default updateCommodityData;
+export default workWithCommodityData;
