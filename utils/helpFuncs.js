@@ -1,7 +1,5 @@
 const path = require('path');
 const fs = require('fs');
-const moment = require('moment');
-const voca = require('voca');
 
 const deleteFile = (fileName) => {
   fs.unlink(path.join(__dirname, '..', 'uploads', fileName), (error) => {
