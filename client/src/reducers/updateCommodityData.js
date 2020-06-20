@@ -1,34 +1,21 @@
-import m from 'moment';
-import v from 'voca';
-
-/**
- * Валидировать все данные!
- * переписать функцию, разнести в разные файлы
- */
-
-const createAltForImg = (alt = null) => {
-  if (alt && alt !== ' ') {
-    return `${v.titleCase(alt, [' '])}`;
-  }
-  return `img${m().format('ss_SSS')}`;
-};
+import StringHelper from '../utils/StringHelper';
 
 const createAlt = (newAlt, oldAlt, type) => {
   if (!newAlt && !oldAlt) {
-    return createAltForImg();
+    return `img${StringHelper.createId()}`;
   }
   if (!newAlt) {
     return oldAlt[`${type}Alt`];
   }
-  return createAltForImg(newAlt);
+  return StringHelper.formatTitle(newAlt);
 };
 
 const updateImgData = (newData, oldData, type) => {
   return {
     [`${type}File`]: !newData[`${type}File`] ? oldData[`${type}File`] : newData[`${type}File`],
     [`${type}Src`]: !newData[`${type}Src`] ? oldData[`${type}Src`] : newData[`${type}Src`],
-    [`${type}Alt`]: createAlt(newData[`${type}Alt`], oldData, type),
-    [`${type}Id`]: !oldData ? `img${m().format('DDMMHHmmssSSS')}` : oldData[`${type}Id`],
+    [`${type}Alt`]: createAlt(newData[`${type}Alt`]?.trim(), oldData, type),
+    [`${type}Id`]: !oldData ? StringHelper.createId() : oldData[`${type}Id`],
   };
 };
 
@@ -52,6 +39,18 @@ const updateField = (commodityData, fieldName, newFieldData) => {
       [fieldName]: newImgData,
       updatedFields: updateUpdatedFieldsObj(fieldName, commodityData.updatedFields, newImgData),
     };
+  } else if (fieldName === 'title') {
+    return {
+      ...commodityData,
+      title: newFieldData.trimStart()
+        ? StringHelper.formatTitle(newFieldData.trimStart())
+        : newFieldData,
+      updatedFields: updateUpdatedFieldsObj(
+        fieldName,
+        commodityData.updatedFields,
+        newFieldData.trimStart()
+      ),
+    };
   }
   return {
     ...commodityData,
@@ -73,7 +72,7 @@ const defaultCommodityDataState = {
   updatedFields: {},
 };
 
-const workWithCommodityData = (state, action) => {
+const updateCommodityData = (state, action) => {
   if (state === undefined) {
     return defaultCommodityDataState;
   }
@@ -124,4 +123,4 @@ const workWithCommodityData = (state, action) => {
   }
 };
 
-export default workWithCommodityData;
+export default updateCommodityData;

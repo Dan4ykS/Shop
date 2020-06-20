@@ -142,13 +142,17 @@ export const actionsForModalWindow = (modalSelector) => {
   const modalWraper = findNeedElement('.modalWraper'),
     modal = findNeedElement(`${modalSelector}`),
     body = findNeedElement('body'),
-    menu = findNeedElement('nav');
+    menu = findNeedElement('nav'),
+    activeMenu = findNeedElement('.header_active');
 
   modalWraper.classList.remove('hidenElem');
   modal.classList.remove('hidenElem');
-  const scrollWidth = +window.innerWidth - +menu.clientWidth;
-  if (scrollWidth > 0) {
-    body.style.marginRight = `${scrollWidth}px`;
+  const scrollbarWidth = +window.innerWidth - +menu.clientWidth;
+  if (scrollbarWidth > 0) {
+    body.style.marginRight = `${scrollbarWidth}px`;
+  }
+  if (activeMenu) {
+    activeMenu.style.width = `${activeMenu.clientWidth}px`;
   }
   body.style.overflow = 'hidden';
 
@@ -159,6 +163,9 @@ export const actionsForModalWindow = (modalSelector) => {
         modal.classList.add('hidenElem');
         body.style.overflow = 'auto';
         body.style.marginRight = '0px';
+        if (activeMenu) {
+          activeMenu.style.width = `100%`;
+        }
       }
     });
   });
@@ -166,7 +173,7 @@ export const actionsForModalWindow = (modalSelector) => {
 
 export const validateInput = (e, updateFunction, validationCondition = null) => {
   const input = e.target;
-  if ((validationCondition && !validationCondition(input)) || input.value === '') {
+  if ((validationCondition && !validationCondition(input)) || !input.value.trim()) {
     input.classList.add('isInvalid');
     updateFunction(input.value);
     return;
@@ -190,7 +197,7 @@ export const setValues = (data) => {
   return !data ? '' : data;
 };
 
-export const hidenModal = () => { 
+export const hidenModal = () => {
   findNeedElement('.modalWraper').classList.add('hidenElem');
   findNeedElement('.modalWindow').classList.add('hidenElem');
-}
+};

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { scrollToElem, getDateFromLocalStorage, chekValidDataInForm, actionsForModalWindow } from './workWithBrowser';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

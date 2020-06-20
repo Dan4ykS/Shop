@@ -89,7 +89,6 @@ export const workWithCommodityData = async (e, updatedFields, token, type, commo
     }
   } else {
     try {
-      console.log(objForRequest);
       await GoodsService.createCommodity(objForRequest, token);
       alert(`Создан товар с названием ${objForRequest.title}`);
     } catch (error) {

@@ -3,12 +3,35 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { fetchGoods } from '../actions/goodsList';
 import { onAddedToCart, onDeletedFromCart, loadCart } from '../actions/shopingCart';
-import { authorization, registration, isLogin, isLogout, invalidRoute, userLogin } from '../actions/userData';
+import {
+  authorization,
+  registration,
+  isLogin,
+  isLogout,
+  invalidRoute,
+  userLogin,
+} from '../actions/userData';
 import { updateTopHeaderMenu } from '../actions/menuItems';
 import { withRouter } from 'react-router-dom';
-import { updateImg, updatePreviewImg, fetchCommodity, updateTitle, updateDescr, updateShortDescr, updatePrice, reloadCommodityData } from '../actions/commodityData';
+import {
+  updateImg,
+  updatePreviewImg,
+  fetchCommodity,
+  updateTitle,
+  updateDescr,
+  updateShortDescr,
+  updatePrice,
+  reloadCommodityData,
+} from '../actions/commodityData';
 
-const mapStateToProps = ({ goodsList, shopingCart, userData, menuItems, calendarData, commodityData }) => {
+const mapStateToProps = ({
+  goodsList,
+  shopingCart,
+  userData,
+  menuItems,
+  calendarData,
+  commodityData,
+}) => {
   return { goodsList, shopingCart, userData, menuItems, calendarData, commodityData };
 };
 
@@ -26,7 +49,8 @@ const mapDispatchToProps = (dispatch, { services }) => {
     invalidRoute: () => dispatch(invalidRoute()),
     userLogin: (userName, token) => dispatch(userLogin(userName, token)),
     fetchCommodity: fetchCommodity(dispatch, services),
-    updateCommodityPreviewImg: (previewImgFile, previewImgSrc, previewImgAlt) => dispatch(updatePreviewImg(previewImgFile, previewImgSrc, previewImgAlt)),
+    updateCommodityPreviewImg: (previewImgFile, previewImgSrc, previewImgAlt) =>
+      dispatch(updatePreviewImg(previewImgFile, previewImgSrc, previewImgAlt)),
     updateCommodityImg: (imgFile, imgSrc, imgAlt) => dispatch(updateImg(imgFile, imgSrc, imgAlt)),
     updateCommodityTitle: (title) => dispatch(updateTitle(title)),
     updateCommodityDescr: (descr) => dispatch(updateDescr(descr)),
@@ -55,6 +79,8 @@ export const createAction = (action, payload = null) => {
   };
 };
 
-const withStore = (Component) => compose(withServices(), connect(mapStateToProps, mapDispatchToProps))(withRouter(Component));
+
+const withStore = (Component) =>
+  compose(withServices(), connect(mapStateToProps, mapDispatchToProps))(withRouter(Component));
 
 export default withStore;

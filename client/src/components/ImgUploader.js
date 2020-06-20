@@ -1,12 +1,11 @@
 import React from 'react';
 import FileUploader from './FileUploader';
+import UpdateImg from './UpdateImg';
+import StringHelper from '../utils/StringHelper';
 import '../styles/scss/ImgUploader.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { actionsForModalWindow, createValidImgSrc } from '../utils/workWithBrowser';
-import UpdateImg from './UpdateImg';
-
-
 
 const ImgUploader = ({ img, actionForUpdateImgData, extraClass = '' }) => {
   if (img.src) {
@@ -25,7 +24,7 @@ const ImgUploader = ({ img, actionForUpdateImgData, extraClass = '' }) => {
       </>
     );
   }
-  return <FileUploader action={actionForUpdateImgData} />;
+  return <FileUploader action={actionForUpdateImgData} id={StringHelper.createId()} />;
 };
 
 export default ImgUploader;

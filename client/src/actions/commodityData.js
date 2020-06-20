@@ -1,9 +1,11 @@
 import { redirectToPage } from '../utils/workWithBrowser';
 import { createAction } from '../utils/workWithRedux';
 
-export const updateImg = (imgFile, imgSrc, imgAlt) => createAction('UPDATE_IMG', { imgFile, imgSrc, imgAlt });
+export const updateImg = (imgFile, imgSrc, imgAlt) =>
+  createAction('UPDATE_IMG', { imgFile, imgSrc, imgAlt });
 
-export const updatePreviewImg = (previewImgFile, previewImgSrc, previewImgAlt) => createAction('UPDATE_PREVIEWIMG', { previewImgFile, previewImgSrc, previewImgAlt });
+export const updatePreviewImg = (previewImgFile, previewImgSrc, previewImgAlt) =>
+  createAction('UPDATE_PREVIEWIMG', { previewImgFile, previewImgSrc, previewImgAlt });
 
 export const updateTitle = (title) => createAction('UPDATE_TITLE', title);
 
