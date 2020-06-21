@@ -45,6 +45,23 @@
         max-width: 40px;
         max-height: 40px;
       }
+      &_active {
+        opacity: 1 !important;
+        cursor: pointer;
+        &:nth-child(2) {
+          top: 10%;
+        }
+        &:nth-child(3) {
+          top: 35%;
+          left: 25%;
+        }
+        &:nth-child(4) {
+          left: 10%;
+        }
+      }
+      .fab_active {
+        cursor: pointer;
+      }
     }
     .helperIcon1 {
       position: absolute;
@@ -76,23 +93,6 @@
       .fa-facebook {
         @include feedbackIconsStyle(43px, 7px);
       }
-    }
-    .helperIcon_active {
-      opacity: 1;
-      cursor: pointer;
-      &:nth-child(2) {
-        top: 10%;
-      }
-      &:nth-child(3) {
-        top: 35%;
-        left: 25%;
-      }
-      &:nth-child(4) {
-        left: 10%;
-      }
-    }
-    .fab_active {
-      cursor: pointer;
     }
   }
 }

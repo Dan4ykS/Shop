@@ -79,7 +79,6 @@ export const createAction = (action, payload = null) => {
   };
 };
 
-
 const withStore = (Component) =>
   compose(withServices(), connect(mapStateToProps, mapDispatchToProps))(withRouter(Component));
 

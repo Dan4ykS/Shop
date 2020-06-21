@@ -1,37 +1,47 @@
+export const findNeedElements = (selector) => {
+  return document.querySelectorAll(selector);
+};
+
+export const findNeedElement = (selector) => {
+  return document.querySelector(selector);
+};
+
 export const feedbackMouseLeave = () => {
-  document.querySelectorAll('.helperIcon').forEach((el) => {
+  findNeedElements('.helperIcon').forEach((el) => {
     el.classList.remove('helperIcon_active');
     el.childNodes.forEach((el) => {
       el.classList.remove('fab_active');
     });
+    setTimeout(() => el.classList.add('hidenElem'), 500);
   });
 };
 
 export const feedbackMouseEnter = () => {
-  document.querySelectorAll('.helperIcon').forEach((el) => {
-    el.classList.add('helperIcon_active');
+  findNeedElements('.helperIcon').forEach(async (el) => {
+    el.classList.remove('hidenElem');
+    await new Promise((resolv) => setTimeout(() => el.classList.add('helperIcon_active'), 200));
     el.childNodes.forEach((el) => {
       el.classList.add('fab_active');
     });
   });
 };
 
-export const showHidenElements = () => {
+export const showFooterHidenElements = () => {
   window.addEventListener('scroll', () => {
     if (window.pageYOffset > 298) {
-      document.querySelector('footer .feedback').classList.remove('hidenElem');
-      document.querySelector('footer .upArrow').classList.remove('hidenElem');
+      findNeedElement('footer .feedback').classList.remove('hidenElem');
+      findNeedElement('footer .upArrow').classList.remove('hidenElem');
     }
     if (window.pageYOffset > 300) {
-      document.querySelectorAll('footer .fas').forEach((el) => {
+      findNeedElements('footer .fas').forEach((el) => {
         el.classList.add('fas_active');
       });
     } else {
-      document.querySelectorAll('footer .fas').forEach((el) => {
+      findNeedElements('footer .fas').forEach((el) => {
         el.classList.remove('fas_active');
       });
-      document.querySelector('footer .feedback').classList.add('hidenElem');
-      document.querySelector('footer .upArrow').classList.add('hidenElem');
+      findNeedElement('footer .feedback').classList.add('hidenElem');
+      findNeedElement('footer .upArrow').classList.add('hidenElem');
     }
   });
 };
@@ -39,15 +49,15 @@ export const showHidenElements = () => {
 export const headerFixMenu = () => {
   window.addEventListener('scroll', () => {
     if (window.pageYOffset > 50) {
-      document.querySelector('.header__main').classList.add('header_active');
+      findNeedElement('.header__main').classList.add('header_fixed');
     } else {
-      document.querySelector('.header__main').classList.remove('header_active');
+      findNeedElement('.header__main').classList.remove('header_fixed');
     }
   });
 };
 
 export const scrollToElem = (updateImgComp) => {
-  document.querySelector(`.${updateImgComp}`).scrollIntoView({
+  findNeedElement(`.${updateImgComp}`).scrollIntoView({
     behavior: 'smooth',
     block: 'start',
   });
@@ -55,14 +65,6 @@ export const scrollToElem = (updateImgComp) => {
 
 export const redirectToLink = (link) => {
   window.open(link);
-};
-
-export const findNeedElements = (selector) => {
-  return document.querySelectorAll(selector);
-};
-
-export const findNeedElement = (selector) => {
-  return document.querySelector(selector);
 };
 
 export const disableBtn = (btnSelector) => {
@@ -110,8 +112,8 @@ export const activateBtn = (btnSelector) => {
 };
 
 export const changePasswordType = (iconSelector, inputSelector) => {
-  const icon = document.querySelector(iconSelector);
-  const input = document.querySelector(inputSelector);
+  const icon = findNeedElement(iconSelector);
+  const input = findNeedElement(inputSelector);
   if (icon.classList.contains(`${iconSelector.split('.')[1]}_crosOut`)) {
     icon.classList.remove(`${iconSelector.split('.')[1]}_crosOut`);
     input.type = 'text';
@@ -143,7 +145,7 @@ export const actionsForModalWindow = (modalSelector) => {
     modal = findNeedElement(`${modalSelector}`),
     body = findNeedElement('body'),
     menu = findNeedElement('nav'),
-    activeMenu = findNeedElement('.header_active');
+    activeMenu = findNeedElement('.header_fixed');
 
   modalWraper.classList.remove('hidenElem');
   modal.classList.remove('hidenElem');
