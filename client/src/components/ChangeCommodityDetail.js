@@ -15,13 +15,13 @@ const ChangeCommodityDetail = ({
     updateCommodityPrice,
     updateCommodityShortDescr,
   },
-  history
+  history,
 }) => {
   return (
     <>
       <form
         className='changeCommodityDetail'
-        onSubmit={(e) => workWithCommodityData(e, updatedFields, token, type, id)}
+        onSubmit={(e) => workWithCommodityData(e, updatedFields, token, type, id, history)}
       >
         <div className='formGroup row'>
           <label className='col-sm-3 colFormLable'>Название:</label>
@@ -43,9 +43,9 @@ const ChangeCommodityDetail = ({
               name='forSetData'
               className='formControl'
               value={setValues(shortDescr)}
-              onChange={(e) => validateInput(e, updateCommodityShortDescr)}
+              onChange={(e) => validateInput(e, updateCommodityShortDescr, (input) => input.value.length < 300 )}
             ></textarea>
-            <div className='invalidFeedback'>Поле обязательно и не должно быть пустым</div>
+            <div className='invalidFeedback'>Поле обязательно и не должно быть пустым (максимум 200 символов)</div>
           </div>
         </div>
         <div className='formGroup row'>
@@ -93,9 +93,7 @@ const ChangeCommodityDetail = ({
               name='forSetData'
               className='formControl'
               value={setValues(price)}
-              onChange={(e) =>
-                validateInput(e, updateCommodityPrice, (input) => Number.isInteger(+input.value))
-              }
+              onChange={(e) => validateInput(e, updateCommodityPrice, (input) => Number.isInteger(+input.value))}
             />
             <div className='invalidFeedback'>Поле обязательно (число) и не должно быть пустым</div>
           </div>
@@ -109,7 +107,9 @@ const ChangeCommodityDetail = ({
         <span data-close={true}>&#215;</span>
         <div className='deleteCommodity__content'>Вы точно хотите удалить товар {title} ?</div>
         <div className='btnGroup'>
-          <button onClick={() => deleteCommodity(id, token, history)} data-close={true}>Удалить</button>
+          <button onClick={() => deleteCommodity(id, token, history)} data-close={true}>
+            Удалить
+          </button>
           <button data-close={true}>Вернуться к редактированию</button>
         </div>
       </div>

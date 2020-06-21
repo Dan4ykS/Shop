@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { scrollToElem, getDateFromLocalStorage, chekValidDataInForm, actionsForModalWindow } from './workWithBrowser';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const createElementWithIcon = (icon, item, className, updated) => {
   const { name, value } = item;
-  let classForElement = className
+  let classForElement = className;
   if (updated && value !== 'Корзина') {
-    classForElement += ' animate'
+    classForElement += ' animate';
   }
   return (
     <li className={classForElement}>
@@ -81,8 +81,8 @@ export const switchProductBtn = (userName, ...eventHendlers) => {
   }
 };
 
-export const createUpdateImgBtn = (updateFunc, img, imgSrc, newAlt, oldAlt) => {
-  if ((img && imgSrc && newAlt !== '') || (newAlt !== oldAlt && newAlt !== '')) {
+export const createUpdateImgBtn = (updateFunc, img, imgSrc, oldImgSrc, newAlt, oldAlt) => {
+  if ((img && imgSrc !== oldImgSrc && newAlt !== '') || (newAlt !== oldAlt && newAlt.trim())) {
     return (
       <button
         className='btn btn-success'
@@ -124,7 +124,7 @@ export const createUpdateDataBtn = (updatedFields, form, type) => {
   }
 };
 
-export const createDeleteCommodityBtn = (type) => { 
+export const createDeleteCommodityBtn = (type) => {
   if (type === 'update') {
     return (
       <button onClick={() => actionsForModalWindow('.deleteCommodity')} type='button'>
@@ -132,4 +132,4 @@ export const createDeleteCommodityBtn = (type) => {
       </button>
     );
   }
-}
+};

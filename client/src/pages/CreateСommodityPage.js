@@ -4,20 +4,8 @@ import withStore from '../utils/workWithRedux';
 import ChangeCommodityDetail from '../components/ChangeCommodityDetail';
 
 const CreateСommodityPage = ({
-  userData: {
-    loading,
-    error,
-    token
-  },
-  commodityData: {
-    title,
-    shortDescr,
-    descr,
-    previewImg,
-    img,
-    id,
-    price,
-  },
+  userData: { loading, error, token },
+  commodityData: { title, shortDescr, descr, previewImg, img, id, price },
   actions: {
     updateCommodityImg,
     updateCommodityPreviewImg,
@@ -27,6 +15,7 @@ const CreateСommodityPage = ({
     updateCommodityDescr,
     updateCommodityShortDescr,
   },
+  history,
 }) => {
   return (
     <LoadingDataLogic
@@ -57,6 +46,7 @@ const CreateСommodityPage = ({
           updateCommodityShortDescr,
           updateCommodityPrice,
         }}
+        history={history}
       />
     </LoadingDataLogic>
   );

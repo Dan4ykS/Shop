@@ -1,11 +1,14 @@
 import StringHelper from '../utils/StringHelper';
 
-const createAlt = (newAlt, oldAlt, type) => {
+const createAlt = (newData, oldData, type) => {
+  const newAlt = newData ? newData[`${type}Alt`] : null,
+    oldAlt = oldData ? oldData[`${type}Alt`] : null;
+
   if (!newAlt && !oldAlt) {
     return `img${StringHelper.createId()}`;
   }
-  if (!newAlt) {
-    return oldAlt[`${type}Alt`];
+  if (newAlt === oldAlt) {
+    return oldAlt;
   }
   return StringHelper.formatTitle(newAlt);
 };
@@ -14,7 +17,7 @@ const updateImgData = (newData, oldData, type) => {
   return {
     [`${type}File`]: !newData[`${type}File`] ? oldData[`${type}File`] : newData[`${type}File`],
     [`${type}Src`]: !newData[`${type}Src`] ? oldData[`${type}Src`] : newData[`${type}Src`],
-    [`${type}Alt`]: createAlt(newData[`${type}Alt`]?.trim(), oldData, type),
+    [`${type}Alt`]: createAlt(newData, oldData, type),
     [`${type}Id`]: !oldData ? StringHelper.createId() : oldData[`${type}Id`],
   };
 };
@@ -42,14 +45,8 @@ const updateField = (commodityData, fieldName, newFieldData) => {
   } else if (fieldName === 'title') {
     return {
       ...commodityData,
-      title: newFieldData.trimStart()
-        ? StringHelper.formatTitle(newFieldData.trimStart())
-        : newFieldData,
-      updatedFields: updateUpdatedFieldsObj(
-        fieldName,
-        commodityData.updatedFields,
-        newFieldData.trimStart()
-      ),
+      title: newFieldData.trimStart() ? StringHelper.formatTitle(newFieldData.trimStart()) : newFieldData,
+      updatedFields: updateUpdatedFieldsObj(fieldName, commodityData.updatedFields, newFieldData.trimStart()),
     };
   }
   return {

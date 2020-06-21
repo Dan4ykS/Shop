@@ -4,13 +4,7 @@ import { switchProductBtn } from '../utils/workWithCreateReactElem';
 import { createValidImgSrc } from '../utils/workWithBrowser';
 
 const CommodityDetail = ({
-  data: {
-    id,
-    previewImg,
-    shortDescr,
-    price,
-    title,
-  },
+  data: { id, previewImg, shortDescr, price, title },
   token,
   userName,
   actions: { onAddedToCart },

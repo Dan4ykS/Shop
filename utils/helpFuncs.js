@@ -5,9 +5,17 @@ const deleteFile = (fileName) => {
   fs.unlink(path.join(__dirname, '..', 'uploads', fileName), (error) => {
     if (error) {
       console.log(error);
+      return;
     }
     console.log(`Файл: ${fileName} успешно удален!`);
   });
+};
+
+const findFileNameAndExtension = (originalname) => {
+  const arr = originalname.split('.');
+  const fileExtension = arr[arr.length - 1];
+  const fileName = arr.filter((el) => el !== fileExtension).join(' ');
+  return { fileName, fileExtension };
 };
 
 const createObjForUpdateImg = (src, type, alt, oldId) => {
@@ -22,7 +30,12 @@ const createDataUpdateObj = (updateData, { previewImg, img }, oldData) => {
   if (previewImg && img) {
     return {
       ...updateData,
-      previewImg: createObjForUpdateImg(previewImg[0].path, 'previewImg', updateData?.previewImgAlt, oldData.previewImg.previewImgId),
+      previewImg: createObjForUpdateImg(
+        previewImg[0].path,
+        'previewImg',
+        updateData?.previewImgAlt,
+        oldData.previewImg.previewImgId
+      ),
       img: createObjForUpdateImg(img[0].path, 'img', updateData?.imgAlt, oldData.img.imgId),
     };
   } else if (img) {
@@ -33,7 +46,12 @@ const createDataUpdateObj = (updateData, { previewImg, img }, oldData) => {
   } else if (previewImg) {
     return {
       ...updateData,
-      previewImg: createObjForUpdateImg(previewImg[0].path, 'previewImg', updateData?.previewImgAlt, oldData.previewImg.previewImgId),
+      previewImg: createObjForUpdateImg(
+        previewImg[0].path,
+        'previewImg',
+        updateData?.previewImgAlt,
+        oldData.previewImg.previewImgId
+      ),
     };
   } else {
     const previewImgAlt = updateData?.previewImgAlt;
@@ -82,4 +100,5 @@ module.exports = {
   deleteFile,
   convertDataArrayForClient,
   convertDataForClient,
+  findFileNameAndExtension,
 };

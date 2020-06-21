@@ -7,7 +7,7 @@ const goods = new Schema({
   },
   shortDescr: {
     type: String,
-    maxlength: 200,
+    maxlength: 300,
     required: true,
   },
   descr: {

@@ -50,8 +50,6 @@ const createObjForUpdateCommodity = (data) => {
     const imgAlt = data.img?.imgAlt;
     const previewImgId = data.previewImg?.previewImgId;
     const imgId = data.img?.imgId;
-    delete data?.img;
-    delete data?.previewImg;
     const obj = {
       ...data,
       withFiles: true,
@@ -74,14 +72,14 @@ const createObjForUpdateCommodity = (data) => {
   };
 };
 
-export const workWithCommodityData = async (e, updatedFields, token, type, commodityId) => {
+export const workWithCommodityData = async (e, updatedFields, token, type, commodityId, history) => {
   e.persist();
   e.preventDefault();
   disableBtn('.changeCommodityDetail__btn');
+  console.log(updatedFields);
   const objForRequest = createObjForUpdateCommodity(updatedFields);
   if (type === 'update') {
     try {
-      console.log(objForRequest)
       await GoodsService.updateCommodity(commodityId, objForRequest, token);
       alert(`Товар с ID:${commodityId} обновлен`);
     } catch (error) {
@@ -89,7 +87,10 @@ export const workWithCommodityData = async (e, updatedFields, token, type, commo
     }
   } else {
     try {
+      console.log(objForRequest);
       await GoodsService.createCommodity(objForRequest, token);
+      scrollToElem('header');
+      redirectToPage(history, '/admin');
       alert(`Создан товар с названием ${objForRequest.title}`);
     } catch (error) {
       alert(`Ошибка создания товара с названием ${objForRequest.title}`);

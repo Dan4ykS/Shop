@@ -35,13 +35,10 @@ const UpdateImg = ({ img: { src, id, alt }, funcForUpdateData }) => {
           id={id}
           text='Загрузить новый файл'
         />
-        {createUpdateImgBtn(funcForUpdateData, img, previewSrc, imgAlt, alt )}
+        {createUpdateImgBtn(funcForUpdateData, img, previewSrc, src, imgAlt.toLowerCase(), alt.toLowerCase())}
       </div>
       <div className='updateImg__preview flexWrap_center col-8'>
-        <img
-          src={!previewSrc ? `${createValidImgSrc(src)}` : createValidImgSrc(previewSrc)}
-          alt={`img:${alt}`}
-        />
+        <img src={!previewSrc ? `${createValidImgSrc(src)}` : createValidImgSrc(previewSrc)} alt={`img:${alt}`} />
       </div>
     </div>
   );
