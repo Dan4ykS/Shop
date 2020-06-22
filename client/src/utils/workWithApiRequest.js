@@ -76,12 +76,12 @@ export const workWithCommodityData = async (e, updatedFields, token, type, commo
   e.persist();
   e.preventDefault();
   disableBtn('.changeCommodityDetail__btn');
-  console.log(updatedFields);
   const objForRequest = createObjForUpdateCommodity(updatedFields);
   if (type === 'update') {
     try {
       await GoodsService.updateCommodity(commodityId, objForRequest, token);
       alert(`Товар с ID:${commodityId} обновлен`);
+      activateBtn('.changeCommodityDetail__btn');
     } catch (error) {
       alert(`Ошибка создания товара с ID:${commodityId}`);
     }
@@ -96,7 +96,6 @@ export const workWithCommodityData = async (e, updatedFields, token, type, commo
       alert(`Ошибка создания товара с названием ${objForRequest.title}`);
     }
   }
-  activateBtn('.changeCommodityDetail__btn');
 };
 
 export const setNewToken = (token) => {

@@ -45,7 +45,7 @@ const ChangeCommodityDetail = ({
               value={setValues(shortDescr)}
               onChange={(e) => validateInput(e, updateCommodityShortDescr, (input) => input.value.length < 300 )}
             ></textarea>
-            <div className='invalidFeedback'>Поле обязательно и не должно быть пустым (максимум 200 символов)</div>
+            <div className='invalidFeedback'>Поле обязательно и не должно быть пустым (максимум 300 символов)</div>
           </div>
         </div>
         <div className='formGroup row'>

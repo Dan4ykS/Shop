@@ -4,8 +4,6 @@
 
 body {
   background: url("../../img/mainBg.jpg") center/cover no-repeat fixed;
-  font-family: "Roboto", sans-serif;
-  text-rendering: optimizeSpeed;
 }
 
 img {
@@ -19,6 +17,10 @@ input {
 
 form {
   width: 100%;
+}
+
+p {
+  margin: 0;
 }
 
 h1,

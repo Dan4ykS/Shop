@@ -1,10 +1,10 @@
 import React from 'react';
 import '../styles/scss/CommodityDetail.scss';
-import { switchProductBtn } from '../utils/workWithCreateReactElem';
+import { switchProductBtn, createStringWithBr } from '../utils/workWithCreateReactElem';
 import { createValidImgSrc } from '../utils/workWithBrowser';
 
 const CommodityDetail = ({
-  data: { id, previewImg, shortDescr, price, title },
+  data: { id, previewImg, shortDescr, price, title, descr },
   token,
   userName,
   actions: { onAddedToCart },
@@ -16,7 +16,7 @@ const CommodityDetail = ({
       </div>
       <div className='infoBlock__content'>
         <h2>{title}</h2>
-        <div className='description'>{shortDescr}</div>
+        <div className='description'>{createStringWithBr(descr)}</div>
         <div className='flexWrap btnGroup'>
           <div className='buy'>
             <span>{price}</span> Рублей

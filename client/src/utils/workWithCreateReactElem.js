@@ -2,6 +2,7 @@ import React from 'react';
 import { scrollToElem, getDateFromLocalStorage, chekValidDataInForm, actionsForModalWindow } from './workWithBrowser';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import StringHelper from './StringHelper';
 
 const createElementWithIcon = (icon, item, className, updated) => {
   const { name, value } = item;
@@ -132,4 +133,15 @@ export const createDeleteCommodityBtn = (type) => {
       </button>
     );
   }
+};
+
+export const createStringWithBr = (str) => {
+  const paragraphs = str.split('\n');
+  return paragraphs.map((el) => {
+    if (el === '') {
+      return <br key={StringHelper.createId()} />;
+    } else {
+      return <p key={StringHelper.createId()}>{el}</p>;
+    }
+  });
 };
