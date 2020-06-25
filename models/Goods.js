@@ -42,6 +42,18 @@ const goods = new Schema({
     type: Number,
     required: true,
   },
+  // tags: [
+  //   {
+  //     tag: {
+  //       type: String,
+  //       require: true,
+  //     },
+  //   },
+  // ],
+  author: {
+    type: String,
+    require: true,
+  },
 });
 
 module.exports = model('Goods', goods);

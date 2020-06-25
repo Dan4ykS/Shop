@@ -21,7 +21,7 @@ const findFileNameAndExtension = (originalname) => {
 const createObjForUpdateImg = (src, type, alt, oldId) => {
   return {
     [`${type}Src`]: src,
-    [`${type}Alt`]: alt ? createAltForImg(alt) : createAltForImg(),
+    [`${type}Alt`]: alt,
     [`${type}Id`]: oldId,
   };
 };
@@ -33,15 +33,21 @@ const createDataUpdateObj = (updateData, { previewImg, img }, oldData) => {
       previewImg: createObjForUpdateImg(
         previewImg[0].path,
         'previewImg',
-        updateData?.previewImgAlt,
+        updateData.previewImgAlt,
         oldData.previewImg.previewImgId
       ),
-      img: createObjForUpdateImg(img[0].path, 'img', updateData?.imgAlt, oldData.img.imgId),
+      img: createObjForUpdateImg(img[0].path, 'img', updateData.imgAlt, oldData.img.imgId),
     };
   } else if (img) {
     return {
       ...updateData,
-      img: createObjForUpdateImg(img[0].path, 'img', updateData?.imgAlt, oldData.img.imgId),
+      img: createObjForUpdateImg(img[0].path, 'img', updateData.imgAlt, oldData.img.imgId),
+      previewImg: !updateData.previewImgAlt
+        ? oldData.previewImg
+        : {
+            ...oldData.previewImg,
+            previewImgAlt: updateData.previewImgAlt,
+          },
     };
   } else if (previewImg) {
     return {
@@ -49,9 +55,15 @@ const createDataUpdateObj = (updateData, { previewImg, img }, oldData) => {
       previewImg: createObjForUpdateImg(
         previewImg[0].path,
         'previewImg',
-        updateData?.previewImgAlt,
+        updateData.previewImgAlt,
         oldData.previewImg.previewImgId
       ),
+      img: !updateData.imgAlt
+        ? oldData.img
+        : {
+            ...oldData.img,
+            imgAlt: updateData.imgAlt,
+          },
     };
   } else {
     const previewImgAlt = updateData?.previewImgAlt;
@@ -67,15 +79,15 @@ const createDataUpdateObj = (updateData, { previewImg, img }, oldData) => {
       img: imgAlt
         ? {
             ...oldData.img,
-            imgAlt: createAltForImg(imgAlt),
+            imgAlt,
           }
-        : oldData?.img,
+        : oldData.img,
       previewImg: previewImgAlt
         ? {
             ...oldData.previewImg,
-            previewImgAlt: createAltForImg(previewImgAlt),
+            previewImgAlt,
           }
-        : oldData?.previewImg,
+        : oldData.previewImg,
     };
   }
 };

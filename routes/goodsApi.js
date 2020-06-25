@@ -3,12 +3,8 @@ const errorHandler = require('../utils/errorHandler');
 const uploadFile = require('../middlewares/uploadFile.middleware');
 const Goods = require('../models/Goods');
 const authAdmin = require('../middlewares/authAdmin.middleware');
-const {
-  createDataUpdateObj,
-  deleteFile,
-  convertDataArrayForClient,
-  convertDataForClient,
-} = require('../utils/helpFuncs');
+const { createDataUpdateObj, deleteFile, convertDataArrayForClient, convertDataForClient } = require('../utils/helpFuncs');
+const User = require('../models/User');
 
 const router = Router();
 
@@ -43,13 +39,7 @@ router.post(
   '/createCommodity',
   authAdmin,
   uploadFile.fields([{ name: 'previewImg' }, { name: 'img' }]),
-  async (
-    {
-      body: { title, shortDescr, descr, price, previewImgAlt, previewImgId, imgAlt = null, imgId },
-      files,
-    },
-    res
-  ) => {
+  async ({ body: { title, shortDescr, descr, price, previewImgAlt, previewImgId, imgAlt = null, imgId }, files }, res) => {
     try {
       const newCommodity = new Goods({
         title,
@@ -100,6 +90,10 @@ router.patch(
       }
       if (newFiles?.previewImg && previewImgSrc) {
         deleteFile(previewImgSrc.split('\\')[1]);
+      }
+      if (dataForUpdate?.price) {
+        const owners = await User.find({ 'cart.cartItems.commodityId': id });
+        owners.forEach(async (owner) => await owner.updateCartPrices(dataForUpdate.price, id));
       }
     } catch (error) {
       errorHandler(res, error);

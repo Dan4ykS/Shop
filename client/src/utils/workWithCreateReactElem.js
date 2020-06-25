@@ -1,5 +1,5 @@
 import React from 'react';
-import { scrollToElem, getDateFromLocalStorage, chekValidDataInForm, actionsForModalWindow } from './workWithBrowser';
+import { scrollToElem, chekValidDataInForm, actionsForModalWindow } from './workWithBrowser';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import StringHelper from './StringHelper';
@@ -45,7 +45,7 @@ export const createItems = (items, className, iconsForItems = [], updated = fals
 
 export const configForUthPages = (token, loading, error) => {
   return {
-    loading: getDateFromLocalStorage('userData') || token ? loading : false,
+    loading: token ? loading : false,
     error,
   };
 };
@@ -83,7 +83,7 @@ export const switchProductBtn = (userName, ...eventHendlers) => {
 };
 
 export const createUpdateImgBtn = (updateFunc, img, imgSrc, oldImgSrc, newAlt, oldAlt) => {
-  if ((img && imgSrc !== oldImgSrc && newAlt !== '') || (newAlt !== oldAlt && newAlt.trim())) {
+  if ((img && imgSrc !== oldImgSrc && newAlt !== '') || (newAlt.trim() !== oldAlt && newAlt.trim())) {
     return (
       <button
         className='btn btn-success'

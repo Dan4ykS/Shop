@@ -3,14 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { fetchGoods } from '../actions/goodsList';
 import { onAddedToCart, onDeletedFromCart, loadCart } from '../actions/shopingCart';
-import {
-  authorization,
-  registration,
-  isLogin,
-  isLogout,
-  invalidRoute,
-  userLogin,
-} from '../actions/userData';
+import { authorization, registration, isLogin, isLogout, invalidRoute, userLogin } from '../actions/userData';
 import { updateTopHeaderMenu } from '../actions/menuItems';
 import { withRouter } from 'react-router-dom';
 import {
@@ -24,14 +17,7 @@ import {
   reloadCommodityData,
 } from '../actions/commodityData';
 
-const mapStateToProps = ({
-  goodsList,
-  shopingCart,
-  userData,
-  menuItems,
-  calendarData,
-  commodityData,
-}) => {
+const mapStateToProps = ({ goodsList, shopingCart, userData, menuItems, calendarData, commodityData }) => {
   return { goodsList, shopingCart, userData, menuItems, calendarData, commodityData };
 };
 

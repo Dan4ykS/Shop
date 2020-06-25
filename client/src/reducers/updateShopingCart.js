@@ -1,7 +1,14 @@
 import { changeArrayElement, removeArrayElement, addArrayElement } from '../utils/workWithRedux';
 
 const updateCartItem = (book, item = {}, quantity) => {
-  const { id = book.id, title = book.title, copies = 0, price = 0, imgSrc = book.previewImg.previewImgSrc, alt = book.previewImg.previewImgAlt } = item;
+  const {
+    id = book.id,
+    title = book.title,
+    copies = 0,
+    price = 0,
+    imgSrc = book.previewImg.previewImgSrc,
+    alt = book.previewImg.previewImgAlt,
+  } = item;
   return {
     id,
     title,
@@ -35,6 +42,7 @@ const updateOrder = (state, bookId, quantity) => {
   return {
     cart: updateCartItems(cart, newItem, itemIndex),
     totalPrice,
+    updatedPrice: cart.updatedPrice,
   };
 };
 
@@ -44,6 +52,7 @@ const updateShopingCart = (state, action) => {
       cart: [],
       totalPrice: 0,
       loading: true,
+      updatedPrice: false,
     };
   }
 
@@ -53,19 +62,20 @@ const updateShopingCart = (state, action) => {
         cart: action.payload.userCart,
         totalPrice: action.payload.totalPrice,
         loading: false,
+        updatedPrice: action.payload.updatedPrice,
       };
     case 'BOOK_ADD_TO_CART':
       return updateOrder(state, action.payload, 1);
-    
+
     case 'BOOK_DELETE_FROM_CART':
       return updateOrder(state, action.payload, -1);
-    
+
     case 'CLEAR_CART':
       return {
         cart: [],
         totalPrice: 0,
       };
-    
+
     default:
       return state.shopingCart;
   }

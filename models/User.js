@@ -38,6 +38,10 @@ const user = new Schema({
       type: Number,
       default: 0,
     },
+    updatedPrice: {
+      type: Boolean,
+      default: false,
+    },
   },
 });
 
@@ -65,6 +69,14 @@ user.methods.removeFormCart = async function (commodity) {
     this.cart.cartItems.splice(index, 1);
   }
   this.cart.totalPrice -= commodity.price;
+  return await this.save();
+};
+
+user.methods.updateCartPrices = async function (newPrice, commodityId) {
+  const commodityIndex = this.cart.cartItems.findIndex((cartItem) => cartItem.commodityId.toString() === commodityId);
+  this.cart.cartItems[commodityIndex].price = newPrice * this.cart.cartItems[commodityIndex].copies;
+  this.cart.totalPrice = this.cart.cartItems.reduce((acc, cartItem) => acc + cartItem.price, 0);
+  this.cart.updatedPrice = true;
   return await this.save();
 };
 

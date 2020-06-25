@@ -100,8 +100,7 @@ router.get('/getUserCart', auth, async (req, res) => {
         imgSrc = item.commodityId._doc.previewImg.previewImgSrc,
         alt = item.commodityId._doc.previewImg.previewImgAlt,
         title = item.commodityId._doc.title;
-      delete item.commodityId._doc._id
-      delete item.commodityId._doc.__v;
+
       return {
         id,
         copies: item.copies,
@@ -114,6 +113,7 @@ router.get('/getUserCart', auth, async (req, res) => {
     res.json({
       userCart,
       totalPrice: user.cart.totalPrice,
+      updatedPrice: user.cart.updatedPrice
     });
   } catch (error) {
     errorHandler(res, error);
@@ -142,6 +142,16 @@ router.patch('/createNewPassword', auth, async (req, res) => {
     res.status(201).json({ message: 'Пароль изменен' });
   } catch (error) {
     errorHandler(res, error);
+  }
+});
+
+router.get('/usersWithBook/:id', async (req, res) => {
+  try {
+    const users = await User.find({ 'cart.cartItems.commodityId': req.params.id });
+    console.log(users);
+    res.status(200).json('все ок');
+  } catch (error) {
+    errorHandler(error);
   }
 });
 
