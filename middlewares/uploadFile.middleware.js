@@ -1,16 +1,13 @@
 const multer = require('multer');
-const moment = require('moment');
-const voca = require('voca');
-const { findFileNameAndExtension } = require('../utils/helpFuncs');
+const { findFileNameAndExtension, createFileName } = require('../utils/helpFuncs');
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, 'uploads/');
   },
   filename(req, file, cb) {
-    const date = moment().format('DDMMYYYY-HHmmss_SSS');
     const { fileName, fileExtension } = findFileNameAndExtension(file.originalname);
-    cb(null, `${date}-${voca(fileName).snakeCase().latinise().value()}.${fileExtension}`);
+    cb(null, createFileName(fileName, fileExtension));
   },
 });
 const fileFilter = (req, file, cb) => {

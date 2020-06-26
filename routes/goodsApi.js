@@ -5,6 +5,7 @@ const Goods = require('../models/Goods');
 const authAdmin = require('../middlewares/authAdmin.middleware');
 const { createDataUpdateObj, deleteFile, convertDataArrayForClient, convertDataForClient } = require('../utils/helpFuncs');
 const User = require('../models/User');
+const Reviews = require('../models/Reviews');
 
 const router = Router();
 
@@ -28,10 +29,23 @@ router.get('/findGoods', async (req, res) => {
 
 router.get('/findCommodity/:id', async ({ params: { id } }, res) => {
   try {
-    const commodity = await Goods.findById(id);
+    const commodity = (await Goods.findById(id)).toObject(),
+      reviews = await Reviews.find({ commodity: id }),
+      reviewsDataForClient = [];
+
+    for (const review of reviews) {
+      const reviewUser = await review.populate('user').execPopulate();
+      reviewsDataForClient.push({
+        reviewId: review._id,
+        reviewUser: reviewUser.user._doc.userName,
+        reviewDate: review.date,
+        review: review.review,
+      });
+    }
+    commodity.reviews = reviewsDataForClient;
     res.status(200).json(convertDataForClient(commodity));
   } catch (error) {
-    errorHandler(res, { message: `Товар с id=${id} не найден!` });
+    errorHandler(res, { message: `Товар с id:${id} не найден!` });
   }
 });
 
@@ -74,17 +88,20 @@ router.patch(
   async ({ body, params: { id }, files }, res) => {
     try {
       const newFiles = {
-        previewImg: files?.previewImg,
-        img: files?.img,
-      };
-      const oldCommodityData = await Goods.findById(id);
-      const dataForUpdate = createDataUpdateObj(body, newFiles, oldCommodityData);
+          previewImg: files?.previewImg,
+          img: files?.img,
+        },
+        oldCommodityData = await Goods.findById(id),
+        dataForUpdate = createDataUpdateObj(body, newFiles, oldCommodityData);
+
       await Goods.updateOne({ _id: id }, dataForUpdate);
       res.status(200).json({ message: `товар с id:${id} обновлен` });
+
       const {
         previewImg: { previewImgSrc },
         img: { imgSrc },
       } = oldCommodityData;
+
       if (newFiles?.img && imgSrc) {
         deleteFile(imgSrc.split('\\')[1]);
       }
@@ -113,15 +130,6 @@ router.delete('/removeCommodity/:id', authAdmin, async (req, res) => {
     }
   } catch (error) {
     errororHandler(res, error);
-  }
-});
-
-router.post('/testData', authAdmin, uploadFile.none(), async (req, res) => {
-  try {
-    console.log(req.body.extraData.text2);
-    res.status(200);
-  } catch (error) {
-    errorHandler(error);
   }
 });
 

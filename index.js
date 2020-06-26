@@ -3,6 +3,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const usersApi = require('./routes/usersApi');
 const goodsApi = require('./routes/goodsApi');
+const reviewsApi = require('./routes/reviewsApi');
 const mongoose = require('mongoose');
 const config = require('./config/config');
 const path = require('path');
@@ -15,7 +16,7 @@ app.use(morgan('dev'));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use('/api', usersApi, goodsApi);
+app.use('/api', usersApi, goodsApi, reviewsApi);
 
 if (process.env.NODE_ENV === 'production') {
   app.use('/', express.static(path.join(__dirname, 'client', 'build')));
@@ -26,7 +27,12 @@ if (process.env.NODE_ENV === 'production') {
 
 (async () => {
   try {
-    await mongoose.connect(config.MONGOURL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false });
+    await mongoose.connect(config.MONGOURL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    });
     app.listen(port, () => {
       console.log(`Запуск сервера на порту ${port}...`);
     });

@@ -80,4 +80,9 @@ user.methods.updateCartPrices = async function (newPrice, commodityId) {
   return await this.save();
 };
 
+user.methods.testData = async function (data) { 
+  console.log(data)
+  return await this.save()
+}
+
 module.exports = model('User', user);

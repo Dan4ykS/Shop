@@ -19,10 +19,7 @@ const ChangeCommodityDetail = ({
 }) => {
   return (
     <>
-      <form
-        className='changeCommodityDetail'
-        onSubmit={(e) => workWithCommodityData(e, updatedFields, token, type, id, history)}
-      >
+      <form className='changeCommodityDetail' onSubmit={(e) => workWithCommodityData(e, updatedFields, token, type, id, history)}>
         <div className='formGroup row'>
           <label className='col-sm-3 colFormLable'>Название:</label>
           <div className='col-sm-9'>
@@ -43,7 +40,7 @@ const ChangeCommodityDetail = ({
               name='forSetData'
               className='formControl'
               value={setValues(shortDescr)}
-              onChange={(e) => validateInput(e, updateCommodityShortDescr, (input) => input.value.length < 300 )}
+              onChange={(e) => validateInput(e, updateCommodityShortDescr, (input) => input.value.length < 300)}
             ></textarea>
             <div className='invalidFeedback'>Поле обязательно и не должно быть пустым (максимум 300 символов)</div>
           </div>

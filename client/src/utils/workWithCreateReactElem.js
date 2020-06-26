@@ -135,8 +135,8 @@ export const createDeleteCommodityBtn = (type) => {
   }
 };
 
-export const createStringWithBr = (str) => {
-  const paragraphs = str.split('\n');
+export const createTextWithBr = (text) => {
+  const paragraphs = text.split('\n');
   return paragraphs.map((el) => {
     if (el === '') {
       return <br key={StringHelper.createId()} />;

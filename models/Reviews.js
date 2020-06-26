@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const { generateDate } = require('../utils/helpFuncs');
 
 const reviews = new Schema({
   user: {
@@ -14,6 +15,13 @@ const reviews = new Schema({
   review: {
     type: String,
     require: true,
+  },
+  date: {
+    type: String,
+    default: generateDate(),
+  },
+  rating: {
+    type: Number,
   },
 });
 

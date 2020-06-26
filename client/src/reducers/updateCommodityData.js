@@ -18,7 +18,7 @@ const updateImgData = (newData, oldData, type) => {
     [`${type}File`]: !newData[`${type}File`] ? oldData[`${type}File`] : newData[`${type}File`],
     [`${type}Src`]: !newData[`${type}Src`] ? oldData[`${type}Src`] : newData[`${type}Src`],
     [`${type}Alt`]: createAlt(newData, oldData, type),
-    [`${type}Id`]: !oldData ? StringHelper.createId() : oldData[`${type}Id`],
+    [`${type}Id`]: !oldData || !oldData[`${type}Id`] ? StringHelper.createId() : oldData[`${type}Id`],
   };
 };
 

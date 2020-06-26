@@ -9,7 +9,7 @@ const RenderList = ({ listForRender, ComponentForRender, ComponentWithoutData = 
   return (
     <div className='row'>
       {listForRender.map((dataForComponent) => (
-        <ComponentForRender key={StringHelper.createId()} data={dataForComponent} {...extraParams} />
+        <ComponentForRender key={dataForComponent?.id || StringHelper.createId()} data={dataForComponent} {...extraParams} />
       ))}
     </div>
   );

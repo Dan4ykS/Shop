@@ -1,5 +1,8 @@
 const path = require('path');
 const fs = require('fs');
+const moment = require('moment');
+const voca = require('voca');
+const Goods = require('../models/Goods');
 
 const deleteFile = (fileName) => {
   fs.unlink(path.join(__dirname, '..', 'uploads', fileName), (error) => {
@@ -18,11 +21,18 @@ const findFileNameAndExtension = (originalname) => {
   return { fileName, fileExtension };
 };
 
-const createObjForUpdateImg = (src, type, alt, oldId) => {
+const createObjForUpdateImg = (src, type, alt, oldId, newId) => {
   return {
     [`${type}Src`]: src,
     [`${type}Alt`]: alt,
-    [`${type}Id`]: oldId,
+    [`${type}Id`]: !newId ? oldId : newId,
+  };
+};
+
+const createObjForUpdateAlt = (oldImgDta, newAlt, type) => {
+  return {
+    ...oldImgDta,
+    [`${type}Alt`]: newAlt,
   };
 };
 
@@ -41,13 +51,10 @@ const createDataUpdateObj = (updateData, { previewImg, img }, oldData) => {
   } else if (img) {
     return {
       ...updateData,
-      img: createObjForUpdateImg(img[0].path, 'img', updateData.imgAlt, oldData.img.imgId),
+      img: createObjForUpdateImg(img[0].path, 'img', updateData.imgAlt, oldData.img.imgId, updateData?.imgId),
       previewImg: !updateData.previewImgAlt
         ? oldData.previewImg
-        : {
-            ...oldData.previewImg,
-            previewImgAlt: updateData.previewImgAlt,
-          },
+        : createObjForUpdateAlt(oldData.previewImg, updateData.previewImgAlt, 'previewImg'),
     };
   } else if (previewImg) {
     return {
@@ -58,12 +65,7 @@ const createDataUpdateObj = (updateData, { previewImg, img }, oldData) => {
         updateData.previewImgAlt,
         oldData.previewImg.previewImgId
       ),
-      img: !updateData.imgAlt
-        ? oldData.img
-        : {
-            ...oldData.img,
-            imgAlt: updateData.imgAlt,
-          },
+      img: !updateData.imgAlt ? oldData.img : createObjForUpdateAlt(oldData.img, updateData.imgAlt, 'img'),
     };
   } else {
     const previewImgAlt = updateData?.previewImgAlt;
@@ -76,35 +78,41 @@ const createDataUpdateObj = (updateData, { previewImg, img }, oldData) => {
     }
     return {
       ...updateData,
-      img: imgAlt
-        ? {
-            ...oldData.img,
-            imgAlt,
-          }
-        : oldData.img,
-      previewImg: previewImgAlt
-        ? {
-            ...oldData.previewImg,
-            previewImgAlt,
-          }
-        : oldData.previewImg,
+      img: imgAlt ? createObjForUpdateAlt(oldData.img, imgAlt, 'img') : oldData.img,
+      previewImg: previewImgAlt ? createObjForUpdateAlt(oldData.previewImg, previewImgAlt, 'previewImg') : oldData.previewImg,
     };
   }
 };
 
 const convertDataForClient = (data) => {
-  const dataObj = data.toObject();
-  const id = dataObj._id;
-  delete dataObj.__v;
-  delete dataObj._id;
+  const id = data._id;
+  delete data.__v;
+  delete data._id;
   return {
     id,
-    ...dataObj,
+    ...data,
   };
 };
 
 const convertDataArrayForClient = (data) => {
-  return data.map((el) => convertDataForClient(el));
+  return data.map((el) => convertDataForClient(el.toObject()));
+};
+
+const generateDate = () => {
+  return moment().format('DD:MM:YYYY-HH:mm:ss');
+};
+
+const createFileName = (fileName, fileExtension) => {
+  const date = moment().format('DDMMYYYY-HHmmss_SSS');
+  return `${date}-${voca(fileName).snakeCase().latinise().value()}.${fileExtension}`;
+};
+
+const updateCommodityRating = async (commodityId, newRating, oldRating = null) => {
+  if (+newRating >= 0 && +newRating < 6) {
+    const reviewCommodity = await Goods.findById(commodityId);
+    await reviewCommodity.updateRating(+newRating, +oldRating);
+  }
+  return;
 };
 
 module.exports = {
@@ -113,4 +121,7 @@ module.exports = {
   convertDataArrayForClient,
   convertDataForClient,
   findFileNameAndExtension,
+  generateDate,
+  createFileName,
+  updateCommodityRating,
 };

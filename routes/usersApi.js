@@ -12,16 +12,16 @@ const errorHandler = require('../utils/errorHandler');
 const router = Router();
 
 router.post('/createUser', async ({ body: { userName, password, email } }, res) => {
-  const newUser = new User({
-    userName,
-    password: await bcrypt.hash(password, 10),
-    email,
-    cart: {
-      cartItems: [],
-      totalPrice: 0,
-    },
-  });
   try {
+    const newUser = new User({
+      userName,
+      password: await bcrypt.hash(password, 10),
+      email,
+      cart: {
+        cartItems: [],
+        totalPrice: 0,
+      },
+    });
     await newUser.save();
     const token = createJwtToken({ userId: newUser.id }, '1d');
     res.status(201).json(token);
@@ -71,8 +71,9 @@ router.get('/isValid', auth, async (req, res) => {
 
 router.patch('/addToCart/:id', auth, async (req, res) => {
   try {
-    const commodity = await Goods.findById(req.params.id);
-    const user = await User.findById(req.user.userId);
+    const commodity = await Goods.findById(req.params.id),
+      user = await User.findById(req.user.userId);
+    
     await user.addToCart(commodity);
     res.json({ message: 'Товар добавлен' });
   } catch (error) {
@@ -82,8 +83,9 @@ router.patch('/addToCart/:id', auth, async (req, res) => {
 
 router.delete('/removeFormCart/:id', auth, async (req, res) => {
   try {
-    const commodity = await Goods.findById(req.params.id);
-    const user = await User.findById(req.user.userId);
+    const commodity = await Goods.findById(req.params.id),
+      user = await User.findById(req.user.userId);
+    
     await user.removeFormCart(commodity);
     res.json({ message: 'Товар удален' });
   } catch (error) {
@@ -93,27 +95,27 @@ router.delete('/removeFormCart/:id', auth, async (req, res) => {
 
 router.get('/getUserCart', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.userId);
-    const userCartData = await user.populate('cart.cartItems.commodityId').execPopulate();
-    const userCart = userCartData.cart.cartItems.map((item) => {
-      const id = item.commodityId.id,
-        imgSrc = item.commodityId._doc.previewImg.previewImgSrc,
-        alt = item.commodityId._doc.previewImg.previewImgAlt,
-        title = item.commodityId._doc.title;
+    const user = await User.findById(req.user.userId),
+      userCartData = await user.populate('cart.cartItems.commodityId').execPopulate(),
+      userCart = userCartData.cart.cartItems.map((item) => {
+        const id = item.commodityId.id,
+          imgSrc = item.commodityId._doc.previewImg.previewImgSrc,
+          alt = item.commodityId._doc.previewImg.previewImgAlt,
+          title = item.commodityId._doc.title;
+        return {
+          id,
+          copies: item.copies,
+          price: item.price,
+          imgSrc,
+          alt,
+          title,
+        };
+      });
 
-      return {
-        id,
-        copies: item.copies,
-        price: item.price,
-        imgSrc,
-        alt,
-        title,
-      };
-    });
     res.json({
       userCart,
       totalPrice: user.cart.totalPrice,
-      updatedPrice: user.cart.updatedPrice
+      updatedPrice: user.cart.updatedPrice,
     });
   } catch (error) {
     errorHandler(res, error);
