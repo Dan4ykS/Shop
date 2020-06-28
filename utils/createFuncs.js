@@ -1,25 +1,6 @@
-const path = require('path');
-const fs = require('fs');
 const moment = require('moment');
-const voca = require('voca');
-const Goods = require('../models/Goods');
-
-const deleteFile = (fileName) => {
-  fs.unlink(path.join(__dirname, '..', 'uploads', fileName), (error) => {
-    if (error) {
-      console.log(error);
-      return;
-    }
-    console.log(`Файл: ${fileName} успешно удален!`);
-  });
-};
-
-const findFileNameAndExtension = (originalname) => {
-  const arr = originalname.split('.');
-  const fileExtension = arr[arr.length - 1];
-  const fileName = arr.filter((el) => el !== fileExtension).join(' ');
-  return { fileName, fileExtension };
-};
+const jwt = require('jsonwebtoken');
+const config = require('../config/config');
 
 const createObjForUpdateImg = (src, type, alt, oldId, newId) => {
   return {
@@ -84,44 +65,17 @@ const createDataUpdateObj = (updateData, { previewImg, img }, oldData) => {
   }
 };
 
-const convertDataForClient = (data) => {
-  const id = data._id;
-  delete data.__v;
-  delete data._id;
-  return {
-    id,
-    ...data,
-  };
-};
-
-const convertDataArrayForClient = (data) => {
-  return data.map((el) => convertDataForClient(el.toObject()));
-};
-
 const generateDate = () => {
   return moment().format('DD:MM:YYYY-HH:mm:ss');
 };
 
-const createFileName = (fileName, fileExtension) => {
-  const date = moment().format('DDMMYYYY-HHmmss_SSS');
-  return `${date}-${voca(fileName).snakeCase().latinise().value()}.${fileExtension}`;
+const createJwtToken = (data, lifetime = '1h') => {
+  return jwt.sign(data, config.JWTSECRET, { expiresIn: lifetime });
 };
 
-const updateCommodityRating = async (commodityId, newRating, oldRating = null) => {
-  if (+newRating >= 0 && +newRating < 6) {
-    const reviewCommodity = await Goods.findById(commodityId);
-    await reviewCommodity.updateRating(+newRating, +oldRating);
-  }
-  return;
-};
 
 module.exports = {
   createDataUpdateObj,
-  deleteFile,
-  convertDataArrayForClient,
-  convertDataForClient,
-  findFileNameAndExtension,
   generateDate,
-  createFileName,
-  updateCommodityRating,
+  createJwtToken
 };

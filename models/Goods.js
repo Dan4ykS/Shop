@@ -45,7 +45,7 @@ const goods = new Schema({
   rating: {
     general: {
       type: Number,
-      default: 5,
+      default: 0,
     },
     fiveStars: {
       type: Number,

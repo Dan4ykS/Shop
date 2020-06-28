@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const { generateDate } = require('../utils/helpFuncs');
+const { generateDate } = require('../utils/createFuncs');
 
 const reviews = new Schema({
   user: {

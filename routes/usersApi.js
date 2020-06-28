@@ -6,8 +6,8 @@ const sendRegistationLetter = require('../mail/registation');
 const sendResetPasswordLetter = require('../mail/resetPassword');
 const auth = require('../middlewares/auth.middleware');
 const authAdmin = require('../middlewares/authAdmin.middleware');
-const createJwtToken = require('../utils/createJwtToken');
 const errorHandler = require('../utils/errorHandler');
+const { createJwtToken } = require('../utils/createFuncs');
 
 const router = Router();
 
@@ -35,7 +35,7 @@ router.get('/getUsers', authAdmin, async (req, res) => {
   try {
     res.json(await User.find());
   } catch (error) {
-    res.sendStatus(400);
+    errorHandler(res, error);
   }
 });
 
@@ -73,7 +73,7 @@ router.patch('/addToCart/:id', auth, async (req, res) => {
   try {
     const commodity = await Goods.findById(req.params.id),
       user = await User.findById(req.user.userId);
-    
+
     await user.addToCart(commodity);
     res.json({ message: 'Товар добавлен' });
   } catch (error) {
@@ -85,7 +85,7 @@ router.delete('/removeFormCart/:id', auth, async (req, res) => {
   try {
     const commodity = await Goods.findById(req.params.id),
       user = await User.findById(req.user.userId);
-    
+
     await user.removeFormCart(commodity);
     res.json({ message: 'Товар удален' });
   } catch (error) {
@@ -153,7 +153,7 @@ router.get('/usersWithBook/:id', async (req, res) => {
     console.log(users);
     res.status(200).json('все ок');
   } catch (error) {
-    errorHandler(error);
+    errorHandler(res, error);
   }
 });
 

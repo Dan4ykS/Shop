@@ -8,4 +8,5 @@ const MainPage = ({ commodityData: { imgSrc, img }, actions: { updateCommodityIm
     </>
   );
 };
+
 export default withSore(MainPage);

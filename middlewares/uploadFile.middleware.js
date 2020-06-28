@@ -1,5 +1,5 @@
 const multer = require('multer');
-const { findFileNameAndExtension, createFileName } = require('../utils/helpFuncs');
+const { createFileName, findFileNameAndExtension } = require('../utils/workWithFiles');
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
