@@ -37,13 +37,20 @@ router.get('/findCommodity/:id', async ({ params: { id } }, res) => {
     const commodity = (await Goods.findById(id)).toObject(),
       reviews = await Reviews.find({ commodity: id }),
       genres = await Genres.find({ 'goods.commodityId': id }),
+      tags = await Tags.find({ 'goods.commodityId': id }),
       reviewsDataForClient = [],
+      tagsDataForClient = [],
       genresDataForClient = [];
 
     genres.forEach((genre) => {
       genresDataForClient.push(genre.genre);
     });
     commodity.genres = genresDataForClient;
+
+    tags.forEach((tag) => {
+      tagsDataForClient.push(tag.tag);
+    });
+    commodity.tags = tagsDataForClient;
 
     if (reviews.length > 0) {
       for (const review of reviews) {
