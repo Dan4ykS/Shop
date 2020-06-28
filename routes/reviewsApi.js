@@ -1,7 +1,7 @@
 const { Router } = require('express');
-const Reviews = require('../models/Reviews');
 const auth = require('../middlewares/auth.middleware');
 const errorHandler = require('../utils/errorHandler');
+const Reviews = require('../models/Reviews');
 const { updateCommodityRating } = require('../utils/updateFuncs');
 const { generateDate } = require('../utils/createFuncs');
 

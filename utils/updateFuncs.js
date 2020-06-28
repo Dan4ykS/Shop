@@ -1,26 +1,31 @@
 const Genres = require('../models/Genres');
 const Goods = require('../models/Goods');
+const Tags = require('../models/Tags');
 
-const updateCommodityGenres = async (newGenres, commodityId) => {
-  const oldCommodityGenres = await Genres.find({ 'goods.commodityId': commodityId });
-  oldCommodityGenres.forEach(async (genre) => {
-    const genreIndex = newGenres.findIndex((newGenre) => newGenre === genre.genre);
-    if (genreIndex === -1) {
-      await genre.removeCommodity(commodityId);
+const updateCommodityGenresOrTags = async (newData, commodityId, type = 'genres') => {
+  const Model = type === 'genres' ? Genres : Tags,
+    firstFildName = type === 'genres' ? 'genre' : 'tag',
+    oldCommodityData = await Model.find({ 'goods.commodityId': commodityId });
+  
+  oldCommodityData.forEach(async (el) => {
+    const elemIndex = newData.findIndex((newEl) => newEl === el[firstFildName]);
+    if (elemIndex === -1) {
+      await el.removeCommodity(commodityId);
     }
   });
-  newGenres.forEach(async (genre) => {
-    const genreIndex = oldCommodityGenres.findIndex((oldGenre) => oldGenre === genre);
-    if (genreIndex === -1) {
-      const validGenre = await Genres.findOne({ genre });
-      if (validGenre) {
-        await validGenre.addNewCommodity(commodityId);
+  
+  newData.forEach(async (el) => {
+    const elemIndex = oldCommodityData.findIndex((oldEl) => oldEl[firstFildName] === el);
+    if (elemIndex === -1) {
+      const needElements = await Model.findOne({ [firstFildName]: el });
+      if (needElements) {
+        await needElements.addNewCommodity(commodityId);
       } else {
-        const newGenre = new Genres({
-          genre,
+        const newModelData = new Model({
+          [firstFildName]: el,
           goods: [{ commodityId }],
         });
-        await newGenre.save();
+        await newModelData.save();
       }
     }
   });
@@ -34,6 +39,6 @@ const updateCommodityRating = async (commodityId, newRating, oldRating = null) =
 };
 
 module.exports = {
-  updateCommodityGenres,
+  updateCommodityGenresOrTags,
   updateCommodityRating,
 };

@@ -1,15 +1,16 @@
 const { Router } = require('express');
 const errorHandler = require('../utils/errorHandler');
+const authAdmin = require('../middlewares/authAdmin.middleware');
 const uploadFile = require('../middlewares/uploadFile.middleware');
 const Goods = require('../models/Goods');
-const authAdmin = require('../middlewares/authAdmin.middleware');
-const { convertDataArrayForClient, convertDataForClient } = require('../utils/convertFuncs');
-const { updateCommodityGenres } = require('../utils/updateFuncs');
 const User = require('../models/User');
 const Reviews = require('../models/Reviews.js');
 const Genres = require('../models/Genres');
+const Tags = require('../models/Tags');
 const { createDataUpdateObj } = require('../utils/createFuncs');
-const { deleteFile } = require('../utils/workWithFiles');
+const { deleteFile, getValidFileName } = require('../utils/workWithFiles');
+const { updateCommodityGenresOrTags } = require('../utils/updateFuncs');
+const { convertDataArrayForClient, convertDataForClient } = require('../utils/convertFuncs');
 
 const router = Router();
 
@@ -69,7 +70,7 @@ router.post(
   uploadFile.fields([{ name: 'previewImg' }, { name: 'img' }]),
   async (
     {
-      body: { title, shortDescr, descr, price, previewImgAlt, previewImgId, genres, author, imgAlt = null, imgId = null },
+      body: { title, shortDescr, descr, price, previewImgAlt, previewImgId, genres, tags, author, imgAlt = null, imgId = null },
       files,
     },
     res
@@ -95,7 +96,8 @@ router.post(
           : null,
       });
       await newCommodity.save();
-      await updateCommodityGenres(genres, newCommodity._id);
+      await updateCommodityGenresOrTags(genres, newCommodity._id);
+      await updateCommodityGenresOrTags(tags, newCommodity._id, 'tags');
       res.json({ message: 'Товар был успешно добавлен!' });
     } catch (error) {
       errorHandler(res, error);
@@ -125,7 +127,11 @@ router.patch(
       }
 
       if (dataForUpdate?.genres) {
-        await updateCommodityGenres(dataForUpdate.genres, id);
+        await updateCommodityGenresOrTags(dataForUpdate.genres, id);
+      }
+
+      if (dataForUpdate?.tags) {
+        await updateCommodityGenresOrTags(dataForUpdate.tags, id, 'tags');
       }
 
       const {
@@ -134,10 +140,10 @@ router.patch(
       } = oldCommodityData;
 
       if (newFiles?.img && imgSrc) {
-        deleteFile(imgSrc.split('\\')[1]);
+        deleteFile(getValidFileName(imgSrc));
       }
       if (newFiles?.previewImg && previewImgSrc) {
-        deleteFile(previewImgSrc.split('\\')[1]);
+        deleteFile(getValidFileName(previewImgSrc));
       }
     } catch (error) {
       errorHandler(res, error);
@@ -151,14 +157,18 @@ router.delete('/removeCommodity/:id', authAdmin, async ({ params: { id } }, res)
     res.status(200).json({ message: `товар с id:${id} удален` });
     await Reviews.deleteMany({ commodity: id });
     const genres = await Genres.find({ 'goods.commodityId': id });
+    const tags = await Tags.find({ 'goods.commodityId': id });
     if (genres.length > 0) {
       genres.forEach(async (genre) => await genre.removeCommodity(id));
     }
+    if (tags.length > 0) {
+      tags.forEach(async (tag) => await tag.removeCommodity(id));
+    }
     if (oldCommodityData?.img?.imgSrc) {
-      deleteFile(oldCommodityData.img.imgSrc.split('\\')[1]);
+      deleteFile(getValidFileName(oldCommodityData.img.imgSrc));
     }
     if (oldCommodityData?.previewImg?.previewImgSrc) {
-      deleteFile(oldCommodityData.previewImg.previewImgSrc.split('\\')[1]);
+      deleteFile(getValidFileName(oldCommodityData.previewImg.previewImgSrc));
     }
   } catch (error) {
     errororHandler(res, error);

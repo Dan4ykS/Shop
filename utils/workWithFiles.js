@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const voca = require('voca');
+const moment = require('moment');
 
 const deleteFile = (fileName) => {
   fs.unlink(path.join(__dirname, '..', 'uploads', fileName), (error) => {
@@ -24,5 +25,13 @@ const createFileName = (fileName, fileExtension) => {
   return `${date}-${voca(fileName).snakeCase().latinise().value()}.${fileExtension}`;
 };
 
-module.exports = { deleteFile, findFileNameAndExtension, createFileName }
+const getValidFileName = (fileNameFormServer) => {
+  return fileNameFormServer.split('\\')[1];
+};
 
+module.exports = {
+  deleteFile,
+  findFileNameAndExtension,
+  createFileName,
+  getValidFileName,
+};

@@ -1,8 +1,8 @@
 const { Schema, model } = require('mongoose');
 const { addNewCommodity, removeCommodity } = require('../utils/modelMethods');
 
-const genres = new Schema({
-  genre: {
+const tags = new Schema({
+  tag: {
     type: String,
     required: true,
   },
@@ -17,8 +17,8 @@ const genres = new Schema({
   ],
 });
 
-genres.methods.addNewCommodity = addNewCommodity;
+tags.methods.addNewCommodity = addNewCommodity;
 
-genres.methods.removeCommodity = removeCommodity;
+tags.methods.removeCommodity = removeCommodity;
 
-module.exports = model('Genres', genres);
+module.exports = model('Tags', tags);

@@ -20,7 +20,7 @@ export const onAddedToCart = (dispatch, { goodsService }) => async (id, token) =
 export const onDeletedFromCart = (dispatch, { goodsService }) => async (id, token) => {
   try {
     dispatch(commodityDeletedFromCart(id));
-    await goodsService.removeFormCart(id, token);
+    await goodsService.removeFromCart(id, token);
   } catch (error) {
     console.log(error);
   }

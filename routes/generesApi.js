@@ -13,7 +13,7 @@ router.post('/createGenre', authAdmin, async ({ body: { genre, commodityId } }, 
       goods: [{ commodityId }],
     });
     await newgenre.save();
-    res.status(201).json(`Создан новый жанр: ${genre}`);
+    res.status(201).json({ message: `Создан новый тэг: ${genre}` });
   } catch (error) {
     errorHandler(res, error);
   }

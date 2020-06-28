@@ -13,8 +13,8 @@ class GoodsService extends BaseApiClass {
     return await this.requestToApi('PATCH', `addToCart/${id}`, null, this.headerWithToken(token));
   };
 
-  removeFormCart = async (id, token) => {
-    return await this.requestToApi('DELETE', `removeFormCart/${id}`, null, this.headerWithToken(token));
+  removeFromCart = async (id, token) => {
+    return await this.requestToApi('DELETE', `removeFromCart/${id}`, null, this.headerWithToken(token));
   };
 
   getCommodity = async (id, token) => {

@@ -1,13 +1,17 @@
 const { Router } = require('express');
-const User = require('../models/User');
-const Goods = require('../models/Goods');
-const bcrypt = require('bcryptjs');
 const sendRegistationLetter = require('../mail/registation');
 const sendResetPasswordLetter = require('../mail/resetPassword');
 const auth = require('../middlewares/auth.middleware');
 const authAdmin = require('../middlewares/authAdmin.middleware');
 const errorHandler = require('../utils/errorHandler');
+const bcrypt = require('bcryptjs');
+const uploadFile = require('../middlewares/uploadFile.middleware');
+const User = require('../models/User');
+const Reviews = require('../models/Reviews');
+const Goods = require('../models/Goods');
 const { createJwtToken } = require('../utils/createFuncs');
+const { updateCommodityRating } = require('../utils/updateFuncs');
+const { deleteFile, getValidFileName } = require('../utils/workWithFiles');
 
 const router = Router();
 
@@ -81,12 +85,12 @@ router.patch('/addToCart/:id', auth, async (req, res) => {
   }
 });
 
-router.delete('/removeFormCart/:id', auth, async (req, res) => {
+router.delete('/removeFromCart/:id', auth, async (req, res) => {
   try {
     const commodity = await Goods.findById(req.params.id),
       user = await User.findById(req.user.userId);
 
-    await user.removeFormCart(commodity);
+    await user.removeFromCart(commodity);
     res.json({ message: 'Товар удален' });
   } catch (error) {
     errorHandler(res, error);
@@ -147,11 +151,37 @@ router.patch('/createNewPassword', auth, async (req, res) => {
   }
 });
 
-router.get('/usersWithBook/:id', async (req, res) => {
+router.patch('/updateUserData', auth, uploadFile.single('avatar'), async ({ body, user: { userId }, file }, res) => {
   try {
-    const users = await User.find({ 'cart.cartItems.commodityId': req.params.id });
-    console.log(users);
-    res.status(200).json('все ок');
+    const newAvatar = {},
+      newPassword = {};
+    if (file) {
+      newAvatar.avatar = file.path;
+    }
+    if (body?.password) {
+      newPassword.password = await bcrypt.hash(body.password, 10);
+    }
+    await User.findByIdAndUpdate(userId, { ...body, ...newAvatar, ...newPassword });
+    res.status(200).json({ message: `Данные пользователя с id: ${userId} обновлены` });
+  } catch (error) {
+    errorHandler(res, error);
+  }
+});
+
+router.delete('/removeUser/:id', authAdmin, async ({ params: { id } }, res) => {
+  try {
+    const oldUser = await User.findByIdAndDelete(id);
+    res.status(200).json({ message: `Данные пользователя с id: ${id} удалены` });
+    const userReviews = await Reviews.find({ user: id });
+    if (userReviews.length > 0) {
+      userReviews.forEach(async (review) => {
+        const reviewData = await Reviews.findByIdAndRemove(review._id.toString());
+        await updateCommodityRating(reviewData.commodity, 0, reviewData?.rating);
+      });
+    }
+    if (oldUser?.avatar && getValidFileName(oldUser.avatar) !== 'defaultAvatar.png') {
+      deleteFile(getValidFileName(oldUser.avatar));
+    }
   } catch (error) {
     errorHandler(res, error);
   }

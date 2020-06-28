@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const { updateRating } = require('../utils/modelMethods');
 
 const goods = new Schema({
   title: {
@@ -74,55 +75,6 @@ const goods = new Schema({
   },
 });
 
-const updateGeneralRating = ({ fiveStars, fourStars, threeStars, twoStars, oneStar }) => {
-  const numberOfRatings = fiveStars + fourStars + threeStars + twoStars + oneStar;
-  const sumOfRatings = fiveStars * 5 + fourStars * 4 + threeStars * 3 + twoStars * 2 + oneStar * 1;
-  return (sumOfRatings / numberOfRatings).toFixed(2);
-};
-
-goods.methods.updateRating = async function (userRating, oldUserRating = null) {
-  if (oldUserRating) {
-    switch (oldUserRating) {
-      case 5:
-        this.rating.fiveStars -= 1;
-        break;
-      case 4:
-        this.rating.fourStars -= 1;
-        break;
-      case 3:
-        this.rating.threeStars -= 1;
-        break;
-      case 2:
-        this.rating.twoStars -= 1;
-        break;
-      case 1:
-        this.rating.oneStar -= 1;
-        break;
-      default:
-        break;
-    }
-  }
-  switch (userRating) {
-    case 5:
-      this.rating.fiveStars += 1;
-      break;
-    case 4:
-      this.rating.fourStars += 1;
-      break;
-    case 3:
-      this.rating.threeStars += 1;
-      break;
-    case 2:
-      this.rating.twoStars += 1;
-      break;
-    case 1:
-      this.rating.oneStar += 1;
-      break;
-    default:
-      break;
-  }
-  this.rating.general = updateGeneralRating(this.rating);
-  return await this.save();
-};
+goods.methods.updateRating = updateRating
 
 module.exports = model('Goods', goods);
