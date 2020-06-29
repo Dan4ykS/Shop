@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const usersApi = require('./routes/usersApi');
 const goodsApi = require('./routes/goodsApi');
 const reviewsApi = require('./routes/reviewsApi');
-const generesApi = require('./routes/generesApi');
+const genresApi = require('./routes/genresApi');
 const mongoose = require('mongoose');
 const config = require('./config/config');
 const path = require('path');
@@ -17,7 +17,7 @@ app.use(morgan('dev'));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use('/api', usersApi, goodsApi, reviewsApi, generesApi);
+app.use('/api', usersApi, goodsApi, reviewsApi, genresApi);
 
 if (process.env.NODE_ENV === 'production') {
   app.use('/', express.static(path.join(__dirname, 'client', 'build')));

@@ -2,7 +2,7 @@ const moment = require('moment');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 
-const createObjForUpdateImg = (src, type, alt, oldId, newId) => {
+module.exports.createObjForUpdateImg = (src, type, alt, oldId, newId) => {
   return {
     [`${type}Src`]: src,
     [`${type}Alt`]: alt,
@@ -17,7 +17,7 @@ const createObjForUpdateAlt = (oldImgDta, newAlt, type) => {
   };
 };
 
-const createDataUpdateObj = (updateData, { previewImg, img }, oldData) => {
+module.exports.createDataUpdateObj = (updateData, { previewImg, img }, oldData) => {
   if (previewImg && img) {
     return {
       ...updateData,
@@ -65,17 +65,10 @@ const createDataUpdateObj = (updateData, { previewImg, img }, oldData) => {
   }
 };
 
-const generateDate = () => {
+module.exports.generateDate = () => {
   return moment().format('DD:MM:YYYY-HH:mm:ss');
 };
 
-const createJwtToken = (data, lifetime = '1h') => {
+module.exports.createJwtToken = (data, lifetime = '1h') => {
   return jwt.sign(data, config.JWTSECRET, { expiresIn: lifetime });
-};
-
-
-module.exports = {
-  createDataUpdateObj,
-  generateDate,
-  createJwtToken
 };

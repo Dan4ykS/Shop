@@ -19,7 +19,10 @@ const ChangeCommodityDetail = ({
 }) => {
   return (
     <>
-      <form className='changeCommodityDetail' onSubmit={(e) => workWithCommodityData(e, updatedFields, token, type, id, history)}>
+      <form
+        className='changeCommodityDetail'
+        onSubmit={(e) => workWithCommodityData(e, updatedFields, token, type, id, history)}
+      >
         <div className='formGroup row'>
           <label className='col-sm-3 colFormLable'>Название:</label>
           <div className='col-sm-9'>

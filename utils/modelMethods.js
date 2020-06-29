@@ -1,20 +1,20 @@
-async function addNewCommodity(commodityId) {
+module.exports.addNewCommodity = async function (commodityId) {
   const index = this.goods.findIndex((commodity) => commodity.commodityId.toString() === commodityId);
   if (index === -1) {
     this.goods.push({ commodityId });
   }
   return await this.save();
-}
+};
 
-async function removeCommodity(commodityId) {
+module.exports.removeCommodity = async function (commodityId) {
   const index = this.goods.findIndex((commodity) => commodity.commodityId.toString() === commodityId);
   if (index !== -1) {
     this.goods.splice(index, 1);
   }
   return await this.save();
-}
+};
 
-async function addToCart(commodity) {
+module.exports.addToCart = async function (commodity) {
   const index = this.cart.cartItems.findIndex((item) => item.commodityId.toString() === commodity._id.toString());
   if (index === -1) {
     this.cart.cartItems.push({
@@ -27,9 +27,9 @@ async function addToCart(commodity) {
   }
   this.cart.totalPrice += commodity.price;
   return await this.save();
-}
+};
 
-async function removeFromCart(commodity) {
+module.exports.removeFromCart = async function (commodity) {
   const index = this.cart.cartItems.findIndex((item) => item.commodityId.toString() === commodity._id.toString());
   if (this.cart.cartItems[index].copies !== 1) {
     this.cart.cartItems[index].copies -= 1;
@@ -39,15 +39,15 @@ async function removeFromCart(commodity) {
   }
   this.cart.totalPrice -= commodity.price;
   return await this.save();
-}
+};
 
-async function updateCartPrices(newPrice, commodityId) {
+module.exports.updateCartPrices = async function (newPrice, commodityId) {
   const commodityIndex = this.cart.cartItems.findIndex((cartItem) => cartItem.commodityId.toString() === commodityId);
   this.cart.cartItems[commodityIndex].price = newPrice * this.cart.cartItems[commodityIndex].copies;
   this.cart.totalPrice = this.cart.cartItems.reduce((acc, cartItem) => acc + cartItem.price, 0);
   this.cart.updatedPrice = true;
   return await this.save();
-}
+};
 
 const updateGeneralRating = ({ fiveStars, fourStars, threeStars, twoStars, oneStar }) => {
   const numberOfRatings = fiveStars + fourStars + threeStars + twoStars + oneStar;
@@ -55,7 +55,7 @@ const updateGeneralRating = ({ fiveStars, fourStars, threeStars, twoStars, oneSt
   return sumOfRatings && numberOfRatings ? (sumOfRatings / numberOfRatings).toFixed(2) : 0;
 };
 
-async function updateRating(userRating, oldUserRating = null) {
+module.exports.updateRating = async function (userRating, oldUserRating = null) {
   if (oldUserRating) {
     switch (oldUserRating) {
       case 5:
@@ -98,13 +98,16 @@ async function updateRating(userRating, oldUserRating = null) {
   }
   this.rating.general = updateGeneralRating(this.rating);
   return await this.save();
-}
+};
 
-module.exports = {
-  addNewCommodity,
-  removeCommodity,
-  addToCart,
-  removeFromCart,
-  updateCartPrices,
-  updateRating,
+module.exports.updateBooksList = async function (bookId) {
+  const bookIndex = this.books.findIndex((book) => book.bookId.toString() === bookId);
+  if (bookIndex === -1) {
+    this.books.push({ bookId });
+    this.booksCount += 1;
+  } else {
+    this.books.splice(bookIndex, 1);
+    this.booksCount -= 1;
+  }
+  return await this.save();
 };

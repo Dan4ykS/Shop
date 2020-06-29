@@ -1,4 +1,4 @@
-const convertDataForClient = (data) => {
+module.exports.convertDataForClient = (data) => {
   const id = data._id;
   delete data.__v;
   delete data._id;
@@ -8,11 +8,6 @@ const convertDataForClient = (data) => {
   };
 };
 
-const convertDataArrayForClient = (data) => {
+module.exports.convertDataArrayForClient = (data) => {
   return data.map((el) => convertDataForClient(el.toObject()));
-};
-
-module.exports = {
-  convertDataArrayForClient,
-  convertDataForClient,
 };

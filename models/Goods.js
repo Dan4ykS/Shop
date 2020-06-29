@@ -69,12 +69,8 @@ const goods = new Schema({
       default: 0,
     },
   },
-  author: {
-    type: String,
-    require: true,
-  },
 });
 
-goods.methods.updateRating = updateRating
+goods.methods.updateRating = updateRating;
 
 module.exports = model('Goods', goods);

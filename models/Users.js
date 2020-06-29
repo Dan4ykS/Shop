@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 const path = require('path');
 const { removeFromCart, updateCartPrices, addToCart } = require('../utils/modelMethods');
 
-const user = new Schema({
+const users = new Schema({
   userName: {
     type: String,
     required: true,
@@ -63,10 +63,10 @@ const user = new Schema({
   },
 });
 
-user.methods.addToCart = addToCart;
+users.methods.addToCart = addToCart;
 
-user.methods.removeFromCart = removeFromCart;
+users.methods.removeFromCart = removeFromCart;
 
-user.methods.updateCartPrices = updateCartPrices;
+users.methods.updateCartPrices = updateCartPrices;
 
-module.exports = model('User', user);
+module.exports = model('Users', users);
