@@ -1,8 +1,7 @@
 import { redirectToPage } from '../utils/workWithBrowser';
 import { createAction } from '../utils/workWithRedux';
 
-export const updateImg = (imgFile, imgSrc, imgAlt) =>
-  createAction('UPDATE_IMG', { imgFile, imgSrc, imgAlt });
+export const updateImg = (imgFile, imgSrc, imgAlt) => createAction('UPDATE_IMG', { imgFile, imgSrc, imgAlt });
 
 export const updatePreviewImg = (previewImgFile, previewImgSrc, previewImgAlt) =>
   createAction('UPDATE_PREVIEWIMG', { previewImgFile, previewImgSrc, previewImgAlt });
@@ -23,13 +22,12 @@ const fetchCommodityFailure = () => createAction('FETCH_COMMODITY_FAILURE');
 
 const fetchCommodityRequest = () => createAction('FETCH_COMMODITY_REQUEST');
 
-export const fetchCommodity = (dispatch, { goodsService }) => async (id, token, history) => {
+export const fetchCommodity = (dispatch, { goodsService }) => async (id) => {
   try {
     dispatch(fetchCommodityRequest());
-    const data = await goodsService.getCommodity(id, token);
+    const data = await goodsService.getCommodity(id);
     dispatch(fetchCommoditySuccuess(data));
   } catch (error) {
     dispatch(fetchCommodityFailure());
-    redirectToPage(history, `/admin/updateCommodity?id=${id}`);
   }
 };

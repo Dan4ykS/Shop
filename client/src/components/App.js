@@ -51,7 +51,8 @@ const App = ({
           <Switch>
             <Route path='/' component={MainPage} exact />
             <Route path='/Product/' component={ProductPage} exact />
-            <Route path='/Product/:id' component={CommodityPage} exact />
+            <Route path='/Product/search=:id' component={() => <h2>Привет мир</h2>} exact/>
+            <Route path='/Product/:id' component={CommodityPage} exact/>
             <Route path='/Cart/' component={CartPage} exact />
             <Route path='/Customizing/' component={CustomizingPage} exact />
             <Route path='/Login/' component={LoginPage} exact />

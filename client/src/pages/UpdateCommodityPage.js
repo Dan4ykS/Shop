@@ -26,10 +26,7 @@ const UpdateCommodityPage = ({
     updateCommodityDescr,
     updateCommodityShortDescr,
   },
-  userData: {
-    token,
-    error: userError,
-  },
+  userData: { token, error: userError },
   history,
 }) => {
   return (
@@ -37,7 +34,8 @@ const UpdateCommodityPage = ({
       configData={{
         loading,
         error: userError ? userError : commodityError,
-        funcForRender: token ? () => fetchCommodity(findPathParams(history), token, history) : null,
+        funcForRender: token ? () => fetchCommodity(findPathParams(history)) : null,
+        routeForRedirect: commodityError ? `/admin/updateCommodity?id=${findPathParams(history)}` : '/Login/',
       }}
     >
       <ChangeCommodityDetail
@@ -51,7 +49,7 @@ const UpdateCommodityPage = ({
           price,
           token,
           updatedFields,
-          type: 'update'
+          type: 'update',
         }}
         actions={{
           updateCommodityImg,

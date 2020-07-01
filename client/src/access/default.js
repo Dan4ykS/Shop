@@ -10,7 +10,7 @@ export const defaultActions = async (token, isLogin, fetchGoods, loadCart = unde
   }
 
   await fetchGoods();
-  
+
   if (loadCart) {
     await loadCart(token);
   }

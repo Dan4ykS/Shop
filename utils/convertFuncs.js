@@ -9,5 +9,5 @@ module.exports.convertDataForClient = (data) => {
 };
 
 module.exports.convertDataArrayForClient = (data) => {
-  return data.map((el) => convertDataForClient(el.toObject()));
+  return data.map((el) => this.convertDataForClient(el.toObject()));
 };
