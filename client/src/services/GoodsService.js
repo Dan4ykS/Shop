@@ -1,8 +1,8 @@
 import BaseApiClass from './BaseApiClass';
 
 class GoodsService extends BaseApiClass {
-  getGoods = async () => {
-    return await this.requestToApi('GET', `getGoods?offset=0&limit=10`, null);
+  getGoods = async (offset, limit) => {
+    return await this.requestToApi('GET', `getGoods?offset=${offset}&limit=${limit}`, null);
   };
 
   loadCart = async (token) => {

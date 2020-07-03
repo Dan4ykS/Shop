@@ -6,10 +6,10 @@ const fetchGoodsFailure = () => createAction('FETCH_GOODS_FAILURE');
 
 export const fetchGoodsSuccuess = (goods) => createAction('FETCH_GOODS_SUCCUESS', goods);
 
-export const fetchGoods = (dispatch, { goodsService }) => async () => {
+export const fetchGoods = (dispatch, { goodsService }) => async (offset, limit) => {
   try {
     dispatch(fetchGoodsRequest());
-    const data = await goodsService.getGoods();
+    const data = await goodsService.getGoods(offset, limit);
     dispatch(fetchGoodsSuccuess(data));
   } catch (error) {
     dispatch(fetchGoodsFailure(error));
