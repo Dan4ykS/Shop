@@ -1,28 +1,48 @@
+const errorHandler = require('../utils/errorHandler');
 const Goods = require('../models/Goods');
 const Users = require('../models/Users');
 const Reviews = require('../models/Reviews.js');
 const Genres = require('../models/Genres');
 const Tags = require('../models/Tags');
 const Authors = require('../models/Authors');
-const { createDataUpdateObj } = require('../utils/createFuncs');
+const { createDataUpdateObj, createArrWithoutCopies } = require('../utils/createFuncs');
 const { deleteFile, getValidFileName } = require('../utils/workWithFiles');
-const { updateCommodityGenresOrTags, updateAuthorData } = require('../utils/updateFuncs');
-const { convertDataArrayForClient, convertDataForClient } = require('../utils/convertFuncs');
-const errorHandler = require('../utils/errorHandler');
+const { updateCommodityGenresOrTags, updateAuthorData, updateGoodsForClient } = require('../utils/updateFuncs');
+const { convertArrayForClient, convertDataForClient } = require('../utils/convertFuncs');
 
-module.exports.getGoods = async (req, res) => {
+module.exports.getGoods = async ({ query: { offset, limit } }, res) => {
   try {
-    const goods = await Goods.find();
-    res.json(convertDataArrayForClient(goods));
+    const goods = await Goods.find()
+      .skip(+offset)
+      .limit(+limit);
+
+    res.json(convertArrayForClient(goods));
   } catch (error) {
     errorHandler(res, error);
   }
 };
 
-module.exports.findGoods = async (req, res) => {
+module.exports.findGoods = async ({ query: { q, offset, limit } }, res) => {
   try {
-    const goods = await Goods.find({ title: req.body.title });
-    res.json(convertDataArrayForClient(goods));
+    const goodsData = await Goods.find({ title: { $regex: q, $options: 'i' } }),
+      tagsData = await Tags.find({ tag: { $regex: q, $options: 'i' } }),
+      genresData = await Genres.find({ genre: { $regex: q, $options: 'i' } }),
+      authorsData = await Authors.find({ author: { $regex: q, $options: 'i' } });
+
+    let dataForClient = [];
+    if (tagsData.length > 0) {
+      dataForClient = await updateGoodsForClient(tagsData);
+    }
+    if (genresData.length > 0) {
+      dataForClient = await updateGoodsForClient(genresData, dataForClient);
+    }
+    if (goodsData.length > 0) {
+      dataForClient = createArrWithoutCopies(convertArrayForClient(goodsData), dataForClient);
+    }
+    if (authorsData.length > 0) {
+      dataForClient = await updateGoodsForClient(authorsData, dataForClient);
+    }
+    res.json(dataForClient.slice(offset, limit));
   } catch (error) {
     errorHandler(res, error);
   }
@@ -140,7 +160,7 @@ module.exports.updateCommodity = async ({ body, params: { id }, files }, res) =>
       const oldAuthor = await Authors.findOne({ 'books.bookId': id }),
         newAuthor = await Authors.findOne({ author: dataForUpdate.author });
 
-      await oldAuthor.updateBooksList(id);
+      await oldAuthor.updateCommodityList(id);
       await updateAuthorData(newAuthor, id, dataForUpdate.author);
     }
     if (dataForUpdate?.genres) {
@@ -166,10 +186,10 @@ module.exports.removeCommodity = async ({ params: { id } }, res) => {
     res.status(200).json({ message: `товар с id:${id} удален` });
     await Reviews.deleteMany({ commodity: id });
     const genres = await Genres.find({ 'goods.commodityId': id }),
-      author = await Authors.findOne({ 'books.bookId': id }),
+      author = await Authors.findOne({ 'goods.commodityId': id }),
       tags = await Tags.find({ 'goods.commodityId': id });
 
-    await author.updateBooksList(id);
+    await author.updateCommodityList(id);
     if (genres.length > 0) {
       genres.forEach(async (genre) => await genre.removeCommodity(id));
     }

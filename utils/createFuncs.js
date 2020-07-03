@@ -60,7 +60,9 @@ module.exports.createDataUpdateObj = (updateData, { previewImg, img }, oldData) 
     return {
       ...updateData,
       img: imgAlt ? createObjForUpdateAlt(oldData.img, imgAlt, 'img') : oldData.img,
-      previewImg: previewImgAlt ? createObjForUpdateAlt(oldData.previewImg, previewImgAlt, 'previewImg') : oldData.previewImg,
+      previewImg: previewImgAlt
+        ? createObjForUpdateAlt(oldData.previewImg, previewImgAlt, 'previewImg')
+        : oldData.previewImg,
     };
   }
 };
@@ -71,4 +73,18 @@ module.exports.generateDate = () => {
 
 module.exports.createJwtToken = (data, lifetime = '1h') => {
   return jwt.sign(data, config.JWTSECRET, { expiresIn: lifetime });
+};
+
+module.exports.createPopuldatedData = async (data, pathForPopulate) => {
+  return await data.populate(pathForPopulate).execPopulate();
+};
+
+module.exports.createArrWithoutCopies = (firstArr, secondArr) => {
+  for (const el of firstArr) {
+    const duplicateIndex = secondArr.findIndex((elem) => elem?.id?.toString() === el.id.toString());
+    if (duplicateIndex !== -1) {
+      secondArr.splice(duplicateIndex, 1);
+    }
+  }
+  return [...firstArr, ...secondArr];
 };

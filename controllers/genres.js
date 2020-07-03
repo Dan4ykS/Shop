@@ -1,6 +1,6 @@
 const errorHandler = require('../utils/errorHandler');
 const Genres = require('../models/Genres');
-const { convertDataArrayForClient } = require('../utils/convertFuncs');
+const { convertArrayForClient } = require('../utils/convertFuncs');
 
 module.exports.createGenre = async ({ body: { genre, commodityId } }, res) => {
   try {
@@ -18,7 +18,7 @@ module.exports.createGenre = async ({ body: { genre, commodityId } }, res) => {
 module.exports.getGenres = async (req, res) => {
   try {
     const genres = await Genres.find();
-    res.json({ genres: convertDataArrayForClient(genres) });
+    res.json({ genres: convertArrayForClient(genres) });
   } catch (error) {
     errorHandler(res, error);
   }

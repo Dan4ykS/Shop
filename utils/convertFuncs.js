@@ -1,13 +1,27 @@
+const v = require('voca');
+
 module.exports.convertDataForClient = (data) => {
-  const id = data._id;
-  delete data.__v;
-  delete data._id;
-  return {
-    id,
-    ...data,
-  };
+  for (const key in data) {
+    if (key === '_id') {
+      data.id = data[key];
+      delete data[key];
+    }
+    if (key === '__v') {
+      delete data[key];
+    }
+    if (typeof data[key] === 'object' && Object.keys(data[key]).length === 0) {
+      delete data[key];
+    }
+  }
+  return data;
 };
 
-module.exports.convertDataArrayForClient = (data) => {
-  return data.map((el) => this.convertDataForClient(el.toObject()));
+module.exports.convertArrayForClient = (data, populatedData = false) => {
+  if (populatedData) {
+    return data.map((el) => this.convertDataForClient(el.commodityId._doc));
+  } else {
+    return data.map((el) => this.convertDataForClient(el.toObject()));
+  }
 };
+
+module.exports.toTitleCase = (str) => v.titleCase(str, [' ']);

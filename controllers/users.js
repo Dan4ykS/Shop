@@ -1,5 +1,6 @@
 const sendRegistationLetter = require('../mail/registation');
 const sendResetPasswordLetter = require('../mail/resetPassword');
+const errorHandler = require('../utils/errorHandler');
 const bcrypt = require('bcryptjs');
 const Users = require('../models/Users');
 const Reviews = require('../models/Reviews');

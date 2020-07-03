@@ -100,14 +100,14 @@ module.exports.updateRating = async function (userRating, oldUserRating = null) 
   return await this.save();
 };
 
-module.exports.updateBooksList = async function (bookId) {
-  const bookIndex = this.books.findIndex((book) => book.bookId.toString() === bookId);
-  if (bookIndex === -1) {
-    this.books.push({ bookId });
-    this.booksCount += 1;
+module.exports.updateCommodityList = async function (commodityId) {
+  const commodityIndex = this.goods.findIndex((commodity) => commodity.commodityId.toString() === commodityId);
+  if (commodityIndex === -1) {
+    this.goods.push({ commodityId });
+    this.goodsCount += 1;
   } else {
-    this.books.splice(bookIndex, 1);
-    this.booksCount -= 1;
+    this.goods.splice(commodityIndex, 1);
+    this.goodsCount -= 1;
   }
   return await this.save();
 };

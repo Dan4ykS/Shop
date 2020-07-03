@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 const path = require('path')
-const { updateBooksList } = require('../utils/modelMethods');
+const { updateCommodityList } = require('../utils/modelMethods');
 
 const authors = new Schema({
   author: {
@@ -14,21 +14,21 @@ const authors = new Schema({
     type: String,
     default: path.join('uploads', 'defaultAuthorImg.png'),
   },
-  books: [
+  goods: [
     {
-      bookId: {
+      commodityId: {
         type: Schema.Types.ObjectId,
         ref: 'Goods',
         required: true,
       },
     },
   ],
-  booksCount: {
+  goodsCount: {
     type: Number,
     default: 0,
   },
 });
 
-authors.methods.updateBooksList = updateBooksList;
+authors.methods.updateCommodityList = updateCommodityList;
 
 module.exports = model('Authors', authors);

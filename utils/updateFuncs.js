@@ -2,6 +2,8 @@ const Genres = require('../models/Genres');
 const Goods = require('../models/Goods');
 const Tags = require('../models/Tags');
 const Authors = require('../models/Authors');
+const { createPopuldatedData, createArrWithoutCopies } = require('./createFuncs');
+const { convertArrayForClient } = require('./convertFuncs');
 
 module.exports.updateCommodityGenresOrTags = async (newData, commodityId, type = 'genres') => {
   const Model = type === 'genres' ? Genres : Tags,
@@ -41,13 +43,29 @@ module.exports.updateCommodityRating = async (commodityId, newRating, oldRating 
 
 module.exports.updateAuthorData = async (author, commodityId, authorName) => {
   if (author) {
-    await author.updateBooksList(commodityId);
+    await author.updateCommodityList(commodityId);
   } else {
     const newAuthor = new Authors({
       author: authorName,
-      books: [{ bookId: commodityId }],
-      booksCount: 1,
+      goods: [{ commodityId }],
+      goodsCount: 1,
     });
     await newAuthor.save();
   }
+};
+
+module.exports.updateGoodsForClient = async (arrWithData, oldDataForClient = []) => {
+  let newDataForClient = [];
+  for (const el of arrWithData) {
+    const populatedData = await createPopuldatedData(el, 'goods.commodityId');
+    if (oldDataForClient.length > 0) {
+      newDataForClient = createArrWithoutCopies(
+        convertArrayForClient(populatedData.goods, true),
+        oldDataForClient
+      );
+    } else {
+      newDataForClient = convertArrayForClient(populatedData.goods, true);
+    }
+  }
+  return newDataForClient;
 };

@@ -2,7 +2,6 @@ const errorHandler = require('../utils/errorHandler');
 const Authors = require('../models/Authors');
 const { deleteFile, getValidFileName } = require('../utils/workWithFiles');
 
-
 module.exports.createAuthor = async ({ body: { author, aboutAuthor = null }, file }, res) => {
   try {
     const newAuthor = new Authors({
