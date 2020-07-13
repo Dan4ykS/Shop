@@ -30,7 +30,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-console.log(config.MONGOURL, config.BASEURL, config.JWTSECRET);
 (async () => {
   try {
     await mongoose.connect(config.MONGOURL, {

@@ -1,2 +1,4 @@
 node_modules
 notes.txt
+package-lock.json
+client/package-lock.json
