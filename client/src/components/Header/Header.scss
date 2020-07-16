@@ -1,0 +1,98 @@
+@import "../../styles/scss/variables.scss";
+
+.active {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  margin-top: 0 !important;
+}
+
+.header {
+  &_fixed {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin-top: 0 !important;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  &__item {
+    list-style-type: none;
+  }
+  a {
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.5s all;
+    &:hover {
+      color: $colorLink;
+      text-decoration: none;
+    }
+  }
+  .fas {
+    cursor: pointer;
+  }
+  &__top {
+    background-color: $textColor;
+    max-height: 50px;
+    font-size: 25px;
+    a {
+      color: $textColor2;
+    }
+  }
+  &__main {
+    z-index: 5;
+    margin: 10px 0;
+    background-color: $headerBg;
+    font-size: 20px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    a {
+      color: $textColor;
+    }
+  }
+  .animate {
+    animation: wobble 0.5s linear;
+  }
+}
+
+@keyframes wobble {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  15% {
+    -webkit-transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+    transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+  }
+
+  30% {
+    -webkit-transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+    transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+  }
+
+  45% {
+    -webkit-transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+    transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+  }
+
+  60% {
+    -webkit-transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+    transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+  }
+
+  75% {
+    -webkit-transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+    transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}

@@ -1,0 +1,12 @@
+@import "../../../styles/scss/variables.scss";
+
+.updateImg {
+  &__preview {
+    img {
+      max-width: 100%;
+      min-width: 70%;
+      max-height: 580px;
+      box-shadow: 20px 10px 30px rgba(0,0,0,0.5);
+    }
+  }
+}

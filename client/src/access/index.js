@@ -5,12 +5,14 @@ import { defaultActions } from './default';
 import { findPathParams } from '../utils/workWithBrowser';
 
 export const chekAccess = async (localStorageData, isLogin, loadCart, fetchGoods, fetchCommodity, history) => {
-  let path = history.location.pathname.slice(1);
-  let params;
+  let path = history.location.pathname.slice(1),
+    params;
+  
   if (path.match(/[0-9]/)) {
     params = findPathParams(history);
     path = path.replace(params, 'params');
   }
+  
   switch (path) {
     case 'Registration/':
     case 'Login/':

@@ -7,7 +7,6 @@ const updateMenuItems = (state, action) => {
       mainItems: [
         { name: '/', value: 'Главная' },
         { name: '/Product/', value: 'Продукция' },
-        { name: '/Customizing/', value: 'Фичи' },
       ],
       topItems: [
         { name: '/Login/', value: 'Вход' },
@@ -30,7 +29,7 @@ const updateMenuItems = (state, action) => {
   const updateMainItems = (mainItems, userName) => {
     switch (userName) {
       default:
-        return [createNewItem('/', 'Главная'), createNewItem('/Product/', 'Продукция'), createNewItem('/Customizing/', 'Фичи')];
+        return [createNewItem('/', 'Главная'), createNewItem('/Product/', 'Продукция')];
     }
   };
 

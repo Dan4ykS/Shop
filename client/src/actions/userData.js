@@ -1,7 +1,7 @@
 import { clearCart, loadCartFromServer } from './shopingCart';
 import { fetchGoodsSuccuess } from './goodsList';
 import { isInvalid, redirectToPage, clearInputs, activateBtn } from '../utils/workWithBrowser';
-import { setNewToken } from '../utils/workWithApiRequest';
+import { setNewToken } from '../utils/workWithApiRequests';
 import { createAction } from '../utils/workWithRedux';
 import UsersService from '../services/UsersService';
 import GoodsService from '../services/GoodsService';

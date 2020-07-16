@@ -24,7 +24,13 @@ export const connectToStore = (stateElements, actions) => (Component, withRoute 
   function mapStateToProps(state) {
     const stateForComponent = {};
     if (stateElements) {
-      stateElements.forEach((el) => (stateForComponent[el] = state[el]));
+      stateElements.forEach((el) => {
+        if (el.includes('.')) {
+          const pathToElement = el.split('.');
+          stateForComponent[pathToElement[0]] = { [pathToElement[1]]: state[pathToElement[0]][pathToElement[1]] };
+        }
+        stateForComponent[el] = state[el];
+      });
     }
     return { ...stateForComponent };
   }
