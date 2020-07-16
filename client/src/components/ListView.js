@@ -1,7 +1,7 @@
 import React from 'react';
 import StringHelper from '../utils/StringHelper';
 
-const RenderList = ({ listForRender, ComponentForRender, ComponentWithoutData = null, ...extraParams }) => {
+const ListView = ({ listForRender, ComponentForRender, ComponentWithoutData = null, ...extraParams }) => {
   if (listForRender.length === 0) {
     const componentForRender = ComponentWithoutData ? ComponentWithoutData : null;
     return <>{componentForRender}</>;
@@ -15,4 +15,4 @@ const RenderList = ({ listForRender, ComponentForRender, ComponentWithoutData = 
   );
 };
 
-export default RenderList;
+export default ListView;

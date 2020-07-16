@@ -1,8 +1,8 @@
 import React from 'react';
 import LoadingDataLogic from '../logicComponents/LoadingData';
-import withStore from '../utils/workWithRedux';
 import ChangeCommodityDetail from '../components/ChangeCommodityDetail';
 import { findPathParams } from '../utils/workWithBrowser';
+import { connectToStore } from '../utils/workWithRedux';
 
 const UpdateCommodityPage = ({
   commodityData: {
@@ -65,4 +65,4 @@ const UpdateCommodityPage = ({
   );
 };
 
-export default withStore(UpdateCommodityPage);
+export default connectToStore(['commodityData', 'userData'], null)(UpdateCommodityPage, true);

@@ -1,7 +1,8 @@
 import React from 'react';
-import withStore from '../utils/workWithRedux';
+import { connectToStore } from '../utils/workWithRedux';
 import LoadingDataLogic from '../logicComponents/LoadingData';
 import { findPathParams } from '../utils/workWithBrowser';
+import { fetchCommodity } from '../actions/commodityData';
 
 /**
  * Необходимые комопненты:
@@ -27,4 +28,4 @@ const CommodityPage = ({ commodityData: { loading, error }, actions: { fetchComm
   );
 };
 
-export default withStore(CommodityPage);
+export default connectToStore(['commodityData'], [fetchCommodity])(CommodityPage, true);

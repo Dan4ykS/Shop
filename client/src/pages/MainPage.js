@@ -1,7 +1,6 @@
 import React from 'react';
-import withSore from '../utils/workWithRedux';
 
-const MainPage = ({ commodityData: { imgSrc, img }, actions: { updateCommodityImg }, userData: { token } }) => {
+const MainPage = () => {
   return (
     <>
       <h2>Главная страница! </h2>
@@ -9,4 +8,4 @@ const MainPage = ({ commodityData: { imgSrc, img }, actions: { updateCommodityIm
   );
 };
 
-export default withSore(MainPage);
+export default MainPage;

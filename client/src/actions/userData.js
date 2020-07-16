@@ -3,6 +3,8 @@ import { fetchGoodsSuccuess } from './goodsList';
 import { isInvalid, redirectToPage, clearInputs, activateBtn } from '../utils/workWithBrowser';
 import { setNewToken } from '../utils/workWithApiRequest';
 import { createAction } from '../utils/workWithRedux';
+import UsersService from '../services/UsersService';
+import GoodsService from '../services/GoodsService';
 
 const createUser = (userName, token) => createAction('CREATE_NEW_USER', { userName, token });
 
@@ -20,16 +22,16 @@ const authErrorHeandler = ({ inputs, selector }) => {
   isInvalid(inputs);
 };
 
-export const authorization = (dispatch, { usersService, goodsService }) => async (data, formData, history) => {
+export const authorization = (data, formData, history) => async (dispatch) => {
   try {
-    const token = await usersService.authUser(data);
+    const token = await UsersService.authUser(data);
     redirectToPage(history, '/');
     dispatch(userLogin(data.userName, token));
     if (data.userName !== 'admin') {
-      const cart = await goodsService.loadCart(token);
+      const cart = await GoodsService.loadCart(token);
       dispatch(loadCartFromServer(cart));
     }
-    const goods = await goodsService.getGoods();
+    const goods = await GoodsService.getGoods();
     dispatch(fetchGoodsSuccuess(goods));
     setNewToken(token);
   } catch (error) {
@@ -37,13 +39,13 @@ export const authorization = (dispatch, { usersService, goodsService }) => async
   }
 };
 
-export const registration = (dispatch, { usersService, goodsService }) => async (data, formData, history) => {
+export const registration = (data, formData, history) => async (dispatch) => {
   try {
-    const token = await usersService.createUser(data);
+    const token = await UsersService.createUser(data);
     redirectToPage(history, '/');
     dispatch(createUser(data.userName, token));
-    const cart = await goodsService.loadCart(token);
-    const goods = await goodsService.getGoods();
+    const cart = await GoodsService.loadCart(token);
+    const goods = await GoodsService.getGoods();
     dispatch(loadCartFromServer(cart));
     dispatch(fetchGoodsSuccuess(goods));
     setNewToken(token);
@@ -52,9 +54,9 @@ export const registration = (dispatch, { usersService, goodsService }) => async 
   }
 };
 
-export const isLogin = (dispatch, { usersService }) => async (token) => {
+export const isLogin = (token) => async (dispatch) => {
   try {
-    const { userName, newToken } = await usersService.checkUserValid(token);
+    const { userName, newToken } = await UsersService.checkUserValid(token);
     dispatch(userLogin(userName, newToken));
     setNewToken(newToken);
     return userName;
@@ -64,7 +66,7 @@ export const isLogin = (dispatch, { usersService }) => async (token) => {
   }
 };
 
-export const isLogout = (dispatch) => () => {
+export const isLogout = () => (dispatch) => {
   dispatch(userLogout());
   dispatch(clearCart());
   localStorage.removeItem('userData');

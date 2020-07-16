@@ -2,11 +2,14 @@ import React, { useEffect } from 'react';
 import LoadingIndicator from './LoadingIndicator';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import withStore from '../utils/workWithRedux';
-import '../styles/scss/App.scss';
+import { connectToStore } from '../utils/workWithRedux';
 import { Route, Switch } from 'react-router-dom';
 import { getDateFromLocalStorage } from '../utils/workWithBrowser';
 import { chekAccess } from '../access';
+import { isLogin } from '../actions/userData';
+import { loadCart } from '../actions/shopingCart';
+import { fetchGoods } from '../actions/goodsList';
+import { fetchCommodity } from '../actions/commodityData';
 
 const AccountPage = React.lazy(() => import('../pages/AccountPage'));
 const ProductPage = React.lazy(() => import('../pages/ProductPage'));
@@ -23,36 +26,22 @@ const CreateСommodityPage = React.lazy(() => import('../pages/CreateСommodityP
 const RegistrationPage = React.lazy(() => import('../pages/RegistrationPage'));
 const UpdateCommodityPage = React.lazy(() => import('../pages/UpdateCommodityPage'));
 
-const App = ({
-  userData: { userName },
-  menuItems: { topItems, mainItems, iconsForItems, updated },
-  actions: { isLogin, updateTopHeaderMenu, loadCart, fetchGoods, fetchCommodity },
-  history,
-}) => {
+const App = ({ actions: { isLogin, loadCart, fetchGoods, fetchCommodity }, history }) => {
   useEffect(() => {
     // console.log('Вызвался UseEffect из App', userName);
     chekAccess(getDateFromLocalStorage('userData'), isLogin, loadCart, fetchGoods, fetchCommodity, history);
   }, [isLogin, loadCart, fetchGoods, fetchCommodity, history]);
-  useEffect(() => {
-    // console.log('Вызвался UseEffect из App 2', userName);
-    updateTopHeaderMenu(userName);
-  }, [userName, updateTopHeaderMenu]);
+
   return (
     <>
-      <Header
-        iconsForItems={iconsForItems}
-        topItems={topItems}
-        mainItems={mainItems}
-        updated={updated}
-        userName={userName}
-      />
+      <Header />
       <div className='container content'>
         <React.Suspense fallback={<LoadingIndicator />}>
           <Switch>
             <Route path='/' component={MainPage} exact />
             <Route path='/Product/' component={ProductPage} exact />
-            <Route path='/Product/search=:id' component={() => <h2>Привет мир</h2>} exact/>
-            <Route path='/Product/:id' component={CommodityPage} exact/>
+            <Route path='/Product/search=:id' component={() => <h2>Привет мир</h2>} exact />
+            <Route path='/Product/:id' component={CommodityPage} exact />
             <Route path='/Cart/' component={CartPage} exact />
             <Route path='/Customizing/' component={CustomizingPage} exact />
             <Route path='/Login/' component={LoginPage} exact />
@@ -72,4 +61,4 @@ const App = ({
   );
 };
 
-export default withStore(App);
+export default connectToStore(['userData', 'menuItems'], [isLogin, loadCart, fetchGoods, fetchCommodity])(App, true);

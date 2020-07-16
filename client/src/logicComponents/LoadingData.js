@@ -24,10 +24,11 @@ export default class LoadingDataLogic extends React.Component {
     }
   }
   render() {
-    const { loading, error, routeForRedirect = '/Login/' } = this.props.configData;
-    const contentForLoading = loading ? <LoadingIndicator /> : null;
-    const content = !loading && !error ? this.props.children : null;
-    const contentForError = error ? <Redirect to={routeForRedirect} /> : null;
+    const { loading, error, routeForRedirect = '/Login/' } = this.props.configData,
+      contentForLoading = loading ? <LoadingIndicator /> : null,
+      content = !loading && !error ? this.props.children : null,
+      contentForError = error ? <Redirect to={routeForRedirect} /> : null;
+    
     return (
       <>
         {contentForLoading}

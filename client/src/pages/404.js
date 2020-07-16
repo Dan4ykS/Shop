@@ -1,6 +1,6 @@
 import React from 'react';
-import withStore from '../utils/workWithRedux';
 import { redirectToPage } from '../utils/workWithBrowser';
+import { withRouter } from 'react-router';
 
 
 const Page404 = ({ history }) => {
@@ -12,4 +12,4 @@ const Page404 = ({ history }) => {
   );
 };
 
-export default withStore(Page404);
+export default withRouter(Page404);

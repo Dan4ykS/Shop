@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import CartCommudityDetail from '../components/CartCommudityDetail';
-import withStore from '../utils/workWithRedux';
-import RenderList from '../components/RenderList';
+import { connectToStore } from '../utils/workWithRedux';
+import ListView from '../components/ListView';
 import '../styles/scss/CartPage.scss';
 import { redirectToPage } from '../utils/workWithBrowser';
 import LoadingDataLogic from '../logicComponents/LoadingData';
@@ -33,7 +33,7 @@ const CartPage = ({
       }}
     >
       <h2>Ваш список товаров</h2>
-      <RenderList
+      <ListView
         listForRender={cart}
         ComponentForRender={CartCommudityDetail}
         ComponentWithoutData={<h3>Вы еще ничего не выбрали</h3>}
@@ -46,4 +46,4 @@ const CartPage = ({
   );
 };
 
-export default withStore(CartPage);
+export default connectToStore(['shopingCart', 'userData'], null)(CartPage);

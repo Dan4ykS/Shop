@@ -1,5 +1,5 @@
-import { redirectToPage } from '../utils/workWithBrowser';
 import { createAction } from '../utils/workWithRedux';
+import GoodsService from '../services/GoodsService';
 
 export const updateImg = (imgFile, imgSrc, imgAlt) => createAction('UPDATE_IMG', { imgFile, imgSrc, imgAlt });
 
@@ -22,10 +22,10 @@ const fetchCommodityFailure = () => createAction('FETCH_COMMODITY_FAILURE');
 
 const fetchCommodityRequest = () => createAction('FETCH_COMMODITY_REQUEST');
 
-export const fetchCommodity = (dispatch, { goodsService }) => async (id) => {
+export const fetchCommodity = (id) => async (dispatch) => {
   try {
     dispatch(fetchCommodityRequest());
-    const data = await goodsService.getCommodity(id);
+    const data = await GoodsService.getCommodity(id);
     dispatch(fetchCommoditySuccuess(data));
   } catch (error) {
     dispatch(fetchCommodityFailure());

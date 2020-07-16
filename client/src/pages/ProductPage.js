@@ -1,9 +1,10 @@
 import React from 'react';
 import CommodityDetail from '../components/CommodityDetail';
-import withStore from '../utils/workWithRedux';
+import { connectToStore } from '../utils/workWithRedux';
 import LoadingDataLogic from '../logicComponents/LoadingData';
-import RenderList from '../components/RenderList';
+import ListView from '../components/ListView';
 import { getDateFromLocalStorage } from '../utils/workWithBrowser';
+import { onAddedToCart } from '../actions/shopingCart';
 
 const ProductPage = ({ goodsList: { goods, loading, error }, actions, userData: { token, userName } }) => {
   return (
@@ -16,9 +17,15 @@ const ProductPage = ({ goodsList: { goods, loading, error }, actions, userData: 
       }}
     >
       <h2>Товары</h2>
-      <RenderList listForRender={goods} ComponentForRender={CommodityDetail} actions={actions} token={token} userName={userName} />
+      <ListView
+        listForRender={goods}
+        ComponentForRender={CommodityDetail}
+        actions={actions}
+        token={token}
+        userName={userName}
+      />
     </LoadingDataLogic>
   );
 };
 
-export default withStore(ProductPage);
+export default connectToStore(['goodsList', 'userData'], [onAddedToCart])(ProductPage);

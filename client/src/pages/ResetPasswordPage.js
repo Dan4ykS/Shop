@@ -1,5 +1,5 @@
 import React from 'react';
-import withStore from '../utils/workWithRedux';
+import { connectToStore } from '../utils/workWithRedux';
 import LoadingDataLogic from '../logicComponents/LoadingData';
 import { Link } from 'react-router-dom';
 import { resetPassword } from '../utils/workWithApiRequest';
@@ -21,9 +21,18 @@ const ResetPasswordPage = ({ userData: { error, token, loading } }) => {
           <h2>Восстановление пароля</h2>
           <div className='formGroup password'>
             <span className='showPasswordIcon showPasswordIcon_crosOut'>
-              <FontAwesomeIcon onClick={() => changePasswordType('.showPasswordIcon', '.formControl_password')} icon={faEye} />
+              <FontAwesomeIcon
+                onClick={() => changePasswordType('.showPasswordIcon', '.formControl_password')}
+                icon={faEye}
+              />
             </span>
-            <input type='password' name='password' className='formControl formControl_password' placeholder='Введите новый пароль' required />
+            <input
+              type='password'
+              name='password'
+              className='formControl formControl_password'
+              placeholder='Введите новый пароль'
+              required
+            />
           </div>
           <button type='submit' className='btn-primary'>
             Изменить пароль
@@ -42,4 +51,4 @@ const ResetPasswordPage = ({ userData: { error, token, loading } }) => {
   );
 };
 
-export default withStore(ResetPasswordPage);
+export default connectToStore(['userData'], null)(ResetPasswordPage, true);

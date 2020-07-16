@@ -3,25 +3,33 @@ import PropTypes from 'prop-types';
 import '../styles/scss/Header.scss';
 import { createItems } from '../utils/workWithCreateReactElem';
 import { headerFixMenu } from '../utils/workWithBrowser';
+import { connectToStore } from '../utils/workWithRedux';
+import { updateTopHeaderMenu } from '../actions/menuItems';
 
 const Header = ({
-  mainItems: itemsMain,
-  topItems: itemsTop,
-  iconsForItems: { headerIcons },
-  updated,
+  menuItems: {
+    mainItems: itemsMain,
+    topItems: itemsTop,
+    iconsForItems: { headerIcons },
+    updated,
+  },
+  userData: { userName },
+  actions: { updateTopHeaderMenu }
 }) => {
   useEffect(() => {
     headerFixMenu();
   }, []);
+
+   useEffect(() => {
+     updateTopHeaderMenu(userName);
+   }, [userName, updateTopHeaderMenu]);
 
   return (
     <header className='header'>
       <nav>
         <div className='header__top'>
           <div className='container'>
-            <ul className='flexWrap'>
-              {createItems(itemsTop, 'header__item', headerIcons, updated)}
-            </ul>
+            <ul className='flexWrap'>{createItems(itemsTop, 'header__item', headerIcons, updated)}</ul>
           </div>
         </div>
         <div className='header__main'>
@@ -45,4 +53,4 @@ Header.propTypes = {
   mainItems: PropTypes.array.isRequired,
 };
 
-export default Header;
+export default connectToStore(['menuItems', 'userData'], [updateTopHeaderMenu])(Header);

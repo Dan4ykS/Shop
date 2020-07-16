@@ -1,9 +1,14 @@
 import React from 'react';
-import withStore from '../utils/workWithRedux';
-import {logOut } from '../utils/workWithBrowser';
+import { connectToStore } from '../utils/workWithRedux';
+import { logOut } from '../utils/workWithBrowser';
 import LoadingDataLogic from '../logicComponents/LoadingData';
+import { isLogout } from '../actions/userData';
 
-const AccountPage = ({ userData: { loading, error, userName }, actions: { isLogout, isLogin, loadCart, fetchGoods }, history }) => {
+const AccountPage = ({
+  userData: { loading, error, userName },
+  actions: { isLogout, isLogin, loadCart, fetchGoods },
+  history,
+}) => {
   return (
     <LoadingDataLogic
       configData={{
@@ -17,4 +22,4 @@ const AccountPage = ({ userData: { loading, error, userName }, actions: { isLogo
   );
 };
 
-export default withStore(AccountPage);
+export default connectToStore(['userData'],[isLogout])(AccountPage, true);

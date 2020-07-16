@@ -6,6 +6,7 @@ const updategoodsList = (state, action) => {
       error: null,
     };
   }
+  
   switch (action.type) {
     case 'FETCH_GOODS_REQUEST':
       return {

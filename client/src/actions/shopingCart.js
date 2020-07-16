@@ -1,4 +1,5 @@
 import { createAction } from '../utils/workWithRedux';
+import GoodsService from '../services/GoodsService';
 
 const commodityAddToCart = (bookId) => createAction('BOOK_ADD_TO_CART', bookId);
 
@@ -8,27 +9,27 @@ export const loadCartFromServer = (cart) => createAction('LOAD_CART_FROM_SERVER'
 
 export const clearCart = () => createAction('CLEAR_CART');
 
-export const onAddedToCart = (dispatch, { goodsService }) => async (id, token) => {
+export const onAddedToCart = (id, token) => async (dispatch) => {
   try {
     dispatch(commodityAddToCart(id));
-    await goodsService.addToCart(id, token);
+    await GoodsService.addToCart(id, token);
   } catch (error) {
     console.log(error);
   }
 };
 
-export const onDeletedFromCart = (dispatch, { goodsService }) => async (id, token) => {
+export const onDeletedFromCart = (id, token) => async (dispatch) => {
   try {
     dispatch(commodityDeletedFromCart(id));
-    await goodsService.removeFromCart(id, token);
+    await GoodsService.removeFromCart(id, token);
   } catch (error) {
     console.log(error);
   }
 };
 
-export const loadCart = (dispatch, { goodsService }) => async (token) => {
+export const loadCart = (token) => async (dispatch) => {
   try {
-    const cart = await goodsService.loadCart(token);
+    const cart = await GoodsService.loadCart(token);
     dispatch(loadCartFromServer(cart));
   } catch (error) {
     console.log(error);

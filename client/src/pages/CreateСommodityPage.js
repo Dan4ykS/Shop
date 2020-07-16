@@ -1,6 +1,6 @@
 import React from 'react';
 import LoadingDataLogic from '../logicComponents/LoadingData';
-import withStore from '../utils/workWithRedux';
+import { connectToStore } from '../utils/workWithRedux';
 import ChangeCommodityDetail from '../components/ChangeCommodityDetail';
 
 const CreateСommodityPage = ({
@@ -52,4 +52,4 @@ const CreateСommodityPage = ({
   );
 };
 
-export default withStore(CreateСommodityPage);
+export default connectToStore(['userData', 'commodityData'], null)(CreateСommodityPage);

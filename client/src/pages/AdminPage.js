@@ -1,11 +1,11 @@
 import React from 'react';
-import withStore from '../utils/workWithRedux';
+import { connectToStore } from '../utils/workWithRedux';
 import LoadingDataLogic from '../logicComponents/LoadingData';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-const AdminPage = ({ userData: { userName, loading, error }, actions: { isLogin, userLogin, invalidRoute }, history }) => {
+const AdminPage = ({ userData: { userName, loading, error } }) => {
   return (
     <LoadingDataLogic
       configData={{
@@ -21,4 +21,4 @@ const AdminPage = ({ userData: { userName, loading, error }, actions: { isLogin,
   );
 };
 
-export default withStore(AdminPage);
+export default connectToStore(['userData'], null)(AdminPage);
