@@ -46,13 +46,6 @@ export const createItems = (items, className, iconsForItems = [], updated = fals
   });
 };
 
-export const configForUthPages = (userName, loading, error) => {
-  return {
-    loading: !userName ? false: true,
-    error: !userName ? null : error,
-  };
-};
-
 export const createUpdateImgBtn = (updateFunc, img, imgSrc, oldImgSrc, newAlt, oldAlt) => {
   if ((img && imgSrc !== oldImgSrc && newAlt !== '') || (newAlt.trim() !== oldAlt && newAlt.trim())) {
     return (

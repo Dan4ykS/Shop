@@ -1,4 +1,5 @@
 import { changeArrayElement, removeArrayElement, addArrayElement } from '../utils/workWithRedux';
+import { FETCH_CART_SUCCUESS, BOOK_ADD_TO_CART, BOOK_DELETE_FROM_CART, CLEAR_CART } from '../actions/types';
 
 const updateCartItem = (book, item = {}, quantity) => {
   const {
@@ -57,20 +58,20 @@ const updateShopingCart = (state, action) => {
   }
 
   switch (action.type) {
-    case 'LOAD_CART_FROM_SERVER':
+    case FETCH_CART_SUCCUESS:
       return {
         cart: action.payload.userCart,
         totalPrice: action.payload.totalPrice,
         loading: false,
         updatedPrice: action.payload.updatedPrice,
       };
-    case 'BOOK_ADD_TO_CART':
+    case BOOK_ADD_TO_CART:
       return updateOrder(state, action.payload, 1);
 
-    case 'BOOK_DELETE_FROM_CART':
+    case BOOK_DELETE_FROM_CART:
       return updateOrder(state, action.payload, -1);
 
-    case 'CLEAR_CART':
+    case CLEAR_CART:
       return {
         cart: [],
         totalPrice: 0,

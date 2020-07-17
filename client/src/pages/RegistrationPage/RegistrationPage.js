@@ -1,16 +1,14 @@
 import React from 'react';
-import LoadingData from '../../components/LoadingData';
 import { connectToStore } from '../../utils/workWithRedux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { changePasswordType } from '../../utils/workWithBrowser';
 import { authRequests } from '../../utils/workWithApiRequests';
-import { configForUthPages } from '../../utils/workWithReactElements';
 import { registration } from '../../actions/userData';
 
-const RegistrationPage = ({ userData: { token, loading }, actions: { registration }, history }) => {
+const RegistrationPage = ({ actions: { registration }, history }) => {
   return (
-    <LoadingData configData={configForUthPages(token, loading)}>
+    <>
       <h2>Регистрация</h2>
       <div className='row justify-content-center'>
         <form
@@ -68,7 +66,7 @@ const RegistrationPage = ({ userData: { token, loading }, actions: { registratio
           </div>
         </form>
       </div>
-    </LoadingData>
+    </>
   );
 };
-export default connectToStore(['userData'], [registration])(RegistrationPage, true);
+export default connectToStore(null, [registration])(RegistrationPage, true);

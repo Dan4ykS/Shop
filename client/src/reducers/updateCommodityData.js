@@ -1,4 +1,5 @@
 import StringHelper from '../utils/StringHelper';
+import { FETCH_COMMODITY_REQUEST, FETCH_COMMODITY_SUCCUESS, FETCH_COMMODITY_FAILURE, RESET_COMMODITY_DATA, UPDATE_IMG, UPDATE_PREVIEWIMG, UPDATE_TITLE, UPDATE_SHORTDESCR, UPDATE_DESCR, UPDATE_PRICE } from '../actions/types';
 
 const createAlt = (newData, oldData, type) => {
   const newAlt = newData ? newData[`${type}Alt`] : null,
@@ -74,13 +75,13 @@ const updateCommodityData = (state, action) => {
     return defaultCommodityDataState;
   }
   switch (action.type) {
-    case 'FETCH_COMMODITY_REQUEST':
+    case FETCH_COMMODITY_REQUEST:
       return {
         ...state.commodityData,
         loading: true,
       };
 
-    case 'FETCH_COMMODITY_SUCCUESS':
+    case FETCH_COMMODITY_SUCCUESS:
       return {
         ...action.payload,
         loading: false,
@@ -88,31 +89,31 @@ const updateCommodityData = (state, action) => {
         updatedFields: {},
       };
 
-    case 'FETCH_COMMODITY_FAILURE':
+    case FETCH_COMMODITY_FAILURE:
       return {
         ...defaultCommodityDataState,
         error: true,
       };
 
-    case 'RESET_COMMODITY_DATA':
+    case RESET_COMMODITY_DATA:
       return defaultCommodityDataState;
 
-    case 'UPDATE_IMG':
+    case UPDATE_IMG:
       return updateField(state.commodityData, 'img', action.payload);
 
-    case 'UPDATE_PREVIEWIMG':
+    case UPDATE_PREVIEWIMG:
       return updateField(state.commodityData, 'previewImg', action.payload);
 
-    case 'UPDATE_TITLE':
+    case UPDATE_TITLE:
       return updateField(state.commodityData, 'title', action.payload);
 
-    case 'UPDATE_SHORTDESCR':
+    case UPDATE_SHORTDESCR:
       return updateField(state.commodityData, 'shortDescr', action.payload);
 
-    case 'UPDATE_DESCR':
+    case UPDATE_DESCR:
       return updateField(state.commodityData, 'descr', action.payload);
 
-    case 'UPDATE_PRICE':
+    case UPDATE_PRICE:
       return updateField(state.commodityData, 'price', action.payload);
 
     default:

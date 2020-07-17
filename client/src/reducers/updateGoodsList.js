@@ -1,3 +1,5 @@
+import { FETCH_GOODS_REQUEST, FETCH_GOODS_SUCCUESS, FETCH_GOODS_FAILURE } from '../actions/types';
+
 const updategoodsList = (state, action) => {
   if (state === undefined) {
     return {
@@ -6,29 +8,29 @@ const updategoodsList = (state, action) => {
       error: null,
     };
   }
-  
+
   switch (action.type) {
-    case 'FETCH_GOODS_REQUEST':
+    case FETCH_GOODS_REQUEST:
       return {
         goods: [],
         error: null,
         loading: true,
       };
-    
-    case 'FETCH_GOODS_SUCCUESS':
+
+    case FETCH_GOODS_SUCCUESS:
       return {
         goods: action.payload,
         error: null,
         loading: false,
       };
-    
-    case 'FETCH_GOODS_FAILURE':
+
+    case FETCH_GOODS_FAILURE:
       return {
         goods: [],
         error: true,
         loading: false,
       };
-    
+
     default:
       return state.goodsList;
   }

@@ -1,13 +1,14 @@
-import { createAction } from '../utils/workWithRedux';
 import GoodsService from '../services/GoodsService';
+import { createAction } from '../utils/workWithRedux';
+import { BOOK_ADD_TO_CART, BOOK_DELETE_FROM_CART, FETCH_CART_SUCCUESS, CLEAR_CART } from './types';
 
-const commodityAddToCart = (bookId) => createAction('BOOK_ADD_TO_CART', bookId);
+const commodityAddToCart = (bookId) => createAction(BOOK_ADD_TO_CART, bookId);
 
-const commodityDeletedFromCart = (bookId) => createAction('BOOK_DELETE_FROM_CART', bookId);
+const commodityDeletedFromCart = (bookId) => createAction(BOOK_DELETE_FROM_CART, bookId);
 
-export const loadCartFromServer = (cart) => createAction('LOAD_CART_FROM_SERVER', cart);
+export const loadCartFromServer = (cart) => createAction(FETCH_CART_SUCCUESS, cart);
 
-export const clearCart = () => createAction('CLEAR_CART');
+export const clearCart = () => createAction(CLEAR_CART);
 
 export const onAddedToCart = (id, token) => async (dispatch) => {
   try {

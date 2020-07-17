@@ -5,17 +5,18 @@ export const chekAdminAccess = async (
   isLogin,
   fetchGoods,
   history,
+  loadCart,
   id = null,
   fetchCommodity = null
 ) => {
   const errorFunc = (userName) => {
     console.log(userName);
     if (userName !== 'admin' && userName) {
-      history.push('/MyAccount/');
+      history.push('/MyAccount');
     }
   };
 
-  await defaultActions(localStorageData, isLogin, fetchGoods, null, errorFunc);
+  await defaultActions(localStorageData, isLogin, fetchGoods, loadCart, errorFunc);
 
   if (id) {
     await fetchCommodity(id);

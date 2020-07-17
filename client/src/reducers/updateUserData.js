@@ -1,3 +1,5 @@
+import { LOGIN, CREATE_NEW_USER, LOGOUT, INVALID_ROUTE } from "../actions/types";
+
 const updateUserData = (state, action) => {
   if (state === undefined) {
     return {
@@ -9,7 +11,7 @@ const updateUserData = (state, action) => {
   }
 
   switch (action.type) {
-    case 'USER_LOGIN':
+    case LOGIN:
       return {
         userName: action.payload.userName,
         token: action.payload.token,
@@ -17,7 +19,7 @@ const updateUserData = (state, action) => {
         loading: false,
       };
 
-    case 'CREATE_NEW_USER':
+    case CREATE_NEW_USER:
       return {
         userName: action.payload.userName,
         token: action.payload.token,
@@ -25,7 +27,7 @@ const updateUserData = (state, action) => {
         loading: false,
       };
 
-    case 'USER_LOGOUT':
+    case LOGOUT:
       return {
         userName: null,
         token: null,
@@ -33,25 +35,11 @@ const updateUserData = (state, action) => {
         loading: true,
       };
 
-    case 'INVALID_ROUTE':
+    case INVALID_ROUTE:
       return {
         ...state.userData,
         error: true,
         loading: false,
-      };
-
-    case 'IN_LOGIN_PAGE':
-      return {
-        ...state.userData,
-        error: null,
-        loading: false,
-      };
-
-    case 'RESET_LOADING_DATA':
-      return {
-        ...state.userData,
-        error: null,
-        loading: true,
       };
 
     default:

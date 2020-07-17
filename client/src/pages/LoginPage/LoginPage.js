@@ -1,5 +1,4 @@
 import React from 'react';
-import LoadingData from '../../components/LoadingData';
 import './LoginPage.scss';
 import { connectToStore } from '../../utils/workWithRedux';
 import { authRequests } from '../../utils/workWithApiRequests';
@@ -7,13 +6,12 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { changePasswordType } from '../../utils/workWithBrowser';
-import { configForUthPages } from '../../utils/workWithReactElements';
 import { authorization } from '../../actions/userData';
 
-const LoginPage = ({ userData: { loading, error, userName }, actions: { authorization }, history }) => {
+const LoginPage = ({ actions: { authorization }, history }) => {
   // console.log('Я на странице логина')
   return (
-    <LoadingData configData={configForUthPages(userName, loading, error)}>
+    <>
       <h2>Страница авторизации</h2>
       <div className='row'>
         <div className='authorization col-lg-6'>
@@ -62,9 +60,8 @@ const LoginPage = ({ userData: { loading, error, userName }, actions: { authoriz
         </div>
         <div className='col-lg-6'></div>
       </div>
-    </LoadingData>
+    </>
   );
 };
 
-export default connectToStore(['userData'], [authorization])(LoginPage, true);
-// getDateFromLocalStorage('userData') !== null || token !== null ? loading : false,
+export default connectToStore(null, [authorization])(LoginPage, true);

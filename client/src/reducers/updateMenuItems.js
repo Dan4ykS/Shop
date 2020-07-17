@@ -1,5 +1,6 @@
 import { faUserCircle, faCartPlus, faTools } from '@fortawesome/free-solid-svg-icons';
 import { changeArrayElement } from '../utils/workWithRedux';
+import { UPDATE_ITEMS, NOT_UPDATE } from '../actions/types';
 
 const updateMenuItems = (state, action) => {
   if (state === undefined) {
@@ -72,10 +73,10 @@ const updateMenuItems = (state, action) => {
   };
 
   switch (action.type) {
-    case 'UPDATE_ITEMS':
+    case UPDATE_ITEMS:
       return updateItems(state.menuItems, action.payload);
 
-    case 'NOT_UPDATE':
+    case NOT_UPDATE:
       return {
         ...state.menuItems,
         updated: false,

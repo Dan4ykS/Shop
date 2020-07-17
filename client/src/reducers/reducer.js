@@ -11,7 +11,6 @@ const reducer = (state, action) => {
     userData: updateUserData(state, action),
     menuItems: updateMenuItems(state, action),
     commodityData: updateCommodityData(state, action),
-    // loadingData: updateLoadingData(state, action)
   };
 };
 

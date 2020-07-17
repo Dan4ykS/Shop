@@ -24,7 +24,7 @@ const CartPage = ({ shopingCart: { totalPrice, cart, loading, updatedPrice }, us
   return (
     <LoadingData
       configData={{
-        loading,
+        loading: userName ? false : loading,
         error: null,
       }}
     >

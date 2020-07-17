@@ -14,7 +14,7 @@ const AdminPage = ({ userData: { userName, loading, error } }) => {
       }}
     >
       <h2>Страница админа!</h2>
-      <Link className='btn btn-success' to='/admin/createCommodity/'>
+      <Link className='btn btn-success' to='/admin/createCommodity'>
         Создать новый товар <FontAwesomeIcon icon={faPlus} />
       </Link>
     </LoadingData>

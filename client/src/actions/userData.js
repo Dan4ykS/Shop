@@ -1,20 +1,19 @@
+import GoodsService from '../services/GoodsService';
+import UsersService from '../services/UsersService';
 import { clearCart, loadCartFromServer } from './shopingCart';
 import { fetchGoodsSuccuess } from './goodsList';
 import { isInvalid, redirectToPage, clearInputs, activateBtn } from '../utils/workWithBrowser';
 import { setNewToken } from '../utils/workWithApiRequests';
 import { createAction } from '../utils/workWithRedux';
-import UsersService from '../services/UsersService';
-import GoodsService from '../services/GoodsService';
+import { LOGIN, CREATE_NEW_USER, LOGOUT, INVALID_ROUTE } from './types';
 
-const createUser = (userName, token) => createAction('CREATE_NEW_USER', { userName, token });
+const createUser = (userName, token) => createAction(CREATE_NEW_USER, { userName, token });
 
-const resetError = () => createAction('RESET_LOADING');
+export const userLogin = (userName, token) => createAction(LOGIN, { userName, token });
 
-export const userLogin = (userName, token) => createAction('USER_LOGIN', { userName, token });
+export const userLogout = () => createAction(LOGOUT);
 
-export const userLogout = () => createAction('USER_LOGOUT');
-
-export const invalidRoute = () => createAction('INVALID_ROUTE');
+export const invalidRoute = () => createAction(INVALID_ROUTE);
 
 const authErrorHeandler = ({ inputs, selector }) => {
   clearInputs(inputs);
@@ -54,7 +53,7 @@ export const registration = (data, formData, history) => async (dispatch) => {
   }
 };
 
-export const isLogin = (token, path = null) => async (dispatch) => {
+export const isLogin = (token) => async (dispatch) => {
   try {
     const { userName, newToken } = await UsersService.checkUserValid(token);
     dispatch(userLogin(userName, newToken));
@@ -62,7 +61,6 @@ export const isLogin = (token, path = null) => async (dispatch) => {
     return userName;
   } catch (error) {
     dispatch(invalidRoute());
-    dispatch(resetError());
   }
 };
 

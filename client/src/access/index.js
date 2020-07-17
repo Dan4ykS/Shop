@@ -4,7 +4,7 @@ import { chekAccessToResetPasswordPage } from './resetPasswordPage';
 import { defaultActions } from './default';
 import { findPathParams } from '../utils/workWithBrowser';
 
-export const chekAccess = async (localStorageData, isLogin, loadCart, fetchGoods, fetchCommodity, history) => {
+export const chekAccess = async (localStorageData, { isLogin, loadCart, fetchGoods, fetchCommodity }, history) => {
   let path = history.location.pathname.slice(1),
     params;
 
@@ -23,14 +23,14 @@ export const chekAccess = async (localStorageData, isLogin, loadCart, fetchGoods
 
     case 'admin/updateCommodity/params':
     case 'admin/updateCommodity/params/':
-      await chekAdminAccess(localStorageData?.token, isLogin, fetchGoods, history, params, fetchCommodity);
+      await chekAdminAccess(localStorageData?.token, isLogin, fetchGoods, history, loadCart, params, fetchCommodity);
       break;
 
     case 'admin/createCommodity/':
     case 'admin/createCommodity':
     case 'admin/':
     case 'admin':
-      await chekAdminAccess(localStorageData?.token, isLogin, fetchGoods, history);
+      await chekAdminAccess(localStorageData?.token, isLogin, fetchGoods, history, loadCart);
       break;
 
     case 'resetPassword/params':
