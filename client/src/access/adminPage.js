@@ -9,6 +9,7 @@ export const chekAdminAccess = async (
   fetchCommodity = null
 ) => {
   const errorFunc = (userName) => {
+    console.log(userName);
     if (userName !== 'admin' && userName) {
       history.push('/MyAccount/');
     }

@@ -10,10 +10,10 @@ import { changePasswordType } from '../../utils/workWithBrowser';
 import { configForUthPages } from '../../utils/workWithReactElements';
 import { authorization } from '../../actions/userData';
 
-const LoginPage = ({ userData: { token, loading, error }, actions: { authorization }, history }) => {
+const LoginPage = ({ userData: { loading, error, userName }, actions: { authorization }, history }) => {
   // console.log('Я на странице логина')
   return (
-    <LoadingData configData={configForUthPages(token, loading, error)}>
+    <LoadingData configData={configForUthPages(userName, loading, error)}>
       <h2>Страница авторизации</h2>
       <div className='row'>
         <div className='authorization col-lg-6'>

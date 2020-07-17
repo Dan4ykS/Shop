@@ -6,11 +6,11 @@ const updateMenuItems = (state, action) => {
     return {
       mainItems: [
         { name: '/', value: 'Главная' },
-        { name: '/Product/', value: 'Продукция' },
+        { name: '/Goods', value: 'Продукция' },
       ],
       topItems: [
-        { name: '/Login/', value: 'Вход' },
-        { name: '/Cart/', value: 'Корзина' },
+        { name: '/Login', value: 'Вход' },
+        { name: '/Cart', value: 'Корзина' },
       ],
       iconsForItems: {
         headerIcons: [faUserCircle, faCartPlus],
@@ -29,21 +29,21 @@ const updateMenuItems = (state, action) => {
   const updateMainItems = (mainItems, userName) => {
     switch (userName) {
       default:
-        return [createNewItem('/', 'Главная'), createNewItem('/Product/', 'Продукция')];
+        return [createNewItem('/', 'Главная'), createNewItem('/Goods', 'Продукция')];
     }
   };
 
   const updateTopItems = (topItems, userName) => {
     switch (userName) {
       case 'admin':
-        return [createNewItem('/MyAccount/', userName), createNewItem('/admin/', 'Панель администратора')];
+        return [createNewItem('/MyAccount', userName), createNewItem('/admin', 'Панель администратора')];
 
       case null:
-        return [createNewItem('/Login/', 'Вход'), createNewItem('/Cart/', 'Корзина')];
+        return [createNewItem('/Login', 'Вход'), createNewItem('/Cart', 'Корзина')];
 
       default:
         const index = topItems.findIndex((el) => el.value === 'Вход');
-        const newItem = createNewItem('/MyAccount/', userName);
+        const newItem = createNewItem('/MyAccount', userName);
         return changeArrayElement(topItems, index, newItem);
     }
   };

@@ -40,7 +40,14 @@ const updateUserData = (state, action) => {
         loading: false,
       };
 
-    case 'RESET_ERROR':
+    case 'IN_LOGIN_PAGE':
+      return {
+        ...state.userData,
+        error: null,
+        loading: false,
+      };
+
+    case 'RESET_LOADING_DATA':
       return {
         ...state.userData,
         error: null,

@@ -39,16 +39,16 @@ const App = ({ actions: { isLogin, loadCart, fetchGoods, fetchCommodity }, histo
         <React.Suspense fallback={<LoadingIndicator />}>
           <Switch>
             <Route path='/' component={MainPage} exact />
-            <Route path='/Product/' component={GoodsPage} exact />
-            <Route path='/Product/:id' component={CommodityPage} exact />
-            <Route path='/Cart/' component={CartPage} exact />
-            <Route path='/Login/' component={LoginPage} exact />
-            <Route path='/Registration/' component={RegistrationPage} exact />
-            <Route path='/MyAccount/' component={AccountPage} />
-            <Route path='/helpLogin/' component={HelpLoginPage} exact />
+            <Route path='/Goods' component={GoodsPage} exact />
+            <Route path='/Goods/commodity-:id' component={CommodityPage} exact />
+            <Route path='/Cart' component={CartPage} exact/>
+            <Route path='/Login' component={LoginPage} exact />
+            <Route path='/Registration' component={RegistrationPage}  />
+            <Route path='/MyAccount' component={AccountPage} />
+            <Route path='/helpLogin/' component={HelpLoginPage}  />
             <Route path='/resetPassword/token=:id' component={ResetPasswordPage} exact />
             <Route path='/admin' component={AdminPage} exact />
-            <Route path='/admin/createCommodity/' component={CreateСommodityPage} />
+            <Route path='/admin/createCommodity' component={CreateСommodityPage} />
             <Route path='/admin/updateCommodity/:id' component={UpdateCommodityPage} />
             <Route component={NotFoundPage} exact />
           </Switch>

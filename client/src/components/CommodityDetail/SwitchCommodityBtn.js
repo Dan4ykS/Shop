@@ -15,7 +15,7 @@ const SwitchCommodityBtn = ({ userData: { token, userName }, actions: { onAddedT
     return (
       <div className='flexWrap'>
         <button onClick={() => console.log(id, token)}>Купить в один клик</button>
-        <Link className='btn btn-primary' to={`/Product/${id}`}>
+        <Link className='btn btn-primary' to={`/Goods/commodity-${id}`}>
           Подробнее
         </Link>
       </div>
@@ -26,7 +26,7 @@ const SwitchCommodityBtn = ({ userData: { token, userName }, actions: { onAddedT
       <div className='flexWrap'>
         <button>Купить в один клик!</button>
         <button onClick={() => onAddedToCart(id, token)}>В корзину</button>
-        <Link className='btn btn-primary' to={`/Product/${id}`}>
+        <Link className='btn btn-primary' to={`/Goods/commodity-${id}`}>
           Подробнее
         </Link>
       </div>

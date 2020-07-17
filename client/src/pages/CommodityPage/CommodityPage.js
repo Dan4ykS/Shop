@@ -1,7 +1,6 @@
 import React from 'react';
 import LoadingData from '../../components/LoadingData';
 import { connectToStore } from '../../utils/workWithRedux';
-import { findPathParams } from '../../utils/workWithBrowser';
 import { fetchCommodity } from '../../actions/commodityData';
 
 /**
@@ -13,13 +12,13 @@ import { fetchCommodity } from '../../actions/commodityData';
  * 5) Компонент с рекомендацией товара
  */
 
-const CommodityPage = ({ commodityData: { loading, error }, actions: { fetchCommodity }, history }) => {
+const CommodityPage = ({ commodityData: { loading, error }, actions: { fetchCommodity }, history, match }) => {
   return (
     <LoadingData
       configData={{
         loading,
         error,
-        funcForRender: () => fetchCommodity(findPathParams(history)),
+        funcForRender: () => fetchCommodity(match.params.id),
         routeForRedirect: '/',
       }}
     >

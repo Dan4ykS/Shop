@@ -5,7 +5,7 @@ import StringHelper from '../../utils/StringHelper';
 import './ImgUploader.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
-import { actionsForModalWindow, createValidImgSrc } from '../../utils/workWithBrowser';
+import { initModalWindow, createValidImgSrc } from '../../utils/workWithBrowser';
 
 const ImgUploader = ({ img, actionForUpdateImgData, extraClass = '' }) => {
   if (img.src) {
@@ -15,7 +15,7 @@ const ImgUploader = ({ img, actionForUpdateImgData, extraClass = '' }) => {
           <img className='imgUploader__img' src={createValidImgSrc(img.src)} alt={img.alt} />
           <div className='imgUploader__editing'>
             <FontAwesomeIcon
-              onClick={() => actionsForModalWindow(`.updateImg_${img.id}`)}
+              onClick={() => initModalWindow(`.updateImg_${img.id}`)}
               icon={faPen}
             />
           </div>

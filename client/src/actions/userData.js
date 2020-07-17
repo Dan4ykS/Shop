@@ -8,7 +8,7 @@ import GoodsService from '../services/GoodsService';
 
 const createUser = (userName, token) => createAction('CREATE_NEW_USER', { userName, token });
 
-const resetError = () => createAction('RESET_ERROR');
+const resetError = () => createAction('RESET_LOADING');
 
 export const userLogin = (userName, token) => createAction('USER_LOGIN', { userName, token });
 
@@ -54,7 +54,7 @@ export const registration = (data, formData, history) => async (dispatch) => {
   }
 };
 
-export const isLogin = (token) => async (dispatch) => {
+export const isLogin = (token, path = null) => async (dispatch) => {
   try {
     const { userName, newToken } = await UsersService.checkUserValid(token);
     dispatch(userLogin(userName, newToken));

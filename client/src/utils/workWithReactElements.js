@@ -1,12 +1,12 @@
 import React from 'react';
 import StringHelper from './StringHelper';
-import { scrollToElem, chekValidDataInForm, actionsForModalWindow } from './workWithBrowser';
+import { scrollToElem, chekValidDataInForm, initModalWindow } from './workWithBrowser';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-
 const createElementWithIcon = (icon, item, className, updated) => {
   const { name, value } = item;
+
   let classForElement = className;
   if (updated && value !== 'Корзина') {
     classForElement += ' animate';
@@ -46,10 +46,10 @@ export const createItems = (items, className, iconsForItems = [], updated = fals
   });
 };
 
-export const configForUthPages = (token, loading, error) => {
+export const configForUthPages = (userName, loading, error) => {
   return {
-    loading: token ? loading : false,
-    error,
+    loading: !userName ? false: true,
+    error: !userName ? null : error,
   };
 };
 
@@ -99,7 +99,7 @@ export const createUpdateDataBtn = (updatedFields, form, type) => {
 export const createDeleteCommodityBtn = (type) => {
   if (type === 'update') {
     return (
-      <button onClick={() => actionsForModalWindow('.deleteCommodity')} type='button'>
+      <button onClick={() => initModalWindow('.deleteCommodity')} type='button'>
         Удалить книгу
       </button>
     );

@@ -140,7 +140,7 @@ export const logOut = (func, history) => {
   func();
 };
 
-export const actionsForModalWindow = (modalSelector) => {
+export const initModalWindow = (modalSelector) => {
   const modalWraper = findNeedElement('.modalWraper'),
     modal = findNeedElement(`${modalSelector}`),
     body = findNeedElement('body'),

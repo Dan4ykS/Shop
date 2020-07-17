@@ -10,7 +10,7 @@ export default class LoadingData extends React.Component {
     }
   }
   render() {
-    const { loading, error, routeForRedirect = '/Login/' } = this.props.configData,
+    const { loading, error, routeForRedirect = '/Login' } = this.props.configData,
       contentForLoading = loading ? <LoadingIndicator /> : null,
       content = !loading && !error ? this.props.children : null,
       contentForError = error ? <Redirect to={routeForRedirect} /> : null;
