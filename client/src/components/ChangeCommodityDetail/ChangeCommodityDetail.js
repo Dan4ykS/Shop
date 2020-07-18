@@ -1,16 +1,14 @@
 import React from 'react';
 import ImgUploader from '../ImgUploader';
+import ChangeCommodityBtn from './ChangeCommodityBtn';
 import './ChangeCommodityDetail.scss';
 import { workWithCommodityData, deleteCommodity } from '../../utils/workWithApiRequests';
 import { validateInput, setValues } from '../../utils/workWithBrowser';
-import { createUpdateDataBtn, createDeleteCommodityBtn } from '../../utils/workWithReactElements';
 
 const ChangeCommodityDetail = ({
-  data: { title, descr, shortDescr, img, previewImg, price, updatedFields, id },
+  data: { title, descr, shortDescr, img, previewImg, price, updatedFields, id, history, token },
   actions: { updateImg, updatePreviewImg, updateTitle, updateDescr, updatePrice, updateShortDescr },
   type,
-  history,
-  token,
 }) => {
   return (
     <>
@@ -64,7 +62,7 @@ const ChangeCommodityDetail = ({
               className='formControl'
               value={setValues(descr)}
               onChange={(e) => validateInput(e, updateDescr)}
-            ></textarea>
+            />
             <div className='invalidFeedback'>Поле обязательно и не должно быть пустым</div>
           </div>
         </div>
@@ -94,8 +92,7 @@ const ChangeCommodityDetail = ({
           </div>
         </div>
         <div className='btnGroup'>
-          {createUpdateDataBtn(updatedFields, '.changeCommodityDetail', type)}
-          {createDeleteCommodityBtn(type)}
+          <ChangeCommodityBtn type={type} updatedFields={updatedFields} formSelector='.changeCommodityDetail' />
         </div>
       </form>
       <div className='modalWindow deleteCommodity flexWrapColumn_center hidenElem'>

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-const AdminPage = ({ userData: { userName, loading, error } }) => {
+const AdminPage = ({ userData: { loading, error } }) => {
   return (
     <LoadingData
       configData={{

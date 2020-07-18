@@ -19,11 +19,19 @@ const UpdateCommodityPage = ({ commodityData, actions, userData: { token, error:
       configData={{
         loading: commodityData.loading,
         error: userError ? userError : commodityData.error,
-        funcForRender: token ? () =>  actions.fetchCommodity(findPathParams(history)) : null,
+        funcForRender: token ? () => actions.fetchCommodity(findPathParams(history)) : null,
         routeForRedirect: commodityData.error ? `/admin/updateCommodity?id=${findPathParams(history)}` : '/Login/',
       }}
     >
-      <ChangeCommodityDetail token={token} data={commodityData} actions={actions} history={history} type='update' />
+      <ChangeCommodityDetail
+        data={{
+          ...commodityData,
+          history,
+          token,
+        }}
+        actions={actions}
+        type='update'
+      />
     </LoadingData>
   );
 };

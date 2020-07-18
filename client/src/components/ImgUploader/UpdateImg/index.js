@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import FileUploader from '../../FileUploader';
 import './UpdateImg.scss';
-import { createUpdateImgBtn } from '../../../utils/workWithReactElements';
 import { createValidImgSrc, validateInput } from '../../../utils/workWithBrowser';
-import StringHelper from '../../../utils/StringHelper';
+import CreateUpdateImgBtn from './UpdateImgBtn';
 
 const UpdateImg = ({ img: { src, id, alt }, funcForUpdateData }) => {
   const [previewSrc, updatePreviewSrc] = useState(null),
@@ -20,7 +19,7 @@ const UpdateImg = ({ img: { src, id, alt }, funcForUpdateData }) => {
             <input
               type='text'
               className='formControl'
-              value={StringHelper.formatTitle(imgAlt)}
+              value={imgAlt.trimStart()}
               onChange={(e) => validateInput(e, updateImgAlt)}
             />
             <div className='invalidFeedback'>Поле обязательно и не должно быть пустым</div>
@@ -34,7 +33,10 @@ const UpdateImg = ({ img: { src, id, alt }, funcForUpdateData }) => {
           id={id}
           text='Загрузить новый файл'
         />
-        {createUpdateImgBtn(funcForUpdateData, img, previewSrc, src, imgAlt, alt)}
+        <CreateUpdateImgBtn
+          updateFunc={funcForUpdateData}
+          dataForUpdate={{ img, imgSrc: previewSrc, oldImgSrc: src, newAlt: imgAlt, oldAlt: alt }}
+        />
       </div>
       <div className='updateImg__preview flexWrap_center col-8'>
         <img src={!previewSrc ? `${createValidImgSrc(src)}` : createValidImgSrc(previewSrc)} alt={`img:${alt}`} />

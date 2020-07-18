@@ -1,6 +1,6 @@
 import React from 'react';
 import StringHelper from './StringHelper';
-import { scrollToElem, chekValidDataInForm, initModalWindow } from './workWithBrowser';
+import { scrollToElem } from './workWithBrowser';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -44,59 +44,6 @@ export const createItems = (items, className, iconsForItems = [], updated = fals
     }
     return <React.Fragment key={index}>{item}</React.Fragment>;
   });
-};
-
-export const createUpdateImgBtn = (updateFunc, img, imgSrc, oldImgSrc, newAlt, oldAlt) => {
-  if ((img && imgSrc !== oldImgSrc && newAlt !== '') || (newAlt.trim() !== oldAlt && newAlt.trim())) {
-    return (
-      <button
-        className='btn btn-success'
-        onClick={(e) => {
-          e.preventDefault();
-          updateFunc(img, imgSrc, newAlt);
-        }}
-        data-close={true}
-      >
-        Обновить изображение
-      </button>
-    );
-  }
-  return null;
-};
-
-export const createUpdateDataBtn = (updatedFields, form, type) => {
-  const formIsValid = chekValidDataInForm(form);
-  let allFieldsAreFilled = true;
-  for (const key in updatedFields) {
-    if (!updatedFields[key] && key !== 'img') {
-      allFieldsAreFilled = false;
-    }
-  }
-  if (Object.keys(updatedFields).length > 0 && type === 'update' && formIsValid) {
-    return (
-      <button className='changeCommodityDetail__btn' type='submit'>
-        Обновить данные
-      </button>
-    );
-  } else if (type === 'create' && formIsValid && allFieldsAreFilled) {
-    return (
-      <button className='changeCommodityDetail__btn' type='submit'>
-        Создать новый товар
-      </button>
-    );
-  } else {
-    return null;
-  }
-};
-
-export const createDeleteCommodityBtn = (type) => {
-  if (type === 'update') {
-    return (
-      <button onClick={() => initModalWindow('.deleteCommodity')} type='button'>
-        Удалить книгу
-      </button>
-    );
-  }
 };
 
 export const createTextWithBr = (text) => {

@@ -26,11 +26,11 @@ const CreateСommodityPage = ({ userData: { loading, error, token }, commodityDa
         data={{
           ...commodityData,
           updatedFields: { title, shortDescr, descr, previewImg, img, price },
+          history,
+          token,
         }}
         type='create'
         actions={actions}
-        history={history}
-        token={token}
       />
     </LoadingData>
   );
