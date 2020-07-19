@@ -5,17 +5,39 @@ const Reviews = require('../models/Reviews.js');
 const Genres = require('../models/Genres');
 const Tags = require('../models/Tags');
 const Authors = require('../models/Authors');
-const { createDataUpdateObj, createArrWithoutCopies } = require('../utils/createFuncs');
+const { createDataUpdateObj, createArrWithoutCopies, createPopuldatedData } = require('../utils/createFuncs');
 const { deleteFile, getValidFileName } = require('../utils/workWithFiles');
 const { updateCommodityGenresOrTags, updateAuthorData, updateGoodsForClient } = require('../utils/updateFuncs');
 const { convertArrayForClient, convertDataForClient } = require('../utils/convertFuncs');
 
+const findGoods = async (offset, limit, sortedParams = null) => {
+  return await Goods.find()
+    .sort(sortedParams)
+    .skip(+offset)
+    .limit(+limit);
+};
+
 module.exports.getGoods = async ({ query: { offset, limit } }, res) => {
   try {
-    const goods = await Goods.find()
-      .skip(+offset)
-      .limit(+limit);
+    const goods = await findGoods(offset, limit);
+    res.json(convertArrayForClient(goods));
+  } catch (error) {
+    errorHandler(res, error);
+  }
+};
 
+module.exports.newGoods = async ({ query: { offset, limit } }, res) => {
+  try {
+    const goods = await findGoods(offset, limit, { date: -1 });
+    res.json(convertArrayForClient(goods));
+  } catch (error) {
+    errorHandler(res, error);
+  }
+};
+
+module.exports.popularGoods = async ({ query: { offset, limit } }, res) => {
+  try {
+    const goods = await findGoods(offset, limit, { countReviews: -1 });
     res.json(convertArrayForClient(goods));
   } catch (error) {
     errorHandler(res, error);
@@ -48,41 +70,45 @@ module.exports.findGoods = async ({ query: { q, offset, limit } }, res) => {
   }
 };
 
+module.exports.getSimilarGoods = async ({ params: { id } }, res) => {
+  try {
+    const commodity = await Goods.findById(id);
+    let similarGoods = [];
+
+    for (const genre of commodity.genres) {
+      const moreSimilarGoods = await Goods.find({ genres: genre, _id: { $ne: id } });
+      similarGoods = createArrWithoutCopies(moreSimilarGoods, similarGoods);
+      if (similarGoods.length >= 4) { 
+        return res.json(convertArrayForClient(similarGoods));
+      }
+    }
+    res.json(convertArrayForClient(similarGoods));
+  } catch (error) {
+    errorHandler(res, error);
+  }
+};
+
 module.exports.findCommodity = async ({ params: { id } }, res) => {
   try {
-    const commodity = (await Goods.findById(id)).toObject(),
-      reviews = await Reviews.find({ commodity: id }),
-      genres = await Genres.find({ 'goods.commodityId': id }),
-      tags = await Tags.find({ 'goods.commodityId': id }),
-      reviewsDataForClient = [],
-      tagsDataForClient = [],
-      genresDataForClient = [];
+    const commodity = await Goods.findById(id),
+      reviewDataForClien = [];
 
-    genres.forEach((genre) => {
-      genresDataForClient.push(genre.genre);
-    });
-    commodity.genres = genresDataForClient;
-
-    tags.forEach((tag) => {
-      tagsDataForClient.push(tag.tag);
-    });
-    commodity.tags = tagsDataForClient;
-
-    if (reviews.length > 0) {
-      for (const review of reviews) {
-        const reviewUser = await review.populate('user').execPopulate();
-        reviewsDataForClient.push({
+    if (commodity.reviews.length) {
+      const reviewData = (await createPopuldatedData(commodity, 'reviews')).reviews;
+      for (const review of reviewData) {
+        const reviewerData = (await createPopuldatedData(review, 'userId')).userId;
+        reviewDataForClien.push({
           reviewId: review._id,
-          reviewUser: reviewUser.user._doc.userName,
+          reviewer: reviewerData.name,
+          reviewerAvatar: reviewerData.avatar,
           reviewDate: review.date,
           review: review.review,
         });
       }
-      commodity.reviews = reviewsDataForClient;
     }
-
-    res.status(200).json(convertDataForClient(commodity));
+    res.status(200).json(convertDataForClient({ ...commodity.toObject(), reviews: reviewDataForClien }));
   } catch (error) {
+    console.log(error);
     errorHandler(res, { message: `Товар с id:${id} не найден!` });
   }
 };
@@ -108,6 +134,7 @@ module.exports.createCommodity = async (
 ) => {
   try {
     const newCommodity = new Goods({
+      author,
       title,
       shortDescr,
       descr,
@@ -117,6 +144,8 @@ module.exports.createCommodity = async (
         previewImgId,
       },
       price,
+      genres: [...genres],
+      tags: [...tags],
       img: files?.img
         ? {
             imgSrc: files.img[0].path,
@@ -157,9 +186,8 @@ module.exports.updateCommodity = async ({ body, params: { id }, files }, res) =>
       owners.forEach(async (owner) => await owner.updateCartPrices(dataForUpdate.price, id));
     }
     if (dataForUpdate?.author) {
-      const oldAuthor = await Authors.findOne({ 'books.bookId': id }),
+      const oldAuthor = await Authors.findOne({ goods: id }),
         newAuthor = await Authors.findOne({ author: dataForUpdate.author });
-
       await oldAuthor.updateCommodityList(id);
       await updateAuthorData(newAuthor, id, dataForUpdate.author);
     }
@@ -185,17 +213,13 @@ module.exports.removeCommodity = async ({ params: { id } }, res) => {
     const oldCommodityData = await Goods.findByIdAndDelete(id);
     res.status(200).json({ message: `товар с id:${id} удален` });
     await Reviews.deleteMany({ commodity: id });
-    const genres = await Genres.find({ 'goods.commodityId': id }),
-      author = await Authors.findOne({ 'goods.commodityId': id }),
-      tags = await Tags.find({ 'goods.commodityId': id });
+    const genres = await Genres.find({ goods: id }),
+      author = await Authors.findOne({ goods: id }),
+      tags = await Tags.find({ goods: id });
 
     await author.updateCommodityList(id);
-    if (genres.length > 0) {
-      genres.forEach(async (genre) => await genre.removeCommodity(id));
-    }
-    if (tags.length > 0) {
-      tags.forEach(async (tag) => await tag.removeCommodity(id));
-    }
+    genres.forEach(async (genre) => await genre.removeCommodity(id));
+    tags.forEach(async (tag) => await tag.removeCommodity(id));
     if (oldCommodityData?.img?.imgSrc) {
       deleteFile(getValidFileName(oldCommodityData.img.imgSrc));
     }

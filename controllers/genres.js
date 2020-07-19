@@ -6,7 +6,7 @@ module.exports.createGenre = async ({ body: { genre, commodityId } }, res) => {
   try {
     const newgenre = new Genres({
       genre,
-      goods: [{ commodityId }],
+      goods: [ commodityId ],
     });
     await newgenre.save();
     res.status(201).json({ message: `Создан новый тэг: ${genre}` });

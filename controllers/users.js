@@ -5,9 +5,10 @@ const bcrypt = require('bcryptjs');
 const Users = require('../models/Users');
 const Reviews = require('../models/Reviews');
 const Goods = require('../models/Goods');
-const { createJwtToken } = require('../utils/createFuncs');
+const { createJwtToken, createPopuldatedData } = require('../utils/createFuncs');
 const { updateCommodityRating } = require('../utils/updateFuncs');
 const { deleteFile, getValidFileName } = require('../utils/workWithFiles');
+const { convertDataForClient } = require('../utils/convertFuncs');
 
 module.exports.createUser = async ({ body: { userName, password, email } }, res) => {
   try {
@@ -91,12 +92,22 @@ module.exports.removeFromCart = async (req, res) => {
   }
 };
 
+module.exports.buyGoods = async ({ user: { userId } }, res) => {
+  try {
+    const user = await Users.findById(userId);
+    await user.buyGoodsInCart();
+    res.json({ message: 'Все товары были куплены и удалены из корзины' });
+  } catch (error) {
+    errorHandler(res, error);
+  }
+};
+
 module.exports.getUserCart = async (req, res) => {
   try {
     const user = await Users.findById(req.user.userId),
-      userCartData = await user.populate('cart.cartItems.commodityId').execPopulate(),
+      userCartData = await createPopuldatedData(user, 'cart.cartItems.commodityId'),
       userCart = userCartData.cart.cartItems.map((item) => {
-        const id = item.commodityId.id,
+        const id = item.commodityId._id,
           imgSrc = item.commodityId._doc.previewImg.previewImgSrc,
           alt = item.commodityId._doc.previewImg.previewImgAlt,
           title = item.commodityId._doc.title;
@@ -156,8 +167,11 @@ module.exports.updateUserData = async ({ body, user: { userId }, file }, res) =>
     if (body?.password) {
       newPassword.password = await bcrypt.hash(body.password, 10);
     }
-    await Users.findByIdAndUpdate(userId, { ...body, ...newAvatar, ...newPassword });
+    const oldUserData = await Users.findByIdAndUpdate(userId, { ...body, ...newAvatar, ...newPassword });
     res.status(200).json({ message: `Данные пользователя с id: ${userId} обновлены` });
+    if (newAvatar?.avatar && getValidFileName(oldUserData.avatar) !== 'defaultAvatar.png') {
+      deleteFile(getValidFileName(oldUserData.avatar));
+    }
   } catch (error) {
     errorHandler(res, error);
   }
@@ -177,6 +191,42 @@ module.exports.removeUser = async ({ params: { id } }, res) => {
     if (oldUser?.avatar && getValidFileName(oldUser.avatar) !== 'defaultAvatar.png') {
       deleteFile(getValidFileName(oldUser.avatar));
     }
+  } catch (error) {
+    errorHandler(res, error);
+  }
+};
+
+module.exports.getUserData = async ({ user: { userId } }, res) => {
+  try {
+    const userData = await Users.findById(userId),
+      userReviews = [];
+
+    if (userData.reviews.length) {
+      const reviewData = (await createPopuldatedData(userData, 'reviews')).reviews;
+      reviewData.forEach((review) => {
+        userReviews.push({
+          reviewId: review._id,
+          reviewer: userData.name,
+          reviewerAvatar: userData.avatar,
+          reviewDate: review.date,
+          review: review.review,
+        });
+      });
+    }
+
+    delete userData.cart;
+    delete userData.password;
+    res.json(convertDataForClient({ ...userData.toObject(), reviews: userReviews }));
+  } catch (error) {
+    errorHandler(res, error);
+  }
+};
+
+module.exports.getAdminData = async (req, res) => {
+  try {
+    const adminData = (await Users.findOne({ userName: 'admin' }, 'name surname avatar about')).toObject();
+    delete adminData._id;
+    res.json(adminData);
   } catch (error) {
     errorHandler(res, error);
   }

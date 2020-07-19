@@ -5,7 +5,7 @@ import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { connectToStore } from '../../../utils/workWithRedux';
 import { onAddedToCart, onDeletedFromCart } from '../../../actions/shopingCart';
 
-const ChangeCopies = ({ userData: { token }, copies, bookId }) => {
+const ChangeCopies = ({ userData: { token }, actions: { onAddedToCart, onDeletedFromCart }, copies, bookId }) => {
   return (
     <div className='cartItem__copies flexWrap'>
       <button className='btn-success' onClick={() => onAddedToCart(bookId, token)}>

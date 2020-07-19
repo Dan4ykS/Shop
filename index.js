@@ -19,6 +19,7 @@ app.use(helmet());
 app.use(compression());
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/static', express.static(path.join(__dirname, 'static')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use('/api', usersApi, goodsApi, reviewsApi, genresApi);

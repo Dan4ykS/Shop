@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const path = require('path')
+const path = require('path');
 const { updateCommodityList } = require('../utils/modelMethods');
 
 const authors = new Schema({
@@ -12,15 +12,13 @@ const authors = new Schema({
   },
   authorImg: {
     type: String,
-    default: path.join('uploads', 'defaultAuthorImg.png'),
+    default: path.join('static', 'defaultAuthorImg.png'),
   },
   goods: [
     {
-      commodityId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Goods',
-        required: true,
-      },
+      type: Schema.Types.ObjectId,
+      ref: 'Goods',
+      required: true,
     },
   ],
   goodsCount: {

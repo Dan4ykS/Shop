@@ -2,12 +2,12 @@ const { Schema, model } = require('mongoose');
 const { generateDate } = require('../utils/createFuncs');
 
 const reviews = new Schema({
-  user: {
+  userId: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'Users',
     require: true,
   },
-  commodity: {
+  commodityId: {
     type: Schema.Types.ObjectId,
     ref: 'Goods',
     require: true,

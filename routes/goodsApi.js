@@ -7,6 +7,12 @@ const router = Router();
 
 router.get('/getGoods', controller.getGoods);
 
+router.get('/newGoods', controller.newGoods);
+
+router.get('/popularGoods', controller.popularGoods);
+
+router.get('/getSimilarGoods/:id', controller.getSimilarGoods);
+
 router.get('/findGoods', controller.findGoods);
 
 router.get('/findCommodity/:id', controller.findCommodity);

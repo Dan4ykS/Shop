@@ -1,6 +1,13 @@
 const { Schema, model } = require('mongoose');
 const path = require('path');
-const { removeFromCart, updateCartPrices, addToCart } = require('../utils/modelMethods');
+const {
+  removeFromCart,
+  updateCartPrices,
+  addToCart,
+  buyGoodsInCart,
+  buyCommodity,
+  updateReviewsData,
+} = require('../utils/modelMethods');
 
 const users = new Schema({
   userName: {
@@ -10,9 +17,11 @@ const users = new Schema({
   },
   name: {
     type: String,
+    default: '',
   },
   surname: {
     type: String,
+    default: '',
   },
   lastName: {
     type: String,
@@ -28,10 +37,11 @@ const users = new Schema({
   },
   avatar: {
     type: String,
-    default: path.join('uploads', 'defaultAvatar.png'),
+    default: path.join('static', 'defaultAvatar.png'),
   },
   about: {
     type: String,
+    default: '',
   },
   cart: {
     cartItems: [
@@ -61,6 +71,23 @@ const users = new Schema({
       default: false,
     },
   },
+  reviews: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Reviews',
+    },
+  ],
+  countReviews: {
+    type: Number,
+    default: 0,
+  },
+  boughtGoods: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Goods',
+      required: true,
+    },
+  ],
 });
 
 users.methods.addToCart = addToCart;
@@ -68,5 +95,11 @@ users.methods.addToCart = addToCart;
 users.methods.removeFromCart = removeFromCart;
 
 users.methods.updateCartPrices = updateCartPrices;
+
+users.methods.buyCommodity = buyCommodity;
+
+users.methods.buyGoodsInCart = buyGoodsInCart;
+
+users.methods.updateReviewsData = updateReviewsData;
 
 module.exports = model('Users', users);

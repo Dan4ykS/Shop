@@ -2,13 +2,14 @@ const Genres = require('../models/Genres');
 const Goods = require('../models/Goods');
 const Tags = require('../models/Tags');
 const Authors = require('../models/Authors');
+const Users = require('../models/Users');
 const { createPopuldatedData, createArrWithoutCopies } = require('./createFuncs');
 const { convertArrayForClient } = require('./convertFuncs');
 
 module.exports.updateCommodityGenresOrTags = async (newData, commodityId, type = 'genres') => {
   const Model = type === 'genres' ? Genres : Tags,
     firstFildName = type === 'genres' ? 'genre' : 'tag',
-    oldCommodityData = await Model.find({ 'goods.commodityId': commodityId });
+    oldCommodityData = await Model.find({ goods: commodityId });
 
   oldCommodityData.forEach(async (el) => {
     const elemIndex = newData.findIndex((newEl) => newEl === el[firstFildName]);
@@ -26,7 +27,7 @@ module.exports.updateCommodityGenresOrTags = async (newData, commodityId, type =
       } else {
         const newModelData = new Model({
           [firstFildName]: el,
-          goods: [{ commodityId }],
+          goods: [commodityId],
         });
         await newModelData.save();
       }
@@ -34,11 +35,19 @@ module.exports.updateCommodityGenresOrTags = async (newData, commodityId, type =
   });
 };
 
-module.exports.updateCommodityRating = async (commodityId, newRating, oldRating = null) => {
-  if (+newRating >= 0 && +newRating < 6) {
-    const reviewCommodity = await Goods.findById(commodityId);
-    await reviewCommodity.updateRating(+newRating, +oldRating);
+module.exports.updateCommodityRating = async (commodity, newRating, oldRating) => {
+  await commodity.updateRating(+newRating, +oldRating);
+};
+
+module.exports.updateReviewRelatedData = async ({ userId, commodityId, rating, reviewId, oldRating = null }) => {
+  const user = await Users.findById(userId),
+    commodity = await Goods.findById(commodityId);
+  
+  user.updateReviewsData(reviewId);
+  if (+rating >= 0 && rating <= 5) {
+    await this.updateCommodityRating(commodity, rating, oldRating);
   }
+  commodity.updateReviewsData(reviewId);
 };
 
 module.exports.updateAuthorData = async (author, commodityId, authorName) => {
@@ -47,7 +56,7 @@ module.exports.updateAuthorData = async (author, commodityId, authorName) => {
   } else {
     const newAuthor = new Authors({
       author: authorName,
-      goods: [{ commodityId }],
+      goods: [commodityId],
       goodsCount: 1,
     });
     await newAuthor.save();
@@ -57,12 +66,9 @@ module.exports.updateAuthorData = async (author, commodityId, authorName) => {
 module.exports.updateGoodsForClient = async (arrWithData, oldDataForClient = []) => {
   let newDataForClient = [];
   for (const el of arrWithData) {
-    const populatedData = await createPopuldatedData(el, 'goods.commodityId');
+    const populatedData = await createPopuldatedData(el, 'goods');
     if (oldDataForClient.length > 0) {
-      newDataForClient = createArrWithoutCopies(
-        convertArrayForClient(populatedData.goods, true),
-        oldDataForClient
-      );
+      newDataForClient = createArrWithoutCopies(convertArrayForClient(populatedData.goods, true), oldDataForClient);
     } else {
       newDataForClient = convertArrayForClient(populatedData.goods, true);
     }

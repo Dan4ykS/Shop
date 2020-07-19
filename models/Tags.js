@@ -8,11 +8,9 @@ const tags = new Schema({
   },
   goods: [
     {
-      commodityId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Goods',
-        require: true,
-      },
+      type: Schema.Types.ObjectId,
+      ref: 'Goods',
+      require: true,
     },
   ],
 });

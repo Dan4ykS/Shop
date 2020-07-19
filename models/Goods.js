@@ -1,7 +1,11 @@
 const { Schema, model } = require('mongoose');
-const { updateRating } = require('../utils/modelMethods');
+const { updateRating, updateCountReview, updateReviewsData } = require('../utils/modelMethods');
 
 const goods = new Schema({
+  author: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
@@ -69,8 +73,26 @@ const goods = new Schema({
       default: 0,
     },
   },
+  genres: [String],
+  tags: [String],
+  createdDate: {
+    type: Date,
+    default: Date.now,
+  },
+  reviews: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Reviews',
+    },
+  ],
+  countReviews: {
+    type: Number,
+    default: 0,
+  },
 });
 
 goods.methods.updateRating = updateRating;
+
+goods.methods.updateReviewsData = updateReviewsData;
 
 module.exports = model('Goods', goods);

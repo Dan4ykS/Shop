@@ -10,6 +10,10 @@ router.post('/createUser', controller.createUser);
 
 router.get('/getUsers', authAdmin, controller.getUsers);
 
+router.get('/getUserData', auth, controller.getUserData);
+
+router.get('/getAdminData', controller.getAdminData);
+
 router.post('/authUser', controller.authUser);
 
 router.get('/isValid', auth, controller.isValid);
@@ -17,6 +21,8 @@ router.get('/isValid', auth, controller.isValid);
 router.patch('/addToCart/:id', auth, controller.addToCart);
 
 router.delete('/removeFromCart/:id', auth, controller.removeFromCart);
+
+router.get('/buyGoods', auth, controller.buyGoods);
 
 router.get('/getUserCart', auth, controller.getUserCart);
 

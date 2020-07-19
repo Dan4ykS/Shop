@@ -1,13 +1,13 @@
 module.exports.addNewCommodity = async function (commodityId) {
-  const index = this.goods.findIndex((commodity) => commodity.commodityId.toString() === commodityId);
+  const index = this.goods.findIndex((commodity) => commodity.toString() === commodityId);
   if (index === -1) {
-    this.goods.push({ commodityId });
+    this.goods.push(commodityId);
   }
   return await this.save();
 };
 
 module.exports.removeCommodity = async function (commodityId) {
-  const index = this.goods.findIndex((commodity) => commodity.commodityId.toString() === commodityId);
+  const index = this.goods.findIndex((commodity) => commodity.toString() === commodityId);
   if (index !== -1) {
     this.goods.splice(index, 1);
   }
@@ -52,7 +52,7 @@ module.exports.updateCartPrices = async function (newPrice, commodityId) {
 const updateGeneralRating = ({ fiveStars, fourStars, threeStars, twoStars, oneStar }) => {
   const numberOfRatings = fiveStars + fourStars + threeStars + twoStars + oneStar;
   const sumOfRatings = fiveStars * 5 + fourStars * 4 + threeStars * 3 + twoStars * 2 + oneStar * 1;
-  return sumOfRatings && numberOfRatings ? (sumOfRatings / numberOfRatings).toFixed(2) : 0;
+  return sumOfRatings && numberOfRatings ? (sumOfRatings / numberOfRatings).toFixed(1) : 0;
 };
 
 module.exports.updateRating = async function (userRating, oldUserRating = null) {
@@ -100,14 +100,47 @@ module.exports.updateRating = async function (userRating, oldUserRating = null) 
   return await this.save();
 };
 
+module.exports.updateReviewsData = async function (reviewId) {
+  const reviewIndex = this.reviews.findIndex((id) => id.toString() === reviewId.toString());
+  if (reviewIndex === -1) {
+    this.reviews.push(reviewId);
+    this.countReviews += 1;
+  } else {
+    this.reviews.splice(reviewIndex, 1);
+    this.countReviews -= 1;
+  }
+  return await this.save();
+};
+
 module.exports.updateCommodityList = async function (commodityId) {
-  const commodityIndex = this.goods.findIndex((commodity) => commodity.commodityId.toString() === commodityId);
+  const commodityIndex = this.goods.findIndex((id) => id.toString() === commodityId);
   if (commodityIndex === -1) {
-    this.goods.push({ commodityId });
+    this.goods.push(commodityId);
     this.goodsCount += 1;
   } else {
     this.goods.splice(commodityIndex, 1);
     this.goodsCount -= 1;
   }
+  return await this.save();
+};
+
+module.exports.buyCommodity = async function (commodityId) {
+  const commodityIndex = this.boughtGoods.findIndex((id) => id.toString() === commodityId);
+  if (commodityIndex === -1) {
+    this.boughtGoods = [commodityId, ...this.boughtGoods];
+  }
+  return await this.save();
+};
+
+module.exports.buyGoodsInCart = async function () {
+  const cart = this.cart,
+    oldBoughtGoods = this.boughtGoods;
+
+  cart.cartItems.forEach((commodity, index) => {
+    const commodityPrice = commodity.price;
+    this.boughtGoods = [commodity.commodityId, ...oldBoughtGoods];
+    cart.totalPrice -= commodityPrice;
+  });
+  cart.cartItems = [];
   return await this.save();
 };
