@@ -35,24 +35,26 @@ const App = ({ actions, history }) => {
   return (
     <>
       <Header />
-      <div className='container content'>
-        <React.Suspense fallback={<LoadingIndicator />}>
-          <Switch>
-            <Route path='/' component={MainPage} exact />
-            <Route path='/Goods' component={GoodsPage} exact />
-            <Route path='/Goods/commodity-:id' component={CommodityPage} exact />
-            <Route path='/Cart' component={CartPage} exact />
-            <Route path='/Login' component={LoginPage} exact />
-            <Route path='/Registration' component={RegistrationPage} exact />
-            <Route path='/MyAccount' component={AccountPage} exact />
-            <Route path='/helpLogin/' component={HelpLoginPage} />
-            <Route path='/resetPassword/token=:id' component={ResetPasswordPage} exact />
-            <Route path='/admin' component={AdminPage} exact />
-            <Route path='/admin/createCommodity' component={CreateСommodityPage} exact />
-            <Route path='/admin/updateCommodity/:id' component={UpdateCommodityPage} />
-            <Route component={NotFoundPage} exact />
-          </Switch>
-        </React.Suspense>
+      <div className='content'>
+        <div className='container'>
+          <React.Suspense fallback={<LoadingIndicator />}>
+            <Switch>
+              <Route path='/' component={MainPage} exact />
+              <Route path='/Goods/:params?' component={GoodsPage} exact />
+              <Route path='/Goods/commodity-:id' component={CommodityPage} exact />
+              <Route path='/Cart' component={CartPage} exact />
+              <Route path='/Login' component={LoginPage} exact />
+              <Route path='/Registration' component={RegistrationPage} exact />
+              <Route path='/MyAccount' component={AccountPage} exact />
+              <Route path='/helpLogin/' component={HelpLoginPage} />
+              <Route path='/resetPassword/token=:id' component={ResetPasswordPage} exact />
+              <Route path='/admin' component={AdminPage} exact />
+              <Route path='/admin/createCommodity' component={CreateСommodityPage} exact />
+              <Route path='/admin/updateCommodity/:id' component={UpdateCommodityPage} />
+              <Route component={NotFoundPage} exact />
+            </Switch>
+          </React.Suspense>
+        </div>
       </div>
       <Footer />
     </>

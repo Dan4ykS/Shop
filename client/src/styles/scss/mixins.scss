@@ -1,26 +1,7 @@
-@mixin button {
-  text-transform: uppercase;
-  background-color: rgba(255, 255, 255, 1);
-  border: 2px solid #536d8a;
-  border-radius: 27px;
-  color: #000000;
-  font-size: 20px;
-  &:hover {
-    background-color: orange;
-    border-color: transparent;
-    border-style: solid;
-    border-width: 2px;
-    color: white;
-  }
-  &:focus {
-    outline: none;
-  }
-}
-
 @mixin feedbackIconsStyle ($fontSize, $padding) {
-  color: $textColor;
+  color: $textColor2;
   padding: $padding;
   border-radius: 100%;
-  background-color: $headerBg;
+  background-color: $mainColor;
   font-size: $fontSize;
 }

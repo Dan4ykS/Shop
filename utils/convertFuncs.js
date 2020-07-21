@@ -10,18 +10,14 @@ module.exports.convertDataForClient = (data) => {
       delete data[key];
     }
     if (key === 'createdDate') {
-      delete data[key]
+      delete data[key];
     }
   }
   return data;
 };
 
-module.exports.convertArrayForClient = (data, populatedData = false) => {
-  if (populatedData) {
-    return data.map((el) => this.convertDataForClient(el._doc));
-  } else {
-    return data.map((el) => this.convertDataForClient(el.toObject()));
-  }
+module.exports.convertArrayForClient = (data) => {
+  return data.map((el) => this.convertDataForClient(el.toObject()));
 };
 
 module.exports.toTitleCase = (str) => v.titleCase(str, [' ']);

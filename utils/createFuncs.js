@@ -76,7 +76,6 @@ module.exports.createJwtToken = (data, lifetime = '1h') => {
 };
 
 module.exports.createPopuldatedData = async (data, pathForPopulate) => {
-  // console.log(await data.populate(pathForPopulate).execPopulate());
   return await data.populate(pathForPopulate).execPopulate();
 };
 

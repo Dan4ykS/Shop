@@ -42,7 +42,7 @@ module.exports.updateCommodityRating = async (commodity, newRating, oldRating) =
 module.exports.updateReviewRelatedData = async ({ userId, commodityId, rating, reviewId, oldRating = null }) => {
   const user = await Users.findById(userId),
     commodity = await Goods.findById(commodityId);
-  
+
   user.updateReviewsData(reviewId);
   if (+rating >= 0 && rating <= 5) {
     await this.updateCommodityRating(commodity, rating, oldRating);
@@ -68,9 +68,12 @@ module.exports.updateGoodsForClient = async (arrWithData, oldDataForClient = [])
   for (const el of arrWithData) {
     const populatedData = await createPopuldatedData(el, 'goods');
     if (oldDataForClient.length > 0) {
-      newDataForClient = createArrWithoutCopies(convertArrayForClient(populatedData.goods, true), oldDataForClient);
+      newDataForClient = createArrWithoutCopies(convertArrayForClient(populatedData.goods), [
+        ...oldDataForClient,
+        ...newDataForClient,
+      ]);
     } else {
-      newDataForClient = convertArrayForClient(populatedData.goods, true);
+      newDataForClient = createArrWithoutCopies(newDataForClient, convertArrayForClient(populatedData.goods));
     }
   }
   return newDataForClient;

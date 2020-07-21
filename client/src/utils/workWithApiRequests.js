@@ -10,6 +10,7 @@ import {
   redirectToPage,
   scrollToElem,
   hidenModal,
+  scrollToTop,
 } from './workWithBrowser';
 import GoodsService from '../services/GoodsService';
 
@@ -117,5 +118,16 @@ export const deleteCommodity = async (id, token, history) => {
     redirectToPage(history, '/admin');
   } catch (error) {
     alert(`Ошибка при удалении книги с id:${id}`);
+  }
+};
+
+export const findGoods = async (e, history, queryForSearch, funcForSearch) => {
+  e.persist();
+  e.preventDefault();
+  const path = `/Goods/serch=${queryForSearch}`;
+  if (history.location.pathname !== path && queryForSearch.trim()) {
+    history.push(path);
+    scrollToTop();
+    await funcForSearch(queryForSearch);
   }
 };

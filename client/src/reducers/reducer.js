@@ -1,7 +1,6 @@
 import updategoodsList from './updateGoodsList';
 import updateShopingCart from './updateShopingCart';
 import updateUserData from './updateUserData';
-import updateMenuItems from './updateMenuItems';
 import updateCommodityData from './updateCommodityData';
 
 const reducer = (state, action) => {
@@ -9,7 +8,6 @@ const reducer = (state, action) => {
     goodsList: updategoodsList(state, action),
     shopingCart: updateShopingCart(state, action),
     userData: updateUserData(state, action),
-    menuItems: updateMenuItems(state, action),
     commodityData: updateCommodityData(state, action),
   };
 };

@@ -1,0 +1,24 @@
+@import "../../styles/scss/variables.scss";
+
+.search {
+  position: relative;
+  input {
+    width: 100%;
+    padding-right: 30px;
+    border-width: 1px;
+  }
+  button {
+    position: absolute;
+    right: -2%;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    color: $textColor;
+    &:hover {
+      box-shadow: none;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}

@@ -2,7 +2,7 @@
 @import "../../styles/scss/mixins.scss";
 
 .footer {
-  background: $footerBg;
+  background-color: $footerBg;
   margin-top: 10px;
   height: 50px;
   .upArrow {
@@ -10,7 +10,7 @@
     bottom: 3%;
     left: 2%;
     .fa-chevron-up {
-      color: $headerBg;
+      color: $mainColor;
       padding: 1px 8px 5px 8px;
       border-radius: 100%;
     }
@@ -34,8 +34,8 @@
       position: absolute;
       bottom: 0;
       right: 0;
-      .fa-phone {
-        @include feedbackIconsStyle(60px, 15px);
+      .fa-comment-dots {
+        @include feedbackIconsStyle(65px, 12px);
       }
     }
     .helperIcon {

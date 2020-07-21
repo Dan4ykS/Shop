@@ -23,7 +23,7 @@ body {
   font-weight: 400;
   line-height: 1.5;
   text-align: left;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'IBM Plex Serif', serif;
   text-rendering: optimizeSpeed;
 }
 
@@ -44,8 +44,8 @@ h6 {
 ol,
 ul,
 dl {
-  margin-top: 0;
-  margin-bottom: 1rem;
+  margin: 0;
+  padding: 0;
 }
 
 ol ol,
@@ -64,6 +64,11 @@ a {
 a:hover {
   color: #0056b3;
   text-decoration: underline;
+}
+
+a.btn:hover {
+  color: #ffffff;
+  text-decoration: none;
 }
 
 a:not([href]) {

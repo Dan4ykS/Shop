@@ -46,14 +46,37 @@ export const showFooterHidenElements = () => {
   });
 };
 
-export const headerFixMenu = () => {
-  window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 50) {
-      findNeedElement('.header__main').classList.add('header_fixed');
-    } else {
-      findNeedElement('.header__main').classList.remove('header_fixed');
-    }
-  });
+export const toggleSearchForMobile = (e) => {
+  const parentNode = e.target.closest('svg'),
+    content = findNeedElement('.content'),
+    contentPaddingTop = window.getComputedStyle(content).paddingTop;
+
+  parentNode.nextElementSibling.classList.toggle('hidenElem');
+  if (contentPaddingTop === '100px') {
+    content.style.paddingTop = '70px';
+  } else {
+    content.style.paddingTop = '100px';
+  }
+};
+
+export const showMobileSideBar = () => {
+  const mobileSideBar = findNeedElement('.mobileSideBar'),
+    body = findNeedElement('body'),
+    mobileClose = findNeedElement('.mobileSideBar_close');
+
+  mobileSideBar.classList.add('mobileSideBar_active');
+  mobileClose.style.display = 'block';
+  body.style.overflow = 'hidden';
+};
+
+export const closeMobileSideBar = () => {
+  const body = findNeedElement('body'),
+    mobileSideBar = findNeedElement('.mobileSideBar'),
+    mobileSideBarClose = findNeedElement('.mobileSideBar_close');
+
+  mobileSideBar.classList.remove('mobileSideBar_active');
+  mobileSideBarClose.style.display = 'none';
+  body.style.overflow = 'auto';
 };
 
 export const scrollToElem = (updateImgComp) => {
@@ -61,6 +84,10 @@ export const scrollToElem = (updateImgComp) => {
     behavior: 'smooth',
     block: 'start',
   });
+};
+
+export const scrollToTop = () => {
+  window.scrollTo({ behavior: 'smooth', top: [0, 0] });
 };
 
 export const redirectToLink = (link) => {

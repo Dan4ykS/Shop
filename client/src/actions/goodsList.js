@@ -14,6 +14,16 @@ export const fetchGoods = (offset, limit) => async (dispatch) => {
     const data = await GoodsService.getGoods(offset, limit);
     dispatch(fetchGoodsSuccuess(data));
   } catch (error) {
-    dispatch(fetchGoodsFailure(error));
+    dispatch(fetchGoodsFailure());
+  }
+};
+
+export const searchGoods = (queryForSearch, offset, limit) => async (dispatch) => {
+  try {
+    dispatch(fetchGoodsRequest());
+    const data = await GoodsService.findGoods(queryForSearch, offset, limit);
+    dispatch(fetchGoodsSuccuess(data));
+  } catch (error) {
+    dispatch(fetchGoodsFailure())
   }
 };
