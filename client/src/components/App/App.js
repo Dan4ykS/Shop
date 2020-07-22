@@ -35,13 +35,12 @@ const App = ({ actions, history }) => {
   return (
     <>
       <Header />
-      <div className='content'>
-        <div className='container'>
+      <div className='content container'>
           <React.Suspense fallback={<LoadingIndicator />}>
             <Switch>
               <Route path='/' component={MainPage} exact />
-              <Route path='/Goods/:params?' component={GoodsPage} exact />
               <Route path='/Goods/commodity-:id' component={CommodityPage} exact />
+              <Route path='/Goods/:params?' component={GoodsPage} exact />
               <Route path='/Cart' component={CartPage} exact />
               <Route path='/Login' component={LoginPage} exact />
               <Route path='/Registration' component={RegistrationPage} exact />
@@ -54,7 +53,6 @@ const App = ({ actions, history }) => {
               <Route component={NotFoundPage} exact />
             </Switch>
           </React.Suspense>
-        </div>
       </div>
       <Footer />
     </>

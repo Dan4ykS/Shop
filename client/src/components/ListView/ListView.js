@@ -1,17 +1,41 @@
 import React from 'react';
 import StringHelper from '../../utils/StringHelper';
 
-const ListView = ({ listForRender, ComponentForRender, ComponentWithoutData = null, ...extraParams }) => {
+const ListView = ({
+  listForRender,
+  ComponentForRender,
+  AdditionalСomponentForRender = null,
+  ComponentWithoutData = null,
+  numberToAlternate = 4,
+  ...extraParams
+}) => {
   if (listForRender.length === 0) {
     const componentForRender = ComponentWithoutData ? ComponentWithoutData : null;
     return <>{componentForRender}</>;
   }
+
   return (
-    <div className='row'>
-      {listForRender.map((dataForComponent) => (
-        <ComponentForRender key={dataForComponent?.id || StringHelper.createId()} data={dataForComponent} {...extraParams} />
-      ))}
-    </div>
+    <>
+      {listForRender.map((dataForComponent, elIndex) => {
+        if (AdditionalСomponentForRender && (elIndex + 1) % numberToAlternate === 0) {
+          return (
+            <AdditionalСomponentForRender
+              key={dataForComponent?.id || StringHelper.createId()}
+              data={dataForComponent}
+              {...extraParams}
+            />
+          );
+        } else {
+          return (
+            <ComponentForRender
+              key={dataForComponent?.id || StringHelper.createId()}
+              data={dataForComponent}
+              {...extraParams}
+            />
+          );
+        }
+      })}
+    </>
   );
 };
 

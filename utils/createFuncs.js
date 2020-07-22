@@ -2,7 +2,7 @@ const moment = require('moment');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 
-module.exports.createObjForUpdateImg = (src, type, alt, oldId, newId) => {
+const createObjForUpdateImg = (src, type, alt, oldId, newId) => {
   return {
     [`${type}Src`]: src,
     [`${type}Alt`]: alt,

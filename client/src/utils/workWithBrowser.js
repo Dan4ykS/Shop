@@ -52,10 +52,10 @@ export const toggleSearchForMobile = (e) => {
     contentPaddingTop = window.getComputedStyle(content).paddingTop;
 
   parentNode.nextElementSibling.classList.toggle('hidenElem');
-  if (contentPaddingTop === '100px') {
-    content.style.paddingTop = '70px';
+  if (contentPaddingTop === '80px') {
+    content.style.paddingTop = '50px';
   } else {
-    content.style.paddingTop = '100px';
+    content.style.paddingTop = '80px';
   }
 };
 

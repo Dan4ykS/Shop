@@ -1,0 +1,94 @@
+@import "../../styles/scss/main.scss";
+
+.preview {
+  border: 2px solid $mainColor;
+  border-radius: 15px;
+  position: relative;
+  margin-bottom: 20px;
+  height: 454px;
+  &__content {
+    &-img,
+    &-info {
+      height: 400px;
+    }
+    &-img {
+      width: 40%;
+      padding: 20px;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 40%;
+        width: 1px;
+        height: 100%;
+        background-color: $mainColor;
+      }
+    }
+    &-info {
+      width: 60%;
+      text-align: left;
+      padding: 15px;
+      div {
+        cursor: default;
+        &:nth-child(n + 3) {
+          margin-top: 10px;
+        }
+        &:first-child {
+          font-weight: 700;
+          font-size: 34px;
+        }
+        &:nth-child(2) {
+          font-size: 15px;
+        }
+        &:nth-child(3) {
+          font-size: 20px;
+        }
+        &:nth-child(4) {
+          font-size: 16px;
+        }
+      }
+    }
+    &-rating {
+      position: absolute;
+      width: 60px;
+      top: -5%;
+      right: -3%;
+    }
+  }
+  &__detail {
+    height: 54px;
+    &-more {
+      width: 40%;
+      .btn {
+        width: 100%;
+        border-radius: 0 0 0 12px;
+      }
+    }
+    &-buy {
+      width: 60%;
+      div {
+        width: 60%;
+        p {
+          font-size: 30px;
+        }
+        .fa-ruble-sign {
+          margin-left: 20px;
+          font-size: 23px;
+        }
+        ::before {
+          content: "";
+          position: absolute;
+          bottom: 45px;
+          left: 0;
+          right: 0;
+          height: 1px;
+          background-color: $mainColor;
+        }
+      }
+      button {
+        width: 40%;
+        border-radius: 0 0 12px 0;
+      }
+    }
+  }
+}

@@ -88,7 +88,6 @@ export const workWithCommodityData = async (e, updatedFields, token, type, commo
     }
   } else {
     try {
-      console.log(objForRequest);
       await GoodsService.createCommodity(objForRequest, token);
       scrollToElem('header');
       redirectToPage(history, '/admin');

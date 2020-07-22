@@ -1,0 +1,12 @@
+@import "../../../styles/scss/variables.scss";
+
+.ratingInMedal {
+  position: relative;
+  span {
+    position: absolute;
+    top: 17%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: $textColor2;
+  }
+}

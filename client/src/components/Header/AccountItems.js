@@ -33,7 +33,7 @@ const AccountItems = ({ userData: { userName }, mode = 'desktop' }) => {
       <>
         <Link to='/MyAccount' className='flexWrap' onClick={() => scrollToTop()}>
           <FontAwesomeIcon icon={faUserCircle} />
-          <div className={mode === 'mobile' ? 'hidenElem' : null}>Аккаунт</div>
+          <div className={mode === 'mobile' ? 'hidenElem' : null}>{userName}</div>
         </Link>
         <div className={mode === 'mobile' ? 'hidenElem' : null}>/</div>
         <Link to='/Cart' className='flexWrap' onClick={() => scrollToTop()}>

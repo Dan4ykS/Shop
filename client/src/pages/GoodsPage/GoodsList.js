@@ -1,8 +1,8 @@
 import React from 'react';
-import { fetchGoods } from '../../actions/goodsList';
 import LoadingData from '../../components/LoadingData';
 import ListView from '../../components/ListView';
-import CommodityDetail from '../../components/CommodityDetail/CommodityDetail';
+import CommodityPreviewCard from '../../components/CommodityPreviewCard';
+import { fetchGoods } from '../../actions/goodsList';
 import { getDateFromLocalStorage } from '../../utils/workWithBrowser';
 import { connectToStore } from '../../utils/workWithRedux';
 
@@ -13,11 +13,18 @@ const GoodsList = ({ goodsList: { goods, loading, error }, actions: { fetchGoods
         loading,
         error,
         funcForRender: !getDateFromLocalStorage('userData') && !goods.lenght ? () => fetchGoods(0, 3) : null,
-        routeForRedirect: '/',
+        routeForRedirect: '/Goods',
       }}
     >
-      <h2>Товары</h2>
-      <ListView listForRender={goods} ComponentForRender={CommodityDetail} />
+      <h2 style={{marginBottom: '30px'}}>Товары</h2>
+      <div className='row'>
+        <ListView
+          listForRender={goods}
+          ComponentForRender={CommodityPreviewCard}
+          AdditionalСomponentForRender={() => <h2>Я работаю</h2>}
+          numberToAlternate={4}
+        />
+      </div>
     </LoadingData>
   );
 };
