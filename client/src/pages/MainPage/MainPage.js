@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+// import
 
 const MainPage = () => {
-  useEffect(() => { 
-    console.log('Главная страница создалась');
-  }, [])
   return (
     <>
       <h2>Главная страница! </h2>
+       {/* <LoadingData>
+       </LoadingData>   */}
     </>
   );
 };

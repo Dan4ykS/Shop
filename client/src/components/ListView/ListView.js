@@ -13,7 +13,6 @@ const ListView = ({
     const componentForRender = ComponentWithoutData ? ComponentWithoutData : null;
     return <>{componentForRender}</>;
   }
-
   return (
     <>
       {listForRender.map((dataForComponent, elIndex) => {
