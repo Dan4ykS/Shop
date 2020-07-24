@@ -32,7 +32,7 @@ const CartPage = ({ shopingCart: { totalPrice, cart, loading, updatedPrice }, us
       <ListView
         listForRender={cart}
         ComponentForRender={CartCommudityDetail}
-        ComponentWithoutData={<h3>Вы еще ничего не выбрали</h3>}
+        ComponentWithoutData={() => <h3>Вы еще ничего не выбрали</h3>}
         history={history}
       />
       {price}

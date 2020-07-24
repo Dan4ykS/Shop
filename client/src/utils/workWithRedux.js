@@ -35,11 +35,7 @@ export const connectToStore = (stateElements, actions) => (Component, withRoute 
     return { ...stateForComponent };
   }
   function mapDispatchToProps(dispatch) {
-    const actionsForComponent = {};
-    if (actions) {
-      actions.forEach((action) => (actionsForComponent[action.name] = action));
-    }
-    return { actions: bindActionCreators({ ...actionsForComponent }, dispatch) };
+    return { actions: bindActionCreators({ ...actions }, dispatch) };
   }
   return connect(mapStateToProps, mapDispatchToProps)(withRoute ? withRouter(Component) : Component);
 };

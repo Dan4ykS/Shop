@@ -10,7 +10,7 @@ const ListView = ({
   ...extraParams
 }) => {
   if (listForRender.length === 0) {
-    const componentForRender = ComponentWithoutData ? ComponentWithoutData : null;
+    const componentForRender = ComponentWithoutData ? <ComponentWithoutData/> : null;
     return <>{componentForRender}</>;
   }
   return (

@@ -38,5 +38,5 @@ const UpdateCommodityPage = ({ commodityData, actions, userData: { token, error:
 
 export default connectToStore(
   ['userData', 'commodityData'],
-  [fetchCommodity, updateDescr, updateImg, updatePreviewImg, updatePrice, updateShortDescr, updateTitle]
+  { fetchCommodity, updateDescr, updateImg, updatePreviewImg, updatePrice, updateShortDescr, updateTitle }
 )(UpdateCommodityPage, true);

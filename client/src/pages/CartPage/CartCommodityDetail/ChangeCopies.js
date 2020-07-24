@@ -19,4 +19,4 @@ const ChangeCopies = ({ userData: { token }, actions: { onAddedToCart, onDeleted
   );
 };
 
-export default connectToStore(['userData.token'], [onAddedToCart, onDeletedFromCart])(ChangeCopies);
+export default connectToStore(['userData.token'], { onAddedToCart, onDeletedFromCart })(ChangeCopies);

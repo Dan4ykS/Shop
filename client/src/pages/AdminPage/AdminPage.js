@@ -24,4 +24,4 @@ const AdminPage = ({ userData: { loading, error }, actions: { isLogout }, histor
   );
 };
 
-export default connectToStore(['userData'], [isLogout])(AdminPage, true);
+export default connectToStore(['userData'], { isLogout })(AdminPage, true);

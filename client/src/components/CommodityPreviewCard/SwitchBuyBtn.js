@@ -19,4 +19,4 @@ const SwitchBuyBtn = ({ userData: { token, userName }, actions: { onAddedToCart 
   }
 };
 
-export default connectToStore(['userData'], [onAddedToCart])(SwitchBuyBtn);
+export default connectToStore(['userData'], { onAddedToCart })(SwitchBuyBtn);

@@ -23,4 +23,4 @@ const Search = ({ actions: { searchGoods }, history }) => {
   );
 };
 
-export default connectToStore(null, [searchGoods])(Search, true);
+export default connectToStore(null, { searchGoods })(Search, true);

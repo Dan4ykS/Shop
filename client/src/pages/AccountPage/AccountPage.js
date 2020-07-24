@@ -22,4 +22,4 @@ const AccountPage = ({
   );
 };
 
-export default connectToStore(['userData'],[isLogout])(AccountPage, true);
+export default connectToStore(['userData'], { isLogout })(AccountPage, true);

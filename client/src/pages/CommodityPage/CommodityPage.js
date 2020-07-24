@@ -27,4 +27,4 @@ const CommodityPage = ({ commodityData: { loading, error }, actions: { fetchComm
   );
 };
 
-export default connectToStore(['commodityData'], [fetchCommodity])(CommodityPage, true);
+export default connectToStore(['commodityData'], { fetchCommodity })(CommodityPage, true);

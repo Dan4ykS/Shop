@@ -7,8 +7,10 @@ import { scrollToTop, toggleSearchForMobile, showMobileSideBar, closeMobileSideB
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { connectToStore } from '../../utils/workWithRedux';
+import { fetchGoods, fetchPopularGoods, fetchNewGoods } from '../../actions/goodsList';
 
-const Header = () => {
+const Header = ({ actions: { fetchGoods, fetchPopularGoods, fetchNewGoods } }) => {
   return (
     <>
       <header className='header'>
@@ -23,13 +25,34 @@ const Header = () => {
             >
               <img src={logo} alt='logo' />
             </Link>
-            <Link to='/Goods/new' className='header__item' onClick={() => scrollToTop()}>
+            <Link
+              to='/Goods/new'
+              className='header__item'
+              onClick={() => {
+                fetchNewGoods();
+                scrollToTop();
+              }}
+            >
               Новинки
             </Link>
-            <Link to='/Goods/popular' className='header__item' onClick={() => scrollToTop()}>
+            <Link
+              to='/Goods/popular'
+              className='header__item'
+              onClick={() => {
+                fetchPopularGoods();
+                scrollToTop();
+              }}
+            >
               Популярное
             </Link>
-            <Link to='/Goods' className='header__item' onClick={() => scrollToTop()}>
+            <Link
+              to='/Goods'
+              className='header__item'
+              onClick={() => {
+                fetchGoods();
+                scrollToTop();
+              }}
+            >
               Все книги
             </Link>
             <div className='header__item header__item_search'>
@@ -67,6 +90,7 @@ const Header = () => {
           className='header__item_mobile'
           onClick={() => {
             closeMobileSideBar();
+            fetchNewGoods();
             scrollToTop();
           }}
         >
@@ -77,6 +101,7 @@ const Header = () => {
           className='header__item_mobile'
           onClick={() => {
             closeMobileSideBar();
+            fetchPopularGoods();
             scrollToTop();
           }}
         >
@@ -87,6 +112,7 @@ const Header = () => {
           className='header__item_mobile'
           onClick={() => {
             closeMobileSideBar();
+            fetchGoods();
             scrollToTop();
           }}
         >
@@ -98,4 +124,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default connectToStore(null, { fetchGoods, fetchPopularGoods, fetchNewGoods })(Header);

@@ -4,7 +4,10 @@ import { chekAccessToResetPasswordPage } from './resetPasswordPage';
 import { defaultActions } from './default';
 import { findPathParams } from '../utils/workWithBrowser';
 
-export const chekAccess = async (localStorageData, { isLogin, loadCart, fetchGoods, fetchCommodity }, history) => {
+export const chekAccess = async (localStorageData, actions, history) => {
+  console.log(actions);
+  const { isLogin, loadCart, fetchGoods, fetchCommodity, h } = actions;
+  console.log(isLogin, h);
   let path = history.location.pathname.slice(1),
     params;
 

@@ -1,28 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import LoadingData from '../../components/LoadingData';
 import ListView from '../../components/ListView';
 import CommodityPreviewCard from '../../components/CommodityPreviewCard';
 import SmallCommodityPreviewCard from '../../components/CommodityPreviewCard/Small';
-import { fetchGoods } from '../../actions/goodsList';
-import { getDateFromLocalStorage } from '../../utils/workWithBrowser';
 import { connectToStore } from '../../utils/workWithRedux';
 
-const GoodsList = ({ goodsList: { goods, loading, error }, actions: { fetchGoods } }) => {
+const GoodsList = ({ goodsList: { goods, loading, error }, action, ComponentWithoutData = null }) => {
   return (
     <LoadingData
       configData={{
         loading,
         error,
-        funcForRender: !getDateFromLocalStorage('userData') && !goods.lenght ? () => fetchGoods(0, 3) : null,
+        funcForRender: () => action(0, 5),
         routeForRedirect: '/Goods',
       }}
     >
-      <h2 style={{ marginBottom: '30px' }}>Товары</h2>
       <div className='row'>
         <ListView
           listForRender={goods}
           ComponentForRender={SmallCommodityPreviewCard}
           AdditionalСomponentForRender={CommodityPreviewCard}
+          ComponentWithoutData={ComponentWithoutData}
           numberToAlternate={5}
         />
       </div>
@@ -30,4 +28,4 @@ const GoodsList = ({ goodsList: { goods, loading, error }, actions: { fetchGoods
   );
 };
 
-export default connectToStore(['goodsList'], [fetchGoods])(GoodsList);
+export default connectToStore(['goodsList'], null)(GoodsList);

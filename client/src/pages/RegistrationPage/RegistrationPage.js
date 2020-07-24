@@ -69,4 +69,4 @@ const RegistrationPage = ({ actions: { registration }, history }) => {
     </>
   );
 };
-export default connectToStore(null, [registration])(RegistrationPage, true);
+export default connectToStore(null, { registration })(RegistrationPage, true);

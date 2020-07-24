@@ -63,16 +63,15 @@
       }
     }
     &-moreInfo {
-      z-index: -5;
       visibility: hidden;
       opacity: 0;
       position: absolute;
-      transition: all 0.5s;
       height: 0;
       bottom: 45px;
       color: $textColor2;
+      background-color: $textColor;
       padding: 5px 8px;
-      cursor: default;
+      transition: visibility linear 60ms, opacity linear 0.5s, height ease-out 0.5s;
       a {
         color: $textColor2;
       }
@@ -90,7 +89,6 @@
       &_active {
         visibility: visible;
         opacity: 0.8;
-        z-index: 15;
         background-color: $textColor;
         height: 200px;
       }

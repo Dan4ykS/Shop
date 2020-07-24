@@ -4,6 +4,7 @@
 
 body {
   color: $textColor;
+  cursor: default;
 }
 
 @media (max-width: 575px) {
@@ -44,7 +45,7 @@ h6 {
 
 .content {
   background-color: $textColor2;
-  padding-top: 50px;
+  padding-top: 70px;
   padding-bottom: 20px;
   min-height: 10000px;
 }
