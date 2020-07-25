@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import LoadingData from '../../components/LoadingData';
 import ListView from '../../components/ListView';
 import CommodityPreviewCard from '../../components/CommodityPreviewCard';
@@ -11,7 +11,7 @@ const GoodsList = ({ goodsList: { goods, loading, error }, action, ComponentWith
       configData={{
         loading,
         error,
-        funcForRender: () => action(0, 5),
+        funcForRender: goods.lengt ? null : action,
         routeForRedirect: '/Goods',
       }}
     >

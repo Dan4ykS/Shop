@@ -4,10 +4,15 @@ import { Redirect } from 'react-router-dom';
 
 export default class LoadingData extends React.Component {
   componentDidMount() {
+    console.log('Компонент создался');
     const { funcForRender = null } = this.props.configData;
     if (funcForRender) {
       funcForRender();
     }
+  }
+
+  componentWillUnmount() { 
+    console.log('Компонент удалился');
   }
   render() {
     const { loading, error, routeForRedirect = '/Login' } = this.props.configData,

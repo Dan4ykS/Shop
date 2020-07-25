@@ -3,7 +3,7 @@ import LoadingIndicator from '../LoadingIndicator/LoadingIndicator';
 import Header from '../Header';
 import Footer from '../Footer';
 import { connectToStore } from '../../utils/workWithRedux';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { getDateFromLocalStorage } from '../../utils/workWithBrowser';
 import { chekAccess } from '../../access';
 import { isLogin } from '../../actions/userData';
@@ -11,7 +11,6 @@ import { loadCart } from '../../actions/shopingCart';
 import { fetchGoods } from '../../actions/goodsList';
 import { fetchCommodity } from '../../actions/commodityData';
 import { createLazyPage } from '../../utils/workWithReactElements';
-import { connect } from 'react-redux';
 
 const MainPage = createLazyPage('Main'),
   GoodsPage = createLazyPage('Goods'),
@@ -30,7 +29,6 @@ const MainPage = createLazyPage('Main'),
 const App = ({ actions, history }) => {
   // const actions = { isLogin, loadCart, fetchCommodity, fetchGoods };
   useEffect(() => {
-    console.log(actions);
     // console.log('Вызвался UseEffect из App', userName);
     chekAccess(getDateFromLocalStorage('userData'), actions, history);
   }, [actions, history]);

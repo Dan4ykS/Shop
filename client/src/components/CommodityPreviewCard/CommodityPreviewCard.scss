@@ -27,6 +27,9 @@
       &_small {
         padding: 20px;
         height: 100%;
+        img {
+          max-height: 354px;
+        }
       }
     }
     &-info {
