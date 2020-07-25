@@ -1,5 +1,16 @@
 import StringHelper from '../utils/StringHelper';
-import { FETCH_COMMODITY_REQUEST, FETCH_COMMODITY_SUCCUESS, FETCH_COMMODITY_FAILURE, RESET_COMMODITY_DATA, UPDATE_IMG, UPDATE_PREVIEWIMG, UPDATE_TITLE, UPDATE_SHORTDESCR, UPDATE_DESCR, UPDATE_PRICE } from '../actions/types';
+import {
+  FETCH_COMMODITY_REQUEST,
+  FETCH_COMMODITY_SUCCUESS,
+  FETCH_COMMODITY_FAILURE,
+  RESET_COMMODITY_DATA,
+  UPDATE_IMG,
+  UPDATE_PREVIEWIMG,
+  UPDATE_TITLE,
+  UPDATE_SHORTDESCR,
+  UPDATE_DESCR,
+  UPDATE_PRICE,
+} from '../actions/types';
 
 const createAlt = (newData, oldData, type) => {
   const newAlt = newData ? newData[`${type}Alt`] : null,
@@ -59,12 +70,12 @@ const updateField = (commodityData, fieldName, newFieldData) => {
 
 const defaultCommodityDataState = {
   id: null,
-  title: null,
-  shortDescr: null,
-  descr: null,
+  title: '',
+  shortDescr: '',
+  descr: '',
   previewImg: null,
   img: null,
-  price: null,
+  price: '',
   loading: true,
   error: null,
   updatedFields: {},

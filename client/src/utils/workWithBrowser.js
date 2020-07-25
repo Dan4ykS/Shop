@@ -6,79 +6,6 @@ export const findNeedElement = (selector) => {
   return document.querySelector(selector);
 };
 
-export const feedbackMouseLeave = () => {
-  findNeedElements('.helperIcon').forEach((el) => {
-    el.classList.remove('helperIcon_active');
-    el.childNodes.forEach((el) => {
-      el.classList.remove('fab_active');
-    });
-    setTimeout(() => el.classList.add('hidenElem'), 500);
-  });
-};
-
-export const feedbackMouseEnter = () => {
-  findNeedElements('.helperIcon').forEach(async (el) => {
-    el.classList.remove('hidenElem');
-    await new Promise((resolv) => setTimeout(() => el.classList.add('helperIcon_active'), 200));
-    el.childNodes.forEach((el) => {
-      el.classList.add('fab_active');
-    });
-  });
-};
-
-export const showFooterHidenElements = () => {
-  window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 298) {
-      findNeedElement('footer .feedback').classList.remove('hidenElem');
-      findNeedElement('footer .upArrow').classList.remove('hidenElem');
-    }
-    if (window.pageYOffset > 300) {
-      findNeedElements('footer .fas').forEach((el) => {
-        el.classList.add('fas_active');
-      });
-    } else {
-      findNeedElements('footer .fas').forEach((el) => {
-        el.classList.remove('fas_active');
-      });
-      findNeedElement('footer .feedback').classList.add('hidenElem');
-      findNeedElement('footer .upArrow').classList.add('hidenElem');
-    }
-  });
-};
-
-export const toggleSearchForMobile = (e) => {
-  const parentNode = e.target.closest('svg'),
-    content = findNeedElement('.content'),
-    contentPaddingTop = window.getComputedStyle(content).paddingTop;
-
-  parentNode.nextElementSibling.classList.toggle('hidenElem');
-  if (contentPaddingTop === '100px') {
-    content.style.paddingTop = '70px';
-  } else {
-    content.style.paddingTop = '100px';
-  }
-};
-
-export const showMobileSideBar = () => {
-  const mobileSideBar = findNeedElement('.mobileSideBar'),
-    body = findNeedElement('body'),
-    mobileClose = findNeedElement('.mobileSideBar_close');
-
-  mobileSideBar.classList.add('mobileSideBar_active');
-  mobileClose.style.display = 'block';
-  body.style.overflow = 'hidden';
-};
-
-export const closeMobileSideBar = () => {
-  const body = findNeedElement('body'),
-    mobileSideBar = findNeedElement('.mobileSideBar'),
-    mobileSideBarClose = findNeedElement('.mobileSideBar_close');
-
-  mobileSideBar.classList.remove('mobileSideBar_active');
-  mobileSideBarClose.style.display = 'none';
-  body.style.overflow = 'auto';
-};
-
 export const scrollToElem = (updateImgComp) => {
   findNeedElement(`.${updateImgComp}`).scrollIntoView({
     behavior: 'smooth',
@@ -96,6 +23,10 @@ export const redirectToLink = (link) => {
 
 export const disableBtn = (btnSelector) => {
   findNeedElement(`${btnSelector}`).setAttribute('disabled', true);
+};
+
+export const activateBtn = (btnSelector) => {
+  findNeedElement(`${btnSelector}`).removeAttribute('disabled');
 };
 
 export const createObjForRequest = (inputs) => {
@@ -132,10 +63,6 @@ export const isInvalid = (inputs) => {
     showPasswordElement.style.display = 'none';
   }
   inputs.forEach((el) => el.classList.add('isInvalid'));
-};
-
-export const activateBtn = (btnSelector) => {
-  findNeedElement(`${btnSelector}`).removeAttribute('disabled');
 };
 
 export const changePasswordType = (iconSelector, inputSelector) => {
@@ -200,6 +127,11 @@ export const initModalWindow = (modalSelector) => {
   });
 };
 
+export const hidenModal = () => {
+  findNeedElement('.modalWraper').classList.add('hidenElem');
+  findNeedElement('.modalWindow').classList.add('hidenElem');
+};
+
 export const validateInput = (e, updateFunction, validationCondition = null) => {
   const input = e.target;
   if ((validationCondition && !validationCondition(input)) || !input.value.trim()) {
@@ -213,20 +145,10 @@ export const validateInput = (e, updateFunction, validationCondition = null) => 
 
 export const chekValidDataInForm = (formSelector) => {
   const inputs = findNeedElements(`${formSelector} .formControl`);
-  let inputsIsValid = true;
-  inputs.forEach((el) => {
-    if (el.classList.contains('isInvalid')) {
-      inputsIsValid = false;
+  for (const input of inputs) {
+    if (input.classList.contains('isInvalid')) {
+      return false;
     }
-  });
-  return inputsIsValid;
-};
-
-export const setValues = (data) => {
-  return !data ? '' : data;
-};
-
-export const hidenModal = () => {
-  findNeedElement('.modalWraper').classList.add('hidenElem');
-  findNeedElement('.modalWindow').classList.add('hidenElem');
+  }
+  return true;
 };

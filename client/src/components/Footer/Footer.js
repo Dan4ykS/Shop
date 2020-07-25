@@ -1,15 +1,10 @@
 import React, { useEffect } from 'react';
 import './Footer.scss';
-import {
-  feedbackMouseEnter,
-  feedbackMouseLeave,
-  showFooterHidenElements,
-  redirectToLink,
-  scrollToTop,
-} from '../../utils/workWithBrowser';
+import { redirectToLink, scrollToTop } from '../../utils/workWithBrowser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import { faInstagram, faVk, faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { feedbackMouseLeave, feedbackMouseEnter, showFooterHidenElements } from './utils';
 
 const Footer = () => {
   useEffect(() => {

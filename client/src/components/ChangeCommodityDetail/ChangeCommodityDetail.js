@@ -3,7 +3,7 @@ import ImgUploader from '../ImgUploader';
 import ChangeCommodityBtn from './ChangeCommodityBtn';
 import './ChangeCommodityDetail.scss';
 import { workWithCommodityData, deleteCommodity } from '../../utils/workWithApiRequests';
-import { validateInput, setValues } from '../../utils/workWithBrowser';
+import { validateInput } from '../../utils/workWithBrowser';
 
 const ChangeCommodityDetail = ({
   data: { title, descr, shortDescr, img, previewImg, price, updatedFields, id, history, token },
@@ -23,7 +23,7 @@ const ChangeCommodityDetail = ({
               name='forSetData'
               type='text'
               className='formControl'
-              value={setValues(title)}
+              value={title}
               onChange={(e) => validateInput(e, updateTitle)}
             />
             <div className='invalidFeedback'>Поле обязательно и не должно быть пустым</div>
@@ -35,7 +35,7 @@ const ChangeCommodityDetail = ({
             <textarea
               name='forSetData'
               className='formControl'
-              value={setValues(shortDescr)}
+              value={shortDescr}
               onChange={(e) => validateInput(e, updateShortDescr, (input) => input.value.length < 300)}
             ></textarea>
             <div className='invalidFeedback'>Поле обязательно и не должно быть пустым (максимум 300 символов)</div>
@@ -60,7 +60,7 @@ const ChangeCommodityDetail = ({
             <textarea
               name='forSetData'
               className='formControl'
-              value={setValues(descr)}
+              value={descr}
               onChange={(e) => validateInput(e, updateDescr)}
             />
             <div className='invalidFeedback'>Поле обязательно и не должно быть пустым</div>
@@ -85,7 +85,7 @@ const ChangeCommodityDetail = ({
             <input
               name='forSetData'
               className='formControl'
-              value={setValues(price)}
+              value={price}
               onChange={(e) => validateInput(e, updatePrice, (input) => Number.isInteger(+input.value))}
             />
             <div className='invalidFeedback'>Поле обязательно (число) и не должно быть пустым</div>

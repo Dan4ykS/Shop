@@ -108,7 +108,6 @@ module.exports.findCommodity = async ({ params: { id } }, res) => {
     }
     res.status(200).json(convertDataForClient({ ...commodity.toObject(), reviews: reviewDataForClien }));
   } catch (error) {
-    console.log(error);
     errorHandler(res, { message: `Товар с id:${id} не найден!` });
   }
 };

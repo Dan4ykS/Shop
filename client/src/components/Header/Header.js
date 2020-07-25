@@ -3,12 +3,13 @@ import Search from '../Search/Search';
 import AccountItems from './AccountItems';
 import logo from './logo.svg';
 import './Header.scss';
-import { scrollToTop, toggleSearchForMobile, showMobileSideBar, closeMobileSideBar } from '../../utils/workWithBrowser';
+import { scrollToTop } from '../../utils/workWithBrowser';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { connectToStore } from '../../utils/workWithRedux';
 import { fetchGoods, fetchPopularGoods, fetchNewGoods } from '../../actions/goodsList';
+import { showMobileSideBar, toggleSearchForMobile, closeMobileSideBar } from './utils';
 
 const Header = ({ actions: { fetchGoods, fetchPopularGoods, fetchNewGoods } }) => {
   return (

@@ -3,12 +3,12 @@ import LoadingData from '../../components/LoadingData';
 import { connectToStore } from '../../utils/workWithRedux';
 import { logOut } from '../../utils/workWithBrowser';
 import { isLogout } from '../../actions/userData';
+import { Redirect } from 'react-router';
 
-const AccountPage = ({
-  userData: { loading, error, userName },
-  actions: { isLogout, isLogin, loadCart, fetchGoods },
-  history,
-}) => {
+const AccountPage = ({ userData: { loading, error, userName }, actions: { isLogout }, history }) => {
+  if (userName === 'admin') {
+    return <Redirect to='/admin' />;
+  }
   return (
     <LoadingData
       configData={{
