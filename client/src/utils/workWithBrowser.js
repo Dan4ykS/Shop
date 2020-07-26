@@ -97,19 +97,11 @@ export const logOut = (func, history) => {
 export const initModalWindow = (modalSelector) => {
   const modalWraper = findNeedElement('.modalWraper'),
     modal = findNeedElement(`${modalSelector}`),
-    body = findNeedElement('body'),
-    menu = findNeedElement('nav'),
-    activeMenu = findNeedElement('.header_fixed');
+    body = findNeedElement('body');
 
   modalWraper.classList.remove('hidenElem');
   modal.classList.remove('hidenElem');
-  const scrollbarWidth = +window.innerWidth - +menu.clientWidth;
-  if (scrollbarWidth > 0) {
-    body.style.marginRight = `${scrollbarWidth}px`;
-  }
-  if (activeMenu) {
-    activeMenu.style.width = `${activeMenu.clientWidth}px`;
-  }
+
   body.style.overflow = 'hidden';
 
   [modalWraper, modal].forEach((el) => {
@@ -119,9 +111,6 @@ export const initModalWindow = (modalSelector) => {
         modal.classList.add('hidenElem');
         body.style.overflow = 'auto';
         body.style.marginRight = '0px';
-        if (activeMenu) {
-          activeMenu.style.width = `100%`;
-        }
       }
     });
   });

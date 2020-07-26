@@ -12,7 +12,7 @@ button,
   border: 1px solid transparent;
   border-radius: 15px;
   padding: 0.375rem 0.75rem;
-  font-size: 1rem;
+  font-size: inherit;
   line-height: 1.5;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
@@ -24,5 +24,14 @@ button,
   &:focus {
     outline: 0;
     box-shadow: 0 0 0 0.2rem $btnShodow;
+  }
+}
+
+.slideBtn {
+  border: 2px solid $textColor2;
+  background-color: transparent;
+  padding: 15px 25px;
+  &:hover {
+    box-shadow: none;
   }
 }
