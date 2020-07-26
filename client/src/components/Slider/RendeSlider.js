@@ -16,11 +16,11 @@ const RendeSlider = ({
   setDotClass,
   history,
   hasDots,
-  classNames
+  classNames,
 }) => {
   return (
-    <div className={classNames.slider ?? 'slider'}>
-      <div className={classNames.sliderWrapper ?? 'slider__wrapper'}>
+    <div className='slider'>
+      <div className='slider__wrapper'>
         <div className='slider__track' style={{ transform: `translateX(${position}%)` }}>
           <ListView
             listForRender={content}
@@ -28,7 +28,7 @@ const RendeSlider = ({
               <div className={classNames.sliderItem ?? 'slider__item'} style={{ minWidth: `${slideWidth}%` }}>
                 <img src={slideImgSrc} alt={`slide${elIndex + 1}`} />
                 {slideLink ? (
-                  <button className='slideBtn' onClick={() => redirectToSlideLink(slideLink, history)}>
+                  <button className={classNames.slideBtn ?? 'slideBtn'} onClick={() => redirectToSlideLink(slideLink, history)}>
                     Смотреть подробнее
                   </button>
                 ) : null}

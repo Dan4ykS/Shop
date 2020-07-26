@@ -18,7 +18,7 @@ const Slider = ({ slidesToShow = 1, slidesToScroll = 1, content, classNames = {}
   };
 
   const prevBtnClick = () => {
-    const slideLeft = Math.round(Math.abs(position) / slideWidth); ;
+    const slideLeft = Math.round(Math.abs(position) / slideWidth);
     const newPosition = slideLeft >= slidesToScroll ? position + movePosition : position + slideLeft * slideWidth;
     if (slideLeft === 0) {
       const newPosition = position - allScrollWidth + slidesToShow * slideWidth;
