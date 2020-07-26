@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 export default class LoadingData extends React.Component {
   componentDidMount() {
+    console.log('компонент создался');
     const { funcForRender = null } = this.props.configData;
     if (funcForRender) {
       funcForRender();

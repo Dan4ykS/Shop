@@ -1,37 +1,37 @@
 import React from 'react';
 import Slider from '../../components/Slider';
+import GoodsList from '../../components/GoodsList';
+import './MainPage.scss';
+import { fetchPopularGoods } from '../../actions/goodsList';
+import { connectToStore } from '../../utils/workWithRedux';
+import { Link } from 'react-router-dom';
+import AboutAuthor from './AboutAuthor';
 
-const MainPage = () => {
+const MainPage = ({ actions: { fetchPopularGoods } }) => {
   return (
-    <>
-      <h2>Главная страница</h2>
+    <section className='mainPage'>
       <Slider
-        slidesToShow={2}
+        slidesToShow={1}
         slidesToScroll={1}
         content={[
           {
-            slideImgSrc:
-              'https://c.wallhere.com/photos/82/ea/train_railway_train_station_sunlight_digital_art_futuristic_robot_arch-157020.jpg!d',
+            slideImgSrc: '/static/firstSlide.png',
           },
           {
-            slideImgSrc:
-              'https://c.wallhere.com/photos/35/89/1920x1080_px_Anime_Girls_night_shadow_Train_Station-1240949.jpg!d',
+            slideImgSrc: '/static/secondSlide.jpg',
             slideLink: '/Goods',
           },
-          {
-            slideImgSrc:
-              'https://c.wallhere.com/photos/cc/a2/train_railway_train_station_sunlight_St_Petersburg_arch_shadow_Russia-157028.jpg!d',
-            slideLink: '/Goods/popular',
-          },
-          {
-            slideImgSrc:
-              'https://c.wallhere.com/photos/82/ea/train_railway_train_station_sunlight_digital_art_futuristic_robot_arch-157020.jpg!d',
-          },
         ]}
-        hasDots={false}
       />
-    </>
+      <div className='mainPage__bestGoods'>
+        <GoodsList typePage='Main' action={fetchPopularGoods} />
+        <Link className='btn mainPage__bestGoods-moreBtn'>Больше книг</Link>
+      </div>
+      <div className='mainPage__aboutAutor'>
+        <AboutAuthor />
+      </div>
+    </section>
   );
 };
 
-export default MainPage;
+export default connectToStore(null, { fetchPopularGoods })(MainPage);

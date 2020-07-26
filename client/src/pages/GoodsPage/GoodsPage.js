@@ -1,5 +1,5 @@
 import React from 'react';
-import GoodsList from './GoodsList';
+import GoodsList from '../../components/GoodsList';
 import './GoodsPage.scss';
 import { Redirect } from 'react-router';
 import { connectToStore } from '../../utils/workWithRedux';

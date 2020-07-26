@@ -1,6 +1,5 @@
 @import "./variables.scss";
 
-button,
 .btn {
   display: inline-block;
   font-weight: 400;
@@ -27,7 +26,7 @@ button,
   }
 }
 
-.slideBtn {
+.btn-slide {
   border: 2px solid $textColor2;
   background-color: transparent;
   padding: 15px 25px;

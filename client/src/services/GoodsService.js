@@ -33,15 +33,15 @@ class GoodsService extends BaseApiClass {
     return this.requestToApi('DELETE', `removeCommodity/${id}`, null, this.headerWithToken(token));
   };
 
-  findGoods = async (q, offset = 0, limit = 10) => {
+  findGoods = async (q, offset = 0, limit = 8) => {
     return this.requestToApi('GET', `findGoods?q=${q}&offset=${offset}&limit=${limit}`, null);
   };
 
-  getPopularGoods = async (offset = 0, limit = 10) => {
+  getPopularGoods = async (offset = 0, limit = 8) => {
     return this.requestToApi('GET', `popularGoods?offset=${offset}&limit=${limit}`, null);
   };
 
-  getNewGoods = async (offset = 0, limit = 10) => {
+  getNewGoods = async (offset = 0, limit = 8) => {
     return this.requestToApi('GET', `newGoods?offset=${offset}&limit=${limit}`, null);
   };
 }

@@ -99,6 +99,7 @@
   }
   &__detail {
     height: 54px;
+    font-size: 20px;
     &-more {
       width: 40%;
       .btn {
@@ -109,7 +110,7 @@
     &-buy {
       width: 60%;
       div {
-        width: 60%;
+        width: 55%;
         p {
           font-size: 30px;
         }
@@ -127,12 +128,14 @@
           background-color: $mainColor;
         }
       }
-      button {
-        width: 40%;
+      .btn {
+        width: 50%;
+        padding: 7px 10px;
         border-radius: 0 0 12px 0;
       }
     }
     &_small {
+      font-size: 20px;
       div {
         width: 60%;
         ::before {
@@ -152,7 +155,8 @@
           margin-left: 20px;
         }
       }
-      button {
+      .btn {
+        width: 40%;
         border-radius: 0 0 12px 0;
       }
     }
