@@ -4,7 +4,7 @@ class UsersService extends BaseApiClass {
   createUser = async (data) => {
     return await this.requestToApi('POST', 'createUser', data);
   };
-  
+
   authUser = async (data) => {
     return await this.requestToApi('POST', 'authUser', data);
   };
@@ -23,6 +23,10 @@ class UsersService extends BaseApiClass {
 
   createNewPassword = async (token, password) => {
     return await this.requestToApi('PATCH', 'createNewPassword', password, this.headerWithToken(token));
+  };
+
+  getAdminData = async () => {
+    return await this.requestToApi('GET', 'getAdminData', null);
   };
 }
 

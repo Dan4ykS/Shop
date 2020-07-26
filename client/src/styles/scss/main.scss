@@ -91,6 +91,18 @@ h6 {
   }
 }
 
+.userAvatar {
+  width: 152px;
+  height: 152px;
+  overflow: hidden;
+  border-radius: 50%;
+  img {
+    width: auto;
+    height: 100%;
+    margin: 0 auto;
+  }
+}
+
 .flexWrap {
   display: flex;
   align-items: center;
@@ -98,7 +110,7 @@ h6 {
 }
 
 .flexWrap_SB {
-   display: flex;
+  display: flex;
   align-items: center;
   justify-content: space-between;
 }
@@ -112,8 +124,15 @@ h6 {
 .flexWrapColumn {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+}
+
+.flexWrapColumn_FS {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .flexWrapColumn_center {

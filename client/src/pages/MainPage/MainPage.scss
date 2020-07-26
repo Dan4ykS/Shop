@@ -1,3 +1,5 @@
+@import "../../styles/scss/variables.scss";
+
 .mainPage {
   &__bestGoods {
     padding: 30px 0;
@@ -6,6 +8,16 @@
       display: block;
       margin: 0 auto;
       margin-top: 20px;
+    }
+  }
+  &__aboutAuthor {
+    border: 2px solid $mainColor;
+    border-radius: 15px;
+    padding: 25px 5px;
+    &-avatar {
+      p {
+        margin-top: 15px;
+      }
     }
   }
 }

@@ -2,12 +2,13 @@ import React from 'react';
 import Slider from '../../components/Slider';
 import GoodsList from '../../components/GoodsList';
 import './MainPage.scss';
-import { fetchPopularGoods } from '../../actions/goodsList';
+import { fetchBestGoods } from '../../actions/goodsList';
 import { connectToStore } from '../../utils/workWithRedux';
 import { Link } from 'react-router-dom';
 import AboutAuthor from './AboutAuthor';
+import { scrollToTop } from '../../utils/workWithBrowser';
 
-const MainPage = ({ actions: { fetchPopularGoods } }) => {
+const MainPage = ({ actions: { fetchBestGoods } }) => {
   return (
     <section className='mainPage'>
       <Slider
@@ -24,14 +25,16 @@ const MainPage = ({ actions: { fetchPopularGoods } }) => {
         ]}
       />
       <div className='mainPage__bestGoods'>
-        <GoodsList typePage='Main' action={fetchPopularGoods} />
-        <Link className='btn mainPage__bestGoods-moreBtn'>Больше книг</Link>
+        <GoodsList typePage='Main' action={fetchBestGoods} />
+        <Link to='/Goods' className='btn mainPage__bestGoods-moreBtn' onClick={() => scrollToTop()}>
+          Больше книг
+        </Link>
       </div>
-      <div className='mainPage__aboutAutor'>
+      <div className='mainPage__aboutAuthor'>
         <AboutAuthor />
       </div>
     </section>
   );
 };
 
-export default connectToStore(null, { fetchPopularGoods })(MainPage);
+export default connectToStore(null, { fetchBestGoods })(MainPage);

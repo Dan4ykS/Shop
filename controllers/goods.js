@@ -26,6 +26,15 @@ module.exports.getGoods = async ({ query: { offset, limit } }, res) => {
   }
 };
 
+module.exports.bestGoods = async ({ query: { offset, limit } }, res) => {
+  try {
+    const goods = await findGoods(offset, limit, { 'rating.general': -1 });
+    res.json(convertArrayForClient(goods));
+  } catch (error) {
+    errorHandler(res, error);
+  }
+};
+
 module.exports.newGoods = async ({ query: { offset, limit } }, res) => {
   try {
     const goods = await findGoods(offset, limit, { date: -1 });
@@ -78,7 +87,7 @@ module.exports.getSimilarGoods = async ({ params: { id } }, res) => {
     for (const genre of commodity.genres) {
       const moreSimilarGoods = await Goods.find({ genres: genre, _id: { $ne: id } });
       similarGoods = createArrWithoutCopies(moreSimilarGoods, similarGoods);
-      if (similarGoods.length >= 4) { 
+      if (similarGoods.length >= 4) {
         return res.json(convertArrayForClient(similarGoods));
       }
     }

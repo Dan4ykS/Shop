@@ -1,7 +1,7 @@
 import BaseApiClass from './BaseApiClass';
 
 class GoodsService extends BaseApiClass {
-  getGoods = async (offset = 0, limit = 10) => {
+  getGoods = async (offset = 0, limit = 8) => {
     return await this.requestToApi('GET', `getGoods?offset=${offset}&limit=${limit}`, null);
   };
 
@@ -43,6 +43,10 @@ class GoodsService extends BaseApiClass {
 
   getNewGoods = async (offset = 0, limit = 8) => {
     return this.requestToApi('GET', `newGoods?offset=${offset}&limit=${limit}`, null);
+  };
+
+  getBestGoods = async (offset = 0, limit = 8) => {
+    return this.requestToApi('GET', `bestGoods?offset=${offset}&limit=${limit}`, null);
   };
 }
 

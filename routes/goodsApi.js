@@ -7,6 +7,8 @@ const router = Router();
 
 router.get('/getGoods', controller.getGoods);
 
+router.get('/bestGoods', controller.bestGoods)
+
 router.get('/newGoods', controller.newGoods);
 
 router.get('/popularGoods', controller.popularGoods);

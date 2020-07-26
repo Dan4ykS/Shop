@@ -16,7 +16,7 @@ const Search = ({ actions: { searchGoods }, history }) => {
         value={value.trimStart()}
         onChange={(e) => updateValue(e.target.value)}
       />
-      <button type='submit'>
+      <button className='btn' type='submit'>
         <FontAwesomeIcon icon={faSearch} />
       </button>
     </form>

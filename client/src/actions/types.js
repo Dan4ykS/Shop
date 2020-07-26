@@ -18,4 +18,5 @@ export const CLEAR_CART = 'CART/CLEAR_CART';
 export const LOGIN = 'USER/USER_LOGIN';
 export const CREATE_NEW_USER = 'USER/CREATE_NEW_USER';
 export const LOGOUT = 'USER/USER_LOGOUT';
+export const GET_ADMIN_DATA = 'USER/GET_ADMIN_DATA';
 export const INVALID_ROUTE = 'INVALID_ROUTE';

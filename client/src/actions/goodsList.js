@@ -47,3 +47,13 @@ export const fetchNewGoods = (offset, limit) => async (dispatch) => {
     dispatch(fetchGoodsFailure());
   }
 };
+
+export const fetchBestGoods = (offset, limit) => async (dispatch) => { 
+   try {
+     dispatch(fetchGoodsRequest());
+     const data = await GoodsService.getBestGoods(offset, limit);
+     dispatch(fetchGoodsSuccuess(data));
+   } catch (error) {
+     dispatch(fetchGoodsFailure());
+   }
+}

@@ -5,9 +5,11 @@ import { fetchGoodsSuccuess } from './goodsList';
 import { isInvalid, redirectToPage, clearInputs, activateBtn } from '../utils/workWithBrowser';
 import { setNewToken } from '../utils/workWithApiRequests';
 import { createAction } from '../utils/workWithRedux';
-import { LOGIN, CREATE_NEW_USER, LOGOUT, INVALID_ROUTE } from './types';
+import { LOGIN, CREATE_NEW_USER, LOGOUT, INVALID_ROUTE, GET_ADMIN_DATA } from './types';
 
 const createUser = (userName, token) => createAction(CREATE_NEW_USER, { userName, token });
+
+const getAdminData = (adminData) => createAction(GET_ADMIN_DATA, adminData);
 
 export const userLogin = (userName, token) => createAction(LOGIN, { userName, token });
 
@@ -63,6 +65,16 @@ export const isLogin = (token) => async (dispatch) => {
     dispatch(invalidRoute());
   }
 };
+
+export const fetchAdminData = () => async (dispatch) => { 
+  try {
+    const data = await UsersService.getAdminData();
+    console.log(data);
+    dispatch(getAdminData(data))
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export const isLogout = () => (dispatch) => {
   dispatch(userLogout());
