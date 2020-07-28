@@ -14,7 +14,7 @@ const UpdateImg = ({ img: { src, id, alt }, funcForUpdateData }) => {
       <span data-close={true}>&#215;</span>
       <div className='updateImg__imgDetail flexWrapColumn_center col-4'>
         <div className='formGroup row'>
-          <label className='col-sm-3 colFormLable'>Alt:</label>
+          <label className='col-sm-3 formControlLable'>Alt:</label>
           <div className='col-sm-9'>
             <input
               type='text'

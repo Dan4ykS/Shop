@@ -141,3 +141,5 @@ export const chekValidDataInForm = (formSelector) => {
   }
   return true;
 };
+
+// export const timer

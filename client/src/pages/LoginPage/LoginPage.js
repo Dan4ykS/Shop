@@ -20,14 +20,14 @@ const LoginPage = ({ actions: { authorization }, history }) => {
             onSubmit={(e) => authRequests(e, authorization, '.authorization', history)}
           >
             <div className='formGroup row'>
-              <label className='col-sm-2 colFormLable'>Логин:</label>
+              <label className='col-sm-2 formControlLable'>Логин:</label>
               <div className='col-sm-10'>
                 <input name='userName' type='text' className='formControl' placeholder='Введите ваш логин' required />
                 <div className='invalidFeedback'>Неверный логин</div>
               </div>
             </div>
             <div className='formGroup row'>
-              <label className='col-sm-2 colFormLable'>Пароль:</label>
+              <label className='col-sm-2 formControlLable'>Пароль:</label>
               <div className='col-sm-10 password'>
                 <span className='showPasswordIcon showPasswordIcon_crosOut'>
                   <FontAwesomeIcon

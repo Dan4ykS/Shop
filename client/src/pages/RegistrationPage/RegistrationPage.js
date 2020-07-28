@@ -16,7 +16,7 @@ const RegistrationPage = ({ actions: { registration }, history }) => {
           onSubmit={(e) => authRequests(e, registration, '.registration', history)}
         >
           <div className='formGroup row'>
-            <label className='col-sm-2 colFormLable'>Логин:</label>
+            <label className='col-sm-2 formControlLable'>Логин:</label>
             <div className='col-sm-10'>
               <input
                 name='userName'
@@ -29,7 +29,7 @@ const RegistrationPage = ({ actions: { registration }, history }) => {
             </div>
           </div>
           <div className='formGroup row'>
-            <label className='col-sm-2 colFormLable'>Пароль:</label>
+            <label className='col-sm-2 formControlLable'>Пароль:</label>
             <div className='col-sm-10 password'>
               <span className='showPasswordIcon showPasswordIcon_crosOut'>
                 <FontAwesomeIcon
@@ -47,7 +47,7 @@ const RegistrationPage = ({ actions: { registration }, history }) => {
             </div>
           </div>
           <div className='formGroup row'>
-            <label className='col-sm-2 colFormLable'>Email:</label>
+            <label className='col-sm-2 formControlLable'>Email:</label>
             <div className='col-sm-10'>
               <input
                 name='email'

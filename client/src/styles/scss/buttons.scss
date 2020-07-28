@@ -1,5 +1,3 @@
-@import "./variables.scss";
-
 .btn {
   display: inline-block;
   font-weight: 400;
@@ -26,11 +24,26 @@
   }
 }
 
+.btnGroup {
+  margin-top: 20px;
+}
+
 .btn-slide {
   border: 2px solid $textColor2;
   background-color: transparent;
   padding: 15px 25px;
   &:hover {
     box-shadow: none;
+  }
+}
+
+
+@media (max-width: 575px) {
+  body {
+    font-size: 15px;
+  }
+  button,
+  .btn {
+    font-size: 10px;
   }
 }

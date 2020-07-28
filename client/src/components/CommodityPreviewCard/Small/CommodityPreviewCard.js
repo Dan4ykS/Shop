@@ -34,7 +34,7 @@ const CommodityPreviewCard = ({
           <div className='preview__content-img_small flexWrap_center'>
             <img src={createValidImgSrc(previewImgSrc)} alt={previewImgAlt} />
           </div>
-          <div className='preview__content-moreInfo'>
+          <div className='preview__content-moreInfo hidenElem'>
             <div>{title}</div>
             <div>{author}</div>
             <div>{createTextWithBr(shortDescr, 40)}</div>

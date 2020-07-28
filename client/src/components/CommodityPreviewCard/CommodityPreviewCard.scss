@@ -1,4 +1,4 @@
-@import "../../styles/scss/main.scss";
+@import "../../styles/scss/variables.scss";
 
 .preview {
   border: 2px solid $mainColor;
@@ -74,7 +74,7 @@
       color: $textColor2;
       background-color: $textColor;
       padding: 5px 8px;
-      transition: visibility linear 60ms, opacity linear 0.5s, height ease-out 0.5s;
+      transition: visibility linear 60ms, opacity linear 0.6s, height ease-out 0.5s;
       a {
         color: $textColor2;
       }

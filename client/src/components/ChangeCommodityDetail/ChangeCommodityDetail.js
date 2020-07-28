@@ -17,7 +17,7 @@ const ChangeCommodityDetail = ({
         onSubmit={(e) => workWithCommodityData(e, updatedFields, token, type, id, history)}
       >
         <div className='formGroup row'>
-          <label className='col-sm-3 colFormLable'>Название:</label>
+          <label className='col-sm-3 formControlLable'>Название:</label>
           <div className='col-sm-9'>
             <input
               name='forSetData'
@@ -30,7 +30,7 @@ const ChangeCommodityDetail = ({
           </div>
         </div>
         <div className='formGroup row'>
-          <label className='col-sm-3 colFormLable'>Краткое описание:</label>
+          <label className='col-sm-3 formControlLable'>Краткое описание:</label>
           <div className='col-sm-9'>
             <textarea
               name='forSetData'
@@ -42,7 +42,7 @@ const ChangeCommodityDetail = ({
           </div>
         </div>
         <div className='formGroup row'>
-          <label className='col-sm-3 colFormLable'>Превью:</label>
+          <label className='col-sm-3 formControlLable'>Превью:</label>
           <div className='col-sm-9'>
             <ImgUploader
               img={{
@@ -55,7 +55,7 @@ const ChangeCommodityDetail = ({
           </div>
         </div>
         <div className='formGroup row'>
-          <label className='col-sm-3 colFormLable'>Полное описание:</label>
+          <label className='col-sm-3 formControlLable'>Полное описание:</label>
           <div className='col-sm-9'>
             <textarea
               name='forSetData'
@@ -67,7 +67,7 @@ const ChangeCommodityDetail = ({
           </div>
         </div>
         <div className='formGroup row'>
-          <label className='col-sm-3 colFormLable'>Изображение:</label>
+          <label className='col-sm-3 formControlLable'>Изображение:</label>
           <div className='col-sm-9'>
             <ImgUploader
               img={{
@@ -80,7 +80,7 @@ const ChangeCommodityDetail = ({
           </div>
         </div>
         <div className='formGroup row'>
-          <label className='col-sm-3 colFormLable'>Цена:</label>
+          <label className='col-sm-3 formControlLable'>Цена:</label>
           <div className='col-sm-9'>
             <input
               name='forSetData'

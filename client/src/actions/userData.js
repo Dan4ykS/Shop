@@ -69,7 +69,6 @@ export const isLogin = (token) => async (dispatch) => {
 export const fetchAdminData = () => async (dispatch) => { 
   try {
     const data = await UsersService.getAdminData();
-    console.log(data);
     dispatch(getAdminData(data))
   } catch (error) {
     console.log(error);
