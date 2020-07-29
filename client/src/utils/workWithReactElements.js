@@ -3,9 +3,9 @@ import StringHelper from './StringHelper';
 
 export const createLazyPage = (pageName) => React.lazy(() => import(`../pages/${pageName}Page`));
 
-export const trimText = (text, maxlength) => (text.length > maxlength ? text.substr(0, maxlength - 3) + '...' : text);
+export const trimText = (text, maxlength = text.length) => (text.length > maxlength ? text.substr(0, maxlength - 3) + '...' : text);
 
-export const createTextWithBr = (text, maxlength = null) => {
+export const createTextWithBr = (text, maxlength) => {
   const str = trimText(text, maxlength),
     paragraphs = str.split('\n');
 

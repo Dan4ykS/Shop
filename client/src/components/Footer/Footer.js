@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import './Footer.scss';
 import { redirectToLink, scrollToTop } from '../../utils/workWithBrowser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronUp, faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import { faChevronUp, faCommentDots, faCopyright } from '@fortawesome/free-solid-svg-icons';
 import { faInstagram, faVk, faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { feedbackMouseLeave, feedbackMouseEnter, showFooterHidenElements } from './utils';
 
@@ -13,6 +13,10 @@ const Footer = () => {
 
   return (
     <footer className='footer'>
+      <div className='footer__content flexWrap_center'>
+        <FontAwesomeIcon icon={faCopyright} />
+        <span>WebBook {new Date().getFullYear()}</span>
+      </div>
       <div className='upArrow hidenElem' onClick={() => scrollToTop()}>
         <FontAwesomeIcon className='fas' icon={faChevronUp} />
       </div>

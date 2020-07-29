@@ -10,7 +10,7 @@ import { scrollToTop } from '../../utils/workWithBrowser';
 
 const MainPage = ({ actions: { fetchBestGoods } }) => {
   return (
-    <section className='mainPage'>
+    <div className='mainPage'>
       <Slider
         slidesToShow={1}
         slidesToScroll={1}
@@ -33,7 +33,7 @@ const MainPage = ({ actions: { fetchBestGoods } }) => {
       <div className='mainPage__aboutAuthor'>
         <AboutAuthor />
       </div>
-    </section>
+    </div>
   );
 };
 

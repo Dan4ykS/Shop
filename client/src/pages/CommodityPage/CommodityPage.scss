@@ -1,0 +1,165 @@
+// 5f142305b67c4530acaf85ae
+@import "../../styles/scss/variables.scss";
+
+.commodityPage {
+  &__info {
+    &-img {
+      img {
+        border: 7px double $mainColor;
+        border-radius: 15px;
+        box-shadow: 6px 4px 20px $textColor;
+      }
+    }
+    &-detail {
+      &-item {
+        padding: 0 10px;
+        &:first-child {
+          .item {
+            margin-bottom: 20px;
+            &__author {
+              font-size: 30px;
+            }
+            &__title {
+              font-size: 55px;
+              line-height: 1.1;
+              font-weight: 700;
+            }
+
+            &__feedback {
+              position: relative;
+              &-stars,
+              &-reviews {
+                cursor: pointer;
+              }
+              &-stars {
+                svg {
+                  color: $starsColor;
+                  font-size: 24px;
+                }
+              }
+              &-reviews {
+                &::before {
+                  content: "";
+                  cursor: default;
+                  position: absolute;
+                  top: 0;
+                  left: 50%;
+                  height: 100%;
+                  width: 2px;
+                  background-color: $textColor;
+                  transform: translate(-50%);
+                }
+              }
+              &-moreRatingInfo {
+                z-index: 30;
+                position: absolute;
+                border-radius: 15px;
+                bottom: -340px;
+                opacity: 0;
+                left: 0;
+                width: 50%;
+                font-weight: 700;
+                border: 2px solid $mainColor;
+                height: 340px;
+                visibility: hidden;
+                transition: opacity linear 0.5s, visibility 0.1s, background-color 0.4s;
+                padding: 10px;
+                font-size: 16px;
+                &_active {
+                  visibility: visible;
+                  background-color: $textColor2;
+                  opacity: 1;
+                }
+                .moreRatingInfo {
+                  &__content,
+                  &__rating {
+                    margin-top: 15px;
+                  }
+                  &__header {
+                    div {
+                      text-align: center;
+                    }
+                    .close {
+                      position: absolute;
+                      top: -0.5%;
+                      right: 3%;
+                      font-size: 20px;
+                      cursor: pointer;
+                    }
+                  }
+                  &__content {
+                    &-general {
+                      align-items: flex-end;
+                      span {
+                        width: 50%;
+                        text-align: center;
+                        font-size: 45px;
+                        font-weight: 700;
+                        color: $mainColor;
+                        line-height: 1.1;
+                      }
+                    }
+                    &-detail {
+                      margin-top: 15px;
+                    }
+                    &-ratingContainer {
+                      .stars {
+                        width: 30%;
+                        color: $starsColor;
+                      }
+                      .ratingBar {
+                        width: 60%;
+                        border: 1px solid $mainColor;
+                        height: 15px;
+                        div {
+                          height: 100%;
+                          background-color: $starsColor;
+                        }
+                      }
+                      .ratingCount {
+                        width: 5%;
+                      }
+                    }
+                  }
+                  &__rating {
+                    .btn {
+                      margin-top: 10px;
+                      width: 100%;
+                    }
+                  }
+                }
+              }
+            }
+            &__buy {
+              position: relative;
+              div {
+                font-size: 25px;
+                width: 50%;
+                text-align: center;
+                &::before {
+                  content: "";
+                  position: absolute;
+                  top: 0;
+                  left: 50%;
+                  height: 100%;
+                  width: 2px;
+                  background-color: $mainColor;
+                  transform: translate(-50%);
+                }
+              }
+              button {
+                border-radius: 0;
+                width: 50%;
+              }
+              border: 2px solid $mainColor;
+            }
+          }
+        }
+        text-align: justify;
+      }
+    }
+  }
+  &__similarGoods {
+    
+  }
+}

@@ -38,7 +38,9 @@ export const createObjForRequest = (inputs) => {
 };
 
 export const createValidImgSrc = (imgSrc) => {
-  if (imgSrc.startsWith('uploads') || imgSrc.startsWith('static')) {
+  if (!imgSrc) {
+    return '';
+  } else if (imgSrc.startsWith('uploads') || imgSrc.startsWith('static')) {
     return `/${imgSrc}`;
   }
   return imgSrc;

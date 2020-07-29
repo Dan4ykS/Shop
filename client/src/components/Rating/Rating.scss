@@ -1,0 +1,26 @@
+@import "../../styles/scss/variables.scss";
+
+.rating {
+  flex-direction: row-reverse;
+  &__item {
+    color: $extraColor;
+    font-size: 22px;
+    cursor: pointer;
+    transition: color 0.3s;
+    &:hover,
+    &:hover ~ & {
+      color: $mainColor;
+    }
+  }
+  &[data-totalvalue="5"] &__item:nth-child(n + 1),
+  &[data-totalvalue="4"] &__item:nth-child(n + 2),
+  &[data-totalvalue="3"] &__item:nth-child(n + 3),
+  &[data-totalvalue="2"] &__item:nth-child(n + 4),
+  &[data-totalvalue="1"] &__item:nth-child(n + 5) {
+    color: $starsColor;
+    &:hover,
+    &:hover ~ .rating__item {
+      color: $mainColor;
+    }
+  }
+}

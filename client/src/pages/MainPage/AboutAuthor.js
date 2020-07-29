@@ -21,7 +21,7 @@ const AboutAuthor = ({
       <div className='row'>
         <div className='mainPage__aboutAuthor-avatar col-3 flexWrapColumn'>
           <div className='userAvatar'>
-            <img src={createValidImgSrc(avatar ? avatar : '')} alt='adminAvatar' />
+            <img src={createValidImgSrc(avatar)} alt='adminAvatar' />
           </div>
           <p>
             {surname} {name}

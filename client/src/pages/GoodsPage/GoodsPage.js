@@ -29,10 +29,10 @@ const GoodsPage = ({ actions: { fetchGoods, searchGoods, fetchNewGoods, fetchPop
   }
 
   return (
-    <section className='goodsPage'>
+    <div className='goodsPage'>
       {pageHeader}
       <GoodsList action={actionForGoodsList} ComponentWithoutData={ComponentWithoutData} />
-    </section>
+    </div>
   );
 };
 

@@ -2,9 +2,20 @@
 @import "../../styles/scss/mixins.scss";
 
 .footer {
-  background-color: $footerBg;
+  background-color: $extraColor;
   margin-top: 10px;
   height: 50px;
+  &__content {
+    text-align: center;
+    height: 100%;
+    svg {
+      color: $mainColor;
+      font-size: 25px;
+    }
+    span {
+      margin-left: 15px;
+    }
+  }
   .upArrow {
     position: fixed;
     bottom: 3%;

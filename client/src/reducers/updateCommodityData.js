@@ -71,6 +71,8 @@ const updateField = (commodityData, fieldName, newFieldData) => {
 const defaultCommodityDataState = {
   id: null,
   title: '',
+  author: '',
+  rating: {},
   shortDescr: '',
   descr: '',
   previewImg: null,
@@ -78,6 +80,9 @@ const defaultCommodityDataState = {
   price: '',
   loading: true,
   error: null,
+  genres: [],
+  countReviews: null,
+  reviews: [],
   updatedFields: {},
 };
 

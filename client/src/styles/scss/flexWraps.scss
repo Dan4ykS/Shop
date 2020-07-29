@@ -10,6 +10,18 @@
   justify-content: space-between;
 }
 
+.flexWrap_FS {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.flexWrap_FE {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
 .flexWrap_center {
   display: flex;
   justify-content: center;
