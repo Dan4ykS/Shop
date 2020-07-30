@@ -28,7 +28,7 @@ const AboutAuthor = ({
           </p>
         </div>
         <div className='col-8 flexWrapColumn_FS'>
-          <h2>Создатель сайта "WEB.BOOK"</h2>
+          <h2>Создатель сайта "WebBook"</h2>
           <p>{about}</p>
         </div>
       </div>

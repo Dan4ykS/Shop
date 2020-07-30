@@ -15,8 +15,8 @@
   border-radius: 10px;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   &:focus {
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    border-color: $btnShodow;
+    box-shadow: 0 0 0 0.2rem $btnShodow;
     outline: 0;
   }
 }

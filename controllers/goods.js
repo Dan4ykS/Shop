@@ -85,7 +85,7 @@ module.exports.getSimilarGoods = async ({ params: { id } }, res) => {
     let similarGoods = [];
 
     for (const genre of commodity.genres) {
-      const moreSimilarGoods = await Goods.find({ genres: genre, _id: { $ne: id } });
+      const moreSimilarGoods = await Goods.find({ genres: genre, _id: { $ne: id } }, 'previewImg rating');
       similarGoods = createArrWithoutCopies(moreSimilarGoods, similarGoods);
       if (similarGoods.length >= 4) {
         return res.json(convertArrayForClient(similarGoods));
@@ -112,6 +112,7 @@ module.exports.findCommodity = async ({ params: { id } }, res) => {
           reviewerAvatar: reviewerData.avatar,
           reviewDate: review.date,
           review: review.review,
+          reviewRating: review.rating,
         });
       }
     }

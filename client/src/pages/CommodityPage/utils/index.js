@@ -35,7 +35,7 @@ export const renderStars = (countStart) => {
   return starsArr;
 };
 
-export const calculateNumberOfRating = ({ oneStar, twoStars, threeStars, fourStars, fiveStars }) =>
+export const calculateNumberOfRating = ({ oneStar = 0, twoStars = 0, threeStars = 0, fourStars = 0, fiveStars = 0 }) =>
   oneStar + twoStars + threeStars + fourStars + fiveStars;
 
 export const calculateRatingPercentage = (rating, number) => {
@@ -56,5 +56,7 @@ export const calculateRatingPercentage = (rating, number) => {
       return defaultAction(twoStars);
     case 1:
       return defaultAction(oneStar);
+    default:
+      return 0;
   }
 };

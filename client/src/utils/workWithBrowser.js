@@ -6,8 +6,8 @@ export const findNeedElement = (selector) => {
   return document.querySelector(selector);
 };
 
-export const scrollToElem = (updateImgComp) => {
-  findNeedElement(`.${updateImgComp}`).scrollIntoView({
+export const scrollToElem = (selector) => {
+  findNeedElement(`.${selector}`).scrollIntoView({
     behavior: 'smooth',
     block: 'start',
   });

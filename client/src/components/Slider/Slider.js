@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import RendeSlider from './RendeSlider';
 
-const Slider = ({ slidesToShow = 1, slidesToScroll = 1, content, classNames = {}, hasDots = true }) => {
+const Slider = ({
+  slidesToShow = 1,
+  slidesToScroll = 1,
+  content,
+  classNames = {},
+  hasDots = true,
+}) => {
   const [position, setPosition] = useState(0),
     slideWidth = 100 / slidesToShow,
     allScrollWidth = slideWidth * content.length,

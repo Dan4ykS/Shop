@@ -1,165 +1,274 @@
-// 5f142305b67c4530acaf85ae
 @import "../../styles/scss/variables.scss";
 
 .commodityPage {
+  &__blockTitle {
+    font-size: 35px;
+    margin-bottom: 15px;
+  }
   &__info {
+    .item {
+      &__feedback {
+        position: relative;
+        margin-top: 30px;
+        margin-bottom: 10px;
+        &-stars,
+        &-reviews {
+          cursor: pointer;
+        }
+        &-stars {
+          svg {
+            color: $starsColor;
+            font-size: 24px;
+          }
+        }
+        &-reviews {
+          &::before {
+            content: "";
+            cursor: default;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            height: 100%;
+            width: 2px;
+            background-color: $textColor;
+            transform: translate(-50%);
+          }
+        }
+        &-moreRatingInfo {
+          z-index: 30;
+          position: absolute;
+          border-radius: 15px;
+          bottom: -390px;
+          opacity: 0;
+          left: 0;
+          width: 60%;
+          border: 2px solid $mainColor;
+          height: 390px;
+          visibility: hidden;
+          transition: opacity linear 0.5s, visibility 0.1s, background-color 0.4s;
+          padding: 20px 30px;
+          font-size: 16px;
+          &_active {
+            visibility: visible;
+            background-color: $textColor2;
+            opacity: 1;
+          }
+          .moreRatingInfo {
+            &__content,
+            &__rating {
+              margin-top: 15px;
+            }
+            &__header {
+              div {
+                font-size: 22px;
+              }
+              .close {
+                position: absolute;
+                top: 3%;
+                right: 4%;
+                height: 15px;
+                width: 15px;
+                cursor: pointer;
+                &::before,
+                &::after {
+                  content: "";
+                  position: absolute;
+                }
+                &::before {
+                  height: 100%;
+                  width: 1px;
+                  left: 50%;
+                  background-color: black;
+                  transform: translateX(-50%) rotate(45deg);
+                }
+                &::after {
+                  content: "";
+                  height: 1px;
+                  width: 100%;
+                  top: 50%;
+                  background-color: black;
+                  transform: translateY(-50%) rotate(45deg);
+                }
+              }
+            }
+            &__content {
+              &-general {
+                align-items: flex-end;
+                padding: 0 2%;
+                span {
+                  width: 50%;
+                  text-align: center;
+                  padding-right: 40px;
+                  font-size: 45px;
+                  font-weight: 700;
+                  color: $mainColor;
+                  line-height: 1.1;
+                }
+                div {
+                  width: 50%;
+                  justify-content: flex-end;
+                  p {
+                    color: #0000009e;
+                    font-size: 17px;
+                    &:first-child {
+                      margin-right: 8px;
+                    }
+                  }
+                }
+              }
+              &-detail {
+                margin-top: 15px;
+              }
+              &-ratingContainer {
+                .stars {
+                  width: 30%;
+                  color: $starsColor;
+                }
+                .ratingBar {
+                  width: 60%;
+                  border: 1px solid $mainColor;
+                  height: 15px;
+                  div {
+                    height: 100%;
+                    background-color: $starsColor;
+                  }
+                }
+                .ratingCount {
+                  width: 5%;
+                  color: #0000009e;
+                }
+              }
+            }
+            &__rating {
+              &-detail {
+                justify-content: flex-start;
+                .stars {
+                  margin-left: 8px;
+                }
+              }
+              .btn {
+                margin-top: 25px;
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+      &__buy {
+        position: relative;
+        div {
+          font-size: 25px;
+          width: 50%;
+          text-align: center;
+          &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            height: 100%;
+            width: 2px;
+            background-color: $mainColor;
+            transform: translate(-50%);
+          }
+        }
+        button {
+          border-radius: 0;
+          width: 50%;
+        }
+        border: 2px solid $mainColor;
+      }
+    }
     &-img {
       img {
-        border: 7px double $mainColor;
         border-radius: 15px;
         box-shadow: 6px 4px 20px $textColor;
       }
     }
     &-detail {
       &-item {
-        padding: 0 10px;
-        &:first-child {
-          .item {
-            margin-bottom: 20px;
-            &__author {
-              font-size: 30px;
-            }
-            &__title {
-              font-size: 55px;
-              line-height: 1.1;
-              font-weight: 700;
-            }
-
-            &__feedback {
-              position: relative;
-              &-stars,
-              &-reviews {
-                cursor: pointer;
-              }
-              &-stars {
-                svg {
-                  color: $starsColor;
-                  font-size: 24px;
-                }
-              }
-              &-reviews {
-                &::before {
-                  content: "";
-                  cursor: default;
-                  position: absolute;
-                  top: 0;
-                  left: 50%;
-                  height: 100%;
-                  width: 2px;
-                  background-color: $textColor;
-                  transform: translate(-50%);
-                }
-              }
-              &-moreRatingInfo {
-                z-index: 30;
-                position: absolute;
-                border-radius: 15px;
-                bottom: -340px;
-                opacity: 0;
-                left: 0;
-                width: 50%;
-                font-weight: 700;
-                border: 2px solid $mainColor;
-                height: 340px;
-                visibility: hidden;
-                transition: opacity linear 0.5s, visibility 0.1s, background-color 0.4s;
-                padding: 10px;
-                font-size: 16px;
-                &_active {
-                  visibility: visible;
-                  background-color: $textColor2;
-                  opacity: 1;
-                }
-                .moreRatingInfo {
-                  &__content,
-                  &__rating {
-                    margin-top: 15px;
-                  }
-                  &__header {
-                    div {
-                      text-align: center;
-                    }
-                    .close {
-                      position: absolute;
-                      top: -0.5%;
-                      right: 3%;
-                      font-size: 20px;
-                      cursor: pointer;
-                    }
-                  }
-                  &__content {
-                    &-general {
-                      align-items: flex-end;
-                      span {
-                        width: 50%;
-                        text-align: center;
-                        font-size: 45px;
-                        font-weight: 700;
-                        color: $mainColor;
-                        line-height: 1.1;
-                      }
-                    }
-                    &-detail {
-                      margin-top: 15px;
-                    }
-                    &-ratingContainer {
-                      .stars {
-                        width: 30%;
-                        color: $starsColor;
-                      }
-                      .ratingBar {
-                        width: 60%;
-                        border: 1px solid $mainColor;
-                        height: 15px;
-                        div {
-                          height: 100%;
-                          background-color: $starsColor;
-                        }
-                      }
-                      .ratingCount {
-                        width: 5%;
-                      }
-                    }
-                  }
-                  &__rating {
-                    .btn {
-                      margin-top: 10px;
-                      width: 100%;
-                    }
-                  }
-                }
-              }
-            }
-            &__buy {
-              position: relative;
-              div {
-                font-size: 25px;
-                width: 50%;
-                text-align: center;
-                &::before {
-                  content: "";
-                  position: absolute;
-                  top: 0;
-                  left: 50%;
-                  height: 100%;
-                  width: 2px;
-                  background-color: $mainColor;
-                  transform: translate(-50%);
-                }
-              }
-              button {
-                border-radius: 0;
-                width: 50%;
-              }
-              border: 2px solid $mainColor;
-            }
+        padding: 0 15px;
+        .item {
+          &__author,
+          &__genres {
+            font-size: 25px;
+            margin-top: 20px;
+          }
+          &__title {
+            font-size: 55px;
+            line-height: 1.1;
+            font-weight: 700;
           }
         }
         text-align: justify;
+        &:first-child {
+          margin-bottom: 50px;
+        }
       }
     }
   }
-  &__similarGoods {
-    
+  &__similarGoods,
+  &__reviews, &__feedback {
+    margin-top: 80px;
+  }
+  &__reviews {
+    &-item {
+      background-color: $extraColor;
+      margin-bottom: 25px;
+      padding: 15px;
+      border-radius: 15px;
+      &-img {
+        .userAvatar {
+          height: 50px;
+          width: 50px;
+          margin: 0 auto;
+        }
+      }
+      &-content {
+        .review {
+          &__header {
+            div {
+              &:first-child {
+                span {
+                  margin-right: 20px;
+                  font-size: 15px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  &__feedback {
+    border: 2px solid $mainColor;
+    padding: 20px;
+    border-radius: 15px;
+    &-title {
+      text-align: center;
+      margin-top: 0;
+    }
+    &-content {
+      &-header {
+        .userName {
+          font-size: 25px;
+        }
+        .userRating {
+          span {
+            margin-right: 10px;
+          }
+        }
+      }
+      &-review {
+        margin-top: 20px;
+        min-height: 150px;
+      }
+    }
+    &-btn {
+      margin-top: 40px;
+      button {
+        display: block;
+        margin: 0 auto;
+      }
+    }
   }
 }

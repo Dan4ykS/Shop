@@ -10,6 +10,7 @@ import {
   UPDATE_SHORTDESCR,
   UPDATE_DESCR,
   UPDATE_PRICE,
+  GET_SIMILAR_GOODS,
 } from '../actions/types';
 
 const createAlt = (newData, oldData, type) => {
@@ -83,6 +84,7 @@ const defaultCommodityDataState = {
   genres: [],
   countReviews: null,
   reviews: [],
+  similarGoods: [],
   updatedFields: {},
 };
 
@@ -103,6 +105,12 @@ const updateCommodityData = (state, action) => {
         loading: false,
         error: null,
         updatedFields: {},
+      };
+
+    case GET_SIMILAR_GOODS:
+      return {
+        ...state.commodityData,
+        similarGoods: action.payload,
       };
 
     case FETCH_COMMODITY_FAILURE:

@@ -2,8 +2,15 @@
 
 .slider {
   width: 100%;
-  height: 520px;
+  border: 2px solid $mainColor;
+  padding: 40px;
+  height: 100%;
   position: relative;
+  &_main {
+    height: 520px;
+    padding: 0;
+    border: none;
+  }
   &__wrapper {
     overflow: hidden;
   }
@@ -14,8 +21,43 @@
   &__item {
     position: relative;
     height: 100%;
-    img {
-      height: 520px;
+    padding: 0 40px;
+    &-imgWrapper {
+      height: 400px;
+      padding: 30px;
+      border: 2px solid $mainColor;
+      box-shadow: 4px 4px 2px $mainColor;
+      img {
+        height: 100%;
+      }
+    }
+    &-moreInfo {
+      padding: 8px;
+      margin-top: 13px;
+      background-color: $extraColor;
+      width: 100%;
+      color: $textColor2;
+      font-size: 23px;
+      box-shadow: 0 0 5px $textColor;
+      div {
+        svg {
+          color: $starsColor;
+          cursor: default;
+        }
+      }
+      .more {
+        cursor: pointer;
+        transition: all 0.2s;
+        &:hover {
+          color: $mainColor;
+        }
+      }
+    }
+    &_main {
+      padding: 0;
+      img {
+        height: 520px;
+      }
     }
   }
   &__nextBtn,
@@ -23,21 +65,31 @@
     position: absolute;
     padding: 10px 25px;
     border-radius: 100%;
-    background-color: $textColor2;
     top: 50%;
+    color: $mainColor;
     transform: translateY(-50%);
     font-size: 30px;
     svg {
       cursor: pointer;
     }
+    &_main {
+      background-color: $textColor2;
+      color: $textColor;
+    }
   }
   &__nextBtn {
-    right: -3%;
-    margin-right: 5px;
+    right: 0;
+    &_main {
+      right: -3%;
+      margin-right: 5px;
+    }
   }
   &__prevBtn {
-    left: -3%;
-    margin-left: 5px;
+    left: 0;
+    &_main {
+      left: -3%;
+      margin-left: 5px;
+    }
   }
   .btn-slide {
     position: absolute;

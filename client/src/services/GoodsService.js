@@ -48,6 +48,10 @@ class GoodsService extends BaseApiClass {
   getBestGoods = async (offset = 0, limit = 8) => {
     return this.requestToApi('GET', `bestGoods?offset=${offset}&limit=${limit}`, null);
   };
+
+  getSimilarGoods = async (commodityId) => {
+    return this.requestToApi('GET', `getSimilarGoods/${commodityId}`, null);
+  };
 }
 
 export default new GoodsService();

@@ -19,7 +19,7 @@ const UpdateImg = ({ img: { src, id, alt }, funcForUpdateData }) => {
             <input
               type='text'
               className='formControl'
-              value={imgAlt.trimStart()}
+              value={imgAlt?.trimStart()}
               onChange={(e) => validateInput(e, updateImgAlt)}
             />
             <div className='invalidFeedback'>Поле обязательно и не должно быть пустым</div>

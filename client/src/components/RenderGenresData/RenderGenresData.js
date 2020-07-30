@@ -8,7 +8,7 @@ const RenderGenresData = ({ genres }) => {
         if (index > 0) {
           return <React.Fragment key={StringHelper.createId()}>, {genre.toLowerCase()}</React.Fragment>;
         } else {
-          return <React.Fragment key={StringHelper.createId()}>{genre}</React.Fragment>;
+          return <React.Fragment key={StringHelper.createId()}>{genre.toLowerCase()}</React.Fragment>;
         }
       })}
     </>

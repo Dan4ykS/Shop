@@ -11,6 +11,7 @@ import {
   FETCH_COMMODITY_SUCCUESS,
   FETCH_COMMODITY_FAILURE,
   FETCH_COMMODITY_REQUEST,
+  GET_SIMILAR_GOODS,
 } from './types';
 
 export const updateImg = (imgFile, imgSrc, imgAlt) => createAction(UPDATE_IMG, { imgFile, imgSrc, imgAlt });
@@ -34,6 +35,8 @@ const fetchCommodityFailure = () => createAction(FETCH_COMMODITY_FAILURE);
 
 const fetchCommodityRequest = () => createAction(FETCH_COMMODITY_REQUEST);
 
+const getSimilarGoods = (similarGoods) => createAction(GET_SIMILAR_GOODS, similarGoods);
+
 export const fetchCommodity = (id) => async (dispatch) => {
   try {
     dispatch(fetchCommodityRequest());
@@ -41,5 +44,14 @@ export const fetchCommodity = (id) => async (dispatch) => {
     dispatch(fetchCommoditySuccuess(data));
   } catch (error) {
     dispatch(fetchCommodityFailure());
+  }
+};
+
+export const fetchSimilarGoods = (id) => async (dispatch) => {
+  try {
+    const data = await GoodsService.getSimilarGoods(id);
+    dispatch(getSimilarGoods(data));
+  } catch (error) {
+    console.log(error);
   }
 };

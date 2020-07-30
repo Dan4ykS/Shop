@@ -1,10 +1,12 @@
 import React from 'react';
 import ListView from '../ListView';
 import './Slider.scss';
+import './aditionalStyles.scss';
 import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faAngleLeft, faStar, faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import { redirectToSlideLink } from './utils';
+import { createValidImgSrc } from '../../utils/workWithBrowser';
 
 const RendeSlider = ({
   position,
@@ -16,21 +18,39 @@ const RendeSlider = ({
   setDotClass,
   history,
   hasDots,
+  mode,
   classNames,
 }) => {
   return (
-    <div className='slider'>
+    <div className={classNames.slider ?? 'slider'}>
       <div className='slider__wrapper'>
         <div className='slider__track' style={{ transform: `translateX(${position}%)` }}>
           <ListView
             listForRender={content}
-            ComponentForRender={({ data: { slideImgSrc, slideLink, elIndex } }) => (
-              <div className={classNames.sliderItem ?? 'slider__item'} style={{ minWidth: `${slideWidth}%` }}>
-                <img src={slideImgSrc} alt={`slide${elIndex + 1}`} />
-                {slideLink ? (
-                  <button className={classNames.slideBtn ?? 'btn btn-slide'} onClick={() => redirectToSlideLink(slideLink, history)}>
-                    Смотреть подробнее
-                  </button>
+            ComponentForRender={({ data: { slideImgSrc, slideLink, elIndex, slideDetail = null } }) => (
+              <div className={classNames.sliderItem ?? 'slider__item flexWrapColumn_center'} style={{ minWidth: `${slideWidth}%` }}>
+                <div className={classNames.sliderItemImgWrapper ?? 'slider__item-imgWrapper'}>
+                  <img src={createValidImgSrc(slideImgSrc)} alt={`slide${elIndex + 1}`} />
+                  {slideLink && !slideDetail ? (
+                    <button
+                      className={classNames.slideBtn ?? 'btn btn-slide'}
+                      onClick={() => redirectToSlideLink(slideLink, history)}
+                    >
+                      Смотреть подробнее
+                    </button>
+                  ) : null}
+                </div>
+                {slideDetail ? (
+                  <div className='slider__item-moreInfo flexWrap'>
+                    <div>
+                      <FontAwesomeIcon icon={faStar} /> {slideDetail.rating}
+                    </div>
+                    <FontAwesomeIcon
+                      className='more'
+                      icon={faBookOpen}
+                      onClick={() => redirectToSlideLink(slideLink, history)}
+                    />
+                  </div>
                 ) : null}
               </div>
             )}
@@ -47,7 +67,6 @@ const RendeSlider = ({
           />
         </div>
       ) : null}
-
       <div className={classNames.sliderNextBtn ?? 'slider__nextBtn'}>
         <FontAwesomeIcon icon={faAngleRight} onClick={() => nextBtnClick()} />
       </div>
