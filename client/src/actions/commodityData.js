@@ -12,6 +12,11 @@ import {
   FETCH_COMMODITY_FAILURE,
   FETCH_COMMODITY_REQUEST,
   GET_SIMILAR_GOODS,
+  UPDATE_USER_REVIEW,
+  UPDATE_REVIEWS,
+  REMOVE_REVIEW,
+  CLEAR_USER_REVIEW,
+  UPDATE_RATING,
 } from './types';
 
 export const updateImg = (imgFile, imgSrc, imgAlt) => createAction(UPDATE_IMG, { imgFile, imgSrc, imgAlt });
@@ -25,9 +30,19 @@ export const updatePrice = (price) => createAction(UPDATE_PRICE, price);
 
 export const updateDescr = (descr) => createAction(UPDATE_DESCR, descr);
 
+export const updateUserReview = (data) => createAction(UPDATE_USER_REVIEW, data);
+
+export const clearUserReview = () => createAction(CLEAR_USER_REVIEW);
+
 export const updateShortDescr = (shortDescr) => createAction(UPDATE_SHORTDESCR, shortDescr);
 
 export const reloadCommodityData = () => createAction(RESET_COMMODITY_DATA);
+
+export const updateReviews = (newReview) => createAction(UPDATE_REVIEWS, newReview);
+
+export const updateRating = (newRating, oldRating = null) => createAction(UPDATE_RATING, { newRating, oldRating });
+
+export const removeReview = (reviewForRemove) => createAction(REMOVE_REVIEW, reviewForRemove);
 
 const fetchCommoditySuccuess = (data) => createAction(FETCH_COMMODITY_SUCCUESS, data);
 
@@ -53,5 +68,17 @@ export const fetchSimilarGoods = (id) => async (dispatch) => {
     dispatch(getSimilarGoods(data));
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const findUserReview = (userName, reviews) => (dispatch) => {
+  const reviewData = reviews.find((review) => review.reviewer === userName);
+  if (reviewData) {
+    const dataForUserReview = {
+      review: reviewData.review,
+      rating: reviewData.reviewRating,
+      reviewId: reviewData.reviewId,
+    };
+    dispatch(updateUserReview(dataForUserReview));
   }
 };

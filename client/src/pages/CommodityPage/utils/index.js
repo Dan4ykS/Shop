@@ -1,6 +1,6 @@
 import React from 'react';
 import StringHelper from '../../../utils/StringHelper';
-import { findNeedElement } from '../../../utils/workWithBrowser';
+import { findNeedElement, scrollToElem } from '../../../utils/workWithBrowser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
@@ -59,4 +59,17 @@ export const calculateRatingPercentage = (rating, number) => {
     default:
       return 0;
   }
+};
+
+export const writeReview = (userName) => {
+  if (!userName) {
+    alert('Необходимо зарегистрироваться');
+  } else {
+    scrollToElem('commodityPage__feedback');
+  }
+};
+
+export const initPage = async (commodityId, fetchCommodity, fetchSimilarGoods) => {
+  await fetchCommodity(commodityId);
+  await fetchSimilarGoods(commodityId);
 };

@@ -14,7 +14,6 @@ const reviews = new Schema({
   },
   review: {
     type: String,
-    require: true,
   },
   date: {
     type: String,

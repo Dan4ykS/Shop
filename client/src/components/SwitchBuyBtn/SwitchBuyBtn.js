@@ -14,7 +14,7 @@ const SwitchBuyBtn = ({ userData: { token, userName }, actions: { onAddedToCart 
     );
   }
   if (!userName) {
-    return <button className='btn' onClick={() => console.log('Открыть окнопокупки!')}>Купить</button>;
+    return <button className='btn' onClick={() => alert('Открыть окно покупки!')}>Купить</button>;
   }
   if (userName) {
     return <button className='btn' onClick={() => onAddedToCart(id, token)}>Купить</button>;

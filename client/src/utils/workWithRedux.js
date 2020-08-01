@@ -13,7 +13,7 @@ export const removeArrayElement = (array, indexElForRemove) => [
   ...array.slice(indexElForRemove + 1),
 ];
 
-export const addArrayElement = (array, newElement) => [...array, newElement];
+export const addArrayElement = (array, newElement) => [newElement, ...array];
 
 export const createAction = (action, payload = null) => ({
   type: action,

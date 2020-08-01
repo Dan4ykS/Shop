@@ -2,9 +2,19 @@ import React, { useEffect } from 'react';
 import LoadingData from '../../components/LoadingData';
 import RenderGenresData from '../../components/RenderGenresData';
 import Rating from '../../components/Rating/Rating';
+import SimilarGoods from './SimilarGoods';
+import Reviews from './Reviews';
+import Feedback from './Feedback';
+import SwitchBuyBtn from '../../components/SwitchBuyBtn';
 import './CommodityPage.scss';
 import { connectToStore } from '../../utils/workWithRedux';
-import { fetchCommodity, fetchSimilarGoods } from '../../actions/commodityData';
+import {
+  fetchCommodity,
+  fetchSimilarGoods,
+  updateReviews,
+  updateUserReview,
+  updateRating,
+} from '../../actions/commodityData';
 import { createValidImgSrc, scrollToElem } from '../../utils/workWithBrowser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faCommentAlt, faRubleSign } from '@fortawesome/free-solid-svg-icons';
@@ -15,10 +25,9 @@ import {
   calculateNumberOfRating,
   renderStars,
   calculateRatingPercentage,
+  writeReview,
+  initPage,
 } from './utils';
-import SimilarGoods from './SimilarGoods';
-import ListView from '../../components/ListView';
-import Reviews from './Reviews';
 
 const CommodityPage = ({
   commodityData: {
@@ -35,15 +44,15 @@ const CommodityPage = ({
     countReviews,
     id,
     similarGoods,
+    userReview,
   },
-  userData: { userName },
-  actions: { fetchCommodity, fetchSimilarGoods },
+  userData: { userName, token },
+  actions: { fetchCommodity, fetchSimilarGoods, updateUserReview, updateReviews, updateRating },
   match,
 }) => {
   useEffect(() => {
     const commodityId = match.params.id;
-    fetchCommodity(commodityId);
-    fetchSimilarGoods(commodityId);
+    initPage(commodityId, fetchCommodity, fetchSimilarGoods);
   }, [match.params.id, fetchCommodity, fetchSimilarGoods]);
   return (
     <div className='commodityPage'>
@@ -51,11 +60,7 @@ const CommodityPage = ({
         configData={{
           loading,
           error,
-          funcForRender: async () => {
-            const commodityId = match.params.id;
-            await fetchCommodity(commodityId);
-            await fetchSimilarGoods(commodityId);
-          },
+          funcForRender: null,
           routeForRedirect: '/',
         }}
       >
@@ -74,7 +79,7 @@ const CommodityPage = ({
               </div>
               <div className='item item__feedback flexWrap'>
                 <div className='item__feedback-stars' onMouseEnter={(e) => toggleMoreRatingInfo(e, 'show')}>
-                  <FontAwesomeIcon icon={faStar} /> {rating?.general}
+                  <FontAwesomeIcon icon={faStar} /> {userReview ? userReview.rating : rating?.general}
                 </div>
                 <div
                   className='item__feedback-reviews'
@@ -137,10 +142,17 @@ const CommodityPage = ({
                     <div className='moreRatingInfo__rating-detail flexWrap'>
                       <div>Оцените книгу:</div>
                       <div className='stars'>
-                        <Rating userRating={2} />
+                        <Rating
+                          userRating={userReview ? userReview.rating : 0}
+                          updateUserReview={updateUserReview}
+                          updateRating={updateRating}
+                          userToken={token}
+                          reviewId={userReview?.reviewId}
+                          commodityId={id}
+                        />
                       </div>
                     </div>
-                    <button className='btn' onClick={() => scrollToElem('commodityPage__feedback')}>
+                    <button className='btn' onClick={() => writeReview(userName)}>
                       Написать отзыв
                     </button>
                   </div>
@@ -150,7 +162,7 @@ const CommodityPage = ({
                 <div>
                   {price} <FontAwesomeIcon size='sm' icon={faRubleSign} />
                 </div>
-                <button className='btn'>Купить</button>
+                <SwitchBuyBtn id={id} />
               </div>
             </div>
             <div className='commodityPage__info-detail-item'>{createTextWithBr(descr)}</div>
@@ -160,40 +172,18 @@ const CommodityPage = ({
           <SimilarGoods goods={similarGoods} />
         </div>
         <div className='commodityPage__reviews'>
-          <Reviews reviews={reviews} />
+          <Reviews reviews={reviews.filter(({ review }) => review)} />
         </div>
-        <div className='commodityPage__feedback row'>
-          <div className='commodityPage__feedback-title commodityPage__blockTitle col-12'>Оставить отзыв</div>
-          <div className='col-2'>
-            <div className='userAvatar'>
-              <img src={'/static/defaultAvatar.png'} alt={`avatar-${userName}`} />
-            </div>
-          </div>
-          <div className='col-10'>
-            <div className='commodityPage__feedback-content'>
-              <div className='commodityPage__feedback-content-header flexWrap_SB'>
-                <div className='userName'>{userName}</div>
-                <div className='userRating flexWrap'>
-                  <span>Оцените книгу: </span>
-                  <Rating />
-                </div>
-              </div>
-              <textarea
-                className='formControl commodityPage__feedback-content-review'
-                placeholder='Понравилась книга?'
-              />
-            </div>
-          </div>
-          <div className='commodityPage__feedback-btn col-12'>
-            <button className='btn'>Опубликовать</button>
-          </div>
-        </div>
+        <Feedback />
       </LoadingData>
     </div>
   );
 };
 
-export default connectToStore(['commodityData', 'userData'], { fetchCommodity, fetchSimilarGoods })(
-  CommodityPage,
-  true
-);
+export default connectToStore(['commodityData', 'userData'], {
+  fetchCommodity,
+  fetchSimilarGoods,
+  updateReviews,
+  updateUserReview,
+  updateRating,
+})(CommodityPage, true);

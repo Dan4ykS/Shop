@@ -43,8 +43,8 @@ module.exports.updateReviewRelatedData = async ({ userId, commodityId, rating, r
   const user = await Users.findById(userId),
     commodity = await Goods.findById(commodityId);
 
-  user.updateReviewsData(reviewId);
-  if (+rating >= 0 && rating <= 5) {
+  await user.updateReviewsData(reviewId);
+  if (+rating >= 0 && +rating <= 5) {
     await this.updateCommodityRating(commodity, rating, oldRating);
   }
   commodity.updateReviewsData(reviewId);

@@ -11,7 +11,13 @@ import {
   UPDATE_DESCR,
   UPDATE_PRICE,
   GET_SIMILAR_GOODS,
+  UPDATE_USER_REVIEW,
+  UPDATE_REVIEWS,
+  REMOVE_REVIEW,
+  CLEAR_USER_REVIEW,
+  UPDATE_RATING,
 } from '../actions/types';
+import { addArrayElement, changeArrayElement, removeArrayElement } from '../utils/workWithRedux';
 
 const createAlt = (newData, oldData, type) => {
   const newAlt = newData ? newData[`${type}Alt`] : null,
@@ -69,6 +75,69 @@ const updateField = (commodityData, fieldName, newFieldData) => {
   };
 };
 
+const updateReviews = ({ reviews }, newReviewData, type = 'update') => {
+  const reviewIndex = reviews.findIndex((review) => review.reviewer === newReviewData.review);
+  if (reviewIndex === -1) {
+    return addArrayElement(reviews, newReviewData);
+  } else if (type === 'remove') {
+    return removeArrayElement(reviews, reviewIndex);
+  } else {
+    return changeArrayElement(reviews, reviewIndex, newReviewData);
+  }
+};
+
+const updateRating = ({ rating }, { newRating, oldRating }) => {
+  const newRatingData = {
+    ...rating,
+  };
+  if (oldRating) {
+    switch (oldRating) {
+      case 5:
+        newRatingData.fiveStars -= 1;
+        break;
+      case 4:
+        newRatingData.fourStars -= 1;
+        break;
+      case 3:
+        newRatingData.threeStars -= 1;
+        break;
+      case 2:
+        newRatingData.twoStars -= 1;
+        break;
+      case 1:
+        newRatingData.oneStar -= 1;
+        break;
+      default:
+        break;
+    }
+  }
+  switch (newRating) {
+    case 5:
+      newRatingData.fiveStars += 1;
+      break;
+    case 4:
+      newRatingData.fourStars += 1;
+      break;
+    case 3:
+      newRatingData.threeStars += 1;
+      break;
+    case 2:
+      newRatingData.twoStars += 1;
+      break;
+    case 1:
+      newRatingData.oneStar += 1;
+      break;
+    default:
+      break;
+  }
+  const { fiveStars, fourStars, threeStars, twoStars, oneStar } = newRatingData,
+    numberOfRatings = fiveStars + fourStars + threeStars + twoStars + oneStar,
+    sumOfRatings = fiveStars * 5 + fourStars * 4 + threeStars * 3 + twoStars * 2 + oneStar * 1;
+  
+  newRatingData.general = sumOfRatings && numberOfRatings ? (sumOfRatings / numberOfRatings).toFixed(1) : 0;
+  return newRatingData;
+};
+
 const defaultCommodityDataState = {
   id: null,
   title: '',
@@ -85,6 +154,7 @@ const defaultCommodityDataState = {
   countReviews: null,
   reviews: [],
   similarGoods: [],
+  userReview: null,
   updatedFields: {},
 };
 
@@ -101,10 +171,10 @@ const updateCommodityData = (state, action) => {
 
     case FETCH_COMMODITY_SUCCUESS:
       return {
+        ...state.commodityData,
         ...action.payload,
         loading: false,
         error: null,
-        updatedFields: {},
       };
 
     case GET_SIMILAR_GOODS:
@@ -121,6 +191,36 @@ const updateCommodityData = (state, action) => {
 
     case RESET_COMMODITY_DATA:
       return defaultCommodityDataState;
+
+    case UPDATE_USER_REVIEW:
+      return {
+        ...state.commodityData,
+        userReview: { ...state.commodityData.userReview, ...action.payload },
+      };
+
+    case CLEAR_USER_REVIEW:
+      return {
+        ...state.commodityData,
+        userReview: null,
+      };
+
+    case UPDATE_REVIEWS:
+      return {
+        ...state.commodityData,
+        reviews: updateReviews(state.commodityData, action.payload),
+      };
+
+    case UPDATE_RATING:
+      return {
+        ...state.commodityData,
+        rating: updateRating(state.commodityData, action.payload),
+      };
+
+    case REMOVE_REVIEW:
+      return {
+        ...state.commodityData,
+        reviews: updateReviews(state.commodityData, action.payload, 'remove'),
+      };
 
     case UPDATE_IMG:
       return updateField(state.commodityData, 'img', action.payload);

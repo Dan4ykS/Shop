@@ -1,5 +1,5 @@
 import React from 'react';
-import SwitchBuyBtn from './SwitchBuyBtn';
+import SwitchBuyBtn from '../SwitchBuyBtn';
 import RenderGenresData from '../RenderGenresData';
 import RatingInMedal from '../Rating/RatingInMedal';
 import './CommodityPreviewCard.scss';

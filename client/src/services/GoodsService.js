@@ -52,6 +52,14 @@ class GoodsService extends BaseApiClass {
   getSimilarGoods = async (commodityId) => {
     return this.requestToApi('GET', `getSimilarGoods/${commodityId}`, null);
   };
+
+  createReview = async (data, toke) => {
+    return this.requestToApi('POST', 'createReview', data, this.headerWithToken(toke));
+  };
+
+  updateReview = async (id, data, token) => {
+    return this.requestToApi('PATCH', `updateReview/${id}`, data, this.headerWithToken(token));
+  };
 }
 
 export default new GoodsService();

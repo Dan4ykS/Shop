@@ -130,6 +130,7 @@
                   height: 15px;
                   div {
                     height: 100%;
+                    transition: all 0.5s;
                     background-color: $starsColor;
                   }
                 }
@@ -207,7 +208,8 @@
     }
   }
   &__similarGoods,
-  &__reviews, &__feedback {
+  &__reviews,
+  &__feedback {
     margin-top: 80px;
   }
   &__reviews {

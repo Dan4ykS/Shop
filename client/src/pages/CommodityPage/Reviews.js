@@ -13,21 +13,21 @@ const Reviews = ({ reviews }) => {
       <div className='commodityPage__blockTitle'>Отзывы</div>
       <ListView
         listForRender={reviews}
-        ComponentForRender={({ data: { reviewer, reviewId, reviewerAvatar, reviewDate, review, reviewRating } }) => (
+        ComponentForRender={({ data: { reviewerName, reviewerAvatar, reviewDate, review, reviewRating } }) => (
           <div className='commodityPage__reviews-item row'>
             <div className='commodityPage__reviews-item-img col-1'>
               <div className='userAvatar'>
-                <img src={createValidImgSrc(reviewerAvatar)} alt={`avatar-${reviewer}`} />
+                <img src={createValidImgSrc(reviewerAvatar)} alt={`avatar-${reviewerName}`} />
               </div>
             </div>
             <div className='commodityPage__reviews-item-content col-11'>
               <div className='review__header flexWrap_SB'>
                 <div className='flexWrap'>
-                  <span>{reviewer}</span>
+                  <span>{reviewerName}</span>
                   <span>{reviewDate}</span>
                 </div>
                 <div>
-                  <Rating userRating={reviewRating} editable={false}/>
+                  <Rating userRating={reviewRating} editable={false} />
                 </div>
               </div>
               <div className='review__text'>{createTextWithBr(review, 400)}</div>
