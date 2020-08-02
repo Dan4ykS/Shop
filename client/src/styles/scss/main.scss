@@ -27,6 +27,14 @@ p {
   margin: 0;
 }
 
+.readMore {
+  cursor: pointer;
+  margin-left: 10px;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 h1,
 h2,
 h3,

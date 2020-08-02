@@ -4,11 +4,10 @@ const Users = require('../models/Users');
 const Goods = require('../models/Goods');
 const { updateCommodityRating, updateReviewRelatedData } = require('../utils/updateFuncs');
 const { generateDate } = require('../utils/createFuncs');
-const { convertDataForClient } = require('../utils/convertFuncs');
 
 module.exports.createReview = async ({ body: { review, commodityId, rating }, user: { userId } }, res) => {
   try {
-    if (await Reviews.findOne({ userId })) {
+    if (await Reviews.findOne({ commodityId, userId })) {
       return res.status(403).json({ message: 'Вы не можете оставить больше 1 отзыва!' });
     }
     const newReview = new Reviews({
@@ -18,8 +17,8 @@ module.exports.createReview = async ({ body: { review, commodityId, rating }, us
       rating: !rating ? null : rating,
     });
     await newReview.save();
-    res.status(201).json(convertDataForClient(newReview.toObject()));
     await updateReviewRelatedData({ ...newReview.toObject(), reviewId: newReview._id });
+    res.status(201).json({ reviewId: newReview._id, date: newReview.date });
   } catch (error) {
     errorHandler(res, error);
   }
@@ -32,7 +31,7 @@ module.exports.updateReview = async ({ body, user: { userId }, params: { id } },
       return res.status(401).json({ message: 'Нет доступа к отзыву' });
     }
     const newReview = await Reviews.findByIdAndUpdate(id, { ...body, date: generateDate() }, { new: true });
-    res.json(convertDataForClient(newReview.toObject()));
+    res.json({ date: newReview.date });
     if (body?.rating) {
       const commodity = await Goods.findById(review.commodityId);
       await updateCommodityRating(commodity, body.rating, review.rating);

@@ -3,6 +3,12 @@ import { LOGIN, CREATE_NEW_USER, LOGOUT, INVALID_ROUTE, GET_ADMIN_DATA } from '.
 const updateUserData = (state, action) => {
   if (state === undefined) {
     return {
+      name: null,
+      surname: null,
+      lastName: null,
+      email: null,
+      avatar: null,
+      about: null,
       userName: null,
       token: null,
       error: null,
@@ -12,13 +18,12 @@ const updateUserData = (state, action) => {
       },
     };
   }
-  
+
   switch (action.type) {
     case LOGIN:
       return {
         ...state.userData,
-        userName: action.payload.userName,
-        token: action.payload.token,
+        ...action.payload,
         error: null,
         loading: false,
       };

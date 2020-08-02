@@ -49,7 +49,7 @@ module.exports.authUser = async ({ body: { userName, password } }, res) => {
       return res.status(400).json({ message: 'Неверный пароль' });
     }
     const token = createJwtToken({ userId: user.id }, '1d');
-    res.json(token);
+    res.json({ userData: convertDataForClient(user.toObject(), 'user'), token });
   } catch (error) {
     errorHandler(res, error);
   }
@@ -62,7 +62,7 @@ module.exports.isValid = async (req, res) => {
       return res.status(400).json({ message: 'Извините, но такого пользователя уже нет' });
     }
     const newToken = createJwtToken({ userId: user.id }, '1d');
-    res.json({ userName: user.userName, cart: user.cart, newToken });
+    res.json({ userData: convertDataForClient(user.toObject(), 'user'), newToken });
   } catch (error) {
     errorHandler(res, error);
   }

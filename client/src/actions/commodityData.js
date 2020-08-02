@@ -72,13 +72,14 @@ export const fetchSimilarGoods = (id) => async (dispatch) => {
 };
 
 export const findUserReview = (userName, reviews) => (dispatch) => {
-  const reviewData = reviews.find((review) => review.reviewer === userName);
-  if (reviewData) {
-    const dataForUserReview = {
-      review: reviewData.review,
-      rating: reviewData.reviewRating,
-      reviewId: reviewData.reviewId,
+  const reviewData = reviews.find((review) => review.reviewer === userName),
+    dataForUserReview = {
+      review: reviewData?.review,
+      rating: reviewData?.reviewRating,
+      reviewId: reviewData?.reviewId,
     };
+  
+  if (reviewData) {
     dispatch(updateUserReview(dataForUserReview));
   }
 };

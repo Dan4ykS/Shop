@@ -1,12 +1,12 @@
 import React from 'react';
 import SwitchBuyBtn from '../../SwitchBuyBtn';
 import RatingInMedal from '../../Rating/RatingInMedal';
+import TextWithBr from '../../TextWithBr/TextWithBr';
 import '../CommodityPreviewCard.scss';
 import { createValidImgSrc, scrollToTop } from '../../../utils/workWithBrowser';
 import { switchVisible } from './utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRubleSign } from '@fortawesome/free-solid-svg-icons';
-import { createTextWithBr } from '../../../utils/workWithReactElements';
 import { Link } from 'react-router-dom';
 
 const CommodityPreviewCard = ({
@@ -37,7 +37,9 @@ const CommodityPreviewCard = ({
           <div className='preview__content-moreInfo hidenElem'>
             <div>{title}</div>
             <div>{author}</div>
-            <div>{createTextWithBr(shortDescr, 40)}</div>
+            <div>
+              <TextWithBr text={shortDescr} maxlength={40}/>
+            </div>
             <Link to={`/Goods/commodity-${id}`} onClick={() => scrollToTop()}>
               Читать подробнее
             </Link>

@@ -13,7 +13,7 @@ import { isLogin } from '../../actions/userData';
 import { loadCart } from '../../actions/shopingCart';
 import { fetchGoods } from '../../actions/goodsList';
 import { fetchCommodity } from '../../actions/commodityData';
-import { createLazyPage } from '../../utils/workWithReactElements';
+import { createLazyPage } from './utils';
 
 const MainPage = createLazyPage('Main'),
   GoodsPage = createLazyPage('Goods'),

@@ -11,7 +11,7 @@ const createUser = (userName, token) => createAction(CREATE_NEW_USER, { userName
 
 const getAdminData = (adminData) => createAction(GET_ADMIN_DATA, adminData);
 
-export const userLogin = (userName, token) => createAction(LOGIN, { userName, token });
+export const userLogin = (userData, token) => createAction(LOGIN, { ...userData, token });
 
 export const userLogout = () => createAction(LOGOUT);
 
@@ -25,9 +25,9 @@ const authErrorHeandler = ({ inputs, selector }) => {
 
 export const authorization = (data, formData, history) => async (dispatch) => {
   try {
-    const token = await UsersService.authUser(data);
+    const { token, userData } = await UsersService.authUser(data);
     redirectToPage(history, '/');
-    dispatch(userLogin(data.userName, token));
+    dispatch(userLogin(userData, token));
     if (data.userName !== 'admin') {
       const cart = await GoodsService.loadCart(token);
       dispatch(loadCartFromServer(cart));
@@ -57,23 +57,23 @@ export const registration = (data, formData, history) => async (dispatch) => {
 
 export const isLogin = (token) => async (dispatch) => {
   try {
-    const { userName, newToken } = await UsersService.checkUserValid(token);
-    dispatch(userLogin(userName, newToken));
+    const { userData, newToken } = await UsersService.checkUserValid(token);
+    dispatch(userLogin(userData, newToken));
     setNewToken(newToken);
-    return userName;
+    return userData.userName;
   } catch (error) {
     dispatch(invalidRoute());
   }
 };
 
-export const fetchAdminData = () => async (dispatch) => { 
+export const fetchAdminData = () => async (dispatch) => {
   try {
     const data = await UsersService.getAdminData();
-    dispatch(getAdminData(data))
+    dispatch(getAdminData(data));
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export const isLogout = () => (dispatch) => {
   dispatch(userLogout());

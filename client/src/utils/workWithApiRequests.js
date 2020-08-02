@@ -131,16 +131,29 @@ export const findGoods = async (e, history, queryForSearch, funcForSearch) => {
   }
 };
 
-export const workWithReview = async (e, review, updateReviews, updateUserReview, token, reviewId = null) => {
+export const workWithReview = async (
+  e,
+  { review, reviewId, commodityId },
+  { token, avatar, name, userName },
+  { updateReviews, updateUserReview }
+) => {
   e.persist();
   e.preventDefault();
+  console.log(reviewId);
   if (reviewId) {
-    const newReviewData = await GoodsService.updateReview(reviewId, { review }, token);
+    const { date } = await GoodsService.updateReview(reviewId, { review }, token);
     updateUserReview({ review });
-    updateReviews({ ...newReviewData });
+    updateReviews({ review, reviewDate: date, reviewId });
   } else {
-    const reviewData = await GoodsService.createReview({ review }, token);
-    updateUserReview({ review });
-    updateReviews({ ...reviewData });
+    const { id, date } = await GoodsService.createReview({ review, commodityId }, token);
+    updateUserReview({ review, reviewId: id });
+    updateReviews({
+      reviewId: id,
+      reviewDate: date,
+      reviewerName: name,
+      reviewerAvatar: avatar,
+      reviewer: userName,
+      review,
+    });
   }
 };

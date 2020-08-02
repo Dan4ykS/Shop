@@ -73,3 +73,9 @@ export const initPage = async (commodityId, fetchCommodity, fetchSimilarGoods) =
   await fetchCommodity(commodityId);
   await fetchSimilarGoods(commodityId);
 };
+
+export const calcRemainingReviewsCount = (countShow, allCount) =>
+  (countShow + 5 < allCount ? 5 : allCount - countShow);
+
+
+export const switchCount = (countReviews) => countReviews += calcRemainingReviewsCount

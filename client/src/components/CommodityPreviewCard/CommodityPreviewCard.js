@@ -2,9 +2,9 @@ import React from 'react';
 import SwitchBuyBtn from '../SwitchBuyBtn';
 import RenderGenresData from '../RenderGenresData';
 import RatingInMedal from '../Rating/RatingInMedal';
+import TextWithBr from '../TextWithBr/TextWithBr';
 import './CommodityPreviewCard.scss';
 import { createValidImgSrc, scrollToTop } from '../../utils/workWithBrowser';
-import { createTextWithBr } from '../../utils/workWithReactElements';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRubleSign } from '@fortawesome/free-solid-svg-icons';
@@ -37,7 +37,9 @@ const CommodityPreviewCard = ({
               <RenderGenresData genres={genres} />
             </div>
             <div>Автор: {author}</div>
-            <div>{createTextWithBr(shortDescr, window.innerWidth > 575 ? 300 : 150)}</div>
+            <div>
+              <TextWithBr text={shortDescr} maxlength={window.innerWidth > 575 ? 300 : 150} />
+            </div>
           </div>
         </div>
         <div className='preview__detail flexWrap'>

@@ -3,15 +3,15 @@ import './Rating.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { updateCommodityRating, clearTotalRating, checkTotalRating } from './utils';
+import { connectToStore } from '../../utils/workWithRedux';
+import { updateReviews, updateUserReview, updateRating } from '../../actions/commodityData';
 
 const Rating = ({
-  userRating = 0,
-  updateUserReview = null,
-  userToken = null,
-  reviewId = null,
-  commodityId = null,
-  updateRating = null,
+  userRating,
   editable = true,
+  userData: { token },
+  commodityData: { id: commodityId, userReview },
+  actions: { updateReviews, updateUserReview, updateRating },
 }) => {
   const [localUserRating, changeLocalUserRating] = useState(userRating);
 
@@ -19,8 +19,15 @@ const Rating = ({
     changeLocalUserRating(userRating);
   }, [userRating]);
 
-  const dataForUpdateRating = { userToken, reviewId, commodityId, editable, localUserRating },
-    funcsForUpdateRating = { updateUserReview, changeLocalUserRating, updateRating };
+  const dataForUpdateRating = {
+      token,
+      reviewId: userReview?.reviewId,
+      commodityId,
+      editable,
+      localUserRating,
+      userReview,
+    },
+    funcsForUpdateRating = { updateUserReview, changeLocalUserRating, updateRating, updateReviews };
 
   return (
     <div
@@ -67,4 +74,4 @@ const Rating = ({
   );
 };
 
-export default Rating;
+export default connectToStore(['userData', 'commodityData'], { updateReviews, updateUserReview, updateRating })(Rating);

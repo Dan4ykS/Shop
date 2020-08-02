@@ -100,14 +100,18 @@ module.exports.updateRating = async function (userRating, oldUserRating = null) 
   return await this.save();
 };
 
-module.exports.updateReviewsData = async function (reviewId) {
+module.exports.updateReviewsData = async function (reviewId, review) {
   const reviewIndex = this.reviews.findIndex((id) => id.toString() === reviewId.toString());
   if (reviewIndex === -1) {
     this.reviews.push(reviewId);
-    this.countReviews += 1;
+    if (review) {
+      this.countReviews += 1;
+    }
   } else {
     this.reviews.splice(reviewIndex, 1);
-    this.countReviews -= 1;
+    if (review) {
+      this.countReviews -= 1;
+    }
   }
   return await this.save();
 };

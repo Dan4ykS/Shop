@@ -76,13 +76,13 @@ const updateField = (commodityData, fieldName, newFieldData) => {
 };
 
 const updateReviews = ({ reviews }, newReviewData, type = 'update') => {
-  const reviewIndex = reviews.findIndex((review) => review.reviewer === newReviewData.review);
+  const reviewIndex = reviews.findIndex((review) => review.reviewId === newReviewData.reviewId);
   if (reviewIndex === -1) {
     return addArrayElement(reviews, newReviewData);
   } else if (type === 'remove') {
     return removeArrayElement(reviews, reviewIndex);
   } else {
-    return changeArrayElement(reviews, reviewIndex, newReviewData);
+    return changeArrayElement(reviews, reviewIndex, { ...reviews[reviewIndex], ...newReviewData });
   }
 };
 
@@ -133,7 +133,7 @@ const updateRating = ({ rating }, { newRating, oldRating }) => {
   const { fiveStars, fourStars, threeStars, twoStars, oneStar } = newRatingData,
     numberOfRatings = fiveStars + fourStars + threeStars + twoStars + oneStar,
     sumOfRatings = fiveStars * 5 + fourStars * 4 + threeStars * 3 + twoStars * 2 + oneStar * 1;
-  
+
   newRatingData.general = sumOfRatings && numberOfRatings ? (sumOfRatings / numberOfRatings).toFixed(1) : 0;
   return newRatingData;
 };

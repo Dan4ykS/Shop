@@ -37,6 +37,17 @@
   }
 }
 
+.btnMore {
+  background-color: transparent;
+  color: $textColor;
+  border: 2px solid $textColor;
+  max-width: 250px;
+  display: block;
+  margin: 0 auto;
+  &:hover {
+    box-shadow: none;
+  }
+}
 
 @media (max-width: 575px) {
   body {

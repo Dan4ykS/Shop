@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ListView from '../../components/ListView';
-import { createValidImgSrc } from '../../utils/workWithBrowser';
-import { createTextWithBr } from '../../utils/workWithReactElements';
 import Rating from '../../components/Rating/Rating';
+import TextWithBr from '../../components/TextWithBr/TextWithBr';
+import { createValidImgSrc } from '../../utils/workWithBrowser';
+import { calcRemainingReviewsCount } from './utils';
 
 const Reviews = ({ reviews }) => {
+  const [countReviews, switchCountReviews] = useState(1);
+
   if (!reviews.length) {
     return null;
   }
+
   return (
     <>
       <div className='commodityPage__blockTitle'>Отзывы</div>
       <ListView
-        listForRender={reviews}
+        listForRender={reviews.slice(0, countReviews)}
         ComponentForRender={({ data: { reviewerName, reviewerAvatar, reviewDate, review, reviewRating } }) => (
           <div className='commodityPage__reviews-item row'>
             <div className='commodityPage__reviews-item-img col-1'>
@@ -26,15 +30,25 @@ const Reviews = ({ reviews }) => {
                   <span>{reviewerName}</span>
                   <span>{reviewDate}</span>
                 </div>
-                <div>
-                  <Rating userRating={reviewRating} editable={false} />
-                </div>
+                <div>{reviewRating ? <Rating userRating={reviewRating} editable={false} /> : null}</div>
               </div>
-              <div className='review__text'>{createTextWithBr(review, 400)}</div>
+              <div className='review__text'>
+                <TextWithBr text={review} maxlength={400} needReadMore={true} />
+              </div>
             </div>
           </div>
         )}
       />
+      {reviews.length > countReviews ? (
+        <button
+          className='btn btnMore'
+          onClick={() =>
+            switchCountReviews((count) => (count += calcRemainingReviewsCount(countReviews, reviews.length)))
+          }
+        >
+          Показать еще {calcRemainingReviewsCount(countReviews, reviews.length)}
+        </button>
+      ) : null}
     </>
   );
 };

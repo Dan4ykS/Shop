@@ -6,19 +6,13 @@ import SimilarGoods from './SimilarGoods';
 import Reviews from './Reviews';
 import Feedback from './Feedback';
 import SwitchBuyBtn from '../../components/SwitchBuyBtn';
+import TextWithBr from '../../components/TextWithBr/TextWithBr';
 import './CommodityPage.scss';
 import { connectToStore } from '../../utils/workWithRedux';
-import {
-  fetchCommodity,
-  fetchSimilarGoods,
-  updateReviews,
-  updateUserReview,
-  updateRating,
-} from '../../actions/commodityData';
+import { fetchCommodity, fetchSimilarGoods } from '../../actions/commodityData';
 import { createValidImgSrc, scrollToElem } from '../../utils/workWithBrowser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faCommentAlt, faRubleSign } from '@fortawesome/free-solid-svg-icons';
-import { createTextWithBr } from '../../utils/workWithReactElements';
 import {
   toggleMoreRatingInfo,
   hideMoreRatingInfo,
@@ -46,14 +40,15 @@ const CommodityPage = ({
     similarGoods,
     userReview,
   },
-  userData: { userName, token },
-  actions: { fetchCommodity, fetchSimilarGoods, updateUserReview, updateReviews, updateRating },
+  userData: { userName },
+  actions: { fetchCommodity, fetchSimilarGoods },
   match,
 }) => {
   useEffect(() => {
     const commodityId = match.params.id;
     initPage(commodityId, fetchCommodity, fetchSimilarGoods);
   }, [match.params.id, fetchCommodity, fetchSimilarGoods]);
+
   return (
     <div className='commodityPage'>
       <LoadingData
@@ -78,8 +73,8 @@ const CommodityPage = ({
                 <span>автор:</span> {author}
               </div>
               <div className='item item__feedback flexWrap'>
-                <div className='item__feedback-stars' onMouseEnter={(e) => toggleMoreRatingInfo(e, 'show')}>
-                  <FontAwesomeIcon icon={faStar} /> {userReview ? userReview.rating : rating?.general}
+                <div className='item__feedback-stars' onMouseEnter={e => toggleMoreRatingInfo(e, 'show')}>
+                  <FontAwesomeIcon icon={faStar} /> {userReview ? userReview.rating : rating.general}
                 </div>
                 <div
                   className='item__feedback-reviews'
@@ -142,14 +137,7 @@ const CommodityPage = ({
                     <div className='moreRatingInfo__rating-detail flexWrap'>
                       <div>Оцените книгу:</div>
                       <div className='stars'>
-                        <Rating
-                          userRating={userReview ? userReview.rating : 0}
-                          updateUserReview={updateUserReview}
-                          updateRating={updateRating}
-                          userToken={token}
-                          reviewId={userReview?.reviewId}
-                          commodityId={id}
-                        />
+                        <Rating userRating={userReview ? userReview.rating : 0} />
                       </div>
                     </div>
                     <button className='btn' onClick={() => writeReview(userName)}>
@@ -165,7 +153,9 @@ const CommodityPage = ({
                 <SwitchBuyBtn id={id} />
               </div>
             </div>
-            <div className='commodityPage__info-detail-item'>{createTextWithBr(descr)}</div>
+            <div className='commodityPage__info-detail-item'>
+              <TextWithBr text={descr} />
+            </div>
           </div>
         </div>
         <div className='commodityPage__similarGoods'>
@@ -183,7 +173,4 @@ const CommodityPage = ({
 export default connectToStore(['commodityData', 'userData'], {
   fetchCommodity,
   fetchSimilarGoods,
-  updateReviews,
-  updateUserReview,
-  updateRating,
 })(CommodityPage, true);
