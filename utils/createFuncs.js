@@ -2,7 +2,7 @@ const moment = require('moment');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 
-moment.lang('ru');
+moment.locale('ru');
 
 const createObjForUpdateImg = (src, type, alt, oldId, newId) => {
   return {
