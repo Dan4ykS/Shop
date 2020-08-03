@@ -154,7 +154,7 @@ const CommodityPage = ({
               </div>
             </div>
             <div className='commodityPage__info-detail-item'>
-              <TextWithBr text={descr} maxlength={1000} />
+              <TextWithBr text={descr} maxlength={1000} needReadMore={true} />
             </div>
           </div>
         </div>
