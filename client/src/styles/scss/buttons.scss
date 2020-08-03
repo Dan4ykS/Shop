@@ -58,3 +58,11 @@
     font-size: 10px;
   }
 }
+
+:disabled {
+  background-color: $extraColor;
+  &:hover,
+  &:focus {
+    box-shadow: none;
+  }
+}

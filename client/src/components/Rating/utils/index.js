@@ -14,7 +14,6 @@ export const updateCommodityRating = async (
       ratingWrapper = item.closest('.rating'),
       value = +item.dataset.value;
 
-    ratingWrapper.dataset.totalvalue = value;
     if (reviewId) {
       const { date } = await GoodsService.updateReview(reviewId, { rating: value }, token);
       updateUserReview({ rating: value });
@@ -31,6 +30,7 @@ export const updateCommodityRating = async (
       updateUserReview({ rating: value });
       updateRating(value);
     }
+    ratingWrapper.dataset.totalvalue = value;
     changeLocalUserRating(value);
   } catch (error) {
     alert(error);

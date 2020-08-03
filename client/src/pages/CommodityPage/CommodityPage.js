@@ -73,13 +73,13 @@ const CommodityPage = ({
                 <span>автор:</span> {author}
               </div>
               <div className='item item__feedback flexWrap'>
-                <div className='item__feedback-stars' onMouseEnter={e => toggleMoreRatingInfo(e, 'show')}>
-                  <FontAwesomeIcon icon={faStar} /> {userReview ? userReview.rating : rating.general}
+                <div className='item__feedback-stars' onMouseEnter={(e) => toggleMoreRatingInfo(e, 'show')}>
+                  <FontAwesomeIcon icon={faStar} /> {userReview?.rating ? userReview.rating : rating.general}
                 </div>
                 <div
                   className='item__feedback-reviews'
                   onMouseEnter={(e) => toggleMoreRatingInfo(e, 'hide')}
-                  onClick={() => scrollToElem('commodityPage__reviews')}
+                  onClick={() => (countReviews ? scrollToElem('commodityPage__reviews') : null)}
                 >
                   <FontAwesomeIcon icon={faCommentAlt} /> {countReviews}
                 </div>
@@ -141,7 +141,7 @@ const CommodityPage = ({
                       </div>
                     </div>
                     <button className='btn' onClick={() => writeReview(userName)}>
-                      Написать отзыв
+                      {userReview?.review ? 'Редактировать отзыв' : 'Написать отзыв'}
                     </button>
                   </div>
                 </div>

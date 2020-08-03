@@ -135,11 +135,17 @@ export const workWithReview = async (
   e,
   { review, reviewId, commodityId },
   { token, avatar, name, userName },
-  { updateReviews, updateUserReview }
+  { updateReviews, updateUserReview, changeLoading }
 ) => {
   e.persist();
   e.preventDefault();
-  console.log(reviewId);
+  
+  const feedbackWrapper = e.target.childNodes[0],
+    feedbacStatus = e.target.childNodes[1];
+
+  changeLoading(true);
+  feedbackWrapper.classList.add('commodityPage__feedback-contentWrapper_hiden');
+  feedbacStatus.classList.remove('hidenElem');
   if (reviewId) {
     const { date } = await GoodsService.updateReview(reviewId, { review }, token);
     updateUserReview({ review });
@@ -156,4 +162,5 @@ export const workWithReview = async (
       review,
     });
   }
+  changeLoading(false);
 };

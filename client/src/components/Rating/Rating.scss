@@ -9,7 +9,7 @@
     transition: color 0.3s;
     &:hover,
     &:hover ~ & {
-      color: #fbdf7799;
+      color: $starsColorHover;
     }
     &_noEditable {
       color: $textColor2;

@@ -103,7 +103,7 @@ module.exports.findCommodity = async ({ params: { id } }, res) => {
       reviewDataForClien = [];
 
     if (commodity.reviews.length) {
-      const reviewData = (await createPopuldatedData(commodity, 'reviews')).reviews;
+      const reviewData = (await createPopuldatedData(commodity, 'reviews')).reviews.reverse();
       for (const review of reviewData) {
         const reviewerData = (await createPopuldatedData(review, 'userId')).userId;
         reviewDataForClien.push({

@@ -4,6 +4,7 @@
 @import "./buttons.scss";
 @import "./modal.scss";
 @import "./password.scss";
+@import "./animation.scss";
 
 body {
   color: $textColor;
@@ -29,9 +30,15 @@ p {
 
 .readMore {
   cursor: pointer;
+  font-style: italic;
   margin-left: 10px;
+  color: $additionalTextColor;
+  font-size: 17px;
+  svg {
+    margin-left: 10px;
+  }
   &:hover {
-    text-decoration: underline;
+    color: $mainColor;
   }
 }
 
@@ -65,8 +72,4 @@ h6 {
 
 .hidenElem {
   display: none;
-}
-
-:disabled {
-  color: red;
 }

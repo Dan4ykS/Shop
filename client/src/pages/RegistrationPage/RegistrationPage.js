@@ -1,4 +1,5 @@
 import React from 'react';
+import './RegistationPage.scss';
 import { connectToStore } from '../../utils/workWithRedux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';

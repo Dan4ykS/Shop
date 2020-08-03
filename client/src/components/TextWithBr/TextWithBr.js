@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import StringHelper from '../../utils/StringHelper';
 import { trimText } from './utils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDoubleDown, faAngleDoubleUp } from '@fortawesome/free-solid-svg-icons';
 
 const TextWithBr = ({ text, maxlength = null, needReadMore = false }) => {
   const [textLendth, changeTextLenght] = useState(maxlength);
@@ -9,12 +11,12 @@ const TextWithBr = ({ text, maxlength = null, needReadMore = false }) => {
     paragraphs = str.split('\n');
 
   return paragraphs.map((el, index) => {
-    if (index === paragraphs.length - 1 && maxlength < str.length) {
+    if (index === paragraphs.length - 1 && maxlength < str.length && needReadMore) {
       return (
         <p key={StringHelper.createId()}>
           {el}
           <span className='readMore' onClick={() => changeTextLenght(maxlength)}>
-            Свернуть
+            <FontAwesomeIcon icon={faAngleDoubleUp}/>
           </span>
         </p>
       );
@@ -26,7 +28,7 @@ const TextWithBr = ({ text, maxlength = null, needReadMore = false }) => {
         <p key={StringHelper.createId()}>
           {el}
           <span className='readMore' onClick={() => changeTextLenght(null)}>
-            Читать больше
+             <FontAwesomeIcon icon={faAngleDoubleDown} />
           </span>
         </p>
       );

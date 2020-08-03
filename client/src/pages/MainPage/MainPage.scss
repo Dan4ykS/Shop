@@ -8,6 +8,12 @@
       display: block;
       margin: 0 auto;
       margin-top: 20px;
+      &::after {
+        content: "\002192";
+        font-size: 24px;
+        margin-left: 10px;
+        font-weight: 700;
+      }
     }
   }
   &__aboutAuthor {

@@ -74,8 +74,14 @@ export const initPage = async (commodityId, fetchCommodity, fetchSimilarGoods) =
   await fetchSimilarGoods(commodityId);
 };
 
-export const calcRemainingReviewsCount = (countShow, allCount) =>
-  (countShow + 5 < allCount ? 5 : allCount - countShow);
+export const calcRemainingReviewsCount = (countShow, allCount) => (countShow + 5 < allCount ? 5 : allCount - countShow);
 
+export const hideFeedbackStatus = (e) => {
+  e.preventDefault();
 
-export const switchCount = (countReviews) => countReviews += calcRemainingReviewsCount
+  const feedbacStatus = e.target.closest('.commodityPage__feedback-status'),
+    feedbacWrapper = feedbacStatus.previousElementSibling;
+
+  feedbacStatus.classList.add('hidenElem');
+  feedbacWrapper.classList.remove('commodityPage__feedback-contentWrapper_hiden');
+};

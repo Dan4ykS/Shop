@@ -78,7 +78,7 @@
                   height: 100%;
                   width: 1px;
                   left: 50%;
-                  background-color: black;
+                  background-color: $textColor;
                   transform: translateX(-50%) rotate(45deg);
                 }
                 &::after {
@@ -86,7 +86,7 @@
                   height: 1px;
                   width: 100%;
                   top: 50%;
-                  background-color: black;
+                  background-color: $textColor;
                   transform: translateY(-50%) rotate(45deg);
                 }
               }
@@ -108,7 +108,7 @@
                   width: 50%;
                   justify-content: flex-end;
                   p {
-                    color: #0000009e;
+                    color: $additionalTextColor;
                     font-size: 17px;
                     &:first-child {
                       margin-right: 8px;
@@ -136,7 +136,7 @@
                 }
                 .ratingCount {
                   width: 5%;
-                  color: #0000009e;
+                  color: $additionalTextColor;
                 }
               }
             }
@@ -218,7 +218,8 @@
       margin-bottom: 25px;
       padding: 15px;
       border-radius: 15px;
-      transition: all 0.5s;
+      animation-name: fadeInDown;
+      animation-duration: 1s;
       &-img {
         .userAvatar {
           height: 50px;
@@ -229,13 +230,20 @@
       &-content {
         .review {
           &__header {
+            margin-bottom: 10px;
             div {
               &:first-child {
+                  align-items: flex-end;
                 span {
                   margin-right: 20px;
                   font-size: 15px;
+                  line-height: 1.1;
+                  &:first-child {
+                    font-size: 25px;
+                  } 
                 }
               }
+              
             }
           }
         }
@@ -246,6 +254,12 @@
     border: 2px solid $mainColor;
     padding: 20px;
     border-radius: 15px;
+    position: relative;
+    &-contentWrapper {
+      &_hiden {
+        filter: blur(3px);
+      }
+    }
     &-title {
       text-align: center;
       margin-top: 0;
@@ -263,7 +277,7 @@
       }
       &-review {
         margin-top: 20px;
-        min-height: 150px;
+        min-height: 250px;
       }
     }
     &-btn {
@@ -271,6 +285,30 @@
       button {
         display: block;
         margin: 0 auto;
+      }
+    }
+    &-status {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: $blurBg;
+      border-radius: 15px;
+      &-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        .thanks {
+          text-align: center;
+          margin-bottom: 30px;
+          font-size: 25px;
+        }
+        button {
+          display: block;
+          margin: 0 auto;
+        }
       }
     }
   }

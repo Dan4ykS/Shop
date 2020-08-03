@@ -6,7 +6,7 @@ import { createValidImgSrc } from '../../utils/workWithBrowser';
 import { calcRemainingReviewsCount } from './utils';
 
 const Reviews = ({ reviews }) => {
-  const [countReviews, switchCountReviews] = useState(1);
+  const [countReviews, switchCountReviews] = useState(5);
 
   if (!reviews.length) {
     return null;
