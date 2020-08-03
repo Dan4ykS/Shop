@@ -2,6 +2,8 @@ const moment = require('moment');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 
+moment.lang('ru');
+
 const createObjForUpdateImg = (src, type, alt, oldId, newId) => {
   return {
     [`${type}Src`]: src,
@@ -68,7 +70,7 @@ module.exports.createDataUpdateObj = (updateData, { previewImg, img }, oldData) 
 };
 
 module.exports.generateDate = () => {
-  return moment().format('DD:MM:YYYY HH:mm:ss');
+  return moment().format('DD MMMM YYYY');
 };
 
 module.exports.createJwtToken = (data, lifetime = '1h') => {
