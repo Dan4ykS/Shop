@@ -4,7 +4,7 @@ import RenderGenresData from '../../components/RenderGenresData';
 import Rating from '../../components/Rating/Rating';
 import SimilarGoods from './SimilarGoods';
 import Reviews from './Reviews';
-import Feedback from './Feedback';
+import Feedback from './Feedback/Feedback';
 import SwitchBuyBtn from '../../components/SwitchBuyBtn';
 import TextWithBr from '../../components/TextWithBr/TextWithBr';
 import './CommodityPage.scss';

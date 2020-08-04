@@ -195,13 +195,13 @@ const updateCommodityData = (state, action) => {
     case UPDATE_USER_REVIEW:
       return {
         ...state.commodityData,
-        userReview: { ...state.commodityData.userReview, ...action.payload },
+        userReview: { ...state.commodityData.userReview, ...action.payload, reviewWasRemoved: false },
       };
 
     case CLEAR_USER_REVIEW:
       return {
         ...state.commodityData,
-        userReview: null,
+        userReview: { reviewWasRemoved: true },
       };
 
     case UPDATE_REVIEWS:

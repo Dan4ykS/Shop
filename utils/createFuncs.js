@@ -69,8 +69,8 @@ module.exports.createDataUpdateObj = (updateData, { previewImg, img }, oldData) 
   }
 };
 
-module.exports.generateDate = () => {
-  return moment().format('DD MMMM YYYY');
+module.exports.generateDate = (wasUpdate = false) => {
+  return moment().format(`DD MMMM YYYY в HH:mm ${wasUpdate ? '(изменено)' : ''}`);
 };
 
 module.exports.createJwtToken = (data, lifetime = '1h') => {

@@ -60,6 +60,10 @@ class GoodsService extends BaseApiClass {
   updateReview = async (id, data, token) => {
     return this.requestToApi('PATCH', `updateReview/${id}`, data, this.headerWithToken(token));
   };
+
+  removeReview = async (id, token) => {
+    return this.requestToApi('DELETE', `removeReview/${id}`, null, this.headerWithToken(token));
+  };
 }
 
 export default new GoodsService();

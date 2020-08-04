@@ -18,7 +18,7 @@ module.exports.createReview = async ({ body: { review, commodityId, rating }, us
     });
     await newReview.save();
     await updateReviewRelatedData({ ...newReview.toObject(), reviewId: newReview._id });
-    res.status(201).json({ reviewId: newReview._id, date: newReview.date });
+    res.status(201).json({ id: newReview._id, date: newReview.date });
   } catch (error) {
     errorHandler(res, error);
   }
@@ -30,7 +30,7 @@ module.exports.updateReview = async ({ body, user: { userId }, params: { id } },
     if (review.userId.toString() !== userId) {
       return res.status(401).json({ message: 'Нет доступа к отзыву' });
     }
-    const newReview = await Reviews.findByIdAndUpdate(id, { ...body, date: generateDate() }, { new: true });
+    const newReview = await Reviews.findByIdAndUpdate(id, { ...body, date: generateDate(true) }, { new: true });
     res.json({ date: newReview.date });
     if (body?.rating) {
       const commodity = await Goods.findById(review.commodityId);

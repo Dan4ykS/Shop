@@ -85,3 +85,5 @@ export const hideFeedbackStatus = (e) => {
   feedbacStatus.classList.add('hidenElem');
   feedbacWrapper.classList.remove('commodityPage__feedback-contentWrapper_hiden');
 };
+
+export const setDataRemove = (e) => (e.target.closest('.commodityPage__feedback').dataset.remove = true);

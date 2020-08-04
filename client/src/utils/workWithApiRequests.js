@@ -135,18 +135,23 @@ export const workWithReview = async (
   e,
   { review, reviewId, commodityId },
   { token, avatar, name, userName },
-  { updateReviews, updateUserReview, changeLoading }
+  { updateReviews, updateUserReview, changeLoading, clearUserReview, removeReview }
 ) => {
   e.persist();
   e.preventDefault();
-  
-  const feedbackWrapper = e.target.childNodes[0],
-    feedbacStatus = e.target.childNodes[1];
+  const form = e.target,
+    feedbackWrapper = form.childNodes[0],
+    feedbacStatus = form.childNodes[1],
+    toRemove = form.dataset.remove;
 
   changeLoading(true);
   feedbackWrapper.classList.add('commodityPage__feedback-contentWrapper_hiden');
   feedbacStatus.classList.remove('hidenElem');
-  if (reviewId) {
+  if (toRemove !== 'false') {
+    await GoodsService.removeReview(reviewId, token);
+    clearUserReview();
+    removeReview({ reviewId });
+  } else if (reviewId) {
     const { date } = await GoodsService.updateReview(reviewId, { review }, token);
     updateUserReview({ review });
     updateReviews({ review, reviewDate: date, reviewId });
@@ -162,5 +167,9 @@ export const workWithReview = async (
       review,
     });
   }
+  if (toRemove) {
+    form.dataset.remove = false;
+  }
+
   changeLoading(false);
 };

@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import Rating from '../../components/Rating/Rating';
-import LoadingIndicator from '../../components/LoadingIndicator';
-import { connectToStore } from '../../utils/workWithRedux';
-import { findUserReview, updateUserReview, updateReviews, clearUserReview } from '../../actions/commodityData';
-import { validateInput, createValidImgSrc } from '../../utils/workWithBrowser';
-import { workWithReview } from '../../utils/workWithApiRequests';
-import { hideFeedbackStatus } from './utils';
+import Rating from '../../../components/Rating/Rating';
+import FeedbackStatus from './FeedbackStatus';
+import { connectToStore } from '../../../utils/workWithRedux';
+import {
+  findUserReview,
+  updateUserReview,
+  updateReviews,
+  clearUserReview,
+  removeReview,
+} from '../../../actions/commodityData';
+import { workWithReview } from '../../../utils/workWithApiRequests';
+import { createValidImgSrc, validateInput } from '../../../utils/workWithBrowser';
+import FeedbackBtn from './FeedbackBtn';
 
 const Feedback = ({
   userData: { userName, token, avatar, name },
   commodityData: { userReview, reviews, id },
-  actions: { findUserReview, updateUserReview, updateReviews, clearUserReview },
+  actions: { findUserReview, updateUserReview, updateReviews, clearUserReview, removeReview },
 }) => {
   const [review, updateLocalReview] = useState(userReview ? userReview.review : ''),
     [loading, changeLoading] = useState(false);
@@ -48,19 +54,21 @@ const Feedback = ({
       updateReviews,
       updateUserReview,
       changeLoading,
+      clearUserReview,
+      removeReview,
     };
 
   return (
     <form
       className='commodityPage__feedback'
       onSubmit={(e) => workWithReview(e, reviewData, userData, funcsForUpdateReview)}
+      data-remove={false}
     >
       <div className='commodityPage__feedback-contentWrapper row'>
         <div className='commodityPage__feedback-title commodityPage__blockTitle col-12'>Оставить отзыв</div>
         <div className='col-2'>
           <div className='userAvatar'>
             <img src={createValidImgSrc(avatar)} alt={`avatar-${userName}`} />
-            <div></div>
           </div>
         </div>
         <div className='col-10'>
@@ -82,36 +90,11 @@ const Feedback = ({
           </div>
         </div>
         <div className='commodityPage__feedback-btn col-12'>
-          {userReview?.review ? (
-            <button type='submit' className='btn' disabled={userReview.review.trim() === review.trim() ?? false}>
-              Изменить
-            </button>
-          ) : (
-            <button type='submit' className='btn' disabled={review.trim() === '' ?? false}>
-              Опубликовать
-            </button>
-          )}
+          <FeedbackBtn newReview={review} />
         </div>
       </div>
       <div className='commodityPage__feedback-status hidenElem'>
-        <div className='commodityPage__feedback-status-content'>
-          {loading ? (
-            <>
-              <LoadingIndicator />
-              {userReview?.review ? 'Ваш отзыв обновляется' : 'Ваш отзыв добавляется'}
-            </>
-          ) : (
-            <>
-              <div className='thanks'>
-                {name}
-                {userReview?.review ? ', ваш отзыв был успешно обновлен' : ', спасибо за отзыв'}
-              </div>
-              <button className='btn' onClick={(e) => hideFeedbackStatus(e)}>
-                Перейти к редактированию
-              </button>
-            </>
-          )}
-        </div>
+        <FeedbackStatus loading={loading} />
       </div>
     </form>
   );
@@ -122,4 +105,5 @@ export default connectToStore(['userData', 'commodityData'], {
   updateUserReview,
   updateReviews,
   clearUserReview,
+  removeReview,
 })(Feedback);
