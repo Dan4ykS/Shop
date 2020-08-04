@@ -75,15 +75,32 @@ const updateField = (commodityData, fieldName, newFieldData) => {
   };
 };
 
-const updateReviews = ({ reviews }, newReviewData, type = 'update') => {
-  const reviewIndex = reviews.findIndex((review) => review.reviewId === newReviewData.reviewId);
+const updateReviewsData = (commodityData, newReviewData, type = 'update') => {
+  const { reviews, countReviews } = commodityData,
+    reviewIndex = reviews.findIndex((review) => review.reviewId === newReviewData.reviewId),
+    newData = {};
+
   if (reviewIndex === -1) {
-    return addArrayElement(reviews, newReviewData);
+    newData.reviews = addArrayElement(reviews, newReviewData);
+    if (newReviewData?.review) {
+      newData.countReviews = countReviews + 1;
+    }
   } else if (type === 'remove') {
-    return removeArrayElement(reviews, reviewIndex);
+    newData.reviews = removeArrayElement(reviews, reviewIndex);
+    newData.countReviews = countReviews - 1;
   } else {
-    return changeArrayElement(reviews, reviewIndex, { ...reviews[reviewIndex], ...newReviewData });
+    newData.reviews = changeArrayElement(reviews, reviewIndex, { ...reviews[reviewIndex], ...newReviewData });
+    if (!reviews[reviewIndex]?.review) {
+      newData.countReviews = countReviews + 1;
+    } else {
+      newData.countReviews = countReviews;
+    }
   }
+  console.log(newData);
+  return {
+    ...commodityData,
+    ...newData,
+  };
 };
 
 const updateRating = ({ rating }, { newRating, oldRating }) => {
@@ -205,21 +222,15 @@ const updateCommodityData = (state, action) => {
       };
 
     case UPDATE_REVIEWS:
-      return {
-        ...state.commodityData,
-        reviews: updateReviews(state.commodityData, action.payload),
-      };
+      return updateReviewsData(state.commodityData, action.payload);
+
+    case REMOVE_REVIEW:
+      return updateReviewsData(state.commodityData, action.payload, 'remove');
 
     case UPDATE_RATING:
       return {
         ...state.commodityData,
         rating: updateRating(state.commodityData, action.payload),
-      };
-
-    case REMOVE_REVIEW:
-      return {
-        ...state.commodityData,
-        reviews: updateReviews(state.commodityData, action.payload, 'remove'),
       };
 
     case UPDATE_IMG:

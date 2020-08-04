@@ -116,6 +116,11 @@ module.exports.updateReviewsData = async function (reviewId, review) {
   return await this.save();
 };
 
+module.exports.increaseCountReviews = async function () {
+  this.countReviews += 1;
+  return await this.save();
+};
+
 module.exports.updateCommodityList = async function (commodityId) {
   const commodityIndex = this.goods.findIndex((id) => id.toString() === commodityId);
   if (commodityIndex === -1) {

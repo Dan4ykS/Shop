@@ -1,6 +1,6 @@
 import React from 'react';
 import StringHelper from '../../../utils/StringHelper';
-import { findNeedElement, scrollToElem } from '../../../utils/workWithBrowser';
+import { findNeedElement, scrollToElem, findNeedElements } from '../../../utils/workWithBrowser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
@@ -72,6 +72,20 @@ export const writeReview = (userName) => {
 export const initPage = async (commodityId, fetchCommodity, fetchSimilarGoods) => {
   await fetchCommodity(commodityId);
   await fetchSimilarGoods(commodityId);
+};
+
+export const showReview = () => {
+  const reviews = findNeedElements('.commodityPage__reviews-item');
+
+  const observer = new IntersectionObserver((reviews, observer) => {
+    reviews.forEach((review) => {
+      if (review.intersectionRatio > 0) {
+        review.target.classList.add('fadeInUp', 'animated');
+      }
+    });
+  }, { root: null, rootMargin: '0px', threshold: 0});
+
+  reviews.forEach((review) => observer.observe(review));
 };
 
 export const calcRemainingReviewsCount = (countShow, allCount) => (countShow + 5 < allCount ? 5 : allCount - countShow);

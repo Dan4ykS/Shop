@@ -6,7 +6,7 @@ const FeedbackBtn = ({ commodityData: { userReview }, newReview }) => {
   return (
     <>
       {userReview?.review ? (
-        <div className='flexWrap_center'>
+        <div className='btnGroup_center'>
           <button type='submit' className='btn' disabled={userReview.review.trim() === newReview.trim() ?? false}>
             Изменить
           </button>
@@ -15,7 +15,7 @@ const FeedbackBtn = ({ commodityData: { userReview }, newReview }) => {
           </button>
         </div>
       ) : (
-        <button type='submit' className='btn' disabled={newReview?.trim() === '' ?? false}>
+        <button type='submit' className='btn btn_center' disabled={newReview?.trim() === '' ?? false}>
           Опубликовать
         </button>
       )}

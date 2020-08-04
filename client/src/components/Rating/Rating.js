@@ -9,7 +9,7 @@ import { updateReviews, updateUserReview, updateRating } from '../../actions/com
 const Rating = ({
   userRating,
   editable = true,
-  userData: { token },
+  userData: { token, name, avatar, userName },
   commodityData: { id: commodityId, userReview },
   actions: { updateReviews, updateUserReview, updateRating },
 }) => {
@@ -26,6 +26,9 @@ const Rating = ({
       editable,
       localUserRating,
       userReview,
+      name,
+      userName,
+      avatar,
     },
     funcsForUpdateRating = { updateUserReview, changeLocalUserRating, updateRating, updateReviews };
 
@@ -74,4 +77,8 @@ const Rating = ({
   );
 };
 
-export default connectToStore(['userData', 'commodityData'], { updateReviews, updateUserReview, updateRating })(Rating);
+export default connectToStore(['userData', 'commodityData'], {
+  updateReviews,
+  updateUserReview,
+  updateRating,
+})(Rating);

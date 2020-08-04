@@ -2,7 +2,7 @@ import GoodsService from '../../../services/GoodsService';
 
 export const updateCommodityRating = async (
   e,
-  { editable, token, reviewId, commodityId, localUserRating: oldRating, userReview },
+  { editable, token, reviewId, commodityId, localUserRating: oldRating, userReview, name, userName, avatar },
   { changeLocalUserRating, updateUserReview, updateRating, updateReviews }
 ) => {
   e.persist();
@@ -26,9 +26,17 @@ export const updateCommodityRating = async (
         });
       }
     } else {
-      await GoodsService.createReview({ rating: value, commodityId }, token);
-      updateUserReview({ rating: value });
+      const { id, date } = await GoodsService.createReview({ rating: value, commodityId }, token);
+      updateUserReview({ rating: value, reviewId: id });
       updateRating(value);
+      updateReviews({
+        reviewId: id,
+        reviewDate: date,
+        reviewerName: name,
+        reviewerAvatar: avatar,
+        reviewer: userName,
+        reviewRating: value,
+      });
     }
     ratingWrapper.dataset.totalvalue = value;
     changeLocalUserRating(value);

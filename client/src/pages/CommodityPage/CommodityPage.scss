@@ -218,8 +218,6 @@
       margin-bottom: 25px;
       padding: 15px;
       border-radius: 15px;
-      animation-name: fadeInDown;
-      animation-duration: 1s;
       &-img {
         .userAvatar {
           height: 50px;
@@ -282,10 +280,6 @@
     }
     &-btn {
       margin-top: 40px;
-      button {
-        display: block;
-        margin: 0 auto;
-      }
     }
     &-status {
       position: absolute;

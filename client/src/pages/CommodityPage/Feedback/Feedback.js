@@ -8,6 +8,7 @@ import {
   updateReviews,
   clearUserReview,
   removeReview,
+  updateRating,
 } from '../../../actions/commodityData';
 import { workWithReview } from '../../../utils/workWithApiRequests';
 import { createValidImgSrc, validateInput } from '../../../utils/workWithBrowser';
@@ -16,7 +17,7 @@ import FeedbackBtn from './FeedbackBtn';
 const Feedback = ({
   userData: { userName, token, avatar, name },
   commodityData: { userReview, reviews, id },
-  actions: { findUserReview, updateUserReview, updateReviews, clearUserReview, removeReview },
+  actions: { findUserReview, updateUserReview, updateReviews, clearUserReview, removeReview, updateRating },
 }) => {
   const [review, updateLocalReview] = useState(userReview ? userReview.review : ''),
     [loading, changeLoading] = useState(false);
@@ -47,8 +48,8 @@ const Feedback = ({
     },
     reviewData = {
       review,
-      reviewId: userReview?.reviewId,
       commodityId: id,
+      userReview,
     },
     funcsForUpdateReview = {
       updateReviews,
@@ -56,6 +57,7 @@ const Feedback = ({
       changeLoading,
       clearUserReview,
       removeReview,
+      updateRating,
     };
 
   return (
@@ -94,7 +96,7 @@ const Feedback = ({
         </div>
       </div>
       <div className='commodityPage__feedback-status hidenElem'>
-        <FeedbackStatus loading={loading} />
+        <FeedbackStatus loading={loading} oldReview={review} />
       </div>
     </form>
   );
@@ -106,4 +108,5 @@ export default connectToStore(['userData', 'commodityData'], {
   updateReviews,
   clearUserReview,
   removeReview,
+  updateRating,
 })(Feedback);

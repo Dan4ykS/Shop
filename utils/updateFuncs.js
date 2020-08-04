@@ -55,7 +55,7 @@ module.exports.updateReviewRelatedData = async ({
   if (+rating >= 0 && +rating <= 5) {
     await this.updateCommodityRating(commodity, rating, oldRating);
   }
-  commodity.updateReviewsData(reviewId, review);
+  await commodity.updateReviewsData(reviewId, review);
 };
 
 module.exports.updateAuthorData = async (author, commodityId, authorName) => {

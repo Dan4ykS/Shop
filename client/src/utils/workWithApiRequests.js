@@ -133,9 +133,9 @@ export const findGoods = async (e, history, queryForSearch, funcForSearch) => {
 
 export const workWithReview = async (
   e,
-  { review, reviewId, commodityId },
+  { review, commodityId, userReview },
   { token, avatar, name, userName },
-  { updateReviews, updateUserReview, changeLoading, clearUserReview, removeReview }
+  { updateReviews, updateUserReview, changeLoading, clearUserReview, removeReview, updateRating }
 ) => {
   e.persist();
   e.preventDefault();
@@ -148,13 +148,14 @@ export const workWithReview = async (
   feedbackWrapper.classList.add('commodityPage__feedback-contentWrapper_hiden');
   feedbacStatus.classList.remove('hidenElem');
   if (toRemove !== 'false') {
-    await GoodsService.removeReview(reviewId, token);
+    await GoodsService.removeReview(userReview.reviewId, token);
+    updateRating(0, userReview?.rating);
     clearUserReview();
-    removeReview({ reviewId });
-  } else if (reviewId) {
-    const { date } = await GoodsService.updateReview(reviewId, { review }, token);
-    updateUserReview({ review });
-    updateReviews({ review, reviewDate: date, reviewId });
+    removeReview({ reviewId: userReview.reviewId });
+  } else if (userReview?.reviewId) {
+    const { date } = await GoodsService.updateReview(userReview.reviewId, { review }, token);
+    updateUserReview({ review, reviewWasUpdate: userReview?.review ? true : false });
+    updateReviews({ review, reviewDate: date, reviewId: userReview.reviewId });
   } else {
     const { id, date } = await GoodsService.createReview({ review, commodityId }, token);
     updateUserReview({ review, reviewId: id });

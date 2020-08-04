@@ -3,7 +3,7 @@ const Reviews = require('../models/Reviews');
 const Users = require('../models/Users');
 const Goods = require('../models/Goods');
 const { updateCommodityRating, updateReviewRelatedData } = require('../utils/updateFuncs');
-const { generateDate } = require('../utils/createFuncs');
+const { generateDate, createPopuldatedData } = require('../utils/createFuncs');
 
 module.exports.createReview = async ({ body: { review, commodityId, rating }, user: { userId } }, res) => {
   try {
@@ -17,8 +17,8 @@ module.exports.createReview = async ({ body: { review, commodityId, rating }, us
       rating: !rating ? null : rating,
     });
     await newReview.save();
-    await updateReviewRelatedData({ ...newReview.toObject(), reviewId: newReview._id });
     res.status(201).json({ id: newReview._id, date: newReview.date });
+    await updateReviewRelatedData({ ...newReview.toObject(), reviewId: newReview._id });
   } catch (error) {
     errorHandler(res, error);
   }
@@ -30,11 +30,19 @@ module.exports.updateReview = async ({ body, user: { userId }, params: { id } },
     if (review.userId.toString() !== userId) {
       return res.status(401).json({ message: 'Нет доступа к отзыву' });
     }
-    const newReview = await Reviews.findByIdAndUpdate(id, { ...body, date: generateDate(true) }, { new: true });
+    const newReview = await Reviews.findByIdAndUpdate(
+      id,
+      { ...body, date: generateDate(!review.review && body?.review ? false : true) },
+      { new: true }
+    );
     res.json({ date: newReview.date });
     if (body?.rating) {
-      const commodity = await Goods.findById(review.commodityId);
+      const commodity = (await createPopuldatedData(newReview, 'commodityId')).commodityId;
       await updateCommodityRating(commodity, body.rating, review.rating);
+    }
+    if (!review.review && body?.review) {
+      const commodity = (await createPopuldatedData(newReview, 'commodityId')).commodityId;
+      await commodity.increaseCountReviews();
     }
   } catch (error) {
     errorHandler(res, error);

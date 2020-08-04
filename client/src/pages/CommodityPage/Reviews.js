@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ListView from '../../components/ListView';
 import Rating from '../../components/Rating/Rating';
 import TextWithBr from '../../components/TextWithBr/TextWithBr';
 import { createValidImgSrc } from '../../utils/workWithBrowser';
-import { calcRemainingReviewsCount } from './utils';
+import { calcRemainingReviewsCount, showReview } from './utils';
 
 const Reviews = ({ reviews }) => {
   const [countReviews, switchCountReviews] = useState(5);
+  useEffect(() => showReview());
 
   if (!reviews.length) {
     return null;

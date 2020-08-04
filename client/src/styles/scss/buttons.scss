@@ -37,6 +37,11 @@
   }
 }
 
+.btn_center {
+  display: block;
+  margin: 0 auto;
+}
+
 .btnMore {
   background-color: transparent;
   color: $textColor;
@@ -46,6 +51,27 @@
   margin: 0 auto;
   &:hover {
     box-shadow: none;
+  }
+}
+
+.btnGroup {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  .btn {
+    display: flex;
+  }
+}
+
+.btnGroup_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .btn {
+    display: flex;
+    &:nth-child(n + 2) {
+      margin-left: 20px;
+    }
   }
 }
 

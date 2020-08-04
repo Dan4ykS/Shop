@@ -3,14 +3,14 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import { hideFeedbackStatus } from '../utils';
 import { connectToStore } from '../../../utils/workWithRedux';
 
-const StatusContent = ({ userReview, name, oldReview }) => {
+const StatusContent = ({ userReview, name }) => {
   let message = ', ',
     btnText = 'Перейти к редактированию';
 
   if (userReview?.reviewWasRemoved) {
     message += 'ваш отзыв был успешно удален';
     btnText = 'Напиисать новый отзыв';
-  } else if (oldReview) {
+  } else if (userReview?.reviewWasUpdate) {
     message += 'ваш отзыв был успешно обновлен';
   } else {
     message += 'спасибо за отзыв';
