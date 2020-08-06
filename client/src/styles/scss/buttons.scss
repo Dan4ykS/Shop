@@ -22,31 +22,33 @@
     outline: 0;
     box-shadow: 0 0 0 0.2rem $btnShodow;
   }
-}
-
-.btn-slide {
-  border: 2px solid $textColor2;
-  background-color: transparent;
-  padding: 15px 25px;
-  &:hover {
-    box-shadow: none;
+  &-slide {
+    border: 2px solid $textColor2;
+    background-color: transparent;
+    padding: 15px 25px;
+    &:hover {
+      box-shadow: none;
+    }
   }
-}
-
-.btn_center {
-  display: block;
-  margin: 0 auto;
-}
-
-.btnMore {
-  background-color: transparent;
-  color: $textColor;
-  border: 2px solid $textColor;
-  max-width: 250px;
-  display: block;
-  margin: 0 auto;
-  &:hover {
-    box-shadow: none;
+  &-dark {
+    background-color: transparent;
+    color: $textColor;
+    border: 2px solid $textColor;
+    max-width: 250px;
+    &:hover {
+      box-shadow: 0 0 0 2px $textColor;
+    }
+  }
+  &:disabled {
+    background-color: $extraColor;
+    &:hover,
+    &:focus {
+      box-shadow: none;
+    }
+  }
+  &_center {
+    display: block;
+    margin: 0 auto;
   }
 }
 
@@ -88,13 +90,5 @@
   button,
   .btn {
     font-size: 10px;
-  }
-}
-
-:disabled {
-  background-color: $extraColor;
-  &:hover,
-  &:focus {
-    box-shadow: none;
   }
 }

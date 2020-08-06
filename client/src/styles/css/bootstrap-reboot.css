@@ -67,7 +67,7 @@ a:hover {
 }
 
 a.btn:hover {
-  color: #ffffff;
+  color: inherit;
   text-decoration: none;
 }
 

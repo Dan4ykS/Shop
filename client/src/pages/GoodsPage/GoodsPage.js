@@ -6,13 +6,14 @@ import { connectToStore } from '../../utils/workWithRedux';
 import { fetchGoods, searchGoods, fetchPopularGoods, fetchNewGoods } from '../../actions/goodsList';
 
 const GoodsPage = ({ actions: { fetchGoods, searchGoods, fetchNewGoods, fetchPopularGoods }, history }) => {
-  const path = history.location.pathname;
+  const location = history.location,
+    path = location.pathname;
   let pageHeader = null,
     actionForGoodsList = null,
     ComponentWithoutData = null;
 
   if (path === '/Goods') {
-    actionForGoodsList = history.action === 'PUSH' ? null : fetchGoods;
+    actionForGoodsList = history.action === 'PUSH' && location.state !== 'fromNotFound' ? null : fetchGoods;
   } else if (path === '/Goods/new') {
     actionForGoodsList = history.action === 'PUSH' ? null : fetchNewGoods;
     pageHeader = <h2>Горячие новинки !</h2>;

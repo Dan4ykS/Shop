@@ -41,14 +41,14 @@ const Reviews = ({ reviews }) => {
         )}
       />
       {reviews.length > countReviews ? (
-        <button
-          className='btn btnMore'
-          onClick={() =>
-            switchCountReviews((count) => (count += calcRemainingReviewsCount(countReviews, reviews.length)))
-          }
-        >
-          Показать еще {calcRemainingReviewsCount(countReviews, reviews.length)}
-        </button>
+          <button
+            className='btn btn-dark btn_center'
+            onClick={() =>
+              switchCountReviews((count) => (count += calcRemainingReviewsCount(countReviews, reviews.length)))
+            }
+          >
+            Показать еще {calcRemainingReviewsCount(countReviews, reviews.length)}
+          </button>
       ) : null}
     </>
   );
