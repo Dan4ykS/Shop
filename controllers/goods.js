@@ -37,7 +37,7 @@ module.exports.bestGoods = async ({ query: { offset, limit } }, res) => {
 
 module.exports.newGoods = async ({ query: { offset, limit } }, res) => {
   try {
-    const goods = await findGoods(offset, limit, { date: -1 });
+    const goods = await findGoods(offset, limit, { createdDate: -1 });
     res.json(convertArrayForClient(goods));
   } catch (error) {
     errorHandler(res, error);

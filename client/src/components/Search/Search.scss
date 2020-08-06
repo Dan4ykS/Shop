@@ -16,6 +16,7 @@
     color: $textColor;
     &:hover {
       box-shadow: none;
+      color: $mainColor;
     }
     &:focus {
       box-shadow: none;
