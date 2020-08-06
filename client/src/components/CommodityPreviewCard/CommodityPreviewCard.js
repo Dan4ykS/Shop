@@ -38,7 +38,7 @@ const CommodityPreviewCard = ({
             </div>
             <div>Автор: {author}</div>
             <div>
-              <TextWithBr text={shortDescr} maxlength={window.innerWidth > 575 ? 300 : 150} />
+              <TextWithBr text={shortDescr} maxlength={200} />
             </div>
           </div>
         </div>
