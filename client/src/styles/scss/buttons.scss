@@ -17,6 +17,7 @@
   &:hover {
     text-decoration: none;
     box-shadow: 0 0 0 0.2rem $btnShodow;
+    color: $textColor2;
   }
   &:focus {
     outline: 0;

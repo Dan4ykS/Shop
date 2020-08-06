@@ -189,10 +189,9 @@
       &-item {
         padding: 0 15px;
         .item {
-          &__author,
-          &__genres {
-            font-size: 25px;
+          &__author{
             margin-top: 20px;
+            font-size: 25px;
           }
           &__title {
             font-size: 55px;

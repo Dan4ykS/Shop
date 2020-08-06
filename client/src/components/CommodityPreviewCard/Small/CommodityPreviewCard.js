@@ -8,6 +8,7 @@ import { switchVisible } from './utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRubleSign } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { trimText } from '../../TextWithBr/utils';
 
 const CommodityPreviewCard = ({
   data: {
@@ -35,7 +36,7 @@ const CommodityPreviewCard = ({
             <img src={createValidImgSrc(previewImgSrc)} alt={previewImgAlt} />
           </div>
           <div className='preview__content-moreInfo hidenElem'>
-            <div>{title}</div>
+            <div>{trimText(title, 20)}</div>
             <div>{author}</div>
             <div>
               <TextWithBr text={shortDescr} maxlength={40}/>

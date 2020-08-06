@@ -2,6 +2,10 @@ import React, { useEffect } from 'react';
 import LoadingIndicator from '../LoadingIndicator/LoadingIndicator';
 import Header from '../Header';
 import Footer from '../Footer';
+import RegistrationPage from '../../pages/RegistrationPage'
+import LoginPage from '../../pages/LoginPage'
+import GoodsPage from '../../pages/GoodsPage'
+import CartPage from '../../pages/CartPage';
 import '../../styles/css/bootstrap-reboot.css';
 import '../../styles/css/bootstrap-grid.css';
 import '../../styles/scss/main.scss';
@@ -16,15 +20,11 @@ import { fetchCommodity } from '../../actions/commodityData';
 import { createLazyPage } from './utils';
 
 const MainPage = createLazyPage('Main'),
-  GoodsPage = createLazyPage('Goods'),
   CommodityPage = createLazyPage('Commodity'),
-  LoginPage = createLazyPage('Login'),
-  RegistrationPage = createLazyPage('Registration'),
   AccountPage = createLazyPage('Account'),
   AdminPage = createLazyPage('Admin'),
-  CreateСommodityPage = createLazyPage('CreateСommodity'),
+  CreateСommodityPage = createLazyPage('CreateCommodity'),
   UpdateCommodityPage = createLazyPage('UpdateCommodity'),
-  CartPage = createLazyPage('Cart'),
   HelpLoginPage = createLazyPage('HelpLogin'),
   ResetPasswordPage = createLazyPage('ResetPassword'),
   NotFoundPage = createLazyPage('NotFound');
