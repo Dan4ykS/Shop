@@ -14,8 +14,9 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-28%, -50%);
+      transform: translate(-50%, -50%);
       color: $textColor2;
+      text-align: center;
       &:first-child {
         top: 20%;
         left: 35%;
