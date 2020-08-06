@@ -1,11 +1,14 @@
 @import '../../styles/scss/variables.scss';
 
 .notFoundPage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   &__item {
     height: 570px;
     width: 700px;
     position: relative;
-    margin: 0 auto;
     font-size: 60px;
     span {
       position: absolute;
