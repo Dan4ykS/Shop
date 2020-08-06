@@ -10,9 +10,10 @@ const { updateCommodityRating } = require('../utils/updateFuncs');
 const { deleteFile, getValidFileName } = require('../utils/workWithFiles');
 const { convertDataForClient } = require('../utils/convertFuncs');
 
-module.exports.createUser = async ({ body: { userName, password, email } }, res) => {
+module.exports.createUser = async ({ body: { userName, password, email, name } }, res) => {
   try {
     const newUser = new Users({
+      name,
       userName,
       password: await bcrypt.hash(password, 10),
       email,
@@ -23,8 +24,8 @@ module.exports.createUser = async ({ body: { userName, password, email } }, res)
     });
     await newUser.save();
     const token = createJwtToken({ userId: newUser.id }, '1d');
-    res.status(201).json(token);
-    await sendRegistationLetter(email, userName);
+    res.status(201).json({ userData: convertDataForClient(newUser.toObject()), token });
+    await sendRegistationLetter(email, userName, name, password);
   } catch (error) {
     errorHandler(res, error);
   }

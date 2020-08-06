@@ -4,6 +4,7 @@
 @import "./buttons.scss";
 @import "./modal.scss";
 @import "./password.scss";
+@import "./authPages.scss";
 @import "./animation.scss";
 
 body {
@@ -49,13 +50,15 @@ h4,
 h5,
 h6 {
   text-align: center;
+  font-weight: 400;
+  margin-bottom: 20px;
 }
 
 .content {
   background-color: $textColor2;
   padding-top: 70px;
   padding-bottom: 20px;
-  min-height: 100vh;
+  min-height: 93vh;
 }
 
 .userAvatar {

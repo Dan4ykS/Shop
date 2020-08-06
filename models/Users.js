@@ -17,7 +17,7 @@ const users = new Schema({
   },
   name: {
     type: String,
-    default: '',
+    required: true,
   },
   surname: {
     type: String,

@@ -1,0 +1,11 @@
+.authPage {
+  margin-top: 18%;
+  &__content {
+    border: 2px solid $mainColor;
+    border-radius: 15px;
+    padding: 30px;
+  }
+  &_registration {
+    margin-top: 13%;
+  }
+}

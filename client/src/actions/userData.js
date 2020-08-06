@@ -7,7 +7,7 @@ import { setNewToken } from '../utils/workWithApiRequests';
 import { createAction } from '../utils/workWithRedux';
 import { LOGIN, CREATE_NEW_USER, LOGOUT, INVALID_ROUTE, GET_ADMIN_DATA } from './types';
 
-const createUser = (userName, token) => createAction(CREATE_NEW_USER, { userName, token });
+const createUser = (userData, token) => createAction(CREATE_NEW_USER, { ...userData, token });
 
 const getAdminData = (adminData) => createAction(GET_ADMIN_DATA, adminData);
 
@@ -42,9 +42,9 @@ export const authorization = (data, formData, history) => async (dispatch) => {
 
 export const registration = (data, formData, history) => async (dispatch) => {
   try {
-    const token = await UsersService.createUser(data);
+    const { userData, token } = await UsersService.createUser(data);
     redirectToPage(history, '/');
-    dispatch(createUser(data.userName, token));
+    dispatch(createUser(userData, token));
     const cart = await GoodsService.loadCart(token);
     const goods = await GoodsService.getGoods();
     dispatch(loadCartFromServer(cart));

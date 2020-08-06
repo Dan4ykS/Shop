@@ -9,13 +9,3 @@
     }
   }
 }
-
-@media (min-width: 991px) and (max-width: 1200px){
-  .authorization{
-    .btn{
-      &:nth-child(2){
-        padding: 3px 5px;
-      }
-    }
-  }
-};

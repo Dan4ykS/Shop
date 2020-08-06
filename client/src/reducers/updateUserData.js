@@ -31,8 +31,7 @@ const updateUserData = (state, action) => {
     case CREATE_NEW_USER:
       return {
         ...state.userData,
-        userName: action.payload.userName,
-        token: action.payload.token,
+        ...action.payload,
         error: null,
         loading: false,
       };

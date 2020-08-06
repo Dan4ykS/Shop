@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const { updateRating, updateCountReview, updateReviewsData, increaseCountReviews } = require('../utils/modelMethods');
+const { updateRating, updateReviewsData, increaseCountReviews } = require('../utils/modelMethods');
 
 const goods = new Schema({
   author: {

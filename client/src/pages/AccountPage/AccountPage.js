@@ -17,7 +17,7 @@ const AccountPage = ({ userData: { loading, error, userName }, actions: { isLogo
       }}
     >
       <h2>Здесь будет личный кабинет</h2>
-      <button onClick={() => logOut(isLogout, history)}>Выход</button>
+      <button className='btn' onClick={() => logOut(isLogout, history)}>Выход</button>
     </LoadingData>
   );
 };

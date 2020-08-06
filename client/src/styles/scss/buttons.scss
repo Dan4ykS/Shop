@@ -24,10 +24,6 @@
   }
 }
 
-.btnGroup {
-  margin-top: 20px;
-}
-
 .btn-slide {
   border: 2px solid $textColor2;
   background-color: transparent;
@@ -61,17 +57,27 @@
   .btn {
     display: flex;
   }
-}
-
-.btnGroup_center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .btn {
+  &_center,
+  &_left,
+  &_right {
+    margin-top: 20px;
     display: flex;
-    &:nth-child(n + 2) {
-      margin-left: 20px;
+    align-items: center;
+    .btn {
+      display: flex;
+      &:nth-child(n + 2) {
+        margin-left: 20px;
+      }
     }
+  }
+  &_center {
+    justify-content: center;
+  }
+  &_right {
+    justify-content: flex-end;
+  }
+  &_left {
+    justify-content: flex-start;
   }
 }
 

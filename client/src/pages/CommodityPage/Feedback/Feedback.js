@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Rating from '../../../components/Rating/Rating';
+import FeedbackBtn from './FeedbackBtn';
 import FeedbackStatus from './FeedbackStatus';
 import { connectToStore } from '../../../utils/workWithRedux';
 import {
@@ -12,7 +13,6 @@ import {
 } from '../../../actions/commodityData';
 import { workWithReview } from '../../../utils/workWithApiRequests';
 import { createValidImgSrc, validateInput } from '../../../utils/workWithBrowser';
-import FeedbackBtn from './FeedbackBtn';
 
 const Feedback = ({
   userData: { userName, token, avatar, name },

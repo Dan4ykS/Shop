@@ -41,7 +41,9 @@
       text-decoration: none;
     }
   }
-
+  .mobileSideBar {
+    display: none;
+  }
   &_showMobileSideBar {
     left: 200px;
   }
@@ -94,38 +96,40 @@
         display: flex !important;
       }
     }
-  }
-  .mobileSideBar {
-    position: fixed;
-    z-index: 200;
-    left: -200px;
-    height: 100vh;
-    width: 200px;
-    overflow: hidden;
-    transition: all 0.5s;
-    background-color: $textColor2;
-    a {
-      color: $textColor;
-      font-size: 20px;
-    }
-    .fa-times {
-      position: absolute;
-      top: 2%;
-      right: 5%;
-      font-size: 25px;
-    }
-    &_close {
-      z-index: 200;
+    .mobileSideBar {
+      display: flex;
       position: fixed;
-      left: 200px;
+      z-index: 200;
+      left: -200px;
       top: 0;
-      height: 100vh;
-      width: 100vw;
-      display: none;
-    }
-    &_active {
-      left: 0;
-      box-shadow: 0 0 10px $textColor;
+      bottom: 0;
+      width: 200px;
+      overflow: hidden;
+      transition: all 0.5s;
+      background-color: $textColor2;
+      a {
+        color: $textColor;
+        font-size: 20px;
+      }
+      .fa-times {
+        position: absolute;
+        top: 2%;
+        right: 5%;
+        font-size: 25px;
+      }
+      &_close {
+        z-index: 200;
+        position: fixed;
+        left: 200px;
+        top: 0;
+        height: 100vh;
+        width: 100vw;
+        display: none;
+      }
+      &_active {
+        left: 0;
+        box-shadow: 0 0 10px $textColor;
+      }
     }
   }
 }

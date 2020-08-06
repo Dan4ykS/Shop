@@ -1,5 +1,5 @@
 import React from 'react';
-import './RegistationPage.scss';
+import './RegistrationPage.scss';
 import { connectToStore } from '../../utils/workWithRedux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
@@ -9,13 +9,16 @@ import { registration } from '../../actions/userData';
 
 const RegistrationPage = ({ actions: { registration }, history }) => {
   return (
-    <>
-      <h2>Регистрация</h2>
-      <div className='row justify-content-center'>
-        <form
-          className='registration col-lg-6'
-          onSubmit={(e) => authRequests(e, registration, '.registration', history)}
-        >
+    <div className='authPage authPage_registration row justify-content-center'>
+      <div className='authPage__content col-lg-8 col-12'>
+        <h2>Регистрация</h2>
+        <form className='registration' onSubmit={(e) => authRequests(e, registration, '.registration', history)}>
+          <div className='formGroup row'>
+            <label className='col-sm-2 formControlLable'>Имя:</label>
+            <div className='col-sm-10'>
+              <input name='name' type='text' className='formControl' placeholder='Как вас зовут?' required />
+            </div>
+          </div>
           <div className='formGroup row'>
             <label className='col-sm-2 formControlLable'>Логин:</label>
             <div className='col-sm-10'>
@@ -60,14 +63,14 @@ const RegistrationPage = ({ actions: { registration }, history }) => {
               <div className='invalidFeedback'>Изините, но такая почта уже используется</div>
             </div>
           </div>
-          <div className='col-12 text-center' role='group'>
-            <button type='submit' style={{ width: '100%' }} className='btn-primary'>
+          <div className='btnGroup_center'>
+            <button type='submit' className='btn'>
               Зарегистрироваться
             </button>
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 export default connectToStore(null, { registration })(RegistrationPage, true);
