@@ -8,10 +8,10 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { connectToStore } from '../../utils/workWithRedux';
-import { fetchGoods, fetchPopularGoods, fetchNewGoods } from '../../actions/goodsList';
+import { fetchGoods, fetchPopularGoods, fetchNewGoods, fetchBestGoods } from '../../actions/goodsList';
 import { showMobileSideBar, toggleSearchForMobile, closeMobileSideBar } from './utils';
 
-const Header = ({ actions: { fetchGoods, fetchPopularGoods, fetchNewGoods } }) => {
+const Header = ({ actions: { fetchGoods, fetchPopularGoods, fetchNewGoods, fetchBestGoods } }) => {
   return (
     <header className='header'>
       <nav>
@@ -20,6 +20,7 @@ const Header = ({ actions: { fetchGoods, fetchPopularGoods, fetchNewGoods } }) =
             className='header__item header__item_logo flexWrapColumn_center'
             to='/'
             onClick={() => {
+              fetchBestGoods();
               scrollToTop();
             }}
           >
@@ -123,4 +124,4 @@ const Header = ({ actions: { fetchGoods, fetchPopularGoods, fetchNewGoods } }) =
   );
 };
 
-export default connectToStore(null, { fetchGoods, fetchPopularGoods, fetchNewGoods })(Header);
+export default connectToStore(null, { fetchGoods, fetchPopularGoods, fetchNewGoods, fetchBestGoods })(Header);

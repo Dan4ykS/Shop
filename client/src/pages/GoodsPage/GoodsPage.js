@@ -13,16 +13,16 @@ const GoodsPage = ({ actions: { fetchGoods, searchGoods, fetchNewGoods, fetchPop
     ComponentWithoutData = null;
 
   if (path === '/Goods') {
-    actionForGoodsList = history.action === 'PUSH' && location.state !== 'fromNotFound' ? null : fetchGoods;
+    actionForGoodsList = fetchGoods;
   } else if (path === '/Goods/new') {
-    actionForGoodsList = history.action === 'PUSH' ? null : fetchNewGoods;
+    actionForGoodsList = fetchNewGoods;
     pageHeader = <h2>Горячие новинки !</h2>;
   } else if (path === '/Goods/popular') {
-    actionForGoodsList = history.action === 'PUSH' ? null : fetchPopularGoods;
+    actionForGoodsList = fetchPopularGoods;
     pageHeader = <h2>Самые популярные товары !</h2>;
   } else if (path.includes('/Goods/serch=')) {
     const query = path.split('=')[1];
-    actionForGoodsList = history.action === 'PUSH' ? null : () => searchGoods(query);
+    actionForGoodsList = () => searchGoods(query);
     pageHeader = <h2>Результаты поиска по запросу "{query}"</h2>;
     ComponentWithoutData = () => <h2>Извините, но по запросу "{query}" ничего небыло найдено</h2>;
   } else {

@@ -12,7 +12,7 @@ const Page404 = () => {
         <span>Ошибка #404</span>
       </div>
       <div className='btnGroup_center'>
-        <Link to='/' className='btn btn-dark'>
+        <Link to={{ pathname: '/', state: 'fromNotFound' }} className='btn btn-dark'>
           Домой
         </Link>
         <Link to={{ pathname: '/Goods', state: 'fromNotFound' }} className='btn btn-dark'>

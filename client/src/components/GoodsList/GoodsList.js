@@ -6,16 +6,18 @@ import Configurate from './Configurate';
 
 const GoodsList = ({
   goodsList: { goods, loading, error },
+  history,
   action,
   typePage = 'GoodsPage',
   ComponentWithoutData = null,
 }) => {
+  const location = history.location;
   return (
     <LoadingData
       configData={{
         loading,
         error,
-        funcForRender: goods.length ? null : action,
+        funcForRender: goods.length || (history.action === 'PUSH' && location.state !== 'fromNotFound') ? null : action,
         routeForRedirect: '/',
       }}
     >
@@ -26,4 +28,4 @@ const GoodsList = ({
   );
 };
 
-export default connectToStore(['goodsList'], null)(GoodsList);
+export default connectToStore(['goodsList'], null)(GoodsList, true);
