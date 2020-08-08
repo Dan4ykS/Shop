@@ -72,17 +72,17 @@ module.exports.updateAuthorData = async (author, commodityId, authorName) => {
 };
 
 module.exports.updateGoodsForClient = async (arrWithData, oldDataForClient = []) => {
-  let newDataForClient = [];
+  let dataForClient = oldDataForClient;
   for (const el of arrWithData) {
     const populatedData = await createPopuldatedData(el, 'goods');
     if (oldDataForClient.length > 0) {
-      newDataForClient = createArrWithoutCopies(convertArrayForClient(populatedData.goods), [
+      dataForClient = createArrWithoutCopies(convertArrayForClient(populatedData.goods), [
         ...oldDataForClient,
-        ...newDataForClient,
+        ...dataForClient,
       ]);
     } else {
-      newDataForClient = createArrWithoutCopies(newDataForClient, convertArrayForClient(populatedData.goods));
+      dataForClient = createArrWithoutCopies(dataForClient, convertArrayForClient(populatedData.goods));
     }
   }
-  return newDataForClient;
+  return dataForClient;
 };
