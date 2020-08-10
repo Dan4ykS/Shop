@@ -90,8 +90,6 @@ export const showReview = () => {
   reviews.forEach((review) => observer.observe(review));
 };
 
-export const calcRemainingReviewsCount = (countShow, allCount) => (countShow + 5 < allCount ? 5 : allCount - countShow);
-
 export const hideFeedbackStatus = (e) => {
   e.preventDefault();
 

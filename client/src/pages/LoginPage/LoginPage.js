@@ -57,4 +57,4 @@ const LoginPage = ({ actions: { authorization }, history }) => {
   );
 };
 
-export default connectToStore(null, { authorization })(LoginPage, true);
+export default connectToStore(null, { authorization })(LoginPage);

@@ -3,16 +3,16 @@ import { LOGIN, CREATE_NEW_USER, LOGOUT, INVALID_ROUTE, GET_ADMIN_DATA } from '.
 const updateUserData = (state, action) => {
   if (state === undefined) {
     return {
-      name: null,
-      surname: null,
-      lastName: null,
+      fullName: '',
       email: null,
       avatar: null,
-      about: null,
+      about: '',
       userName: null,
       token: null,
       error: null,
       loading: true,
+      boughtGoods: [],
+      reviews: [],
       adminData: {
         loading: true,
       },
@@ -38,11 +38,19 @@ const updateUserData = (state, action) => {
 
     case LOGOUT:
       return {
-        ...state.userData,
+        adminData: state.userData.adminData,
         userName: null,
         token: null,
         error: null,
         loading: true,
+        boughtGoods: [],
+        reviews: [],
+        name: null,
+        surname: null,
+        lastName: null,
+        email: null,
+        avatar: null,
+        about: null,
       };
 
     case INVALID_ROUTE:

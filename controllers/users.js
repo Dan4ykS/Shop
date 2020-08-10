@@ -10,10 +10,10 @@ const { updateCommodityRating } = require('../utils/updateFuncs');
 const { deleteFile, getValidFileName } = require('../utils/workWithFiles');
 const { convertDataForClient } = require('../utils/convertFuncs');
 
-module.exports.createUser = async ({ body: { userName, password, email, name } }, res) => {
+module.exports.createUser = async ({ body: { userName, password, email, fullName } }, res) => {
   try {
     const newUser = new Users({
-      name,
+      fullName,
       userName,
       password: await bcrypt.hash(password, 10),
       email,
@@ -25,7 +25,7 @@ module.exports.createUser = async ({ body: { userName, password, email, name } }
     await newUser.save();
     const token = createJwtToken({ userId: newUser.id }, '1d');
     res.status(201).json({ userData: convertDataForClient(newUser.toObject()), token });
-    await sendRegistationLetter(email, userName, name, password);
+    await sendRegistationLetter(email, userName, fullName, password);
   } catch (error) {
     errorHandler(res, error);
   }
@@ -207,7 +207,7 @@ module.exports.getUserData = async ({ user: { userId } }, res) => {
       reviewData.forEach((review) => {
         userReviews.push({
           reviewId: review._id,
-          reviewer: userData.name,
+          reviewer: userData.fullName,
           reviewerAvatar: userData.avatar,
           reviewDate: review.date,
           review: review.review,
@@ -225,7 +225,7 @@ module.exports.getUserData = async ({ user: { userId } }, res) => {
 
 module.exports.getAdminData = async (req, res) => {
   try {
-    const adminData = (await Users.findOne({ userName: 'admin' }, 'name surname avatar about')).toObject();
+    const adminData = (await Users.findOne({ userName: 'admin' }, 'fullName surname avatar about')).toObject();
     delete adminData._id;
     res.json(adminData);
   } catch (error) {

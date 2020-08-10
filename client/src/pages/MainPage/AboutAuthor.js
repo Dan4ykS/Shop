@@ -6,7 +6,7 @@ import { createValidImgSrc } from '../../utils/workWithBrowser';
 
 const AboutAuthor = ({
   userData: {
-    adminData: { name, surname, avatar, about, loading },
+    adminData: { fullName, avatar, about, loading },
   },
   actions: { fetchAdminData },
 }) => {
@@ -15,7 +15,7 @@ const AboutAuthor = ({
       configData={{
         loading: loading,
         error: null,
-        funcForRender: name ? null : fetchAdminData,
+        funcForRender: fullName ? null : fetchAdminData,
       }}
     >
       <div className='row'>
@@ -24,7 +24,7 @@ const AboutAuthor = ({
             <img src={createValidImgSrc(avatar)} alt='adminAvatar' />
           </div>
           <p>
-            {surname} {name}
+            {fullName}
           </p>
         </div>
         <div className='col-8 flexWrapColumn_FS'>

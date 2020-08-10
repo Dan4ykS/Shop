@@ -3,7 +3,8 @@ import ListView from '../../components/ListView';
 import Rating from '../../components/Rating/Rating';
 import TextWithBr from '../../components/TextWithBr/TextWithBr';
 import { createValidImgSrc } from '../../utils/workWithBrowser';
-import { calcRemainingReviewsCount, showReview } from './utils';
+import { showReview } from './utils';
+import MoreReviews from '../../components/MoreReviews';
 
 const Reviews = ({ reviews }) => {
   const [countReviews, switchCountReviews] = useState(5);
@@ -13,7 +14,7 @@ const Reviews = ({ reviews }) => {
   if (!reviews.length) {
     return null;
   }
-  
+
   return (
     <>
       <div className='commodityPage__blockTitle'>Отзывы</div>
@@ -41,14 +42,7 @@ const Reviews = ({ reviews }) => {
           </div>
         )}
       />
-      {reviews.length > countReviews ? (
-        <button
-          className='btn btn-dark btn_center'
-          onClick={() => switchCountReviews((count) => (count += calcRemainingReviewsCount(countReviews, reviews.length)))}
-        >
-          Показать еще {calcRemainingReviewsCount(countReviews, reviews.length)}
-        </button>
-      ) : null}
+      <MoreReviews reviews={reviews} countReviews={countReviews} switchCountReviews={switchCountReviews} />
     </>
   );
 };

@@ -15,7 +15,7 @@ import { workWithReview } from '../../../utils/workWithApiRequests';
 import { createValidImgSrc, validateInput } from '../../../utils/workWithBrowser';
 
 const Feedback = ({
-  userData: { userName, token, avatar, name },
+  userData: { userName, token, avatar, fullName },
   commodityData: { userReview, reviews, id },
   actions: { findUserReview, updateUserReview, updateReviews, clearUserReview, removeReview, updateRating },
 }) => {
@@ -43,7 +43,7 @@ const Feedback = ({
   const userData = {
       token,
       avatar,
-      name,
+      fullName,
       userName,
     },
     reviewData = {
@@ -76,7 +76,7 @@ const Feedback = ({
         <div className='col-10'>
           <div className='commodityPage__feedback-content'>
             <div className='commodityPage__feedback-content-header flexWrap_SB'>
-              <div className='userName'>{name}</div>
+              <div className='userName'>{fullName}</div>
               <div className='userRating flexWrap'>
                 <span>Оцените книгу: </span>
                 <Rating userRating={userReview?.rating || 0} />

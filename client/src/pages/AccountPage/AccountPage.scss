@@ -1,0 +1,11 @@
+.accountPage{
+  padding: 0 40px;
+  &__userInfo{
+    &-detail {
+      margin-bottom: 40px;
+    }
+    &-aboutUser {
+      min-height: 250px;
+    }
+  }
+}

@@ -15,16 +15,9 @@ const users = new Schema({
     required: true,
     unique: true,
   },
-  name: {
+  fullName: {
     type: String,
     required: true,
-  },
-  surname: {
-    type: String,
-    default: '',
-  },
-  lastName: {
-    type: String,
   },
   password: {
     type: String,

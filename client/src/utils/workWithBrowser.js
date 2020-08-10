@@ -75,11 +75,6 @@ export const findPathParams = (history) => history.location.pathname.split('/').
 
 export const getDateFromLocalStorage = (name) => JSON.parse(localStorage.getItem(name));
 
-export const logOut = (func, history) => {
-  redirectToPage(history, '/');
-  func();
-};
-
 export const initModalWindow = (modalSelector) => {
   const modalWraper = findNeedElement('.modalWraper'),
     modal = findNeedElement(`${modalSelector}`),

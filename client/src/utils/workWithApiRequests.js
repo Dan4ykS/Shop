@@ -134,7 +134,7 @@ export const findGoods = async (e, history, queryForSearch, funcForSearch) => {
 export const workWithReview = async (
   e,
   { review, commodityId, userReview },
-  { token, avatar, name, userName },
+  { token, avatar, fullName, userName },
   { updateReviews, updateUserReview, changeLoading, clearUserReview, removeReview, updateRating }
 ) => {
   e.persist();
@@ -162,7 +162,7 @@ export const workWithReview = async (
     updateReviews({
       reviewId: id,
       reviewDate: date,
-      reviewerName: name,
+      reviewerName: fullName,
       reviewerAvatar: avatar,
       reviewer: userName,
       review,

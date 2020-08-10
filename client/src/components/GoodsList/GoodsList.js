@@ -16,7 +16,7 @@ const GoodsList = ({
       configData={{
         loading,
         error,
-        funcForRender: goods.length || (history.action === 'PUSH' && location.state !== 'fromNotFound') ? null : action,
+        funcForRender: goods.length || (history.action === 'PUSH' && !location.state) ? null : action,
         routeForRedirect: '/',
       }}
     >

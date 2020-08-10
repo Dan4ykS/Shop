@@ -20,6 +20,8 @@ import { fetchCommodity } from '../../actions/commodityData';
 import { createLazyPage } from './utils';
 
 const MainPage = createLazyPage('Main'),
+  // LoginPage = createLazyPage('Login'),
+  // RegistrationPage = createLazyPage('Registration'),
   CommodityPage = createLazyPage('Commodity'),
   AccountPage = createLazyPage('Account'),
   AdminPage = createLazyPage('Admin'),
