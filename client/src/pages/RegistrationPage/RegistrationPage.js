@@ -16,7 +16,7 @@ const RegistrationPage = ({ actions: { registration }, history }) => {
           <div className='formGroup row'>
             <label className='col-sm-2 formControlLable'>Имя:</label>
             <div className='col-sm-10'>
-              <input name='name' type='text' className='formControl' placeholder='Как вас зовут?' required />
+              <input name='fullName' type='text' className='formControl' placeholder='Как вас зовут?' required />
             </div>
           </div>
           <div className='formGroup row'>

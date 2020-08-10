@@ -32,7 +32,7 @@ export const authorization = (data, formData, history) => async (dispatch) => {
       const cart = await GoodsService.loadCart(token);
       dispatch(loadCartFromServer(cart));
     }
-    const goods = await GoodsService.getGoods();
+    const goods = await GoodsService.getBestGoods(0, 7);
     dispatch(fetchGoodsSuccuess(goods));
     setNewToken(token);
   } catch (error) {
@@ -46,7 +46,7 @@ export const registration = (data, formData, history) => async (dispatch) => {
     redirectToPage(history, '/');
     dispatch(createUser(userData, token));
     const cart = await GoodsService.loadCart(token);
-    const goods = await GoodsService.getGoods();
+    const goods = await GoodsService.getBestGoods(0, 7);
     dispatch(loadCartFromServer(cart));
     dispatch(fetchGoodsSuccuess(goods));
     setNewToken(token);
