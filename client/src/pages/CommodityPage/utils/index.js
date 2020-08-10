@@ -8,10 +8,10 @@ export const toggleMoreRatingInfo = (e, toggleType) => {
   const moreRatingInfo = e.target.closest('.item__feedback').lastChild;
   if (toggleType === 'hide') {
     moreRatingInfo.classList.remove('item__feedback-moreRatingInfo_active');
-    setTimeout(() => moreRatingInfo.classList.add('hidenElem'), 30);
+    setTimeout(() => moreRatingInfo.classList.add('hiddenElem'), 30);
     return;
   }
-  moreRatingInfo.classList.remove('hidenElem');
+  moreRatingInfo.classList.remove('hiddenElem');
   setTimeout(() => moreRatingInfo.classList.add('item__feedback-moreRatingInfo_active'), 30);
 };
 
@@ -20,11 +20,11 @@ export const hideMoreRatingInfo = (e = null) => {
     const parent = e.target.closest('.item__feedback-moreRatingInfo');
 
     parent.classList.remove('item__feedback-moreRatingInfo_active');
-    setTimeout(() => parent.classList.add('hidenElem'), 30);
+    setTimeout(() => parent.classList.add('hiddenElem'), 30);
   }
   const moreRatingInfo = findNeedElement('.item__feedback-moreRatingInfo');
   moreRatingInfo.classList.remove('item__feedback-moreRatingInfo_active');
-  setTimeout(() => moreRatingInfo.classList.add('hidenElem'), 30);
+  setTimeout(() => moreRatingInfo.classList.add('hiddenElem'), 30);
 };
 
 export const renderStars = (countStart) => {
@@ -75,15 +75,17 @@ export const initPage = async (commodityId, fetchCommodity, fetchSimilarGoods) =
 };
 
 export const showReview = () => {
-  const reviews = findNeedElements('.commodityPage__reviews-item');
-
-  const observer = new IntersectionObserver((reviews, observer) => {
-    reviews.forEach((review) => {
-      if (review.intersectionRatio > 0) {
-        review.target.classList.add('fadeInUp', 'animated');
-      }
-    });
-  }, { root: null, rootMargin: '0px', threshold: 0});
+  const reviews = findNeedElements('.commodityPage__reviews-item'),
+    observer = new IntersectionObserver(
+      (reviews, observer) => {
+        reviews.forEach((review) => {
+          if (review.intersectionRatio > 0) {
+            review.target.classList.add('fadeInUp', 'animated');
+          }
+        });
+      },
+      { root: null, rootMargin: '0px', threshold: 0 }
+    );
 
   reviews.forEach((review) => observer.observe(review));
 };
@@ -96,7 +98,7 @@ export const hideFeedbackStatus = (e) => {
   const feedbacStatus = e.target.closest('.commodityPage__feedback-status'),
     feedbacWrapper = feedbacStatus.previousElementSibling;
 
-  feedbacStatus.classList.add('hidenElem');
+  feedbacStatus.classList.add('hiddenElem');
   feedbacWrapper.classList.remove('commodityPage__feedback-contentWrapper_hiden');
 };
 

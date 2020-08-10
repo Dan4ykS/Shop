@@ -32,7 +32,7 @@ const FileUploader = ({ action, id, text = 'Загрузить файл' }) => {
         {text}
         <FontAwesomeIcon icon={faUpload} />
       </button>
-      <div className='fileUploader__dndText hidenElem'>Место для загрузки файла</div>
+      <div className='fileUploader__dndText hiddenElem'>Место для загрузки файла</div>
     </div>
   );
 };

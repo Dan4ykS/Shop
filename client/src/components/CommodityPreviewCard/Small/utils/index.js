@@ -3,10 +3,10 @@ export const switchVisible = (e, mode) => {
     moreInfoBlock = parentNode.lastChild;
 
   if (mode === 'show') {
-    moreInfoBlock.classList.remove('hidenElem');
+    moreInfoBlock.classList.remove('hiddenElem');
     setTimeout(() => moreInfoBlock.classList.add('preview__content-moreInfo_active'), 10);
   } else {
     moreInfoBlock.classList.remove('preview__content-moreInfo_active');
-    setTimeout(() => moreInfoBlock.classList.add('hidenElem'), 50);
+    setTimeout(() => moreInfoBlock.classList.add('hiddenElem'), 50);
   }
 };

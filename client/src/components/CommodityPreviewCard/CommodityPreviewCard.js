@@ -22,7 +22,7 @@ const CommodityPreviewCard = ({
   },
 }) => {
   return (
-    <div className='col-lg-6' style={{ padding: '0 8px' }}>
+    <div className='previewCard col-lg-6' style={{ padding: '0 8px' }}>
       <div className='preview'>
         <div className='preview__content flexWrap'>
           <div className='preview__content-rating'>

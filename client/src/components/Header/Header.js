@@ -8,10 +8,10 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { connectToStore } from '../../utils/workWithRedux';
-import { fetchGoods, fetchPopularGoods, fetchNewGoods, fetchBestGoods } from '../../actions/goodsList';
+import { fetchGoods } from '../../actions/goodsList';
 import { showMobileSideBar, toggleSearchForMobile, closeMobileSideBar } from './utils';
 
-const Header = ({ actions: { fetchGoods, fetchPopularGoods, fetchNewGoods, fetchBestGoods } }) => {
+const Header = ({ actions: { fetchGoods }, history }) => {
   return (
     <header className='header'>
       <nav>
@@ -20,8 +20,8 @@ const Header = ({ actions: { fetchGoods, fetchPopularGoods, fetchNewGoods, fetch
             className='header__item header__item_logo flexWrapColumn_center'
             to='/'
             onClick={() => {
-              fetchBestGoods();
               scrollToTop();
+              fetchGoods({ type: 'bestGoods' });
             }}
           >
             <img src={logo} alt='logo' />
@@ -30,8 +30,8 @@ const Header = ({ actions: { fetchGoods, fetchPopularGoods, fetchNewGoods, fetch
             to='/Goods/new'
             className='header__item'
             onClick={() => {
-              fetchNewGoods();
               scrollToTop();
+              fetchGoods({ type: 'newGoods' });
             }}
           >
             Новинки
@@ -39,9 +39,9 @@ const Header = ({ actions: { fetchGoods, fetchPopularGoods, fetchNewGoods, fetch
           <Link
             to='/Goods/popular'
             className='header__item'
-            onClick={() => {
-              fetchPopularGoods();
+            onClick={(e) => {
               scrollToTop();
+              fetchGoods({ type: 'popularGoods' });
             }}
           >
             Популярное
@@ -50,8 +50,8 @@ const Header = ({ actions: { fetchGoods, fetchPopularGoods, fetchNewGoods, fetch
             to='/Goods'
             className='header__item'
             onClick={() => {
-              fetchGoods();
               scrollToTop();
+              fetchGoods({});
             }}
           >
             Все книги
@@ -65,7 +65,7 @@ const Header = ({ actions: { fetchGoods, fetchPopularGoods, fetchNewGoods, fetch
           <div className='header__item_mobile header__item_nav flexWrap'>
             <FontAwesomeIcon icon={faBars} onClick={() => showMobileSideBar()} />
             <FontAwesomeIcon icon={faSearch} onClick={(e) => toggleSearchForMobile(e)} />
-            <div className='search_mobile hidenElem'>
+            <div className='search_mobile hiddenElem'>
               <Search />
             </div>
           </div>
@@ -74,6 +74,7 @@ const Header = ({ actions: { fetchGoods, fetchPopularGoods, fetchNewGoods, fetch
             to='/'
             onClick={() => {
               scrollToTop();
+              fetchGoods({ type: 'bestGoods' });
             }}
           >
             <img src={logo} alt='logo' />
@@ -89,8 +90,8 @@ const Header = ({ actions: { fetchGoods, fetchPopularGoods, fetchNewGoods, fetch
             className='header__item_mobile'
             onClick={() => {
               closeMobileSideBar();
-              fetchNewGoods();
               scrollToTop();
+              fetchGoods({ type: 'newGoods' });
             }}
           >
             Новинки
@@ -100,8 +101,8 @@ const Header = ({ actions: { fetchGoods, fetchPopularGoods, fetchNewGoods, fetch
             className='header__item_mobile'
             onClick={() => {
               closeMobileSideBar();
-              fetchPopularGoods();
               scrollToTop();
+              fetchGoods({ type: 'popularGoods' });
             }}
           >
             Популярное
@@ -111,8 +112,8 @@ const Header = ({ actions: { fetchGoods, fetchPopularGoods, fetchNewGoods, fetch
             className='header__item_mobile'
             onClick={() => {
               closeMobileSideBar();
-              fetchGoods();
               scrollToTop();
+              fetchGoods({});
             }}
           >
             Все книги
@@ -124,4 +125,4 @@ const Header = ({ actions: { fetchGoods, fetchPopularGoods, fetchNewGoods, fetch
   );
 };
 
-export default connectToStore(null, { fetchGoods, fetchPopularGoods, fetchNewGoods, fetchBestGoods })(Header);
+export default connectToStore(null, { fetchGoods })(Header, true);

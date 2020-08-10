@@ -15,7 +15,7 @@ const HelpLoginPage = () => {
           Восстановить пароль
         </button>
       </form>
-      <div className='col-6 reset__successMsg hidenElem'>
+      <div className='col-6 reset__successMsg hiddenElem'>
         <p>Письмо для восстановления пароля отправлено на ваш email</p>
         <div className='text-center'>
           <Link to='/' className='btn btn-primary text-center'>

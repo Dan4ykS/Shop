@@ -36,7 +36,7 @@ export const resetPassword = async (e, type, token = null) => {
     }
     clearInputs(inputs);
     e.target.style.display = 'none';
-    findNeedElement('.reset__successMsg').classList.remove('hidenElem');
+    findNeedElement('.reset__successMsg').classList.remove('hiddenElem');
   } catch (error) {
     clearInputs(inputs);
     isInvalid(inputs);
@@ -127,7 +127,7 @@ export const findGoods = async (e, history, queryForSearch, funcForSearch) => {
   if (history.location.pathname !== path && queryForSearch.trim()) {
     history.push(path);
     scrollToTop();
-    await funcForSearch(queryForSearch);
+    await funcForSearch({ strForSearch: queryForSearch, type: 'search' });
   }
 };
 
@@ -146,7 +146,7 @@ export const workWithReview = async (
 
   changeLoading(true);
   feedbackWrapper.classList.add('commodityPage__feedback-contentWrapper_hiden');
-  feedbacStatus.classList.remove('hidenElem');
+  feedbacStatus.classList.remove('hiddenElem');
   if (toRemove !== 'false') {
     await GoodsService.removeReview(userReview.reviewId, token);
     updateRating(0, userReview?.rating);

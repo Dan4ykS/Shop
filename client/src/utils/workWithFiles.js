@@ -49,38 +49,38 @@ export const dragAndDropForFile = (updateFileDataFunc) => {
   ['dragenter', 'dragover'].forEach((eventName) => {
     fileUploader.addEventListener(eventName, () => {
       fileUploader.style.border = '2px dashed black';
-      uploaderBtn.classList.add('hidenElem');
-      dndText.classList.remove('hidenElem');
+      uploaderBtn.classList.add('hiddenElem');
+      dndText.classList.remove('hiddenElem');
     });
   });
 
   ['dragenter', 'dragover'].forEach((eventName) => {
     body.addEventListener(eventName, (e) => {
-      uploaderBtn.classList.add('hidenElem');
-      dndText.classList.remove('hidenElem');
+      uploaderBtn.classList.add('hiddenElem');
+      dndText.classList.remove('hiddenElem');
       fileUploader.style.border = '2px dashed black';
     });
   });
 
   ['dragleave', 'drop'].forEach((eventName) => {
     body.addEventListener(eventName, (e) => {
-      uploaderBtn.classList.remove('hidenElem');
-      dndText.classList.add('hidenElem');
+      uploaderBtn.classList.remove('hiddenElem');
+      dndText.classList.add('hiddenElem');
       fileUploader.style.border = 'none';
     });
   });
 
   fileUploader.addEventListener('drop', (e) => {
     if (!e.dataTransfer.files[0]) {
-      uploaderBtn.classList.remove('hidenElem');
-      dndText.classList.add('hidenElem');
+      uploaderBtn.classList.remove('hiddenElem');
+      dndText.classList.add('hiddenElem');
       fileUploader.style.border = 'none';
       return;
     }
     if (updateFileDataFunc) {
       uploadFile(e.dataTransfer.files[0], updateFileDataFunc);
-      uploaderBtn.classList.remove('hidenElem');
-      dndText.classList.add('hidenElem');
+      uploaderBtn.classList.remove('hiddenElem');
+      dndText.classList.add('hiddenElem');
       fileUploader.style.border = 'none';
     }
   });

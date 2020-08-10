@@ -39,7 +39,7 @@ const App = ({ actions, history }) => {
   return (
     <>
       <Header />
-      <div className='content container'>
+      <div className='content container' onScroll={(e) => console.log(e.target.scrollTop)}>
         <React.Suspense fallback={<LoadingIndicator />}>
           <Switch>
             <Route path='/' component={MainPage} exact />

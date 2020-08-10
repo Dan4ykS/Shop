@@ -95,7 +95,7 @@ const ChangeCommodityDetail = ({
           <ChangeCommodityBtn type={type} updatedFields={updatedFields} formSelector='.changeCommodityDetail' />
         </div>
       </form>
-      <div className='modalWindow deleteCommodity flexWrapColumn_center hidenElem'>
+      <div className='modalWindow deleteCommodity flexWrapColumn_center hiddenElem'>
         <span data-close={true}>&#215;</span>
         <div className='deleteCommodity__content'>Вы точно хотите удалить товар {title} ?</div>
         <div className='btnGroup'>

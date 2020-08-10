@@ -83,7 +83,7 @@ const CommodityPage = ({
                 >
                   <FontAwesomeIcon icon={faCommentAlt} /> {countReviews}
                 </div>
-                <div className='item__feedback-moreRatingInfo hidenElem' onMouseLeave={(e) => hideMoreRatingInfo(e)}>
+                <div className='item__feedback-moreRatingInfo hiddenElem' onMouseLeave={(e) => hideMoreRatingInfo(e)}>
                   <div className='moreRatingInfo__header'>
                     <div>Рейтинг читателей</div>
                     <span className='close' onClick={(e) => hideMoreRatingInfo(e)}></span>

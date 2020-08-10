@@ -11,7 +11,7 @@ const AccountItems = ({ userData: { userName }, mode = 'desktop' }) => {
       <>
         <Link to='/admin' className='flexWrap' onClick={() => scrollToTop()}>
           <FontAwesomeIcon icon={faTools} />
-          <div className={mode === 'mobile' ? 'hidenElem' : null}>Админ панель</div>
+          <div className={mode === 'mobile' ? 'hiddenElem' : null}>Админ панель</div>
         </Link>
       </>
     );
@@ -20,10 +20,10 @@ const AccountItems = ({ userData: { userName }, mode = 'desktop' }) => {
       <>
         <Link to='/Login' className='flexWrap' onClick={() => scrollToTop()}>
           <FontAwesomeIcon icon={faUserCircle} />
-          <div className={mode === 'mobile' ? 'hidenElem' : null}>Вход</div>
+          <div className={mode === 'mobile' ? 'hiddenElem' : null}>Вход</div>
         </Link>
-        <div className={mode === 'mobile' ? 'hidenElem' : null}>/</div>
-        <Link className={mode === 'mobile' ? 'hidenElem' : null} to='/Registration' onClick={() => scrollToTop()}>
+        <div className={mode === 'mobile' ? 'hiddenElem' : null}>/</div>
+        <Link className={mode === 'mobile' ? 'hiddenElem' : null} to='/Registration' onClick={() => scrollToTop()}>
           Регистрация
         </Link>
       </>
@@ -33,12 +33,12 @@ const AccountItems = ({ userData: { userName }, mode = 'desktop' }) => {
       <>
         <Link to='/MyAccount' className='flexWrap' onClick={() => scrollToTop()}>
           <FontAwesomeIcon icon={faUserCircle} />
-          <div className={mode === 'mobile' ? 'hidenElem' : null}>{userName}</div>
+          <div className={mode === 'mobile' ? 'hiddenElem' : null}>{userName}</div>
         </Link>
-        <div className={mode === 'mobile' ? 'hidenElem' : null}>/</div>
+        <div className={mode === 'mobile' ? 'hiddenElem' : null}>/</div>
         <Link to='/Cart' className='flexWrap' onClick={() => scrollToTop()}>
           <FontAwesomeIcon icon={faCartPlus} />
-          <div className={mode === 'mobile' ? 'hidenElem' : null}>Корзина</div>
+          <div className={mode === 'mobile' ? 'hiddenElem' : null}>Корзина</div>
         </Link>
       </>
     );

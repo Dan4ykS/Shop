@@ -1,10 +1,6 @@
-export const findNeedElements = (selector) => {
-  return document.querySelectorAll(selector);
-};
+export const findNeedElements = (selector) => document.querySelectorAll(selector);
 
-export const findNeedElement = (selector) => {
-  return document.querySelector(selector);
-};
+export const findNeedElement = (selector) => document.querySelector(selector);
 
 export const scrollToElem = (selector) => {
   findNeedElement(`.${selector}`).scrollIntoView({
@@ -13,21 +9,15 @@ export const scrollToElem = (selector) => {
   });
 };
 
-export const scrollToTop = () => {
-  window.scrollTo({ behavior: 'smooth', top: [0, 0] });
-};
+export const scrollToTop = () => window.scrollTo(0, 0);
 
-export const redirectToLink = (link) => {
-  window.open(link);
-};
+export const smoothScrollToTop = () => window.scrollTo({ behavior: 'smooth', top: [0, 0] });
 
-export const disableBtn = (btnSelector) => {
-  findNeedElement(`${btnSelector}`).setAttribute('disabled', true);
-};
+export const redirectToLink = (link) => window.open(link);
 
-export const activateBtn = (btnSelector) => {
-  findNeedElement(`${btnSelector}`).removeAttribute('disabled');
-};
+export const disableBtn = (btnSelector) => findNeedElement(`${btnSelector}`).setAttribute('disabled', true);
+
+export const activateBtn = (btnSelector) => findNeedElement(`${btnSelector}`).removeAttribute('disabled');
 
 export const createObjForRequest = (inputs) => {
   const data = {};
@@ -79,17 +69,11 @@ export const changePasswordType = (iconSelector, inputSelector) => {
   }
 };
 
-export const redirectToPage = (history, page) => {
-  history.push(page);
-};
+export const redirectToPage = (history, page) => history.push(page);
 
-export const findPathParams = (history) => {
-  return history.location.pathname.split('/').find((el) => el.match(/[0-9]/));
-};
+export const findPathParams = (history) => history.location.pathname.split('/').find((el) => el.match(/[0-9]/));
 
-export const getDateFromLocalStorage = (name) => {
-  return JSON.parse(localStorage.getItem(name));
-};
+export const getDateFromLocalStorage = (name) => JSON.parse(localStorage.getItem(name));
 
 export const logOut = (func, history) => {
   redirectToPage(history, '/');
@@ -101,16 +85,16 @@ export const initModalWindow = (modalSelector) => {
     modal = findNeedElement(`${modalSelector}`),
     body = findNeedElement('body');
 
-  modalWraper.classList.remove('hidenElem');
-  modal.classList.remove('hidenElem');
+  modalWraper.classList.remove('hiddenElem');
+  modal.classList.remove('hiddenElem');
 
   body.style.overflow = 'hidden';
 
   [modalWraper, modal].forEach((el) => {
     el.addEventListener('click', (e) => {
       if (e.target.dataset.close) {
-        modalWraper.classList.add('hidenElem');
-        modal.classList.add('hidenElem');
+        modalWraper.classList.add('hiddenElem');
+        modal.classList.add('hiddenElem');
         body.style.overflow = 'auto';
         body.style.marginRight = '0px';
       }
@@ -119,8 +103,8 @@ export const initModalWindow = (modalSelector) => {
 };
 
 export const hidenModal = () => {
-  findNeedElement('.modalWraper').classList.add('hidenElem');
-  findNeedElement('.modalWindow').classList.add('hidenElem');
+  findNeedElement('.modalWraper').classList.add('hiddenElem');
+  findNeedElement('.modalWindow').classList.add('hiddenElem');
 };
 
 export const validateInput = (e, updateFunction, validationCondition = null) => {

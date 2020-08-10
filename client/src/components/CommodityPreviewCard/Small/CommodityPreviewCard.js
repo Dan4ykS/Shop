@@ -22,7 +22,7 @@ const CommodityPreviewCard = ({
   },
 }) => {
   return (
-    <div className='col-lg-3' style={{ padding: '0 8px' }}>
+    <div className='previewCard previewCard_small col-lg-3' style={{ padding: '0 8px' }}>
       <div className='preview'>
         <div
           className='preview__content'
@@ -35,11 +35,11 @@ const CommodityPreviewCard = ({
           <div className='preview__content-img_small flexWrap_center'>
             <img src={createValidImgSrc(previewImgSrc)} alt={previewImgAlt} />
           </div>
-          <div className='preview__content-moreInfo hidenElem'>
+          <div className='preview__content-moreInfo hiddenElem'>
             <div>{trimText(title, 20)}</div>
             <div>{author}</div>
             <div>
-              <TextWithBr text={shortDescr} maxlength={40}/>
+              <TextWithBr text={shortDescr} maxlength={40} />
             </div>
             <Link to={`/Goods/commodity-${id}`} onClick={() => scrollToTop()}>
               Читать подробнее

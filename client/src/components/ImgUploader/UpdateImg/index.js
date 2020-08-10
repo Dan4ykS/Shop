@@ -10,7 +10,7 @@ const UpdateImg = ({ img: { src, id, alt }, funcForUpdateData }) => {
     [img, updateLocalImg] = useState(null);
 
   return (
-    <div className={`modalWindow updateImg updateImg_${id} row hidenElem`}>
+    <div className={`modalWindow updateImg updateImg_${id} row hiddenElem`}>
       <span data-close={true}>&#215;</span>
       <div className='updateImg__imgDetail flexWrapColumn_center col-4'>
         <div className='formGroup row'>

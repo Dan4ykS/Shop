@@ -7,12 +7,13 @@ import { calcRemainingReviewsCount, showReview } from './utils';
 
 const Reviews = ({ reviews }) => {
   const [countReviews, switchCountReviews] = useState(5);
-  useEffect(() => showReview());
+
+  useEffect(() => showReview(), [reviews]);
 
   if (!reviews.length) {
     return null;
   }
-
+  
   return (
     <>
       <div className='commodityPage__blockTitle'>Отзывы</div>
@@ -41,14 +42,12 @@ const Reviews = ({ reviews }) => {
         )}
       />
       {reviews.length > countReviews ? (
-          <button
-            className='btn btn-dark btn_center'
-            onClick={() =>
-              switchCountReviews((count) => (count += calcRemainingReviewsCount(countReviews, reviews.length)))
-            }
-          >
-            Показать еще {calcRemainingReviewsCount(countReviews, reviews.length)}
-          </button>
+        <button
+          className='btn btn-dark btn_center'
+          onClick={() => switchCountReviews((count) => (count += calcRemainingReviewsCount(countReviews, reviews.length)))}
+        >
+          Показать еще {calcRemainingReviewsCount(countReviews, reviews.length)}
+        </button>
       ) : null}
     </>
   );

@@ -95,7 +95,7 @@ const Feedback = ({
           <FeedbackBtn newReview={review} />
         </div>
       </div>
-      <div className='commodityPage__feedback-status hidenElem'>
+      <div className='commodityPage__feedback-status hiddenElem'>
         <FeedbackStatus loading={loading} oldReview={review} />
       </div>
     </form>

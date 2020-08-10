@@ -1,8 +1,7 @@
 import React from 'react';
 import LoadingData from '../LoadingData';
-
-import { connectToStore } from '../../utils/workWithRedux';
 import Configurate from './Configurate';
+import { connectToStore } from '../../utils/workWithRedux';
 
 const GoodsList = ({
   goodsList: { goods, loading, error },
