@@ -3,7 +3,7 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import { hideFeedbackStatus } from '../utils';
 import { connectToStore } from '../../../utils/workWithRedux';
 
-const StatusContent = ({ userReview, name }) => {
+const StatusContent = ({  fullName , userReview }) => {
   let message = ', ',
     btnText = 'Перейти к редактированию';
 
@@ -18,7 +18,7 @@ const StatusContent = ({ userReview, name }) => {
   return (
     <>
       <div className='thanks'>
-        {name}
+        {fullName}
         {message}
       </div>
       <button className='btn' onClick={(e) => hideFeedbackStatus(e)}>
@@ -28,9 +28,9 @@ const StatusContent = ({ userReview, name }) => {
   );
 };
 
-const FeedbackStatus = ({ commodityData: { userReview }, userData: { name }, loading, oldReview }) => {
+const FeedbackStatus = ({ commodityData: { userReview }, userData: { fullName }, loading, oldReview }) => {
   const loadingReview = loading ? <LoadingIndicator /> : null;
-  const content = !loading ? <StatusContent userReview={userReview} name={name} oldReview={oldReview} /> : null;
+  const content = !loading ? <StatusContent userReview={userReview} fullName={fullName} oldReview={oldReview} /> : null;
   return (
     <div className='commodityPage__feedback-status-content'>
       {loadingReview}
@@ -39,4 +39,4 @@ const FeedbackStatus = ({ commodityData: { userReview }, userData: { name }, loa
   );
 };
 
-export default connectToStore(['userData.name', 'commodityData.userReview'], null)(FeedbackStatus);
+export default connectToStore(['userData.fullName', 'commodityData.userReview'], null)(FeedbackStatus);

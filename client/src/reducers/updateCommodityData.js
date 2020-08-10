@@ -96,7 +96,6 @@ const updateReviewsData = (commodityData, newReviewData, type = 'update') => {
       newData.countReviews = countReviews;
     }
   }
-  console.log(newData);
   return {
     ...commodityData,
     ...newData,
