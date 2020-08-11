@@ -2,7 +2,7 @@ import GoodsService from '../../../services/GoodsService';
 
 export const updateCommodityRating = async (
   e,
-  { editable, token, reviewId, commodityId, localUserRating: oldRating, userReview, name, userName, avatar },
+  { editable, token, reviewId, commodityId, localUserRating: oldRating, userReview, fullName, userName, avatar },
   { changeLocalUserRating, updateUserReview, updateRating, updateReviews }
 ) => {
   e.persist();
@@ -32,7 +32,7 @@ export const updateCommodityRating = async (
       updateReviews({
         reviewId: id,
         reviewDate: date,
-        reviewerName: name,
+        reviewerName: fullName,
         reviewerAvatar: avatar,
         reviewer: userName,
         reviewRating: value,

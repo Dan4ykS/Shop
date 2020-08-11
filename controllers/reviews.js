@@ -1,7 +1,6 @@
 const errorHandler = require('../utils/errorHandler');
 const Reviews = require('../models/Reviews');
 const Users = require('../models/Users');
-const Goods = require('../models/Goods');
 const { updateCommodityRating, updateReviewRelatedData } = require('../utils/updateFuncs');
 const { generateDate, createPopuldatedData } = require('../utils/createFuncs');
 
@@ -14,11 +13,11 @@ module.exports.createReview = async ({ body: { review, commodityId, rating }, us
       userId,
       commodityId,
       review: !review ? null : review,
-      rating: !rating ? null : rating,
+      rating: !rating ? 0 : rating,
     });
     await newReview.save();
     res.status(201).json({ id: newReview._id, date: newReview.date });
-    await updateReviewRelatedData({ ...newReview.toObject(), reviewId: newReview._id });
+    await updateReviewRelatedData(newReview);
   } catch (error) {
     errorHandler(res, error);
   }
@@ -60,7 +59,7 @@ module.exports.removeReview = async ({ user: { userId }, params: { id } }, res) 
 
     await Reviews.deleteOne({ _id: id });
     res.json({ message: `Отзыв с id:${id} удален` });
-    await updateReviewRelatedData({ ...review.toObject(), reviewId: review._id, rating: 0, oldRating: review.rating });
+    await updateReviewRelatedData(review, 'delete');
   } catch (error) {
     errorHandler(res, error);
   }

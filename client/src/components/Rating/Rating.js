@@ -9,7 +9,7 @@ import { updateReviews, updateUserReview, updateRating } from '../../actions/com
 const Rating = ({
   userRating,
   editable = true,
-  userData: { token, name, avatar, userName },
+  userData: { token, fullName, avatar, userName },
   commodityData: { id: commodityId, userReview },
   actions: { updateReviews, updateUserReview, updateRating },
 }) => {
@@ -26,7 +26,7 @@ const Rating = ({
       editable,
       localUserRating,
       userReview,
-      name,
+      fullName,
       userName,
       avatar,
     },

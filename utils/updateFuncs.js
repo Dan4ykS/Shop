@@ -39,23 +39,18 @@ module.exports.updateCommodityRating = async (commodity, newRating, oldRating) =
   await commodity.updateRating(+newRating, +oldRating);
 };
 
-module.exports.updateReviewRelatedData = async ({
-  userId,
-  commodityId,
-  rating,
-  review,
-  reviewId,
-  oldRating = null,
-}) => {
-  const user = await Users.findById(userId),
-    commodity = await Goods.findById(commodityId);
+module.exports.updateReviewRelatedData = async (review, type = 'create') => {
+  const user = (await createPopuldatedData(review, 'userId')).userId,
+    commodity = (await createPopuldatedData(review, 'commodityId')).commodityId,
+    rating = type === 'create' ? review.rating : 0,
+    oldRating = type === 'delete' ? review.rating : 0;
 
   // Для пользователя нужно увеличивать коллво отзывов только с оценкой, для товара нет
-  await user.updateReviewsData(reviewId, true);
+  await user.updateReviewsData(review._id, true);
   if (+rating >= 0 && +rating <= 5) {
     await this.updateCommodityRating(commodity, rating, oldRating);
   }
-  await commodity.updateReviewsData(reviewId, review);
+  await commodity.updateReviewsData(review._id, review.review);
 };
 
 module.exports.updateAuthorData = async (author, commodityId, authorName) => {
