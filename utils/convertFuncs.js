@@ -5,6 +5,15 @@ module.exports.convertDataForClient = (data, type = 'default') => {
     if (key === '_id' && type === 'user') {
       delete data[key];
     }
+    if (key === 'boughtGoods') {
+      const boughtGoods = data[key].map((commodity) => ({
+        id: commodity._id,
+        previewImg: commodity.previewImg.previewImgSrc,
+        rating: commodity.rating.general,
+      }));
+      delete data[key];
+      data.boughtGoods = boughtGoods;
+    }
     if (key === '_id') {
       data.id = data[key];
       delete data[key];

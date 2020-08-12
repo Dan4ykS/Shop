@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import ListView from '../../components/ListView';
-import Rating from '../../components/Rating/Rating';
-import TextWithBr from '../../components/TextWithBr/TextWithBr';
 import MoreReviews from '../../components/MoreReviews';
-import { createValidImgSrc, showReview } from '../../utils/workWithBrowser';
+import TextWithBr from '../../components/TextWithBr/TextWithBr';
+import ListView from '../../components/ListView';
+import { showReview, createValidImgSrc } from '../../utils/workWithBrowser';
+import Rating from '../../components/Rating/Rating';
 
 const Reviews = ({ reviews }) => {
   const [countReviews, switchCountReviews] = useState(5);

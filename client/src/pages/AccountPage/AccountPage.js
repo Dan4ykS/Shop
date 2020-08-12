@@ -1,5 +1,7 @@
 import React from 'react';
 import LoadingData from '../../components/LoadingData';
+import Reviews from './Reviews';
+import BoughtGoods from './BoughtGoods';
 import './AccountPage.scss'
 import { connectToStore } from '../../utils/workWithRedux';
 import { isLogout } from '../../actions/userData';
@@ -31,7 +33,7 @@ const AccountPage = ({
               </div>
               <div className='col-lg-8 offset-lg-1'>
                 <div className='formGroup'>
-                <input type='text' className='formControl' value={fullName} />
+                  <input type='text' className='formControl' value={fullName} />
                 </div>
 
                 <div className='formGroup row'>
@@ -65,9 +67,15 @@ const AccountPage = ({
             value={about}
             rows={50}
             className='accountPage__userInfo-aboutUser formControl'
-            placeholder='Расскажите о себе'
+            placeholder='Расскажите о себе...'
           />
         </form>
+        <div className='accountPage__boughtGoods'>
+          <BoughtGoods boughtGoods={boughtGoods} />
+        </div>
+        {/* <div className="accountPage__reviews">
+          <Reviews reviews={reviews}/>
+        </div> */}
         <Link className='btn' to={{ pathname: '/', state: 'logOut' }} onClick={() => isLogout()}>
           Выход
         </Link>

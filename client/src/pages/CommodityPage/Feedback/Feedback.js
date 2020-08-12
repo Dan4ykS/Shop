@@ -67,7 +67,7 @@ const Feedback = ({
       data-remove={false}
     >
       <div className='commodityPage__feedback-contentWrapper row'>
-        <div className='commodityPage__feedback-title commodityPage__blockTitle col-12'>Оставить отзыв</div>
+        <div className='commodityPage__feedback-title blockTitle col-12'>Оставить отзыв</div>
         <div className='col-2'>
           <div className='userAvatar'>
             <img src={createValidImgSrc(avatar)} alt={`avatar-${userName}`} />

@@ -123,4 +123,20 @@ export const chekValidDataInForm = (formSelector) => {
   return true;
 };
 
+
+export const showReview = (selector) => {
+  const reviews = findNeedElements(selector),
+    observer = new IntersectionObserver(
+      (reviews, observer) => {
+        reviews.forEach((review) => {
+          if (review.intersectionRatio > 0) {
+            review.target.classList.add('fadeInUp', 'animated');
+          }
+        });
+      },
+      { root: null, rootMargin: '0px', threshold: 0 }
+    );
+
+  reviews.forEach((review) => observer.observe(review));
+};
 // export const timer

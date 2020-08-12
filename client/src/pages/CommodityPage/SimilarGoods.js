@@ -12,7 +12,7 @@ const SimilarGoods = ({ goods }) => {
   }));
   return (
     <>
-      <div className='commodityPage__blockTitle'>Похожие книги</div>
+      <div className='blockTitle'>Похожие книги</div>
       <Slider
         content={arrForSlider}
         slidesToShow={3}

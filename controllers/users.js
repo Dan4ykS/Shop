@@ -50,6 +50,9 @@ module.exports.authUser = async ({ body: { userName, password } }, res) => {
       return res.status(400).json({ message: 'Неверный пароль' });
     }
     const token = createJwtToken({ userId: user.id }, '1d');
+    if (user.boughtGoods.length) {
+      await createPopuldatedData(user, 'boughtGoods');
+    }
     res.json({ userData: convertDataForClient(user.toObject(), 'user'), token });
   } catch (error) {
     errorHandler(res, error);
@@ -61,6 +64,9 @@ module.exports.isValid = async (req, res) => {
     const user = await Users.findById(req.user.userId);
     if (!user) {
       return res.status(400).json({ message: 'Извините, но такого пользователя уже нет' });
+    }
+    if (user.boughtGoods.length) {
+      await createPopuldatedData(user, 'boughtGoods');
     }
     const newToken = createJwtToken({ userId: user.id }, '1d');
     res.json({ userData: convertDataForClient(user.toObject(), 'user'), newToken });

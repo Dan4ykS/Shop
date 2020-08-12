@@ -3,6 +3,7 @@
 .slider {
   width: 100%;
   border: 2px solid $mainColor;
+  border-radius: 15px;
   padding: 40px;
   height: 100%;
   position: relative;
@@ -29,6 +30,9 @@
       box-shadow: 4px 4px 2px $mainColor;
       img {
         height: 100%;
+      }
+      &_bougthGoods {
+        height: 500px;
       }
     }
     &-moreInfo {
