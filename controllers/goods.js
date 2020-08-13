@@ -20,7 +20,7 @@ const findGoods = async (offset, limit, sortedParams = null) => {
 module.exports.getGoods = async ({ query: { offset, limit } }, res) => {
   try {
     const goods = await findGoods(offset, limit);
-    res.json(convertArrayForClient(goods));
+    res.json(convertArrayForClient(goods, 'deleteReviews'));
   } catch (error) {
     errorHandler(res, error);
   }
@@ -29,7 +29,7 @@ module.exports.getGoods = async ({ query: { offset, limit } }, res) => {
 module.exports.bestGoods = async ({ query: { offset, limit } }, res) => {
   try {
     const goods = await findGoods(offset, limit, { 'rating.general': -1 });
-    res.json(convertArrayForClient(goods));
+    res.json(convertArrayForClient(goods, 'deleteReviews'));
   } catch (error) {
     errorHandler(res, error);
   }
@@ -38,7 +38,7 @@ module.exports.bestGoods = async ({ query: { offset, limit } }, res) => {
 module.exports.newGoods = async ({ query: { offset, limit } }, res) => {
   try {
     const goods = await findGoods(offset, limit, { createdDate: -1 });
-    res.json(convertArrayForClient(goods));
+    res.json(convertArrayForClient(goods, 'deleteReviews'));
   } catch (error) {
     errorHandler(res, error);
   }
@@ -47,7 +47,7 @@ module.exports.newGoods = async ({ query: { offset, limit } }, res) => {
 module.exports.popularGoods = async ({ query: { offset, limit } }, res) => {
   try {
     const goods = await findGoods(offset, limit, { countReviews: -1 });
-    res.json(convertArrayForClient(goods));
+    res.json(convertArrayForClient(goods, 'deleteReviews'));
   } catch (error) {
     errorHandler(res, error);
   }
@@ -99,25 +99,12 @@ module.exports.getSimilarGoods = async ({ params: { id } }, res) => {
 
 module.exports.findCommodity = async ({ params: { id } }, res) => {
   try {
-    const commodity = await Goods.findById(id),
-      reviewDataForClien = [];
-
+    const commodity = await Goods.findById(id);
     if (commodity.reviews.length) {
-      const reviewData = (await createPopuldatedData(commodity, 'reviews')).reviews.reverse();
-      for (const review of reviewData) {
-        const reviewerData = (await createPopuldatedData(review, 'userId')).userId;
-        reviewDataForClien.push({
-          reviewId: review._id,
-          reviewerName: reviewerData.fullName,
-          reviewer: reviewerData.userName,
-          reviewerAvatar: reviewerData.avatar,
-          reviewDate: review.date,
-          review: review.review,
-          reviewRating: review.rating,
-        });
-      }
+      const commodityWithReview = await createPopuldatedData(commodity, 'reviews');
+      await createPopuldatedData(commodityWithReview, 'reviews.userId');
     }
-    res.status(200).json(convertDataForClient({ ...commodity.toObject(), reviews: reviewDataForClien }));
+    res.status(200).json(convertDataForClient(commodity.toObject()));
   } catch (error) {
     errorHandler(res, { message: `Товар с id:${id} не найден!` });
   }

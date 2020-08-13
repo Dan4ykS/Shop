@@ -18,13 +18,14 @@ const BoughtGoods = ({ boughtGoods }) => {
     manyElements = {
       sliderItemImgWrapper: 'slider__item-imgWrapper slider__item-imgWrapper_bougthGoods',
     };
+  
   return (
     <>
       <div className='blockTitle'>Купленные книги</div>
       <Slider
         content={arrForSlider}
         slidesToShow={2}
-        slidesToScroll={1}
+        slidesToScroll={boughtGoods.length > 4 ? 2 : 1}
         hasDots={false}
         classNames={boughtGoods.length <= 2 ? fewElements : manyElements}
       />

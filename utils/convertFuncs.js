@@ -5,6 +5,31 @@ module.exports.convertDataForClient = (data, type = 'default') => {
     if (key === '_id' && type === 'user') {
       delete data[key];
     }
+    if (type === 'deleteReviews' && key === 'reviews') {
+      delete data[key];
+    }
+    if (key === 'reviews' && type !== 'deleteReviews') {
+      const reviews = data[key].map((review) => {
+        const differentField = {};
+        if (type === 'user') {
+          differentField.commodityImg = review.commodityId.previewImg.previewImgSrc;
+          differentField.commodityTitle = review.commodityId.title;
+        } else {
+          differentField.reviewerName = review.userId.fullName;
+          differentField.reviewer = review.userId.userName;
+          differentField.reviewerAvatar = review.userId.avatar;
+        }
+        return {
+          reviewId: review._id,
+          ...differentField,
+          reviewDate: review.date,
+          review: review.review,
+          reviewRating: review.rating,
+        };
+      });
+      delete data[key];
+      data.reviews = reviews;
+    }
     if (key === 'boughtGoods') {
       const boughtGoods = data[key].map((commodity) => ({
         id: commodity._id,
@@ -31,8 +56,8 @@ module.exports.convertDataForClient = (data, type = 'default') => {
   return data;
 };
 
-module.exports.convertArrayForClient = (data) => {
-  return data.map((el) => this.convertDataForClient(el.toObject()));
+module.exports.convertArrayForClient = (data, options) => {
+  return data.map((el) => this.convertDataForClient(el.toObject(), options));
 };
 
 module.exports.toTitleCase = (str) => v.titleCase(str, [' ']);

@@ -53,6 +53,10 @@ module.exports.authUser = async ({ body: { userName, password } }, res) => {
     if (user.boughtGoods.length) {
       await createPopuldatedData(user, 'boughtGoods');
     }
+    if (user.reviews.length) {
+      const userDataWithReview = await createPopuldatedData(user, 'reviews');
+      await createPopuldatedData(userDataWithReview, 'reviews.commodityId');
+    }
     res.json({ userData: convertDataForClient(user.toObject(), 'user'), token });
   } catch (error) {
     errorHandler(res, error);
@@ -67,6 +71,10 @@ module.exports.isValid = async (req, res) => {
     }
     if (user.boughtGoods.length) {
       await createPopuldatedData(user, 'boughtGoods');
+    }
+    if (user.reviews.length) {
+      const userDataWithReview = await createPopuldatedData(user, 'reviews');
+      await createPopuldatedData(userDataWithReview, 'reviews.commodityId');
     }
     const newToken = createJwtToken({ userId: user.id }, '1d');
     res.json({ userData: convertDataForClient(user.toObject(), 'user'), newToken });
