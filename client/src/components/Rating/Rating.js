@@ -9,11 +9,12 @@ import { updateReviews, updateUserReview, updateRating } from '../../actions/com
 const Rating = ({
   userRating,
   editable = true,
+  commodityData = {},
   userData: { token, fullName, avatar, userName },
-  commodityData: { id: commodityId, userReview },
   actions: { updateReviews, updateUserReview, updateRating },
 }) => {
-  const [localUserRating, changeLocalUserRating] = useState(userRating);
+  const { id: commodityId, userReview } = commodityData,
+    [localUserRating, changeLocalUserRating] = useState(userRating);
 
   useEffect(() => {
     changeLocalUserRating(userRating);
@@ -77,7 +78,7 @@ const Rating = ({
   );
 };
 
-export default connectToStore(['userData', 'commodityData'], {
+export default connectToStore(['userData'], {
   updateReviews,
   updateUserReview,
   updateRating,

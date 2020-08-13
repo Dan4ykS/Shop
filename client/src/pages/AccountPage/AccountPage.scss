@@ -8,7 +8,10 @@
       min-height: 250px;
     }
   }
-  &__boughtGoods {
+  &__boughtGoods, &__reviews {
     margin-top: 80px;
+  }
+  &__exitBtn {
+    width: 40%;
   }
 }

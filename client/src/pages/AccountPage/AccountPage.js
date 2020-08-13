@@ -1,19 +1,15 @@
 import React from 'react';
 import LoadingData from '../../components/LoadingData';
-import Reviews from './Reviews';
+import Reviews from './Reviews/Reviews';
 import BoughtGoods from './BoughtGoods';
-import './AccountPage.scss'
+import './AccountPage.scss';
 import { connectToStore } from '../../utils/workWithRedux';
 import { isLogout } from '../../actions/userData';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { createValidImgSrc } from '../../utils/workWithBrowser';
 
-const AccountPage = ({
-  userData: { loading, error, userName, fullName,  email, about, avatar, reviews, boughtGoods },
-  actions: { isLogout },
-  history,
-}) => {
+const AccountPage = ({ userData: { loading, error, userName, fullName, email, about, avatar }, actions: { isLogout } }) => {
   if (userName === 'admin') {
     return <Redirect to='/admin' />;
   }
@@ -71,12 +67,12 @@ const AccountPage = ({
           />
         </form>
         <div className='accountPage__boughtGoods'>
-          <BoughtGoods boughtGoods={boughtGoods} />
+          <BoughtGoods />
         </div>
-        {/* <div className="accountPage__reviews">
-          <Reviews reviews={reviews}/>
-        </div> */}
-        <Link className='btn' to={{ pathname: '/', state: 'logOut' }} onClick={() => isLogout()}>
+        <div className='accountPage__reviews'>
+          <Reviews />
+        </div>
+        <Link className='accountPage__exitBtn btn btn_center' to={{ pathname: '/', state: 'logOut' }} onClick={() => isLogout()}>
           Выход
         </Link>
       </LoadingData>
@@ -84,4 +80,4 @@ const AccountPage = ({
   );
 };
 
-export default connectToStore(['userData'], { isLogout })(AccountPage, true);
+export default connectToStore(['userData'], { isLogout })(AccountPage);

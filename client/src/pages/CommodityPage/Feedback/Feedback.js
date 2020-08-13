@@ -79,7 +79,10 @@ const Feedback = ({
               <div className='userName'>{fullName}</div>
               <div className='userRating flexWrap'>
                 <span>Оцените книгу: </span>
-                <Rating userRating={userReview?.rating || 0} />
+                <Rating
+                  userRating={userReview?.rating || 0}
+                  commodityData={{ id: id ?? null, userReview: userReview ?? null }}
+                />
               </div>
             </div>
             <textarea

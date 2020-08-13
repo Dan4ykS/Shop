@@ -1,7 +1,8 @@
 import React from 'react';
 import Slider from '../../components/Slider';
+import { connectToStore } from '../../utils/workWithRedux';
 
-const BoughtGoods = ({ boughtGoods }) => {
+const BoughtGoods = ({ userData: { boughtGoods } }) => {
   if (!boughtGoods?.length) {
     return null;
   }
@@ -18,7 +19,7 @@ const BoughtGoods = ({ boughtGoods }) => {
     manyElements = {
       sliderItemImgWrapper: 'slider__item-imgWrapper slider__item-imgWrapper_bougthGoods',
     };
-  
+
   return (
     <>
       <div className='blockTitle'>Купленные книги</div>
@@ -33,4 +34,4 @@ const BoughtGoods = ({ boughtGoods }) => {
   );
 };
 
-export default BoughtGoods;
+export default connectToStore(['userData.boughtGoods'], null)(BoughtGoods);

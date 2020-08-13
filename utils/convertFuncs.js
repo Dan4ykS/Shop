@@ -12,17 +12,18 @@ module.exports.convertDataForClient = (data, type = 'default') => {
       const reviews = data[key].map((review) => {
         const differentField = {};
         if (type === 'user') {
+          differentField.commodityId = review.commodityId._id;
           differentField.commodityImg = review.commodityId.previewImg.previewImgSrc;
           differentField.commodityTitle = review.commodityId.title;
         } else {
           differentField.reviewerName = review.userId.fullName;
           differentField.reviewer = review.userId.userName;
           differentField.reviewerAvatar = review.userId.avatar;
+          differentField.reviewDate = review.date;
         }
         return {
           reviewId: review._id,
           ...differentField,
-          reviewDate: review.date,
           review: review.review,
           reviewRating: review.rating,
         };

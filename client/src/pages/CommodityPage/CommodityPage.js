@@ -137,7 +137,10 @@ const CommodityPage = ({
                     <div className='moreRatingInfo__rating-detail flexWrap'>
                       <div>Оцените книгу:</div>
                       <div className='stars'>
-                        <Rating userRating={userReview ? userReview.rating : 0} />
+                        <Rating
+                          userRating={userReview ? userReview.rating : 0}
+                          commodityData={{ id: id ?? null, userReview: userReview ?? null }}
+                        />
                       </div>
                     </div>
                     <button className='btn' onClick={() => writeReview(userName)}>
