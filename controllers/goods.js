@@ -1,4 +1,5 @@
 const errorHandler = require('../utils/errorHandler');
+const moment = require('moment');
 const Goods = require('../models/Goods');
 const Users = require('../models/Users');
 const Reviews = require('../models/Reviews.js');
@@ -103,6 +104,7 @@ module.exports.findCommodity = async ({ params: { id } }, res) => {
     if (commodity.reviews.length) {
       const commodityWithReview = await createPopuldatedData(commodity, 'reviews');
       await createPopuldatedData(commodityWithReview, 'reviews.userId');
+      commodity.reviews.reverse();
     }
     res.status(200).json(convertDataForClient(commodity.toObject()));
   } catch (error) {
