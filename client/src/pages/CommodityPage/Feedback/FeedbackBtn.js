@@ -10,7 +10,7 @@ const FeedbackBtn = ({ commodityData: { userReview }, newReview }) => {
           <button type='submit' className='btn' disabled={userReview.review.trim() === newReview.trim() ?? false}>
             Изменить
           </button>
-          <button type='submit' className='btn' onClick={(e) => setDataRemove(e)}>
+          <button type='submit' className='btn' onClick={(e) => setDataRemove(e, '.commodityPage__feedback')}>
             Удалить
           </button>
         </div>

@@ -74,14 +74,4 @@ export const initPage = async (commodityId, fetchCommodity, fetchSimilarGoods) =
   await fetchSimilarGoods(commodityId);
 };
 
-export const hideFeedbackStatus = (e) => {
-  e.preventDefault();
-
-  const feedbacStatus = e.target.closest('.commodityPage__feedback-status'),
-    feedbacWrapper = feedbacStatus.previousElementSibling;
-
-  feedbacStatus.classList.add('hiddenElem');
-  feedbacWrapper.classList.remove('commodityPage__feedback-contentWrapper_hiden');
-};
-
-export const setDataRemove = (e) => (e.target.closest('.commodityPage__feedback').dataset.remove = true);
+export const setDataRemove = (e, selector) => (e.target.closest(selector).dataset.remove = true);

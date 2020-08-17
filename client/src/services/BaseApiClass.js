@@ -17,7 +17,7 @@ export default class BaseApiClass {
       const formData = new FormData();
       delete data.withFiles;
       for (const key in data) {
-        if (typeof data[key] === 'object') {
+        if (typeof data[key] === 'object' && !(data[key] instanceof File)) {
           data[key].forEach((el) => formData.append(`${key}[]`, el));
         } else {
           formData.append(key, data[key]);

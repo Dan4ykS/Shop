@@ -2,17 +2,26 @@ import React, { useEffect } from 'react';
 import './FileUploader.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
-import { triggerUploadInput, uploadFile, preventDefaultFaileUpload, removePreventDefault, dragAndDropForFile } from '../../utils/workWithFiles';
+import {
+  triggerUploadInput,
+  uploadFile,
+  preventDefaultFaileUpload,
+  removePreventDefault,
+  dragAndDropForFile,
+} from '../../utils/workWithFiles';
+import StringHelper from '../../utils/StringHelper';
 
-const FileUploader = ({ action, id, text = 'Загрузить файл' }) => {
+const FileUploader = ({ action, id = StringHelper.createId(), text = 'Загрузить файл', withDropDown = true }) => {
   useEffect(() => {
-    preventDefaultFaileUpload();
-    dragAndDropForFile(action);
-    return () => {
-      removePreventDefault();
-    };
+    if (withDropDown) {
+      preventDefaultFaileUpload();
+      dragAndDropForFile(action);
+      return () => {
+        removePreventDefault();
+      };
+    }
   }, [action]);
-  
+
   return (
     <div className='fileUploader'>
       <input
@@ -27,12 +36,12 @@ const FileUploader = ({ action, id, text = 'Загрузить файл' }) => {
         onClick={() => {
           triggerUploadInput(id);
         }}
-        className='btn-danger'
+        className='btn'
       >
         {text}
         <FontAwesomeIcon icon={faUpload} />
       </button>
-      <div className='fileUploader__dndText hiddenElem'>Место для загрузки файла</div>
+      {withDropDown ? <div className='fileUploader__dndText hiddenElem'>Место для загрузки файла</div> : null}
     </div>
   );
 };

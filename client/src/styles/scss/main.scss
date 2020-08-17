@@ -65,11 +65,15 @@ h6 {
   width: 152px;
   height: 152px;
   overflow: hidden;
-  border-radius: 50%;
+  border-radius: 100%;
+  position: relative;
   img {
-    width: auto;
-    height: 100%;
-    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    margin: auto auto;
   }
 }
 

@@ -28,6 +28,10 @@ class UsersService extends BaseApiClass {
   getAdminData = async () => {
     return await this.requestToApi('GET', 'getAdminData', null);
   };
+
+  updateUserData = async (data, token) => { 
+    return await this.requestToApi('PATCH', 'updateUserData', data, this.headerWithToken(token));
+  }
 }
 
 export default new UsersService();

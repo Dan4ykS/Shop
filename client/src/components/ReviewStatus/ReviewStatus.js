@@ -1,9 +1,9 @@
 import React from 'react';
-import LoadingIndicator from '../../../components/LoadingIndicator';
-import { hideFeedbackStatus } from '../utils';
-import { connectToStore } from '../../../utils/workWithRedux';
+import LoadingIndicator from '../LoadingIndicator';
+import { connectToStore } from '../../utils/workWithRedux';
+import { hideFeedbackStatus } from './utils';
 
-const StatusContent = ({  fullName , userReview }) => {
+const StatusContent = ({ fullName, userReview }) => {
   let message = ', ',
     btnText = 'Перейти к редактированию';
 
@@ -28,7 +28,7 @@ const StatusContent = ({  fullName , userReview }) => {
   );
 };
 
-const FeedbackStatus = ({ commodityData: { userReview }, userData: { fullName }, loading, oldReview }) => {
+const ReviewStatus = ({ commodityData: { userReview }, userData: { fullName }, loading, oldReview, selectorFo }) => {
   const loadingReview = loading ? <LoadingIndicator /> : null;
   const content = !loading ? <StatusContent userReview={userReview} fullName={fullName} oldReview={oldReview} /> : null;
   return (
@@ -39,4 +39,4 @@ const FeedbackStatus = ({ commodityData: { userReview }, userData: { fullName },
   );
 };
 
-export default connectToStore(['userData.fullName', 'commodityData.userReview'], null)(FeedbackStatus);
+export default connectToStore(['userData.fullName', 'commodityData.userReview'], null)(ReviewStatus);

@@ -175,7 +175,7 @@ module.exports.updateUserData = async ({ body, user: { userId }, file }, res) =>
   try {
     const newAvatar = {},
       newPassword = {};
-
+    
     if (file) {
       newAvatar.avatar = file.path;
     }

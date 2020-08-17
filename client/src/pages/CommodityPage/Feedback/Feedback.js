@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Rating from '../../../components/Rating/Rating';
 import FeedbackBtn from './FeedbackBtn';
-import FeedbackStatus from './FeedbackStatus';
+import ReviewStatus from '../../../components/ReviewStatus';
 import { connectToStore } from '../../../utils/workWithRedux';
 import {
   findUserReview,
@@ -15,7 +15,7 @@ import { workWithReview } from '../../../utils/workWithApiRequests';
 import { createValidImgSrc, validateInput } from '../../../utils/workWithBrowser';
 
 const Feedback = ({
-  userData: { userName, token, avatar, fullName },
+  userData: { userName, token, avatarSrc, fullName },
   commodityData: { userReview, reviews, id },
   actions: { findUserReview, updateUserReview, updateReviews, clearUserReview, removeReview, updateRating },
 }) => {
@@ -42,7 +42,7 @@ const Feedback = ({
 
   const userData = {
       token,
-      avatar,
+      avatar: avatarSrc,
       fullName,
       userName,
     },
@@ -70,7 +70,7 @@ const Feedback = ({
         <div className='commodityPage__feedback-title blockTitle col-12'>Оставить отзыв</div>
         <div className='col-2'>
           <div className='userAvatar'>
-            <img src={createValidImgSrc(avatar)} alt={`avatar-${userName}`} />
+            <img src={createValidImgSrc(avatarSrc)} alt={`avatar-${userName}`} />
           </div>
         </div>
         <div className='col-10'>
@@ -99,7 +99,7 @@ const Feedback = ({
         </div>
       </div>
       <div className='commodityPage__feedback-status hiddenElem'>
-        <FeedbackStatus loading={loading} oldReview={review} />
+        <ReviewStatus loading={loading} oldReview={review} />
       </div>
     </form>
   );

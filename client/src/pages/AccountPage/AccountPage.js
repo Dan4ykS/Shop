@@ -1,15 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import LoadingData from '../../components/LoadingData';
 import Reviews from './Reviews/Reviews';
 import BoughtGoods from './BoughtGoods';
+import UpdateUserDataBtn from './UpdateUserDataBtn';
+import FileUploader from '../../components/FileUploader/FileUploader';
 import './AccountPage.scss';
 import { connectToStore } from '../../utils/workWithRedux';
 import { isLogout } from '../../actions/userData';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
-import { createValidImgSrc } from '../../utils/workWithBrowser';
+import { createValidImgSrc, validateInput } from '../../utils/workWithBrowser';
+import { toggleUploadAvatarMenu } from './utils';
 
-const AccountPage = ({ userData: { loading, error, userName, fullName, email, about, avatar }, actions: { isLogout } }) => {
+const AccountPage = ({
+  userData: { loading, error, userName, fullName, email, about, avatar, avatarSrc },
+  actions: { isLogout },
+}) => {
+  const [localUserName, updateLocalUserName] = useState(userName),
+    [localUserFullName, updateLocalFullName] = useState(fullName),
+    [localUserEmail, updateLocalUserEmail] = useState(email),
+    [localUserAvatar, updateLocalUserAvatar] = useState({ avatarSrc, avatar }),
+    [localUserInfo, updateLocalUserInfo] = useState(about);
+
+  useEffect(() => {
+    updateLocalUserName(userName);
+  }, [userName]);
+  useEffect(() => {
+    updateLocalUserEmail(email);
+  }, [email]);
+  useEffect(() => {
+    updateLocalFullName(fullName);
+  }, [fullName]);
+  useEffect(() => {
+    updateLocalUserInfo(about);
+  }, [about]);
+  useEffect(() => {
+    updateLocalUserAvatar((avatarData) => ({
+      ...avatarData,
+      avatarSrc,
+    }));
+  }, [avatarSrc]);
+
   if (userName === 'admin') {
     return <Redirect to='/admin' />;
   }
@@ -24,34 +55,52 @@ const AccountPage = ({ userData: { loading, error, userName, fullName, email, ab
         <form className='accountPage__userInfo'>
           <div className='accountPage__userInfo-detail row justify-content-center'>
             <div className='col-lg-9 row'>
-              <div className='col-lg-3 userAvatar'>
-                <img src={createValidImgSrc(avatar)} alt={`${userName}-avatar`} />
-              </div>
-              <div className='col-lg-8 offset-lg-1'>
-                <div className='formGroup'>
-                  <input type='text' className='formControl' value={fullName} />
+              <div className='col-lg-4'>
+                <div
+                  className='userAvatar'
+                  onMouseEnter={(e) => toggleUploadAvatarMenu(e, 'show')}
+                  onMouseLeave={(e) => toggleUploadAvatarMenu(e, 'hide')}
+                >
+                  <img src={createValidImgSrc(localUserAvatar.avatarSrc)} alt={`${userName}-avatar`} />
+                  <div className='userAvatar__btn btnGroup'>
+                    <FileUploader
+                      text='Обновить'
+                      withDropDown={false}
+                      action={(file, src) => updateLocalUserAvatar({ avatarSrc: src, avatar: file })}
+                    />
+                  </div>
                 </div>
-
+              </div>
+              <div className='col-lg-8'>
+                <div className='formGroup'>
+                  <input
+                    type='text'
+                    className='formControl'
+                    value={localUserFullName}
+                    onChange={(e) => validateInput(e, updateLocalFullName)}
+                  />
+                  <div className='invalidFeedback'>Поле обязательно и не должно быть пустым</div>
+                </div>
                 <div className='formGroup row'>
                   <label className='col-sm-3 formControlLable'>Логин:</label>
-                  <div className='col-sm-9'>
+                  <div className='col-sm-9 userLogin'>
                     <input
                       type='text'
                       className='formControl'
-                      value={userName}
-                      // onChange={(e) => validateInput(e, updateTitle)}
+                      value={localUserName}
+                      onChange={(e) => validateInput(e, updateLocalUserName)}
                     />
                     <div className='invalidFeedback'>Поле обязательно и не должно быть пустым</div>
                   </div>
                 </div>
                 <div className='formGroup row'>
                   <label className='col-sm-3 formControlLable'>Почта:</label>
-                  <div className='col-sm-9'>
+                  <div className='col-sm-9 userEmail'>
                     <input
                       type='text'
                       className='formControl'
-                      value={email}
-                      // onChange={(e) => validateInput(e, updateTitle)}
+                      value={localUserEmail}
+                      onChange={(e) => validateInput(e, updateLocalUserEmail)}
                     />
                     <div className='invalidFeedback'>Поле обязательно и не должно быть пустым</div>
                   </div>
@@ -60,10 +109,20 @@ const AccountPage = ({ userData: { loading, error, userName, fullName, email, ab
             </div>
           </div>
           <textarea
-            value={about}
+            value={localUserInfo}
             rows={50}
             className='accountPage__userInfo-aboutUser formControl'
             placeholder='Расскажите о себе...'
+            onChange={(e) => updateLocalUserInfo(e.target.value)}
+          />
+          <UpdateUserDataBtn
+            newUserData={{
+              userName: localUserName,
+              fullName: localUserFullName,
+              email: localUserEmail,
+              about: localUserInfo,
+              avatar: localUserAvatar,
+            }}
           />
         </form>
         <div className='accountPage__boughtGoods'>
@@ -72,7 +131,11 @@ const AccountPage = ({ userData: { loading, error, userName, fullName, email, ab
         <div className='accountPage__reviews'>
           <Reviews />
         </div>
-        <Link className='accountPage__exitBtn btn btn_center' to={{ pathname: '/', state: 'logOut' }} onClick={() => isLogout()}>
+        <Link
+          className='accountPage__exitBtn btn btn_center'
+          to={{ pathname: '/', state: 'logOut' }}
+          onClick={() => isLogout()}
+        >
           Выход
         </Link>
       </LoadingData>
