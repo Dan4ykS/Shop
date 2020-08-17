@@ -13,17 +13,18 @@ const LoginPage = ({ actions: { authorization }, history }) => {
     <div className='authPage row justify-content-center'>
       <div className='authPage__content col-lg-8 col-12'>
         <h2>Авторизации</h2>
-        <form className='authorization' onSubmit={(e) => authRequests(e, authorization, '.authorization', history)}>
-          <div className='formGroup row'>
-            <label className='col-sm-2 formControlLable'>Логин:</label>
-            <div className='col-sm-10'>
+        <form
+          className='authorization'
+          onSubmit={(e) => authRequests(e, authorization, '.authorization', history)}
+        >
+          <div className='formGroup'>
+            <div className='col-12'>
               <input name='userName' type='text' className='formControl' placeholder='Введите ваш логин' required />
               <div className='invalidFeedback'>Неверный логин</div>
             </div>
           </div>
-          <div className='formGroup row'>
-            <label className='col-sm-2 formControlLable'>Пароль:</label>
-            <div className='col-sm-10 password'>
+          <div className='formGroup'>
+            <div className='col-12 password'>
               <span className='showPasswordIcon showPasswordIcon_crosOut'>
                 <FontAwesomeIcon
                   onClick={() => changePasswordType('.showPasswordIcon', '.formControl_password')}

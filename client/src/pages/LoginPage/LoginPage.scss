@@ -3,7 +3,9 @@
   &__forgotPassword {
     font-size: 15px;
     display: block;
-    margin-left: 81%;
+    display: block;
+    text-align: right;
+    padding-right: 15px;
     &:hover {
       text-decoration: none;
     }
