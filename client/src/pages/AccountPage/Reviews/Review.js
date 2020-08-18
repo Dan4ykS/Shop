@@ -56,7 +56,7 @@ const Review = ({
           <button
             type='submit'
             className='btn'
-            disabled={locaReviewData?.trim() === review || !locaReviewData.trim() ? true : false}
+            disabled={locaReviewData?.trim() === review || !locaReviewData?.trim() ? true : false}
           >
             Изменить
           </button>
