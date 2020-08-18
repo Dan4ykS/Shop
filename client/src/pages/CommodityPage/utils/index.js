@@ -74,4 +74,4 @@ export const initPage = async (commodityId, fetchCommodity, fetchSimilarGoods) =
   await fetchSimilarGoods(commodityId);
 };
 
-export const setDataRemove = (e, selector) => (e.target.closest(selector).dataset.remove = true);
+

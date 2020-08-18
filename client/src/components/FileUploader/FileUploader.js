@@ -20,7 +20,7 @@ const FileUploader = ({ action, id = StringHelper.createId(), text = 'Загру
         removePreventDefault();
       };
     }
-  }, [action]);
+  }, [action, withDropDown]);
 
   return (
     <div className='fileUploader'>
@@ -38,8 +38,8 @@ const FileUploader = ({ action, id = StringHelper.createId(), text = 'Загру
         }}
         className='btn'
       >
-        {text}
         <FontAwesomeIcon icon={faUpload} />
+        {text}
       </button>
       {withDropDown ? <div className='fileUploader__dndText hiddenElem'>Место для загрузки файла</div> : null}
     </div>

@@ -12,6 +12,10 @@ router.get('/getUsers', authAdmin, controller.getUsers);
 
 router.get('/getUserData', auth, controller.getUserData);
 
+router.get('/getUserBoughtGoods', auth, controller.getUserBoughtGoods);
+
+router.get('/getUserReviews', auth, controller.getUserReviews);
+
 router.get('/getAdminData', controller.getAdminData);
 
 router.post('/authUser', controller.authUser);

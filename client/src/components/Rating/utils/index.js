@@ -3,7 +3,7 @@ import GoodsService from '../../../services/GoodsService';
 export const updateCommodityRating = async (
   e,
   { editable, token, reviewId, commodityId, localUserRating: oldRating, userReview, fullName, userName, avatar },
-  { changeLocalUserRating, updateUserReview, updateRating, updateReviews }
+  { changeLocalUserRating, updateReviews = null, updateRating = null, updateUserReview = null }
 ) => {
   e.persist();
   if (!editable) {
@@ -16,9 +16,13 @@ export const updateCommodityRating = async (
 
     if (reviewId) {
       const { date } = await GoodsService.updateReview(reviewId, { rating: value }, token);
-      updateUserReview({ rating: value });
-      updateRating(value, oldRating);
-      if (userReview?.review) {
+      if (updateUserReview) {
+        updateUserReview({ rating: value });
+      }
+      if (updateRating) {
+        updateRating(value, oldRating);
+      }
+      if (userReview?.review && updateReviews) {
         updateReviews({
           reviewDate: date,
           reviewId: userReview.reviewId,

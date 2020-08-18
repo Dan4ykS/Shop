@@ -135,7 +135,7 @@ export const workWithReview = async (
   e,
   { review, commodityId, userReview },
   { token, avatar, fullName, userName },
-  { updateReviews, updateUserReview, changeLoading, clearUserReview, removeReview, updateRating }
+  { updateReviews, updateUserReview, changeLoading, clearUserReview, removeReview, updateRating, updateUserReviews }
 ) => {
   e.persist();
   e.preventDefault();
@@ -156,6 +156,7 @@ export const workWithReview = async (
     const { date } = await GoodsService.updateReview(userReview.reviewId, { review }, token);
     updateUserReview({ review, reviewWasUpdate: userReview?.review ? true : false });
     updateReviews({ review, reviewDate: date, reviewId: userReview.reviewId });
+    updateUserReviews({ reviewId: userReview.reviewId, review });
   } else {
     const { id, date } = await GoodsService.createReview({ review, commodityId }, token);
     updateUserReview({ review, reviewId: id });
@@ -166,6 +167,11 @@ export const workWithReview = async (
       reviewerAvatar: avatar,
       reviewer: userName,
       review,
+    });
+    const { reviews } = await UsersService.getUserReviews(token);
+    updateUserReviews({
+      newArr: true,
+      reviews,
     });
   }
   if (toRemove) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connectToStore } from '../../../utils/workWithRedux';
-import { setDataRemove } from '../utils';
+import { setDataRemove } from '../../../utils/workWithBrowser';
 
 const FeedbackBtn = ({ commodityData: { userReview }, newReview }) => {
   return (

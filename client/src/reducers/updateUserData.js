@@ -10,7 +10,38 @@ import {
   UPDATE_ABOUT,
   UPDATE_AVATAR,
   UPDATE_AVATARSRC,
+  UPDATE_BOUGHTGOODS_RATING,
+  UPDATE_USER_REVIEWS,
 } from '../actions/types';
+import { changeArrayElement, removeArrayElement } from '../utils/workWithRedux';
+
+// const updateBoughtGoods = (oldBoughtGoodsData, dataForUpdate) => {
+//   const commodityIndex = oldBoughtGoodsData.findIndex((commodity) => commodity.reviewId === dataForUpdate.reviewId);
+//   if (commodityIndex !== -1) {
+//     const newElem = {
+//       ...oldBoughtGoodsData[commodityIndex],
+//       rating: dataForUpdate.reviewRating,
+//     };
+//     return changeArrayElement(oldBoughtGoodsData, commodityIndex, newElem);
+//   }
+//   return oldBoughtGoodsData;
+// };
+
+const updateUserReviews = (reviews, dataForUpdate) => {
+  if (dataForUpdate.newArr) {
+    return dataForUpdate.reviews;
+  }
+  const reviewIndex = reviews.findIndex((review) => review.reviewId === dataForUpdate.reviewId);
+  if (dataForUpdate.wasDeleted) {
+    return removeArrayElement(reviews, reviewIndex);
+  } else {
+    const newElemnt = {
+      ...reviews[reviewIndex],
+      ...dataForUpdate,
+    };
+    return changeArrayElement(reviews, reviewIndex, newElemnt);
+  }
+};
 
 const updateUserData = (state, action) => {
   if (state === undefined) {
@@ -116,6 +147,18 @@ const updateUserData = (state, action) => {
       return {
         ...state.userData,
         avatarSrc: action.payload,
+      };
+
+    case UPDATE_BOUGHTGOODS_RATING:
+      return {
+        ...state.userData,
+        boughtGoods: action.payload,
+      };
+
+    case UPDATE_USER_REVIEWS:
+      return {
+        ...state.userData,
+        reviews: updateUserReviews(state.userData.reviews, action.payload),
       };
 
     default:

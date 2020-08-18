@@ -139,4 +139,5 @@ export const showReview = (selector) => {
 
   reviews.forEach((review) => observer.observe(review));
 };
-// export const timer
+
+export const setDataRemove = (e, selector) => (e.target.closest(selector).dataset.remove = true);

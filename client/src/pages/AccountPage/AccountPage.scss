@@ -15,31 +15,36 @@
     .userAvatar {
       background-color: $extraColor;
       position: relative;
-      height: 250px;
-      width: 250px;
-      .btn {
-        background-color: inherit;
-        &:hover,
-        &:focus {
-          box-shadow: none;
-        }
-        &:hover {
-          color: $mainColor;
-        }
-      }
-      &__btn {
+      height: 225px;
+      width: 225px;
+      &__menu {
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
         visibility: hidden;
         height: 0;
-        background-color: inherit;
+        background-color: #000000b3;
         transition: visibility 0.3s, height 0.4s, background-color 0.4s;
+        .btn {
+          background-color: transparent;
+          margin: 0;
+          padding: 0;
+          &:hover,
+          &:focus {
+            box-shadow: none;
+          }
+          &:hover {
+            color: $mainColor;
+          }
+          .fa-undo {
+            font-size: 18px;
+            margin-right: 10px;
+          }
+        }
         &_active {
           visibility: visible;
-          height: 70px;
-          background-color: #000000b3;
+          height: 80px;
         }
       }
     }

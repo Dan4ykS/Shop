@@ -39,6 +39,27 @@ module.exports.getUsers = async (req, res) => {
   }
 };
 
+module.exports.getUserBoughtGoods = async ({ user: { userId } }, res) => {
+  try {
+    const user = await Users.findById(userId);
+    await createPopuldatedData(user, 'boughtGoods');
+    res.json(convertDataForClient({ boughtGoods: user.boughtGoods }));
+  } catch (error) {
+    errorHandler(res, error);
+  }
+};
+
+module.exports.getUserReviews = async ({ user: { userId } }, res) => {
+  try {
+    const user = await Users.findById(userId);
+     const userDataWithReview = await createPopuldatedData(user, 'reviews');
+     await createPopuldatedData(userDataWithReview, 'reviews.commodityId');
+    res.json(convertDataForClient({ reviews: user.reviews }, 'user'));
+  } catch (error) {
+    errorHandler(res, error);
+  }
+};
+
 module.exports.authUser = async ({ body: { userName, password } }, res) => {
   try {
     const user = await Users.findOne({ userName });
@@ -175,7 +196,7 @@ module.exports.updateUserData = async ({ body, user: { userId }, file }, res) =>
   try {
     const newAvatar = {},
       newPassword = {};
-    
+
     if (file) {
       newAvatar.avatar = file.path;
     }

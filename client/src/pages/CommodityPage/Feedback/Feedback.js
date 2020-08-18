@@ -11,13 +11,22 @@ import {
   removeReview,
   updateRating,
 } from '../../../actions/commodityData';
+import { updateUserReviews } from '../../../actions/userData';
 import { workWithReview } from '../../../utils/workWithApiRequests';
 import { createValidImgSrc, validateInput } from '../../../utils/workWithBrowser';
 
 const Feedback = ({
   userData: { userName, token, avatarSrc, fullName },
   commodityData: { userReview, reviews, id },
-  actions: { findUserReview, updateUserReview, updateReviews, clearUserReview, removeReview, updateRating },
+  actions: {
+    findUserReview,
+    updateUserReview,
+    updateReviews,
+    clearUserReview,
+    removeReview,
+    updateRating,
+    updateUserReviews,
+  },
 }) => {
   const [review, updateLocalReview] = useState(userReview ? userReview.review : ''),
     [loading, changeLoading] = useState(false);
@@ -58,6 +67,7 @@ const Feedback = ({
       clearUserReview,
       removeReview,
       updateRating,
+      updateUserReviews,
     };
 
   return (
@@ -82,6 +92,11 @@ const Feedback = ({
                 <Rating
                   userRating={userReview?.rating || 0}
                   commodityData={{ id: id ?? null, userReview: userReview ?? null }}
+                  funcsForUpdate={{
+                    updateUserReview,
+                    updateReviews,
+                    updateRating,
+                  }}
                 />
               </div>
             </div>
@@ -112,4 +127,5 @@ export default connectToStore(['userData', 'commodityData'], {
   clearUserReview,
   removeReview,
   updateRating,
+  updateUserReviews,
 })(Feedback);

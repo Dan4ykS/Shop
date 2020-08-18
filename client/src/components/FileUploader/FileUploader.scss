@@ -1,12 +1,10 @@
 .fileUploader {
-  min-height: 100px;
   input {
     display: none;
   }
   button {
-    max-width: 250px;
     .fa-upload{
-      margin-left: 15px;
+      margin-right: 10px;
     }
   }
   &__dndText{

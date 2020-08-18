@@ -11,6 +11,8 @@ import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { createValidImgSrc, validateInput } from '../../utils/workWithBrowser';
 import { toggleUploadAvatarMenu } from './utils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUndo } from '@fortawesome/free-solid-svg-icons';
 
 const AccountPage = ({
   userData: { loading, error, userName, fullName, email, about, avatar, avatarSrc },
@@ -62,12 +64,31 @@ const AccountPage = ({
                   onMouseLeave={(e) => toggleUploadAvatarMenu(e, 'hide')}
                 >
                   <img src={createValidImgSrc(localUserAvatar.avatarSrc)} alt={`${userName}-avatar`} />
-                  <div className='userAvatar__btn btnGroup'>
+                  <div
+                    className={`userAvatar__menu ${
+                      localUserAvatar.avatarSrc !== avatarSrc ? 'flexWrapColumn_FS' : 'flexWrapColumn_center'
+                    }`}
+                  >
                     <FileUploader
                       text='Обновить'
                       withDropDown={false}
                       action={(file, src) => updateLocalUserAvatar({ avatarSrc: src, avatar: file })}
                     />
+                    {localUserAvatar.avatarSrc !== avatarSrc ? (
+                      <button
+                        type='button'
+                        className='btn'
+                        onClick={() =>
+                          updateLocalUserAvatar({
+                            avatar,
+                            avatarSrc,
+                          })
+                        }
+                      >
+                        <FontAwesomeIcon icon={faUndo} />
+                        Отменить
+                      </button>
+                    ) : null}
                   </div>
                 </div>
               </div>

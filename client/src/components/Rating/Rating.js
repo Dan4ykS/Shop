@@ -4,14 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { updateCommodityRating, clearTotalRating, checkTotalRating } from './utils';
 import { connectToStore } from '../../utils/workWithRedux';
-import { updateReviews, updateUserReview, updateRating } from '../../actions/commodityData';
 
 const Rating = ({
   userRating,
   editable = true,
   commodityData = {},
+  funcsForUpdate = {},
   userData: { token, fullName, avatar, userName },
-  actions: { updateReviews, updateUserReview, updateRating },
 }) => {
   const { id: commodityId, userReview } = commodityData,
     [localUserRating, changeLocalUserRating] = useState(userRating);
@@ -31,7 +30,7 @@ const Rating = ({
       userName,
       avatar,
     },
-    funcsForUpdateRating = { updateUserReview, changeLocalUserRating, updateRating, updateReviews };
+    funcsForUpdateRating = { changeLocalUserRating, ...funcsForUpdate };
 
   return (
     <div
@@ -78,8 +77,4 @@ const Rating = ({
   );
 };
 
-export default connectToStore(['userData'], {
-  updateReviews,
-  updateUserReview,
-  updateRating,
-})(Rating);
+export default connectToStore(['userData'], null)(Rating);

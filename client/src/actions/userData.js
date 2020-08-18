@@ -17,6 +17,8 @@ import {
   UPDATE_ABOUT,
   UPDATE_AVATAR,
   UPDATE_AVATARSRC,
+  UPDATE_BOUGHTGOODS_RATING,
+  UPDATE_USER_REVIEWS,
 } from './types';
 
 const createUser = (userData, token) => createAction(CREATE_NEW_USER, { ...userData, token });
@@ -33,6 +35,8 @@ const updateAbout = (about) => createAction(UPDATE_ABOUT, about);
 
 const updateAvatar = (avatar) => createAction(UPDATE_AVATAR, avatar);
 
+const updateBoughtGoodsRating = (boughtGoods) => createAction(UPDATE_BOUGHTGOODS_RATING, boughtGoods);
+
 const updateAvatarSrc = (avatarSrc) => createAction(UPDATE_AVATARSRC, avatarSrc);
 
 export const userLogin = (userData, token) => createAction(LOGIN, { ...userData, token });
@@ -40,6 +44,8 @@ export const userLogin = (userData, token) => createAction(LOGIN, { ...userData,
 export const userLogout = () => createAction(LOGOUT);
 
 export const invalidRoute = () => createAction(INVALID_ROUTE);
+
+export const updateUserReviews = (dataForUpdate) => createAction(UPDATE_USER_REVIEWS, dataForUpdate);
 
 const authErrorHeandler = ({ inputs, selector }) => {
   clearInputs(inputs);
@@ -107,30 +113,36 @@ export const isLogout = () => (dispatch) => {
 
 export const updateUserData = (newFields, token) => async (dispatch) => {
   try {
-    const fieldForUpdate = {};
+    const fieldForUpdate = {},
+      funcForDispatch = {
+        userName: updateUserName,
+        email: updateEmail,
+        fullName: updatefullName,
+        about: updateAbout,
+      };
+
     for (const key in newFields) {
-      if (key === 'userName' && newFields[key]) {
-        dispatch(updateUserName(newFields[key]));
-        fieldForUpdate.userName = newFields[key];
-      } else if (key === 'email' && newFields[key]) {
-        dispatch(updateEmail(newFields[key]));
-        fieldForUpdate.email = newFields[key];
-      } else if (key === 'fullName' && newFields[key]) {
-        dispatch(updatefullName(newFields[key]));
-        fieldForUpdate.fullName = newFields[key];
-      } else if (key === 'about' && newFields[key]) {
-        dispatch(updateAbout(newFields[key]));
-        fieldForUpdate.about = newFields[key];
-      } else if (key === 'avatar' && newFields[key]) {
+      if (key === 'avatar' && newFields[key]) {
         dispatch(updateAvatar(newFields.avatar.avatar));
         dispatch(updateAvatarSrc(newFields.avatar.avatarSrc));
         fieldForUpdate.avatar = newFields.avatar.avatar;
-        console.log(newFields.avatar.avatar);
         fieldForUpdate.withFiles = true;
         delete newFields.avatar;
+      } else if (newFields[key]) {
+        fieldForUpdate[key] = newFields[key];
+        dispatch(funcForDispatch[key](newFields[key]));
       }
     }
     await UsersService.updateUserData(fieldForUpdate, token);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateBoughtGoods = (token) => async (dispatch) => {
+  try {
+    const { boughtGoods } = await UsersService.updateBoughtGoodsData(token);
+    dispatch(updateBoughtGoodsRating(boughtGoods));
   } catch (error) {
     console.log(error);
   }

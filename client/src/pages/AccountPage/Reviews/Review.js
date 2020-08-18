@@ -1,58 +1,37 @@
 import React, { useState } from 'react';
 import Rating from '../../../components/Rating/Rating';
-import { createValidImgSrc, validateInput } from '../../../utils/workWithBrowser';
-import { workWithReview } from '../../../utils/workWithApiRequests';
+import { createValidImgSrc, validateInput, setDataRemove } from '../../../utils/workWithBrowser';
 import { connectToStore } from '../../../utils/workWithRedux';
-import {
-  updateReviews,
-  updateUserReview,
-  clearUserReview,
-  removeReview,
-  updateRating,
-} from '../../../actions/commodityData';
-import ReviewStatus from '../../../components/ReviewStatus';
-import { setDataRemove } from '../../CommodityPage/utils';
+import { updateUserReviews } from '../../../actions/userData';
+import { updateReviews } from '../utils';
 
 const Review = ({
   data: { commodityImg, commodityTitle, reviewRating: rating, review, commodityId, reviewId },
-  userData: { token, avatarSrc, fullName, userName },
-  actions: { updateReviews, updateUserReview, clearUserReview, removeReview, updateRating },
+  userData: { token, userName },
+  actions: { updateBoughtGoods, updateUserReviews },
 }) => {
   const [locaReviewData, updateLocalReviewData] = useState(review),
-    [loading, changeLoading] = useState(false),
-    reviewData = {
+    userReview = {
+      rating,
+      reviewId,
       review: locaReviewData,
-      commodityId,
-      userReview: {
-        rating,
-        reviewId,
-      },
     },
-    userData = {
+    dataForUpdate = {
+      ...userReview,
       token,
-      avatar: avatarSrc,
-      fullName,
-      userName,
     },
-    funcsForUpdateReview = {
-      updateReviews,
-      updateUserReview,
-      changeLoading,
-      clearUserReview,
-      removeReview,
-      updateRating,
+    funcsForUpdate = {
+      updateUserReviews,
     };
-
-  console.log(locaReviewData.trim());
 
   return (
     <form
       className='accountPage__reviews-item row'
-      onSubmit={(e) => workWithReview(e, reviewData, userData, funcsForUpdateReview)}
+      onSubmit={(e) => updateReviews(e, dataForUpdate, funcsForUpdate)}
       data-remove={false}
     >
       <div className='accountPage__reviews-item-img flexWrapColumn_center col-2'>
-        <img src={createValidImgSrc(commodityImg)} alt={`avatar-${false}`} />
+        <img src={createValidImgSrc(commodityImg)} alt={`avatar-${userName}`} />
       </div>
       <div className='accountPage__reviews-item-content col-10'>
         <div className='review__header flexWrap_SB'>
@@ -62,12 +41,9 @@ const Review = ({
               userRating={rating}
               commodityData={{
                 id: commodityId,
-                userReview: {
-                  review,
-                  rating,
-                  reviewId,
-                },
+                userReview,
               }}
+              funcsForUpdate={{ updateBoughtGoods }}
             />
           </div>
         </div>
@@ -84,22 +60,13 @@ const Review = ({
           >
             Изменить
           </button>
-          <button type='submit' className='btn' onClick={(e) => setDataRemove(e, '.commodityPage__feedback')}>
+          <button type='submit' className='btn' onClick={(e) => setDataRemove(e, '.accountPage__reviews-item')}>
             Удалить
           </button>
         </div>
-      </div>
-      <div className='accountPage__reviews-item-reviewStatus hiddenElem'>
-        <ReviewStatus loading={loading} oldReview={review} />
       </div>
     </form>
   );
 };
 
-export default connectToStore(['userData'], {
-  updateReviews,
-  updateUserReview,
-  clearUserReview,
-  removeReview,
-  updateRating,
-})(Review);
+export default connectToStore(['userData'], { updateUserReviews })(Review);
