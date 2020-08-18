@@ -49,14 +49,14 @@ const Review = ({
         </div>
         <textarea
           className='review__text formControl'
-          value={locaReviewData.trimStart()}
+          value={locaReviewData?.trimStart()}
           onChange={(e) => validateInput(e, updateLocalReviewData)}
         />
         <div className='btnGroup_right'>
           <button
             type='submit'
             className='btn'
-            disabled={locaReviewData.trim() === review || !locaReviewData.trim() ? true : false}
+            disabled={locaReviewData?.trim() === review || !locaReviewData.trim() ? true : false}
           >
             Изменить
           </button>
