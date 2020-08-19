@@ -5,14 +5,14 @@ import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { connectToStore } from '../../../utils/workWithRedux';
 import { onAddedToCart, onDeletedFromCart } from '../../../actions/shopingCart';
 
-const ChangeCopies = ({ userData: { token }, actions: { onAddedToCart, onDeletedFromCart }, copies, bookId }) => {
+const ChangeCopies = ({ userData: { token }, actions: { onAddedToCart, onDeletedFromCart }, copies, commodityId }) => {
   return (
-    <div className='cartItem__copies flexWrap'>
-      <button className='btn-success' onClick={() => onAddedToCart(bookId, token)}>
+    <div className='cartItem__copies flexWrap_center'>
+      <button className='btn btnPlus' onClick={() => onAddedToCart(commodityId, token)}>
         <FontAwesomeIcon icon={faPlus} />
       </button>
-      <input type='text' value={copies} readOnly />
-      <button className='btn-danger' onClick={() => onDeletedFromCart(bookId, token)}>
+      <input type='text' value={copies} className='formControl' readOnly />
+      <button className='btn btnMinus' onClick={() => onDeletedFromCart(commodityId, token)}>
         <FontAwesomeIcon icon={faMinus} />
       </button>
     </div>

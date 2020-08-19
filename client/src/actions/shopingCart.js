@@ -30,8 +30,10 @@ export const onDeletedFromCart = (id, token) => async (dispatch) => {
 
 export const loadCart = (token) => async (dispatch) => {
   try {
-    const cart = await GoodsService.loadCart(token);
-    dispatch(loadCartFromServer(cart));
+    const cart = await GoodsService.loadCart(token),
+      countGoods = cart.userCart.reduce((acc, item) => acc + item.copies, 0);
+
+    dispatch(loadCartFromServer({ ...cart, countGoods }));
   } catch (error) {
     console.log(error);
   }

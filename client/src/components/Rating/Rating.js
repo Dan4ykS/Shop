@@ -34,7 +34,7 @@ const Rating = ({
 
   return (
     <div
-      className='rating flexWrap'
+      className='rating flexWrap_SB'
       data-totalvalue={userRating}
       onMouseLeave={(e) => checkTotalRating(e, localUserRating, editable)}
     >

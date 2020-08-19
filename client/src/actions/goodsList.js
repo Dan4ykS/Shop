@@ -40,7 +40,7 @@ const getDataFromServer = async ({ type = 'default', strForSearch, offset = 0, l
 export const fetchGoods = (configData) => async (dispatch) => {
   try {
     dispatch(fetchGoodsRequest());
-    const data = await getDataFromServer(configData);
+    const data = await getDataFromServer({ ...configData });
     dispatch(fetchGoodsSuccuess(data));
   } catch (error) {
     dispatch(fetchGoodsFailure());

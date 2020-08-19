@@ -13,10 +13,7 @@ const LoginPage = ({ actions: { authorization }, history }) => {
     <div className='authPage row justify-content-center'>
       <div className='authPage__content col-lg-8 col-12'>
         <h2>Авторизации</h2>
-        <form
-          className='authorization'
-          onSubmit={(e) => authRequests(e, authorization, '.authorization', history)}
-        >
+        <form className='authorization' onSubmit={(e) => authRequests(e, authorization, '.authorization', history)}>
           <div className='formGroup'>
             <div className='col-12'>
               <input name='userName' type='text' className='formControl' placeholder='Введите ваш логин' required />

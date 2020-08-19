@@ -59,7 +59,7 @@ const Header = ({ actions: { fetchGoods }, history }) => {
           <div className='header__item header__item_search'>
             <Search />
           </div>
-          <div className='header__item header__item_account flexWrap'>
+          <div className='header__item header__item_account flexWrap_center'>
             <AccountItems />
           </div>
           <div className='header__item_mobile header__item_nav flexWrap'>
@@ -125,4 +125,4 @@ const Header = ({ actions: { fetchGoods }, history }) => {
   );
 };
 
-export default connectToStore(null, { fetchGoods })(Header, true);
+export default connectToStore(null, { fetchGoods })(Header);

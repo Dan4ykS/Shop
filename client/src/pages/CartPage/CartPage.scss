@@ -1,5 +1,27 @@
 @import "../../styles/scss/variables.scss";
 
-.totalPrice {
-  margin-top: 30px;
+.cartPage {
+  .totalPrice {
+    margin-top: 30px;
+    &__wrapper {
+      border: 1px solid $mainColor;
+    }
+    &__text {
+      padding: 0 40px;
+      svg {
+        font-size: 19px;
+      }
+    }
+    .btn {
+      border-radius: 0;
+    }
+  }
+
+  span {
+    margin-top: 70px;
+    display: block;
+    height: 1px;
+    width: 100%;
+    background-color: $mainColor;
+  }
 }

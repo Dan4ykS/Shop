@@ -2,58 +2,38 @@
 
 .cartItem {
   margin-top: 20px;
+  .row {
+    margin: 0;
+  }
   &__img {
     width: 18%;
+    padding: 20px;
+    border: 1px solid $mainColor;
+  }
+  .flexWrapColumn {
+    align-items: stretch;
   }
   &__info {
-    padding: 3px 10px;
-    width: 50%;
-    a {
-      color: $textColor2;
-    }
-  }
-  &__copies {
-    padding: 0 3px;
-    width: 10%;
-    height: 30px;
-    border-radius: 30px;
-  }
-  &__price {
-    width: 16%;
-    padding: 3px 5px;
-  }
-  &:nth-child(1) {
-    margin-top: 0;
-  }
-}
-
-@media (min-width: 1200px) {
-  .cartItem {
-    &__img {
-      width: 15%;
-    }
-    &__info {
-      width: 40%;
-    }
-    &__price {
-      width: 25%;
-    }
-    &__copies {
-      width: 20%;
-      input {
-        width: 40%;
+    padding-left: 50px;
+    height: 100%;
+    &-titleAndGenres {
+      .title {
+        font-size: 30px;
+        line-height: 1;
+        color: $textColor;
       }
-      button {
-        width: 30%;
-        .fa-plus,
-        .fa-minus {
-          font-size: 15px;
+    }
+    &-rating {
+      max-width: 250px;
+    }
+    &-countAndCost {
+      .price {
+        font-size: 25px;
+        svg {
+          font-size: 20px;
+          margin-left: 10px;
         }
       }
-    }
-    &:nth-child(1),
-    &:nth-child(2) {
-      margin-top: 0;
     }
   }
 }

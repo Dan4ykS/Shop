@@ -59,8 +59,10 @@ export const authorization = (data, formData, history) => async (dispatch) => {
     redirectToPage(history, '/');
     dispatch(userLogin({ ...userData, avatar: null, avatarSrc: userData.avatar }, token));
     if (data.userName !== 'admin') {
-      const cart = await GoodsService.loadCart(token);
-      dispatch(loadCartFromServer(cart));
+      const cart = await GoodsService.loadCart(token),
+        countGoods = cart.userCart.reduce((acc, item) => acc + item.copies, 0);
+      
+      dispatch(loadCartFromServer({ ...cart, countGoods }));
     }
     const goods = await GoodsService.getBestGoods(0, 7);
     dispatch(fetchGoodsSuccuess(goods));

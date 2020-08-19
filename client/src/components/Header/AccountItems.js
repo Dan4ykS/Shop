@@ -5,11 +5,11 @@ import { connectToStore } from '../../utils/workWithRedux';
 import { Link } from 'react-router-dom';
 import { scrollToTop } from '../../utils/workWithBrowser';
 
-const AccountItems = ({ userData: { userName }, mode = 'desktop' }) => {
+const AccountItems = ({ userData: { userName }, shopingCart: { countGoods }, mode = 'desktop' }) => {
   if (userName === 'admin') {
     return (
       <>
-        <Link to='/admin' className='flexWrap' onClick={() => scrollToTop()}>
+        <Link to='/admin' className='flexWrap elem' onClick={() => scrollToTop()}>
           <FontAwesomeIcon icon={faTools} />
           <div className={mode === 'mobile' ? 'hiddenElem' : null}>Админ панель</div>
         </Link>
@@ -18,12 +18,12 @@ const AccountItems = ({ userData: { userName }, mode = 'desktop' }) => {
   } else if (!userName) {
     return (
       <>
-        <Link to='/Login' className='flexWrap' onClick={() => scrollToTop()}>
+        <Link to='/Login' className='flexWrap elem' onClick={() => scrollToTop()}>
           <FontAwesomeIcon icon={faUserCircle} />
           <div className={mode === 'mobile' ? 'hiddenElem' : null}>Вход</div>
         </Link>
         <div className={mode === 'mobile' ? 'hiddenElem' : null}>/</div>
-        <Link className={mode === 'mobile' ? 'hiddenElem' : null} to='/Registration' onClick={() => scrollToTop()}>
+        <Link className={mode === 'mobile' ? 'hiddenElem' : 'elem'} to='/Registration' onClick={() => scrollToTop()}>
           Регистрация
         </Link>
       </>
@@ -31,18 +31,18 @@ const AccountItems = ({ userData: { userName }, mode = 'desktop' }) => {
   } else {
     return (
       <>
-        <Link to='/MyAccount' className='flexWrap' onClick={() => scrollToTop()}>
+        <Link to='/MyAccount' className='flexWrap elem' onClick={() => scrollToTop()}>
           <FontAwesomeIcon icon={faUserCircle} />
           <div className={mode === 'mobile' ? 'hiddenElem' : null}>{userName}</div>
         </Link>
         <div className={mode === 'mobile' ? 'hiddenElem' : null}>/</div>
-        <Link to='/Cart' className='flexWrap' onClick={() => scrollToTop()}>
+        <Link to='/Cart' className='flexWrap elem' onClick={() => scrollToTop()}>
           <FontAwesomeIcon icon={faCartPlus} />
-          <div className={mode === 'mobile' ? 'hiddenElem' : null}>Корзина</div>
+          <span className={countGoods ? null : 'hiddenElem'}>{countGoods}</span>
         </Link>
       </>
     );
   }
 };
 
-export default connectToStore(['userData'], null)(AccountItems);
+export default connectToStore(['userData', 'shopingCart.countGoods'], null)(AccountItems);

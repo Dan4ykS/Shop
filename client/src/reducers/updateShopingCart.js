@@ -1,20 +1,20 @@
 import { changeArrayElement, removeArrayElement, addArrayElement } from '../utils/workWithRedux';
 import { FETCH_CART_SUCCUESS, BOOK_ADD_TO_CART, BOOK_DELETE_FROM_CART, CLEAR_CART } from '../actions/types';
 
-const updateCartItem = (book, item = {}, quantity) => {
+const updateCartItem = (commodity, item = {}, quantity) => {
   const {
-    id = book.id,
-    title = book.title,
+    id = commodity.id,
+    title = commodity.title,
     copies = 0,
     price = 0,
-    imgSrc = book.previewImg.previewImgSrc,
-    alt = book.previewImg.previewImgAlt,
+    imgSrc = commodity.previewImg.previewImgSrc,
+    alt = commodity.previewImg.previewImgAlt,
   } = item;
   return {
     id,
     title,
     copies: copies + quantity,
-    price: price + quantity * book.price,
+    price: price + quantity * commodity.price,
     imgSrc,
     alt,
   };
@@ -30,20 +30,22 @@ const updateCartItems = (cart, item, index) => {
   return changeArrayElement(cart, index, item);
 };
 
-const updateOrder = (state, bookId, quantity) => {
+const updateOrder = (state, commodityId, quantity) => {
   const {
       goodsList: { goods },
-      shopingCart: { cart },
+      shopingCart: { cart, countGoods },
     } = state,
-    book = goods.find((book) => book.id === bookId),
-    itemIndex = cart.findIndex((item) => item.id === bookId),
+    commodity = goods.find((commodity) => commodity.id === commodityId),
+    itemIndex = cart.findIndex((item) => item.id === commodityId),
     item = cart[itemIndex],
-    newItem = updateCartItem(book, item, quantity),
+    newItem = updateCartItem(commodity, item, quantity),
     totalPrice = updateCartItems(cart, newItem, itemIndex).reduce((summ, elem) => summ + elem.price, 0);
+
   return {
     cart: updateCartItems(cart, newItem, itemIndex),
     totalPrice,
     updatedPrice: cart.updatedPrice,
+    countGoods: countGoods + quantity,
   };
 };
 
@@ -54,6 +56,7 @@ const updateShopingCart = (state, action) => {
       totalPrice: 0,
       loading: true,
       updatedPrice: false,
+      countGoods: 0,
     };
   }
 
@@ -64,6 +67,7 @@ const updateShopingCart = (state, action) => {
         totalPrice: action.payload.totalPrice,
         loading: false,
         updatedPrice: action.payload.updatedPrice,
+        countGoods: action.payload.countGoods,
       };
     case BOOK_ADD_TO_CART:
       return updateOrder(state, action.payload, 1);
@@ -73,6 +77,7 @@ const updateShopingCart = (state, action) => {
 
     case CLEAR_CART:
       return {
+        ...state.shopingCart,
         cart: [],
         totalPrice: 0,
       };

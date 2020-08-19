@@ -3,13 +3,21 @@ import ListView from '../../components/ListView';
 import CartCommudityDetail from './CartCommodityDetail';
 import LoadingData from '../../components/LoadingData';
 import './CartPage.scss';
+import { fetchGoods } from '../../actions/goodsList';
 import { connectToStore } from '../../utils/workWithRedux';
 import { redirectToPage } from '../../utils/workWithBrowser';
+import FullPrice from './FullPrice';
 
-const CartPage = ({ shopingCart: { totalPrice, cart, loading, updatedPrice }, userData: { userName }, history }) => {
+const CartPage = ({
+  shopingCart: { totalPrice, cart, loading, updatedPrice },
+  userData: { userName },
+  goodsList: { goods },
+  actions: { fetchGoods },
+  history,
+}) => {
   useEffect(() => {
     if (userName === 'admin') {
-      redirectToPage(history, '/admin/');
+      redirectToPage(history, '/admin');
     }
   }, [userName, history]);
 
@@ -19,25 +27,26 @@ const CartPage = ({ shopingCart: { totalPrice, cart, loading, updatedPrice }, us
     }
   }, [updatedPrice]);
 
-  const price = totalPrice !== 0 ? <div className='totalPrice'>Сумма вашего заказа: {totalPrice}</div> : null;
-
   return (
-    <LoadingData
-      configData={{
-        loading: userName ? false : loading,
-        error: null,
-      }}
-    >
-      <h2>Ваш список товаров</h2>
-      <ListView
-        listForRender={cart}
-        ComponentForRender={CartCommudityDetail}
-        ComponentWithoutData={() => <h3>Вы еще ничего не выбрали</h3>}
-        history={history}
-      />
-      {price}
-    </LoadingData>
+    <div className='cartPage'>
+      <LoadingData
+        configData={{
+          loading: userName ? false : loading,
+          error: null,
+          funcForRender: goods.length ? null : fetchGoods,
+        }}
+      >
+        <div className='blockTitle'>Ваш список товаров</div>
+        <ListView
+          listForRender={cart}
+          ComponentForRender={CartCommudityDetail}
+          ComponentWithoutData={() => <h3>Вы еще ничего не выбрали</h3>}
+          history={history}
+        />
+        <FullPrice totalPrice={totalPrice} />
+      </LoadingData>
+    </div>
   );
 };
 
-export default connectToStore(['shopingCart', 'userData.userName'], null)(CartPage);
+export default connectToStore(['shopingCart', 'userData.userName', 'goodsList.goods'], { fetchGoods })(CartPage);
