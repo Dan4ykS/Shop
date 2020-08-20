@@ -1,6 +1,9 @@
 import GoodsService from '../services/GoodsService';
+import UsersService from '../services/UsersService';
 import { createAction } from '../utils/workWithRedux';
 import { BOOK_ADD_TO_CART, BOOK_DELETE_FROM_CART, FETCH_CART_SUCCUESS, CLEAR_CART } from './types';
+import { redirectToPage, scrollToTop } from '../utils/workWithBrowser';
+import { updateBoughtGoods } from './userData';
 
 const commodityAddToCart = (bookId) => createAction(BOOK_ADD_TO_CART, bookId);
 
@@ -34,6 +37,19 @@ export const loadCart = (token) => async (dispatch) => {
       countGoods = cart.userCart.reduce((acc, item) => acc + item.copies, 0);
 
     dispatch(loadCartFromServer({ ...cart, countGoods }));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const buyGoods = (token, history) => async (dispatch) => {
+  try {
+    await UsersService.buyGoods(token);
+    const { boughtGoods } = await UsersService.updateBoughtGoodsData(token);
+    dispatch(updateBoughtGoods(boughtGoods));
+    redirectToPage(history, '/MyAccount');
+    scrollToTop();
+    dispatch(clearCart());
   } catch (error) {
     console.log(error);
   }

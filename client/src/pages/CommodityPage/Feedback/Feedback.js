@@ -96,6 +96,7 @@ const Feedback = ({
                     updateUserReview,
                     updateReviews,
                     updateRating,
+                    updateUserReviews
                   }}
                 />
               </div>

@@ -29,17 +29,21 @@ class UsersService extends BaseApiClass {
     return await this.requestToApi('GET', 'getAdminData', null);
   };
 
-  updateUserData = async (data, token) => { 
+  updateUserData = async (data, token) => {
     return await this.requestToApi('PATCH', 'updateUserData', data, this.headerWithToken(token));
-  }
+  };
 
-  updateBoughtGoodsData = async (token) => { 
+  updateBoughtGoodsData = async (token) => {
     return await this.requestToApi('GET', 'getUserBoughtGoods', null, this.headerWithToken(token));
-  }
+  };
 
-  getUserReviews = async (token) => { 
+  getUserReviews = async (token) => {
     return await this.requestToApi('GET', 'getUserReviews', null, this.headerWithToken(token));
-  }
+  };
+
+  buyGoods = async (token) => {
+    return await this.requestToApi('GET', 'buyGoods', null, this.headerWithToken(token));
+  };
 }
 
 export default new UsersService();

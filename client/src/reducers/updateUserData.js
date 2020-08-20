@@ -10,7 +10,7 @@ import {
   UPDATE_ABOUT,
   UPDATE_AVATAR,
   UPDATE_AVATARSRC,
-  UPDATE_BOUGHTGOODS_RATING,
+  UPDATE_BOUGHTGOODS,
   UPDATE_USER_REVIEWS,
 } from '../actions/types';
 import { changeArrayElement, removeArrayElement } from '../utils/workWithRedux';
@@ -149,7 +149,7 @@ const updateUserData = (state, action) => {
         avatarSrc: action.payload,
       };
 
-    case UPDATE_BOUGHTGOODS_RATING:
+    case UPDATE_BOUGHTGOODS:
       return {
         ...state.userData,
         boughtGoods: action.payload,

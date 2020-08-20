@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import LoadingData from '../../components/LoadingData';
 import RenderGenresData from '../../components/RenderGenresData';
 import Rating from '../../components/Rating/Rating';
@@ -9,7 +9,14 @@ import SwitchBuyBtn from '../../components/SwitchBuyBtn';
 import TextWithBr from '../../components/TextWithBr/TextWithBr';
 import './CommodityPage.scss';
 import { connectToStore } from '../../utils/workWithRedux';
-import { fetchCommodity, fetchSimilarGoods } from '../../actions/commodityData';
+import {
+  fetchCommodity,
+  fetchSimilarGoods,
+  updateUserReview,
+  updateReviews,
+  updateRating,
+} from '../../actions/commodityData';
+import { updateUserReviews } from '../../actions/userData';
 import { createValidImgSrc, scrollToElem } from '../../utils/workWithBrowser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faCommentAlt, faRubleSign } from '@fortawesome/free-solid-svg-icons';
@@ -41,7 +48,7 @@ const CommodityPage = ({
     userReview,
   },
   userData: { userName },
-  actions: { fetchCommodity, fetchSimilarGoods },
+  actions: { fetchCommodity, fetchSimilarGoods, updateUserReview, updateReviews, updateRating, updateUserReviews },
   match,
 }) => {
   useEffect(() => {
@@ -140,6 +147,12 @@ const CommodityPage = ({
                         <Rating
                           userRating={userReview ? userReview.rating : 0}
                           commodityData={{ id: id ?? null, userReview: userReview ?? null }}
+                          funcsForUpdate={{
+                            updateUserReview,
+                            updateReviews,
+                            updateRating,
+                            updateUserReviews,
+                          }}
                         />
                       </div>
                     </div>
@@ -176,4 +189,8 @@ const CommodityPage = ({
 export default connectToStore(['commodityData', 'userData'], {
   fetchCommodity,
   fetchSimilarGoods,
-})(CommodityPage, true);
+  updateUserReview,
+  updateReviews,
+  updateRating,
+  updateUserReviews,
+})(CommodityPage);

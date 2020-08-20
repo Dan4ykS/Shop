@@ -39,4 +39,4 @@ const CreateСommodityPage = ({ userData: { loading, error, token }, commodityDa
 export default connectToStore(
   ['userData', 'commodityData'],
   { reloadCommodityData, updateDescr, updateImg, updatePreviewImg, updatePrice, updateShortDescr, updateTitle }
-)(CreateСommodityPage, true);
+)(CreateСommodityPage);

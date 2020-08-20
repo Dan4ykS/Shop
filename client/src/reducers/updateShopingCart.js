@@ -80,6 +80,7 @@ const updateShopingCart = (state, action) => {
         ...state.shopingCart,
         cart: [],
         totalPrice: 0,
+        countGoods: 0,
       };
 
     default:

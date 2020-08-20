@@ -43,7 +43,7 @@ const Review = ({
                 id: commodityId,
                 userReview,
               }}
-              funcsForUpdate={{ updateBoughtGoods }}
+              funcsForUpdate={{ updateUserReviews }}
             />
           </div>
         </div>

@@ -26,43 +26,43 @@ class GoodsService extends BaseApiClass {
   };
 
   createCommodity = async (data, token) => {
-    return this.requestToApi('POST', 'createCommodity', data, this.headerWithToken(token));
+    return await this.requestToApi('POST', 'createCommodity', data, this.headerWithToken(token));
   };
 
   removeCommodity = async (id, token) => {
-    return this.requestToApi('DELETE', `removeCommodity/${id}`, null, this.headerWithToken(token));
+    return await this.requestToApi('DELETE', `removeCommodity/${id}`, null, this.headerWithToken(token));
   };
 
   findGoods = async (q, offset, limit) => {
-    return this.requestToApi('GET', `findGoods?q=${q}&offset=${offset}&limit=${limit}`, null);
+    return await this.requestToApi('GET', `findGoods?q=${q}&offset=${offset}&limit=${limit}`, null);
   };
 
   getPopularGoods = async (offset, limit) => {
-    return this.requestToApi('GET', `popularGoods?offset=${offset}&limit=${limit}`, null);
+    return await this.requestToApi('GET', `popularGoods?offset=${offset}&limit=${limit}`, null);
   };
 
   getNewGoods = async (offset, limit) => {
-    return this.requestToApi('GET', `newGoods?offset=${offset}&limit=${limit}`, null);
+    return await this.requestToApi('GET', `newGoods?offset=${offset}&limit=${limit}`, null);
   };
 
   getBestGoods = async (offset, limit) => {
-    return this.requestToApi('GET', `bestGoods?offset=${offset}&limit=${limit}`, null);
+    return await this.requestToApi('GET', `bestGoods?offset=${offset}&limit=${limit}`, null);
   };
 
   getSimilarGoods = async (commodityId) => {
-    return this.requestToApi('GET', `getSimilarGoods/${commodityId}`, null);
+    return await this.requestToApi('GET', `getSimilarGoods/${commodityId}`, null);
   };
 
   createReview = async (data, toke) => {
-    return this.requestToApi('POST', 'createReview', data, this.headerWithToken(toke));
+    return await this.requestToApi('POST', 'createReview', data, this.headerWithToken(toke));
   };
 
   updateReview = async (id, data, token) => {
-    return this.requestToApi('PATCH', `updateReview/${id}`, data, this.headerWithToken(token));
+    return await this.requestToApi('PATCH', `updateReview/${id}`, data, this.headerWithToken(token));
   };
 
   removeReview = async (id, token) => {
-    return this.requestToApi('DELETE', `removeReview/${id}`, null, this.headerWithToken(token));
+    return await this.requestToApi('DELETE', `removeReview/${id}`, null, this.headerWithToken(token));
   };
 }
 

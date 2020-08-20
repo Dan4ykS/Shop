@@ -51,4 +51,4 @@ const ResetPasswordPage = ({ userData: { error, token, loading } }) => {
   );
 };
 
-export default connectToStore(['userData'], null)(ResetPasswordPage, true);
+export default connectToStore(['userData'], null)(ResetPasswordPage);

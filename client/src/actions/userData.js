@@ -17,7 +17,7 @@ import {
   UPDATE_ABOUT,
   UPDATE_AVATAR,
   UPDATE_AVATARSRC,
-  UPDATE_BOUGHTGOODS_RATING,
+  UPDATE_BOUGHTGOODS,
   UPDATE_USER_REVIEWS,
 } from './types';
 
@@ -35,9 +35,9 @@ const updateAbout = (about) => createAction(UPDATE_ABOUT, about);
 
 const updateAvatar = (avatar) => createAction(UPDATE_AVATAR, avatar);
 
-const updateBoughtGoodsRating = (boughtGoods) => createAction(UPDATE_BOUGHTGOODS_RATING, boughtGoods);
-
 const updateAvatarSrc = (avatarSrc) => createAction(UPDATE_AVATARSRC, avatarSrc);
+
+export const updateBoughtGoods = (boughtGoods) => createAction(UPDATE_BOUGHTGOODS, boughtGoods);
 
 export const userLogin = (userData, token) => createAction(LOGIN, { ...userData, token });
 
@@ -61,7 +61,7 @@ export const authorization = (data, formData, history) => async (dispatch) => {
     if (data.userName !== 'admin') {
       const cart = await GoodsService.loadCart(token),
         countGoods = cart.userCart.reduce((acc, item) => acc + item.copies, 0);
-      
+
       dispatch(loadCartFromServer({ ...cart, countGoods }));
     }
     const goods = await GoodsService.getBestGoods(0, 7);
@@ -141,11 +141,11 @@ export const updateUserData = (newFields, token) => async (dispatch) => {
   }
 };
 
-export const updateBoughtGoods = (token) => async (dispatch) => {
-  try {
-    const { boughtGoods } = await UsersService.updateBoughtGoodsData(token);
-    dispatch(updateBoughtGoodsRating(boughtGoods));
-  } catch (error) {
-    console.log(error);
-  }
-};
+// export const updateBoughtGoods = (token) => async (dispatch) => {
+//   try {
+//     const { boughtGoods } = await UsersService.updateBoughtGoodsData(token);
+//     dispatch(updateBoughtGoodsRating(boughtGoods));
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };

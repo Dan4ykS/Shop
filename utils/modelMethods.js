@@ -145,9 +145,13 @@ module.exports.buyGoodsInCart = async function () {
   const cart = this.cart,
     oldBoughtGoods = this.boughtGoods;
 
-  cart.cartItems.forEach((commodity, index) => {
-    const commodityPrice = commodity.price;
-    this.boughtGoods = [commodity.commodityId, ...oldBoughtGoods];
+  cart.cartItems.forEach((commodity) => {
+    const commodityPrice = commodity.price,
+      commodityIndex = oldBoughtGoods.findIndex((el) => el.toString() === commodity.commodityId.toString());
+
+    if (commodityIndex === -1) {
+      this.boughtGoods = [commodity.commodityId, ...oldBoughtGoods];
+    }
     cart.totalPrice -= commodityPrice;
   });
   cart.cartItems = [];

@@ -1,9 +1,10 @@
 import GoodsService from '../../../services/GoodsService';
+import UsersService from '../../../services/UsersService';
 
 export const updateCommodityRating = async (
   e,
   { editable, token, reviewId, commodityId, localUserRating: oldRating, userReview, fullName, userName, avatar },
-  { changeLocalUserRating, updateReviews = null, updateRating = null, updateUserReview = null }
+  { changeLocalUserRating, updateReviews = null, updateRating = null, updateUserReview = null, updateUserReviews = null }
 ) => {
   e.persist();
   if (!editable) {
@@ -29,6 +30,9 @@ export const updateCommodityRating = async (
           reviewRating: value,
         });
       }
+      if (updateUserReviews) {
+        updateUserReviews({ reviewId, reviewRating: value });
+      }
     } else {
       const { id, date } = await GoodsService.createReview({ rating: value, commodityId }, token);
       updateUserReview({ rating: value, reviewId: id });
@@ -40,6 +44,11 @@ export const updateCommodityRating = async (
         reviewerAvatar: avatar,
         reviewer: userName,
         reviewRating: value,
+      });
+      const { reviews } = await UsersService.getUserReviews(token);
+      updateUserReviews({
+        newArr: true,
+        reviews,
       });
     }
     ratingWrapper.dataset.totalvalue = value;

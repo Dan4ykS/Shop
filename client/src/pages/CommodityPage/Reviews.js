@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import ListView from '../../components/ListView';
 import Rating from '../../components/Rating/Rating';
 import TextWithBr from '../../components/TextWithBr/TextWithBr';
