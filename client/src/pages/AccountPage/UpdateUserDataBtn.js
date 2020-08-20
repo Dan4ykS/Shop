@@ -16,7 +16,7 @@ const UpdateUserDataBtn = ({ userData, newUserData, actions: { updateUserData } 
       } else {
         changeUpdatedData((data) => ({
           ...data,
-          [key]: newUserData[key] !== userData[key] ? newUserData[key] : null,
+          [key]: newUserData[key].trim() !== userData[key] ? newUserData[key].trim() : null,
         }));
       }
     }

@@ -131,7 +131,7 @@ export const updateUserData = (newFields, token) => async (dispatch) => {
         fieldForUpdate.withFiles = true;
         delete newFields.avatar;
       } else if (newFields[key]) {
-        fieldForUpdate[key] = newFields[key];
+        fieldForUpdate[key] = newFields[key].trim();
         dispatch(funcForDispatch[key](newFields[key]));
       }
     }

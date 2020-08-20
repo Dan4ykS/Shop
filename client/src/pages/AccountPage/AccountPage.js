@@ -17,14 +17,13 @@ import { faUndo } from '@fortawesome/free-solid-svg-icons';
 const AccountPage = ({
   userData: { loading, error, userName, fullName, email, about, avatar, avatarSrc },
   actions: { isLogout },
-  history
 }) => {
   const [localUserName, updateLocalUserName] = useState(userName),
     [localUserFullName, updateLocalFullName] = useState(fullName),
     [localUserEmail, updateLocalUserEmail] = useState(email),
     [localUserAvatar, updateLocalUserAvatar] = useState({ avatarSrc, avatar }),
     [localUserInfo, updateLocalUserInfo] = useState(about);
-  
+
   useEffect(() => {
     updateLocalUserName(userName);
   }, [userName]);
