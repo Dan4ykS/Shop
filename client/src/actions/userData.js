@@ -79,7 +79,7 @@ export const registration = (data, formData, history) => async (dispatch) => {
     dispatch(createUser({ ...userData, avatar: null, avatarSrc: userData.avatar }, token));
     const cart = await GoodsService.loadCart(token);
     const goods = await GoodsService.getBestGoods(0, 7);
-    dispatch(loadCartFromServer(cart));
+    dispatch(loadCartFromServer({ ...cart, countGoods: 0 }));
     dispatch(fetchGoodsSuccuess(goods));
     setNewToken(token);
   } catch (error) {
