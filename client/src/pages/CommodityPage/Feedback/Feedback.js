@@ -56,7 +56,7 @@ const Feedback = ({
       userName,
     },
     reviewData = {
-      review,
+      review: review?.trim(),
       commodityId: id,
       userReview,
     },
@@ -96,7 +96,7 @@ const Feedback = ({
                     updateUserReview,
                     updateReviews,
                     updateRating,
-                    updateUserReviews
+                    updateUserReviews,
                   }}
                 />
               </div>

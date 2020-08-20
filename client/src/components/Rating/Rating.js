@@ -10,7 +10,7 @@ const Rating = ({
   editable = true,
   commodityData = {},
   funcsForUpdate = {},
-  userData: { token, fullName, avatar, userName },
+  userData: { token, fullName, avatarSrc, userName },
 }) => {
   const { id: commodityId, userReview } = commodityData,
     [localUserRating, changeLocalUserRating] = useState(userRating);
@@ -20,15 +20,15 @@ const Rating = ({
   }, [userRating]);
 
   const dataForUpdateRating = {
-      token,
+      avatar: avatarSrc,
       reviewId: userReview?.reviewId,
+      token,
       commodityId,
       editable,
       localUserRating,
       userReview,
       fullName,
       userName,
-      avatar,
     },
     funcsForUpdateRating = { changeLocalUserRating, ...funcsForUpdate };
 

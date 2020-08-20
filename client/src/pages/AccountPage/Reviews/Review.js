@@ -14,7 +14,7 @@ const Review = ({
     userReview = {
       rating,
       reviewId,
-      review: locaReviewData,
+      review: locaReviewData?.trim(),
     },
     dataForUpdate = {
       ...userReview,
