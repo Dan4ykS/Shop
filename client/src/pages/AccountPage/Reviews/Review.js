@@ -8,7 +8,7 @@ import { updateReviews } from '../utils';
 const Review = ({
   data: { commodityImg, commodityTitle, reviewRating: rating, review, commodityId, reviewId },
   userData: { token, userName },
-  actions: { updateBoughtGoods, updateUserReviews },
+  actions: { updateUserReviews },
 }) => {
   const [locaReviewData, updateLocalReviewData] = useState(review),
     userReview = {

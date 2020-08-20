@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import LoadingData from '../../components/LoadingData';
 import RenderGenresData from '../../components/RenderGenresData';
 import Rating from '../../components/Rating/Rating';
