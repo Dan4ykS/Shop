@@ -150,7 +150,7 @@ module.exports.buyGoodsInCart = async function () {
       commodityIndex = oldBoughtGoods.findIndex((el) => el.toString() === commodity.commodityId.toString());
 
     if (commodityIndex === -1) {
-      this.boughtGoods = [commodity.commodityId, ...oldBoughtGoods];
+      this.boughtGoods = [commodity.commodityId, ...this.boughtGoods];
     }
     cart.totalPrice -= commodityPrice;
   });

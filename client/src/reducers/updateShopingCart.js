@@ -9,6 +9,9 @@ const updateCartItem = (commodity, item = {}, quantity) => {
     price = 0,
     imgSrc = commodity.previewImg.previewImgSrc,
     alt = commodity.previewImg.previewImgAlt,
+    genres = commodity.genres,
+    author = commodity.author,
+    rating = commodity.rating,
   } = item;
   return {
     id,
@@ -17,6 +20,9 @@ const updateCartItem = (commodity, item = {}, quantity) => {
     price: price + quantity * commodity.price,
     imgSrc,
     alt,
+    genres,
+    author,
+    rating,
   };
 };
 
