@@ -52,8 +52,8 @@ module.exports.getUserBoughtGoods = async ({ user: { userId } }, res) => {
 module.exports.getUserReviews = async ({ user: { userId } }, res) => {
   try {
     const user = await Users.findById(userId);
-     const userDataWithReview = await createPopuldatedData(user, 'reviews');
-     await createPopuldatedData(userDataWithReview, 'reviews.commodityId');
+    const userDataWithReview = await createPopuldatedData(user, 'reviews');
+    await createPopuldatedData(userDataWithReview, 'reviews.commodityId');
     res.json(convertDataForClient({ reviews: user.reviews }, 'user'));
   } catch (error) {
     errorHandler(res, error);
@@ -144,9 +144,13 @@ module.exports.getUserCart = async (req, res) => {
       userCartData = await createPopuldatedData(user, 'cart.cartItems.commodityId'),
       userCart = userCartData.cart.cartItems.map((item) => {
         const id = item.commodityId._id,
-          imgSrc = item.commodityId._doc.previewImg.previewImgSrc,
-          alt = item.commodityId._doc.previewImg.previewImgAlt,
-          title = item.commodityId._doc.title;
+          imgSrc = item.commodityId.previewImg.previewImgSrc,
+          alt = item.commodityId.previewImg.previewImgAlt,
+          title = item.commodityId.title,
+          author = item.commodityId.author,
+          genres = item.commodityId.genres,
+          rating = item.commodityId.rating.general;
+
         return {
           id,
           copies: item.copies,
@@ -154,6 +158,9 @@ module.exports.getUserCart = async (req, res) => {
           imgSrc,
           alt,
           title,
+          author,
+          genres,
+          rating,
         };
       });
 

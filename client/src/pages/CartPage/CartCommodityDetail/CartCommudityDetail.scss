@@ -1,7 +1,7 @@
 @import "../../../styles/scss/variables.scss";
 
 .cartItem {
-  margin-top: 20px;
+  margin-bottom: 70px;
   .row {
     margin: 0;
   }
@@ -24,7 +24,10 @@
       }
     }
     &-rating {
-      max-width: 250px;
+      max-width: 190px;
+      .rating__item_noEditable {
+        color: $extraColor;
+      }
     }
     &-countAndCost {
       .price {
