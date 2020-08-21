@@ -68,7 +68,7 @@ module.exports.findGoods = async ({ query: { q, offset, limit } }, res) => {
       dataForClient = await updateGoodsForClient(genresData, dataForClient);
     }
     if (goodsData.length > 0) {
-      dataForClient = createArrWithoutCopies(convertArrayForClient(goodsData), dataForClient);
+      dataForClient = createArrWithoutCopies(convertArrayForClient(goodsData, 'deleteReviews'), dataForClient);
     }
     if (authorsData.length > 0) {
       dataForClient = await updateGoodsForClient(authorsData, dataForClient);

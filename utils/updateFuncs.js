@@ -71,9 +71,9 @@ module.exports.updateGoodsForClient = async (arrWithData, oldDataForClient = [])
   for (const el of arrWithData) {
     const populatedData = await createPopuldatedData(el, 'goods');
     if (oldDataForClient.length > 0) {
-      dataForClient = createArrWithoutCopies(convertArrayForClient(populatedData.goods), dataForClient);
+      dataForClient = createArrWithoutCopies(convertArrayForClient(populatedData.goods, 'deleteReviews'), dataForClient);
     } else {
-      dataForClient = createArrWithoutCopies(convertArrayForClient(populatedData.goods), dataForClient);
+      dataForClient = createArrWithoutCopies(convertArrayForClient(populatedData.goods, 'deleteReviews'), dataForClient);
     }
   }
   return dataForClient;
