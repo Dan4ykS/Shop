@@ -5,8 +5,9 @@ import LoadingData from '../../components/LoadingData';
 import './CartPage.scss';
 import { fetchGoods } from '../../actions/goodsList';
 import { connectToStore } from '../../utils/workWithRedux';
-import { redirectToPage } from '../../utils/workWithBrowser';
+import { redirectToPage, STORE_NAME } from '../../utils/workWithBrowser';
 import FullPrice from './FullPrice';
+import { ReactTitle } from 'react-meta-tags';
 
 const CartPage = ({
   shopingCart: { totalPrice, cart, loading, updatedPrice },
@@ -29,6 +30,7 @@ const CartPage = ({
 
   return (
     <div className='cartPage'>
+      <ReactTitle title={`${STORE_NAME} | Корзина`} />
       <LoadingData
         configData={{
           loading: userName ? false : loading,

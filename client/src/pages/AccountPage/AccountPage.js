@@ -9,10 +9,11 @@ import { connectToStore } from '../../utils/workWithRedux';
 import { isLogout } from '../../actions/userData';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
-import { createValidImgSrc, validateInput } from '../../utils/workWithBrowser';
+import { createValidImgSrc, validateInput, STORE_NAME } from '../../utils/workWithBrowser';
 import { toggleUploadAvatarMenu } from './utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUndo } from '@fortawesome/free-solid-svg-icons';
+import { ReactTitle } from 'react-meta-tags';
 
 const AccountPage = ({
   userData: { loading, error, userName, fullName, email, about, avatar, avatarSrc },
@@ -48,6 +49,7 @@ const AccountPage = ({
   }
   return (
     <div className='accountPage'>
+      <ReactTitle title={`${STORE_NAME} | Аккаунт`} />
       <LoadingData
         configData={{
           loading,

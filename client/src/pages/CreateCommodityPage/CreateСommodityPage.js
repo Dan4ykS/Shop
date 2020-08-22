@@ -1,10 +1,11 @@
 import React from 'react';
 import LoadingData from '../../components/LoadingData';
 import ChangeCommodityDetail from '../../components/ChangeCommodityDetail';
-import { findPathParams, STORE_NAME } from '../../utils/workWithBrowser';
 import { connectToStore } from '../../utils/workWithRedux';
+import { STORE_NAME } from '../../utils/workWithBrowser';
+import { ReactTitle } from 'react-meta-tags';
 import {
-  fetchCommodity,
+  reloadCommodityData,
   updateDescr,
   updateImg,
   updatePreviewImg,
@@ -12,28 +13,28 @@ import {
   updateShortDescr,
   updateTitle,
 } from '../../actions/commodityData';
-import { ReactTitle } from 'react-meta-tags';
 
-const UpdateCommodityPage = ({ commodityData, actions, userData: { token, error: userError }, history }) => {
+const CreateCommodityPage = ({ userData: { loading, error, token }, commodityData, actions, history }) => {
+  const { title, shortDescr, descr, previewImg, img, price } = commodityData;
   return (
-    <div>
-      <ReactTitle title={`${STORE_NAME} | Обновление данных о книге "${commodityData.title}"`} />
+    <div className='createCommodityPage'>
+      <ReactTitle title={`${STORE_NAME} | Создание книги`} />
       <LoadingData
         configData={{
-          loading: commodityData.loading,
-          error: userError ? userError : commodityData.error,
-          funcForRender: token ? () => actions.fetchCommodity(findPathParams(history)) : null,
-          routeForRedirect: commodityData.error ? `/admin/updateCommodity?id=${findPathParams(history)}` : '/Login/',
+          loading,
+          error,
+          funcForRender: actions.reloadCommodityData,
         }}
       >
         <ChangeCommodityDetail
           data={{
             ...commodityData,
+            updatedFields: { title, shortDescr, descr, previewImg, img, price },
             history,
             token,
           }}
+          type='create'
           actions={actions}
-          type='update'
         />
       </LoadingData>
     </div>
@@ -41,11 +42,11 @@ const UpdateCommodityPage = ({ commodityData, actions, userData: { token, error:
 };
 
 export default connectToStore(['userData', 'commodityData'], {
-  fetchCommodity,
+  reloadCommodityData,
   updateDescr,
   updateImg,
   updatePreviewImg,
   updatePrice,
   updateShortDescr,
   updateTitle,
-})(UpdateCommodityPage, true);
+})(CreateCommodityPage);

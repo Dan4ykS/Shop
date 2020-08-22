@@ -6,11 +6,13 @@ import './MainPage.scss';
 import { fetchGoods } from '../../actions/goodsList';
 import { connectToStore } from '../../utils/workWithRedux';
 import { Link } from 'react-router-dom';
-import { scrollToTop } from '../../utils/workWithBrowser';
+import { scrollToTop, STORE_NAME } from '../../utils/workWithBrowser';
+import { ReactTitle } from 'react-meta-tags';
 
 const MainPage = ({ actions: { fetchGoods } }) => {
   return (
     <div className='mainPage'>
+      <ReactTitle title={`${STORE_NAME} | Главная`}/>
       <MainSlider />
       <div className='mainPage__bestGoods'>
         <GoodsList typePage='Main' action={() => fetchGoods({ type: 'bestGoods', limit: 7 })} />

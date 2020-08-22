@@ -1,3 +1,5 @@
+export const STORE_NAME = 'WebBook'
+
 export const findNeedElements = (selector) => document.querySelectorAll(selector);
 
 export const findNeedElement = (selector) => document.querySelector(selector);

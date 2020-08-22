@@ -3,19 +3,18 @@ import './RegistrationPage.scss';
 import { connectToStore } from '../../utils/workWithRedux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
-import { changePasswordType } from '../../utils/workWithBrowser';
+import { changePasswordType, STORE_NAME } from '../../utils/workWithBrowser';
 import { authRequests } from '../../utils/workWithApiRequests';
 import { registration } from '../../actions/userData';
+import { ReactTitle } from 'react-meta-tags';
 
 const RegistrationPage = ({ actions: { registration }, history }) => {
   return (
     <div className='authPage authPage_registration row justify-content-center'>
+      <ReactTitle title={`${STORE_NAME} | Регистрация`} />
       <div className='authPage__content col-lg-8 col-12'>
         <h2>Регистрация</h2>
-        <form
-          className='registration'
-          onSubmit={(e) => authRequests(e, registration, '.registration', history)}
-        >
+        <form className='registration' onSubmit={(e) => authRequests(e, registration, '.registration', history)}>
           <div className='formGroup'>
             <div className='col-12'>
               <input name='fullName' type='text' className='formControl' placeholder='Как вас зовут?' required />
@@ -23,7 +22,13 @@ const RegistrationPage = ({ actions: { registration }, history }) => {
           </div>
           <div className='formGroup'>
             <div className='col-12'>
-              <input name='userName' type='text' className='formControl' placeholder='Придумайте уникальное имя пользователя' required />
+              <input
+                name='userName'
+                type='text'
+                className='formControl'
+                placeholder='Придумайте уникальное имя пользователя'
+                required
+              />
               <div className='invalidFeedback'>Извините, но пользователь с таким ником уже есть</div>
             </div>
           </div>

@@ -5,12 +5,14 @@ import { authRequests } from '../../utils/workWithApiRequests';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
-import { changePasswordType } from '../../utils/workWithBrowser';
+import { changePasswordType, STORE_NAME } from '../../utils/workWithBrowser';
 import { authorization } from '../../actions/userData';
+import { ReactTitle } from 'react-meta-tags';
 
 const LoginPage = ({ actions: { authorization }, history }) => {
   return (
     <div className='authPage row justify-content-center'>
+      <ReactTitle title={`${STORE_NAME} | Авторизация`} />
       <div className='authPage__content col-lg-8 col-12'>
         <h2>Авторизации</h2>
         <form className='authorization' onSubmit={(e) => authRequests(e, authorization, '.authorization', history)}>
@@ -37,7 +39,7 @@ const LoginPage = ({ actions: { authorization }, history }) => {
               />
               <div className='invalidFeedback'>Неверный пароль</div>
             </div>
-            <Link to='/helpLogin/' className='authorization__forgotPassword'>
+            <Link to='/helpLogin' className='authorization__forgotPassword'>
               Забыли пароль?
             </Link>
           </div>
@@ -45,7 +47,7 @@ const LoginPage = ({ actions: { authorization }, history }) => {
             <button type='submit' className='btn'>
               Войти
             </button>
-            <Link to='/Registration/' type='button' className='btn'>
+            <Link to='/Registration' type='button' className='btn'>
               Зарегистрироваться
             </Link>
           </div>

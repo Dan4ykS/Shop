@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import { resetPassword } from '../../utils/workWithApiRequests';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
-import { changePasswordType } from '../../utils/workWithBrowser';
+import { changePasswordType, STORE_NAME } from '../../utils/workWithBrowser';
+import { ReactTitle } from 'react-meta-tags';
 
 const ResetPasswordPage = ({ userData: { error, token, loading } }) => {
   return (
@@ -17,6 +18,7 @@ const ResetPasswordPage = ({ userData: { error, token, loading } }) => {
       }}
     >
       <div className='row reset justify-content-center'>
+        <ReactTitle title={`${STORE_NAME} | Восстановление проля`} />
         <form className='col-6 reset__form' onSubmit={(e) => resetPassword(e, 'create', token)}>
           <h2>Восстановление пароля</h2>
           <div className='formGroup password'>
@@ -34,7 +36,7 @@ const ResetPasswordPage = ({ userData: { error, token, loading } }) => {
               required
             />
           </div>
-          <button type='submit' className='btn-primary'>
+          <button type='submit' className='btn'>
             Изменить пароль
           </button>
         </form>

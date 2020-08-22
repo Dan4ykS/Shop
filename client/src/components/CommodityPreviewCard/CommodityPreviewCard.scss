@@ -5,7 +5,6 @@
   border-radius: 15px;
   position: relative;
   margin-bottom: 20px;
-  height: 454px;
   &__content {
     height: 400px;
     &-img,
@@ -99,8 +98,7 @@
     }
   }
   &__detail {
-    height: 54px;
-    font-size: 20px;
+    height: 45px;
     &-more {
       width: 40%;
       .btn {
@@ -159,6 +157,8 @@
       .btn {
         width: 40%;
         border-radius: 0 0 12px 0;
+        // padding-top: 0.25rem;
+        height: 100%;
       }
     }
   }

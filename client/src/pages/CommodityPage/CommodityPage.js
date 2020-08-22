@@ -9,17 +9,11 @@ import SwitchBuyBtn from '../../components/SwitchBuyBtn';
 import TextWithBr from '../../components/TextWithBr/TextWithBr';
 import './CommodityPage.scss';
 import { connectToStore } from '../../utils/workWithRedux';
-import {
-  fetchCommodity,
-  fetchSimilarGoods,
-  updateUserReview,
-  updateReviews,
-  updateRating,
-} from '../../actions/commodityData';
 import { updateUserReviews } from '../../actions/userData';
-import { createValidImgSrc, scrollToElem } from '../../utils/workWithBrowser';
+import { createValidImgSrc, scrollToElem, STORE_NAME } from '../../utils/workWithBrowser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faCommentAlt, faRubleSign } from '@fortawesome/free-solid-svg-icons';
+import { ReactTitle } from 'react-meta-tags';
 import {
   toggleMoreRatingInfo,
   hideMoreRatingInfo,
@@ -29,6 +23,13 @@ import {
   writeReview,
   initPage,
 } from './utils';
+import {
+  fetchCommodity,
+  fetchSimilarGoods,
+  updateUserReview,
+  updateReviews,
+  updateRating,
+} from '../../actions/commodityData';
 
 const CommodityPage = ({
   commodityData: {
@@ -58,6 +59,7 @@ const CommodityPage = ({
 
   return (
     <div className='commodityPage'>
+      <ReactTitle title={`${STORE_NAME} | Книга: "${title}"`} />
       <LoadingData
         configData={{
           loading,

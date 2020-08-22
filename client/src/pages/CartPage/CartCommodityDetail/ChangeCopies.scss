@@ -33,21 +33,26 @@
       top: 50%;
       transform: translateY(-50%);
     }
-    &:hover, &:focus {
-      box-shadow: 0 0 0 0.1rem $textColor;
+    &:hover,
+    &:focus {
+      box-shadow: none;
     }
-    
+    &:hover {
+      background-color: #00000094;
+    }
   }
   .btnMinus {
-    border-radius: 0 45% 45% 0;
+    border-radius: 45% 0 0 45%;
+
     .fa-minus {
-      right: 30%;
+      left: 30%;
     }
   }
   .btnPlus {
-    border-radius: 45% 0 0 45%;
+    border-radius: 0 45% 45% 0;
+
     .fa-plus {
-      left: 30%;
+      right: 30%;
     }
   }
 }

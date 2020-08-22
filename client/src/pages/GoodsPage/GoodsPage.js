@@ -5,6 +5,8 @@ import './GoodsPage.scss';
 import { Redirect } from 'react-router';
 import { connectToStore } from '../../utils/workWithRedux';
 import { fetchGoods } from '../../actions/goodsList';
+import { STORE_NAME } from '../../utils/workWithBrowser';
+import { ReactTitle } from 'react-meta-tags';
 
 const GoodsPage = ({ actions: { fetchGoods }, history }) => {
   const location = history.location,
@@ -32,6 +34,7 @@ const GoodsPage = ({ actions: { fetchGoods }, history }) => {
 
   return (
     <div className='goodsPage'>
+      <ReactTitle title={`${STORE_NAME} | Книги`} />
       {pageHeader}
       <div className='goodsPage__content'>
         <GoodsList action={() => fetchGoods(configDataForAction)} ComponentWithoutData={ComponentWithoutData} />
