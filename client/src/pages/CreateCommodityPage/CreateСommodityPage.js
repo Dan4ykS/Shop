@@ -4,18 +4,9 @@ import ChangeCommodityDetail from '../../components/ChangeCommodityDetail';
 import { connectToStore } from '../../utils/workWithRedux';
 import { STORE_NAME } from '../../utils/workWithBrowser';
 import { ReactTitle } from 'react-meta-tags';
-import {
-  reloadCommodityData,
-  updateDescr,
-  updateImg,
-  updatePreviewImg,
-  updatePrice,
-  updateShortDescr,
-  updateTitle,
-} from '../../actions/commodityData';
+import { reloadCommodityData } from '../../actions/commodityData';
 
-const CreateCommodityPage = ({ userData: { loading, error, token }, commodityData, actions, history }) => {
-  const { title, shortDescr, descr, previewImg, img, price } = commodityData;
+const CreateCommodityPage = ({ userData: { loading, error }, actions: { reloadCommodityData } }) => {
   return (
     <div className='createCommodityPage'>
       <ReactTitle title={`${STORE_NAME} | Создание книги`} />
@@ -23,30 +14,13 @@ const CreateCommodityPage = ({ userData: { loading, error, token }, commodityDat
         configData={{
           loading,
           error,
-          funcForRender: actions.reloadCommodityData,
+          funcForRender: reloadCommodityData,
         }}
       >
-        <ChangeCommodityDetail
-          data={{
-            ...commodityData,
-            updatedFields: { title, shortDescr, descr, previewImg, img, price },
-            history,
-            token,
-          }}
-          type='create'
-          actions={actions}
-        />
+        <ChangeCommodityDetail type='create' />
       </LoadingData>
     </div>
   );
 };
 
-export default connectToStore(['userData', 'commodityData'], {
-  reloadCommodityData,
-  updateDescr,
-  updateImg,
-  updatePreviewImg,
-  updatePrice,
-  updateShortDescr,
-  updateTitle,
-})(CreateCommodityPage);
+export default connectToStore(['userData'], { reloadCommodityData })(CreateCommodityPage);

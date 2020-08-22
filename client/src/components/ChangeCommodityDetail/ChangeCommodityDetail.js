@@ -4,12 +4,24 @@ import ChangeCommodityBtn from './ChangeCommodityBtn';
 import './ChangeCommodityDetail.scss';
 import { workWithCommodityData, deleteCommodity } from '../../utils/workWithApiRequests';
 import { validateInput } from '../../utils/workWithBrowser';
+import { connectToStore } from '../../utils/workWithRedux';
+import {
+  updateDescr,
+  updateImg,
+  updatePreviewImg,
+  updatePrice,
+  updateShortDescr,
+  updateTitle,
+} from '../../actions/commodityData.js';
 
 const ChangeCommodityDetail = ({
-  data: { title, descr, shortDescr, img, previewImg, price, updatedFields, id, history, token },
-  actions: { updateImg, updatePreviewImg, updateTitle, updateDescr, updatePrice, updateShortDescr },
   type,
+  userData: { token },
+  commodityData: { title, descr, shortDescr, img, previewImg, price, updatedFields, author, tags, genres, id },
+  actions: { updateImg, updatePreviewImg, updateTitle, updateDescr, updatePrice, updateShortDescr },
+  history,
 }) => {
+  const fieldsForChageBtn = type === 'update' ? updatedFields : { title, descr, shortDescr, img, previewImg, price };
   return (
     <>
       <form
@@ -19,13 +31,14 @@ const ChangeCommodityDetail = ({
         <div className='formGroup row'>
           <label className='col-sm-3 formControlLable'>Название:</label>
           <div className='col-sm-9'>
-            <input
-              name='forSetData'
-              type='text'
-              className='formControl'
-              value={title}
-              onChange={(e) => validateInput(e, updateTitle)}
-            />
+            <input type='text' className='formControl' value={title} onChange={(e) => validateInput(e, updateTitle)} />
+            <div className='invalidFeedback'>Поле обязательно и не должно быть пустым</div>
+          </div>
+        </div>
+        <div className='formGroup row'>
+          <label className='col-sm-3 formControlLable'>Автор:</label>
+          <div className='col-sm-9'>
+            <input type='text' className='formControl' value={author} onChange={(e) => validateInput(e, updateTitle)} />
             <div className='invalidFeedback'>Поле обязательно и не должно быть пустым</div>
           </div>
         </div>
@@ -33,7 +46,6 @@ const ChangeCommodityDetail = ({
           <label className='col-sm-3 formControlLable'>Краткое описание:</label>
           <div className='col-sm-9'>
             <textarea
-              name='forSetData'
               className='formControl'
               value={shortDescr}
               onChange={(e) => validateInput(e, updateShortDescr, (input) => input.value.length < 300)}
@@ -57,12 +69,7 @@ const ChangeCommodityDetail = ({
         <div className='formGroup row'>
           <label className='col-sm-3 formControlLable'>Полное описание:</label>
           <div className='col-sm-9'>
-            <textarea
-              name='forSetData'
-              className='formControl'
-              value={descr}
-              onChange={(e) => validateInput(e, updateDescr)}
-            />
+            <textarea className='formControl' value={descr} onChange={(e) => validateInput(e, updateDescr)} />
             <div className='invalidFeedback'>Поле обязательно и не должно быть пустым</div>
           </div>
         </div>
@@ -83,7 +90,6 @@ const ChangeCommodityDetail = ({
           <label className='col-sm-3 formControlLable'>Цена:</label>
           <div className='col-sm-9'>
             <input
-              name='forSetData'
               className='formControl'
               value={price}
               onChange={(e) => validateInput(e, updatePrice, (input) => Number.isInteger(+input.value))}
@@ -92,7 +98,7 @@ const ChangeCommodityDetail = ({
           </div>
         </div>
         <div className='btnGroup'>
-          <ChangeCommodityBtn type={type} updatedFields={updatedFields} formSelector='.changeCommodityDetail' />
+          <ChangeCommodityBtn type={type} updatedFields={fieldsForChageBtn} formSelector='.changeCommodityDetail' />
         </div>
       </form>
       <div className='modalWindow deleteCommodity flexWrapColumn_center hiddenElem'>
@@ -109,4 +115,11 @@ const ChangeCommodityDetail = ({
   );
 };
 
-export default ChangeCommodityDetail;
+export default connectToStore(['userData.token', 'commodityData'], {
+  updateDescr,
+  updateImg,
+  updatePreviewImg,
+  updatePrice,
+  updateShortDescr,
+  updateTitle,
+})(ChangeCommodityDetail, true);

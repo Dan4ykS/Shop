@@ -1,4 +1,5 @@
 import StringHelper from '../utils/StringHelper';
+import { addArrayElement, changeArrayElement, removeArrayElement } from '../utils/workWithRedux';
 import {
   FETCH_COMMODITY_REQUEST,
   FETCH_COMMODITY_SUCCUESS,
@@ -17,7 +18,6 @@ import {
   CLEAR_USER_REVIEW,
   UPDATE_RATING,
 } from '../actions/types';
-import { addArrayElement, changeArrayElement, removeArrayElement } from '../utils/workWithRedux';
 
 const createAlt = (newData, oldData, type) => {
   const newAlt = newData ? newData[`${type}Alt`] : null,

@@ -3,6 +3,7 @@ import { initModalWindow, chekValidDataInForm } from '../../utils/workWithBrowse
 
 const createUpdateDataBtn = (updatedFields, formSelector, type) => {
   const formIsValid = chekValidDataInForm(formSelector);
+  console.log(updatedFields);
   let allFieldsAreFilled = true;
   for (const key in updatedFields) {
     if (!updatedFields[key] && key !== 'img') {

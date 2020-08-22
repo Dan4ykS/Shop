@@ -1,3 +1,4 @@
+import { changeArrayElement, removeArrayElement } from '../utils/workWithRedux';
 import {
   LOGIN,
   CREATE_NEW_USER,
@@ -13,19 +14,6 @@ import {
   UPDATE_BOUGHTGOODS,
   UPDATE_USER_REVIEWS,
 } from '../actions/types';
-import { changeArrayElement, removeArrayElement } from '../utils/workWithRedux';
-
-// const updateBoughtGoods = (oldBoughtGoodsData, dataForUpdate) => {
-//   const commodityIndex = oldBoughtGoodsData.findIndex((commodity) => commodity.reviewId === dataForUpdate.reviewId);
-//   if (commodityIndex !== -1) {
-//     const newElem = {
-//       ...oldBoughtGoodsData[commodityIndex],
-//       rating: dataForUpdate.reviewRating,
-//     };
-//     return changeArrayElement(oldBoughtGoodsData, commodityIndex, newElem);
-//   }
-//   return oldBoughtGoodsData;
-// };
 
 const updateUserReviews = (reviews, dataForUpdate) => {
   if (dataForUpdate.newArr) {
