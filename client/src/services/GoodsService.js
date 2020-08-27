@@ -64,6 +64,18 @@ class GoodsService extends BaseApiClass {
   removeReview = async (id, token) => {
     return await this.requestToApi('DELETE', `removeReview/${id}`, null, this.headerWithToken(token));
   };
+
+  getAuthors = async (token) => {
+    return await this.requestToApi('GET', 'getAuthors', null, this.headerWithToken(token));
+  };
+  
+  getGenres = async (token) => {
+    return await this.requestToApi('GET', 'getGenres', null, this.headerWithToken(token));
+  };
+
+  getTags = async (token) => {
+    return await this.requestToApi('GET', 'getTags', null, this.headerWithToken(token));
+  };
 }
 
 export default new GoodsService();

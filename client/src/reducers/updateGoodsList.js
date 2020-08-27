@@ -6,7 +6,7 @@ import {
   UPDATE_GOODS_SUCCUESS,
 } from '../actions/types';
 
-const updategoodsList = (state, action) => {
+const updateGoodsList = (state, action) => {
   if (state === undefined) {
     return {
       goods: [],
@@ -48,6 +48,7 @@ const updategoodsList = (state, action) => {
 
     case FETCH_GOODS_FAILURE:
       return {
+        ...state.goodsList,
         goods: [],
         error: true,
         loading: false,
@@ -58,4 +59,4 @@ const updategoodsList = (state, action) => {
   }
 };
 
-export default updategoodsList;
+export default updateGoodsList;

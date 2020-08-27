@@ -53,6 +53,33 @@ module.exports.popularGoods = async ({ query: { offset, limit } }, res) => {
   }
 };
 
+module.exports.getGenres = async (req, res) => {
+  try {
+    const genres = (await Genres.find({}, 'genre')).map(({ genre }) => ({ value: genre }));
+    res.json(genres);
+  } catch (error) {
+    errorHandler(res, error);
+  }
+};
+
+module.exports.getTags = async (req, res) => {
+  try {
+    const tags = (await Tags.find({}, 'tag')).map(({ tag }) => ({ value: tag }));
+    res.json(tags);
+  } catch (error) {
+    errorHandler(res, error);
+  }
+};
+
+module.exports.getAuthors = async (req, res) => {
+  try {
+    const authors = (await Authors.find({}, 'author')).map(({ author }) => ({ value: author }));
+    res.json(authors);
+  } catch (error) {
+    errorHandler(res, error);
+  }
+};
+
 module.exports.findGoods = async ({ query: { q, offset, limit } }, res) => {
   try {
     const goodsData = await Goods.find({ title: { $regex: q, $options: 'i' } }),

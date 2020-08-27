@@ -57,6 +57,8 @@ module.exports.convertDataForClient = (data, type = 'default') => {
   return data;
 };
 
+
+
 module.exports.convertArrayForClient = (data, options) => {
   return data.map((el) => this.convertDataForClient(el.toObject(), options));
 };

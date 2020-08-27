@@ -4,7 +4,7 @@
   bottom: 0;
   top: 0;
   right: 0;
-  z-index: 10;
+  z-index: 60;
   background-color: $hidenFormBg;
 }
 
@@ -15,20 +15,37 @@
   left: 50%;
   width: 950px;
   height: 70%;
-  background-color: $textColor;
+  background-color: $textColor2;
   border-radius: 10px;
   padding: 20px;
   transform: translateX(-50%) translateY(-50%);
 
   span {
-    display: flex;
     position: absolute;
-    align-items: center;
     right: 1%;
-    top: 0;
-    font-size: 40px;
-    height: 40px;
+    top: 1%;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
+    &::before {
+      position: absolute;
+      top: 50%;
+      content: "";
+      height: 1px;
+      width: 100%;
+      background-color: $textColor;
+      transform: translateY(-50%) rotate(45deg);
+    }
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      content: "";
+      height: 100%;
+      width: 1px;
+      background-color: $textColor;
+      transform: translateX(-50%) rotate(45deg);
+    }
   }
 
   @media (max-width: 1000px) {

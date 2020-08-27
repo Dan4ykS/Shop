@@ -1,0 +1,40 @@
+@import "../../styles/scss/variables.scss";
+
+.inputWithPrompt {
+  position: relative;
+  z-index: 50;
+  .dropDownIsOpen {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    &:focus {
+      box-shadow: 0 -2px 0 0.1rem $btnShodow;
+    }
+  }
+  .dropDown {
+    position: absolute;
+    top: 47px;
+    left: 0;
+    right: 0;
+    border: 1px solid $borderColor;
+    border-top: none;
+    border-radius: 0 0 15px 15px;
+    background-color: $textColor2;
+    max-height: 200px;
+    overflow-y: auto;
+    &__item {
+      padding: 0.2rem 0.75rem;
+      cursor: pointer;
+      &:hover {
+        background-color: $starsColorHover;
+      }
+    }
+  }
+  .backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+  }
+}

@@ -1,4 +1,4 @@
-export const STORE_NAME = 'WebBook'
+export const STORE_NAME = 'WebBook';
 
 export const findNeedElements = (selector) => document.querySelectorAll(selector);
 
@@ -105,13 +105,15 @@ export const hidenModal = () => {
 };
 
 export const validateInput = (e, updateFunction, validationCondition = null) => {
-  const input = e.target;
-  if ((validationCondition && !validationCondition(input)) || !input.value.trim()) {
+  const input = e.target,
+    inputValue = input.value;
+
+  if ((validationCondition && !validationCondition(input)) || !inputValue.trim()) {
     input.classList.add('isInvalid');
-    updateFunction(input.value);
+    updateFunction(inputValue);
     return;
   }
-  updateFunction(input.value);
+  updateFunction(inputValue);
   input.classList.remove('isInvalid');
 };
 
@@ -124,7 +126,6 @@ export const chekValidDataInForm = (formSelector) => {
   }
   return true;
 };
-
 
 export const showReview = (selector) => {
   const reviews = findNeedElements(selector),

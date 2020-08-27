@@ -3,7 +3,6 @@ import { initModalWindow, chekValidDataInForm } from '../../utils/workWithBrowse
 
 const createUpdateDataBtn = (updatedFields, formSelector, type) => {
   const formIsValid = chekValidDataInForm(formSelector);
-  console.log(updatedFields);
   let allFieldsAreFilled = true;
   for (const key in updatedFields) {
     if (!updatedFields[key] && key !== 'img') {
@@ -12,13 +11,13 @@ const createUpdateDataBtn = (updatedFields, formSelector, type) => {
   }
   if (Object.keys(updatedFields).length > 0 && type === 'update' && formIsValid) {
     return (
-      <button className='changeCommodityDetail__btn' type='submit'>
+      <button className='btn' type='submit'>
         Обновить данные
       </button>
     );
   } else if (type === 'create' && formIsValid && allFieldsAreFilled) {
     return (
-      <button className='changeCommodityDetail__btn' type='submit'>
+      <button className='btn' type='submit'>
         Создать новый товар
       </button>
     );
@@ -30,7 +29,7 @@ const createUpdateDataBtn = (updatedFields, formSelector, type) => {
 const createDeleteCommodityBtn = (type) => {
   if (type === 'update') {
     return (
-      <button onClick={() => initModalWindow('.deleteCommodity')} type='button'>
+      <button className='btn' onClick={() => initModalWindow('.deleteCommodity')} type='button'>
         Удалить книгу
       </button>
     );

@@ -20,6 +20,8 @@ import {
   UPDATE_BOUGHTGOODS,
   UPDATE_USER_REVIEWS,
 } from './types';
+import { loadPromptFomServer, clearPrompt } from './dataForPrompt';
+import { reloadCommodityData } from './commodityData';
 
 const createUser = (userData, token) => createAction(CREATE_NEW_USER, { ...userData, token });
 
@@ -63,6 +65,8 @@ export const authorization = (data, formData, history) => async (dispatch) => {
         countGoods = cart.userCart.reduce((acc, item) => acc + item.copies, 0);
 
       dispatch(loadCartFromServer({ ...cart, countGoods }));
+    } else {
+      await loadPromptFomServer(token)(dispatch);
     }
     const goods = await GoodsService.getBestGoods(0, 7);
     dispatch(fetchGoodsSuccuess(goods));
@@ -91,6 +95,9 @@ export const isLogin = (token) => async (dispatch) => {
   try {
     const { userData, newToken } = await UsersService.checkUserValid(token);
     dispatch(userLogin({ ...userData, avatar: null, avatarSrc: userData.avatar }, newToken));
+    if (userData.userName === 'admin') {
+      await loadPromptFomServer(token)(dispatch);
+    }
     setNewToken(newToken);
     return userData.userName;
   } catch (error) {
@@ -110,6 +117,8 @@ export const fetchAdminData = () => async (dispatch) => {
 export const isLogout = () => (dispatch) => {
   dispatch(userLogout());
   dispatch(clearCart());
+  dispatch(reloadCommodityData());
+  dispatch(clearPrompt());
   localStorage.removeItem('userData');
 };
 

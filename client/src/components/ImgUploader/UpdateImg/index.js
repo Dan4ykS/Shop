@@ -11,7 +11,7 @@ const UpdateImg = ({ img: { src, id, alt }, funcForUpdateData }) => {
 
   return (
     <div className={`modalWindow updateImg updateImg_${id} row hiddenElem`}>
-      <span data-close={true}>&#215;</span>
+      <span data-close={true}></span>
       <div className='updateImg__imgDetail flexWrapColumn_center col-4'>
         <div className='formGroup row'>
           <label className='col-sm-3 formControlLable'>Alt:</label>

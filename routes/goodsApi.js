@@ -7,7 +7,7 @@ const router = Router();
 
 router.get('/getGoods', controller.getGoods);
 
-router.get('/bestGoods', controller.bestGoods)
+router.get('/bestGoods', controller.bestGoods);
 
 router.get('/newGoods', controller.newGoods);
 
@@ -18,6 +18,14 @@ router.get('/getSimilarGoods/:id', controller.getSimilarGoods);
 router.get('/findGoods', controller.findGoods);
 
 router.get('/findCommodity/:id', controller.findCommodity);
+
+// router.get('/getAllTitles')
+
+router.get('/getGenres', authAdmin, controller.getGenres);
+
+router.get('/getTags', authAdmin, controller.getTags);
+
+router.get('/getAuthors', authAdmin, controller.getAuthors);
 
 router.post(
   '/createCommodity',
