@@ -8,8 +8,8 @@ export const defaultActions = async (token, isLogin, fetchGoods, loadCart = unde
   if (errorFunc) {
     errorFunc(userName);
   }
-  
-  if (loadCart) {
+
+  if (loadCart && userName !== 'admin') {
     await loadCart(token);
   }
 };

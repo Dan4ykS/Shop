@@ -99,9 +99,9 @@ export const initModalWindow = (modalSelector) => {
   });
 };
 
-export const hidenModal = () => {
+export const hidenModal = (selector = '') => {
   findNeedElement('.modalWraper').classList.add('hiddenElem');
-  findNeedElement('.modalWindow').classList.add('hiddenElem');
+  findNeedElement(`.modalWindow${selector}`).classList.add('hiddenElem');
 };
 
 export const validateInput = (e, updateFunction, validationCondition = null) => {

@@ -5,9 +5,21 @@
   label {
     text-align: right;
   }
+  .addBtn {
+    margin-right: 15px;
+  }
 }
 .deleteCommodity {
   width: 500px;
   height: 200px;
   font-size: 18px;
+}
+
+.addGenre,
+.addTag {
+  width: 700px;
+  height: 450px;
+  .btnGroup {
+    margin-top: 220px;
+  }
 }

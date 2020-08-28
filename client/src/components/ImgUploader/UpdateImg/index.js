@@ -12,10 +12,10 @@ const UpdateImg = ({ img: { src, id, alt }, funcForUpdateData }) => {
   return (
     <div className={`modalWindow updateImg updateImg_${id} row hiddenElem`}>
       <span data-close={true}></span>
-      <div className='updateImg__imgDetail flexWrapColumn_center col-4'>
+      <div className='updateImg__imgDetail flexWrapColumn_center col-5'>
         <div className='formGroup row'>
-          <label className='col-sm-3 formControlLable'>Alt:</label>
-          <div className='col-sm-9'>
+          <label className='col-sm-2 formControlLable'>Alt:</label>
+          <div className='col-sm-10'>
             <input
               type='text'
               className='formControl'
@@ -38,7 +38,7 @@ const UpdateImg = ({ img: { src, id, alt }, funcForUpdateData }) => {
           dataForUpdate={{ img, imgSrc: previewSrc, oldImgSrc: src, newAlt: imgAlt, oldAlt: alt }}
         />
       </div>
-      <div className='updateImg__preview flexWrap_center col-8'>
+      <div className='updateImg__preview flexWrap_center col-7'>
         <img src={!previewSrc ? `${createValidImgSrc(src)}` : createValidImgSrc(previewSrc)} alt={`img:${alt}`} />
       </div>
     </div>

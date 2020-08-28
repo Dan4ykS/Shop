@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import LoadingIndicator from '../LoadingIndicator/LoadingIndicator';
 import Header from '../Header';
 import Footer from '../Footer';
-import RegistrationPage from '../../pages/RegistrationPage'
-import LoginPage from '../../pages/LoginPage'
-import GoodsPage from '../../pages/GoodsPage'
+import RegistrationPage from '../../pages/RegistrationPage';
+import LoginPage from '../../pages/LoginPage';
+import GoodsPage from '../../pages/GoodsPage';
 import CartPage from '../../pages/CartPage';
 import '../../styles/css/bootstrap-reboot.css';
 import '../../styles/css/bootstrap-grid.css';
@@ -64,5 +64,3 @@ const App = ({ actions, history }) => {
 };
 
 export default connectToStore(null, { isLogin, loadCart, fetchGoods, fetchCommodity })(App, true);
-
-// export default connect(null, { isLogin, loadCart, fetchGoods, fetchCommodity })(withRouter(App));

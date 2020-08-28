@@ -17,6 +17,9 @@ import {
   REMOVE_REVIEW,
   CLEAR_USER_REVIEW,
   UPDATE_RATING,
+  UPDATE_AUTHOR,
+  UPDATE_GENRES,
+  UPDATE_TAGS,
 } from '../actions/types';
 
 const createAlt = (newData, oldData, type) => {
@@ -64,10 +67,19 @@ const updateField = (commodityData, fieldName, newFieldData) => {
   } else if (fieldName === 'title') {
     return {
       ...commodityData,
-      title: newFieldData.trimStart() ? StringHelper.formatTitle(newFieldData.trimStart()) : newFieldData,
+      title: newFieldData,
       updatedFields: updateUpdatedFieldsObj(fieldName, commodityData.updatedFields, newFieldData.trimStart()),
     };
+  } else if (fieldName === 'genres' || fieldName === 'tags') {
+    const dataForUpdate = addArrayElement(commodityData[fieldName], newFieldData);
+    
+    return {
+      ...commodityData,
+      [fieldName]: dataForUpdate,
+      updatedFields: updateUpdatedFieldsObj(fieldName, commodityData.updatedFields, dataForUpdate),
+    };
   }
+
   return {
     ...commodityData,
     [fieldName]: newFieldData,
@@ -167,6 +179,7 @@ const defaultCommodityDataState = {
   loading: true,
   error: null,
   genres: [],
+  tags: [],
   countReviews: null,
   reviews: [],
   similarGoods: [],
@@ -249,6 +262,15 @@ const updateCommodityData = (state, action) => {
 
     case UPDATE_PRICE:
       return updateField(state.commodityData, 'price', action.payload);
+
+    case UPDATE_AUTHOR:
+      return updateField(state.commodityData, 'author', action.payload);
+
+    case UPDATE_GENRES:
+      return updateField(state.commodityData, 'genres', action.payload);
+
+    case UPDATE_TAGS:
+      return updateField(state.commodityData, 'tags', action.payload);
 
     default:
       return state.commodityData;

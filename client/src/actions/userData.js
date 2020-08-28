@@ -20,7 +20,7 @@ import {
   UPDATE_BOUGHTGOODS,
   UPDATE_USER_REVIEWS,
 } from './types';
-import { loadPromptFomServer, clearPrompt } from './dataForPrompt';
+import { loadPromptFomServer, clearPrompts } from './dataForPrompts';
 import { reloadCommodityData } from './commodityData';
 
 const createUser = (userData, token) => createAction(CREATE_NEW_USER, { ...userData, token });
@@ -118,7 +118,7 @@ export const isLogout = () => (dispatch) => {
   dispatch(userLogout());
   dispatch(clearCart());
   dispatch(reloadCommodityData());
-  dispatch(clearPrompt());
+  dispatch(clearPrompts());
   localStorage.removeItem('userData');
 };
 

@@ -1,8 +1,8 @@
-.imgUploader{
+.imgUploader {
   position: relative;
+  max-height: 500px;
   &__img {
-    max-width: 95%;
-    max-height: 500px;
+    max-width: 300px;
   }
   &__editing {
     position: absolute;

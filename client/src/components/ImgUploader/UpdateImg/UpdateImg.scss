@@ -3,9 +3,7 @@
 .updateImg {
   &__preview {
     img {
-      max-width: 100%;
-      min-width: 70%;
-      max-height: 580px;
+      max-width: 350px;
       box-shadow: 20px 10px 30px rgba(0,0,0,0.5);
     }
   }

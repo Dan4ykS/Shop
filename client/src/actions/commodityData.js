@@ -17,6 +17,9 @@ import {
   REMOVE_REVIEW,
   CLEAR_USER_REVIEW,
   UPDATE_RATING,
+  UPDATE_AUTHOR,
+  UPDATE_GENRES,
+  UPDATE_TAGS,
 } from './types';
 
 export const updateImg = (imgFile, imgSrc, imgAlt) => createAction(UPDATE_IMG, { imgFile, imgSrc, imgAlt });
@@ -29,6 +32,12 @@ export const updateTitle = (title) => createAction(UPDATE_TITLE, title);
 export const updatePrice = (price) => createAction(UPDATE_PRICE, price);
 
 export const updateDescr = (descr) => createAction(UPDATE_DESCR, descr);
+
+export const updateAuthor = (author) => createAction(UPDATE_AUTHOR, author);
+
+export const updateGenres = (genre) => createAction(UPDATE_GENRES, genre);
+
+export const updateTags = (tag) => createAction(UPDATE_TAGS, tag);
 
 export const updateUserReview = (data) => createAction(UPDATE_USER_REVIEW, data);
 
@@ -78,7 +87,7 @@ export const findUserReview = (userName, reviews) => (dispatch) => {
       rating: reviewData?.reviewRating,
       reviewId: reviewData?.reviewId,
     };
-  
+
   if (reviewData) {
     dispatch(updateUserReview(dataForUserReview));
   }

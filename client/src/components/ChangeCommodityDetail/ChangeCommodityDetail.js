@@ -1,11 +1,13 @@
 import React from 'react';
 import ImgUploader from '../ImgUploader';
 import ChangeCommodityBtn from './ChangeCommodityBtn';
-import InputWithPrompt from '../InputWithPrompt/InputWithPrompt';
+import InputWithPrompts from '../InputWithPrompts';
+import RenderGenresData from '../RenderGenresData';
 import './ChangeCommodityDetail.scss';
 import { workWithCommodityData, deleteCommodity } from '../../utils/workWithApiRequests';
-import { validateInput } from '../../utils/workWithBrowser';
+import { validateInput, initModalWindow } from '../../utils/workWithBrowser';
 import { connectToStore } from '../../utils/workWithRedux';
+import { toggleDropDown } from '../InputWithPrompts/utils';
 import {
   updateDescr,
   updateImg,
@@ -13,22 +15,31 @@ import {
   updatePrice,
   updateShortDescr,
   updateTitle,
+  updateAuthor,
 } from '../../actions/commodityData.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import AddGenrOrTag from './AddGenrOrTag';
 
 const ChangeCommodityDetail = ({
   type,
   userData: { token },
-  dataForPrompt: { authors, genres: allGenres, tags: allTags },
+  dataForPrompts: { authors },
   commodityData: { title, descr, shortDescr, img, previewImg, price, updatedFields, author, tags, genres, id },
-  actions: { updateImg, updatePreviewImg, updateTitle, updateDescr, updatePrice, updateShortDescr },
+  actions: { updateImg, updatePreviewImg, updateTitle, updateDescr, updatePrice, updateShortDescr, updateAuthor },
   history,
 }) => {
-  const fieldsForChageBtn = type === 'update' ? updatedFields : { title, descr, shortDescr, img, previewImg, price };
+  const fieldsForChageBtn =
+    type === 'update' ? updatedFields : { title, descr, shortDescr, img, previewImg, price, tags, genres, author };
+
   return (
     <>
       <form
         className='changeCommodityDetail'
         onSubmit={(e) => workWithCommodityData(e, updatedFields, token, type, id, history)}
+        onClick={(e) => {
+          toggleDropDown(e);
+        }}
       >
         <div className='formGroup row'>
           <label className='col-sm-3 formControlLable'>Название:</label>
@@ -40,7 +51,25 @@ const ChangeCommodityDetail = ({
         <div className='formGroup row'>
           <label className='col-sm-3 formControlLable'>Автор:</label>
           <div className='col-sm-9'>
-            <InputWithPrompt defaultValue={author} valuesForPrompts={authors} />
+            <InputWithPrompts funcForUpdate={updateAuthor} defaultValue={author} valuesForPrompts={authors} />
+          </div>
+        </div>
+        <div className='formGroup row'>
+          <label className='col-sm-3 formControlLable'>Жанры:</label>
+          <div className='col-sm-9'>
+            <button className='addBtn btn' type='button' onClick={() => initModalWindow('.addGenre')}>
+              Добавить жанр <FontAwesomeIcon size='sm' icon={faPlus} />
+            </button>
+            <RenderGenresData genres={genres} />
+          </div>
+        </div>
+        <div className='formGroup row'>
+          <label className='col-sm-3 formControlLable'>Тэги:</label>
+          <div className='col-sm-9'>
+            <button className='addBtn btn' type='button' onClick={() => initModalWindow('.addTag')}>
+              Добавить тэг <FontAwesomeIcon size='sm' icon={faPlus} />
+            </button>
+            <RenderGenresData genres={tags} />
           </div>
         </div>
         <div className='formGroup row'>
@@ -114,15 +143,18 @@ const ChangeCommodityDetail = ({
           </button>
         </div>
       </div>
+      <AddGenrOrTag mode='addGenre' />
+      <AddGenrOrTag mode='addTag' />
     </>
   );
 };
 
-export default connectToStore(['userData.token', 'commodityData', 'dataForPrompt'], {
+export default connectToStore(['userData.token', 'commodityData', 'dataForPrompts.authors'], {
   updateDescr,
   updateImg,
   updatePreviewImg,
   updatePrice,
   updateShortDescr,
   updateTitle,
+  updateAuthor,
 })(ChangeCommodityDetail, true);

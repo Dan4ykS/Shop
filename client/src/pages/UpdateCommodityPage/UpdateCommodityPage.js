@@ -13,7 +13,7 @@ const UpdateCommodityPage = ({
   history,
 }) => {
   return (
-    <div>
+    <div className='updateCommodityPage'>
       <ReactTitle title={`${STORE_NAME} | Обновление данных о книге "${title}"`} />
       <LoadingData
         configData={{
