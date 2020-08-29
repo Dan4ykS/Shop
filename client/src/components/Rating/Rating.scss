@@ -30,3 +30,14 @@
     color: $starsColor;
   }
 }
+
+@media (max-width: 575px) {
+  .rating {
+    &__item {
+      font-size: 15px;
+      &_noEditable {
+        font-size: 15px;
+      }
+    }
+  }
+}

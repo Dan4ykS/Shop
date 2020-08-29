@@ -302,3 +302,57 @@
     }
   }
 }
+
+@media (max-width: 575px) {
+  .commodityPage {
+    &__info {
+      &-detail {
+        &-item {
+          padding: 0;
+          .item {
+            &__title {
+              font-size: 35px;
+              margin-top: 40px;
+            }
+            &__author {
+              font-size: 23px;
+            }
+            &__feedback {
+              &-stars {
+                svg {
+                  font-size: 20px;
+                }
+              }
+              &-moreRatingInfo {
+                left: 0;
+                right: 0;
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+    &__reviews {
+      &-item {
+        &-content {
+          .review__header {
+            margin-bottom: 15px;
+            div {
+              &:first-child {
+                span {
+                  font-size: 18px !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    &__feedback {
+      .userAvatar {
+        margin: 0 auto;
+      }
+    }
+  }
+}

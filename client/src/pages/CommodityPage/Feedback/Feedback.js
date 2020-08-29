@@ -3,6 +3,9 @@ import Rating from '../../../components/Rating/Rating';
 import FeedbackBtn from './FeedbackBtn';
 import ReviewStatus from '../../../components/ReviewStatus';
 import { connectToStore } from '../../../utils/workWithRedux';
+import { updateUserReviews } from '../../../actions/userData';
+import { workWithReview } from '../../../utils/workWithApiRequests';
+import { createValidImgSrc, validateInput } from '../../../utils/workWithBrowser';
 import {
   findUserReview,
   updateUserReview,
@@ -11,9 +14,6 @@ import {
   removeReview,
   updateRating,
 } from '../../../actions/commodityData';
-import { updateUserReviews } from '../../../actions/userData';
-import { workWithReview } from '../../../utils/workWithApiRequests';
-import { createValidImgSrc, validateInput } from '../../../utils/workWithBrowser';
 
 const Feedback = ({
   userData: { userName, token, avatarSrc, fullName },
@@ -78,17 +78,17 @@ const Feedback = ({
     >
       <div className='commodityPage__feedback-contentWrapper row'>
         <div className='commodityPage__feedback-title blockTitle col-12'>Оставить отзыв</div>
-        <div className='col-2'>
+        <div className='col-lg-2'>
           <div className='userAvatar'>
             <img src={createValidImgSrc(avatarSrc)} alt={`avatar-${userName}`} />
           </div>
         </div>
-        <div className='col-10'>
+        <div className='col-lg-10'>
           <div className='commodityPage__feedback-content'>
             <div className='commodityPage__feedback-content-header flexWrap_SB'>
               <div className='userName'>{fullName}</div>
               <div className='userRating flexWrap'>
-                <span>Оцените книгу: </span>
+                {window.screen.width > 575 ? <span>Оцените книгу: </span> : null}
                 <Rating
                   userRating={userReview?.rating || 0}
                   commodityData={{ id: id ?? null, userReview: userReview ?? null }}

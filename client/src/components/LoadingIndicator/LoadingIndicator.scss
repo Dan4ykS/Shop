@@ -95,3 +95,12 @@
 .ldio-ffhm9xtf10l div {
   box-sizing: content-box;
 }
+
+@media (max-width: 575px) {
+  .ldio-ffhm9xtf10l div {
+    top: 5px;
+    height: 10px;
+    width: 3px;
+    transform-origin: 6px 20px;
+  }
+}

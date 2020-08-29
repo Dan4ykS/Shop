@@ -15,6 +15,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faCommentAlt, faRubleSign } from '@fortawesome/free-solid-svg-icons';
 import { ReactTitle } from 'react-meta-tags';
 import {
+  fetchCommodity,
+  fetchSimilarGoods,
+  updateUserReview,
+  updateReviews,
+  updateRating,
+} from '../../actions/commodityData';
+import {
   toggleMoreRatingInfo,
   hideMoreRatingInfo,
   calculateNumberOfRating,
@@ -23,13 +30,6 @@ import {
   writeReview,
   initPage,
 } from './utils';
-import {
-  fetchCommodity,
-  fetchSimilarGoods,
-  updateUserReview,
-  updateReviews,
-  updateRating,
-} from '../../actions/commodityData';
 
 const CommodityPage = ({
   commodityData: {
@@ -69,10 +69,10 @@ const CommodityPage = ({
         }}
       >
         <div className='commodityPage__info row'>
-          <div className='commodityPage__info-img col-5' onMouseEnter={() => hideMoreRatingInfo()}>
+          <div className='commodityPage__info-img col-lg-5' onMouseEnter={() => hideMoreRatingInfo()}>
             <img src={createValidImgSrc(img?.imgSrc)} alt={img?.imgAlt} />
           </div>
-          <div className='commodityPage__info-detail col-7'>
+          <div className='commodityPage__info-detail col-lg-7'>
             <div className='commodityPage__info-detail-item'>
               <div className='item item__title'>{title}</div>
               <div className='item item__genres'>
