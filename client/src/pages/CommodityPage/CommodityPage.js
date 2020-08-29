@@ -70,7 +70,7 @@ const CommodityPage = ({
       >
         <div className='commodityPage__info row'>
           <div className='commodityPage__info-img col-lg-5' onMouseEnter={() => hideMoreRatingInfo()}>
-            <img src={createValidImgSrc(img?.imgSrc)} alt={img?.imgAlt} />
+            <img src={createValidImgSrc(img?.imgSrc)} alt={img?.imgAlt ?? 'img'} />
           </div>
           <div className='commodityPage__info-detail col-lg-7'>
             <div className='commodityPage__info-detail-item'>
