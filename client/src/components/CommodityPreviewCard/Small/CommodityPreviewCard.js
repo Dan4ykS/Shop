@@ -22,10 +22,10 @@ const CommodityPreviewCard = ({
   },
 }) => {
   return (
-    <div className='previewCard previewCard_small col-lg-3' style={{ padding: '0 8px' }}>
-      <div className='preview'>
+    <div className='previewCard col-lg-3' style={{ padding: '0 8px' }}>
+      <div className='preview preview_small'>
         <div
-          className='preview__content'
+          className='preview__content preview__content_small'
           onMouseEnter={(e) => switchVisible(e, 'show')}
           onMouseLeave={(e) => switchVisible(e, 'close')}
         >
@@ -36,13 +36,13 @@ const CommodityPreviewCard = ({
             <img src={createValidImgSrc(previewImgSrc)} alt={previewImgAlt} />
           </div>
           <div className='preview__content-moreInfo hiddenElem'>
-            <div>{trimText(title, 20)}</div>
+            <div>{trimText(title, window.screen.width > 575 ? 20 : 40)}</div>
             <div>{author}</div>
             <div>
-              <TextWithBr text={shortDescr} maxlength={40} />
+              <TextWithBr text={shortDescr} maxlength={window.screen.width > 575 ? 40 : 150} />
             </div>
             <Link to={`/Goods/commodity-${id}`} onClick={() => scrollToTop()}>
-              Читать подробнее
+              Читать Подробнее
             </Link>
           </div>
         </div>

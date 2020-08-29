@@ -126,3 +126,44 @@
     }
   }
 }
+
+@media (max-width: 575px) {
+  .slider {
+    .sliderDots {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    &__item {
+      &_main {
+        img {
+           height: 200px;
+        }
+        .btn-slide {
+          left: 50%;
+          padding: 2px 5px;
+          bottom: 15%;
+          transform: translateX(-50%);
+        }
+      }
+    }
+    &__nextBtn {
+      &_main {
+        margin: 0;
+        right: 0;
+      }
+    }
+     &__prevBtn {
+      &_main {
+        margin: 0;
+        left:  0;
+      }
+    }
+    &__nextBtn, &__prevBtn {
+      padding: 0;
+      background-color: transparent;
+    }
+     &_main {
+      height: 200px;
+    }
+  }
+}

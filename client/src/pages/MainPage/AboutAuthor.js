@@ -19,7 +19,7 @@ const AboutAuthor = ({
       }}
     >
       <div className='row'>
-        <div className='mainPage__aboutAuthor-avatar col-3 flexWrapColumn'>
+        <div className='mainPage__aboutAuthor-avatar col-lg-3 flexWrapColumn'>
           <div className='userAvatar'>
             <img src={createValidImgSrc(avatar)} alt='adminAvatar' />
           </div>
@@ -27,7 +27,7 @@ const AboutAuthor = ({
             {fullName}
           </p>
         </div>
-        <div className='col-8 flexWrapColumn_FS'>
+        <div className='col-lg-8 flexWrapColumn_FS'>
           <h2>Создатель сайта "WebBook"</h2>
           <p>{about}</p>
         </div>

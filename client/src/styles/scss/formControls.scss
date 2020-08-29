@@ -47,3 +47,9 @@
     display: block;
   }
 }
+
+@media (max-width: 575px) {
+  .formControl {
+    font-size: inherit;
+  }
+}

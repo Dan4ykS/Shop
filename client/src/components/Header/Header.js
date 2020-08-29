@@ -11,7 +11,7 @@ import { connectToStore } from '../../utils/workWithRedux';
 import { fetchGoods } from '../../actions/goodsList';
 import { showMobileSideBar, toggleSearchForMobile, closeMobileSideBar } from './utils';
 
-const Header = ({ actions: { fetchGoods }, history }) => {
+const Header = ({ actions: { fetchGoods } }) => {
   return (
     <header className='header'>
       <nav>

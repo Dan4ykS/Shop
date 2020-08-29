@@ -27,3 +27,13 @@
     }
   }
 }
+
+@media (max-width: 575px) {
+  .mainPage {
+    &__bestGoods {
+      &-moreBtn {
+        font-size: 18px;
+      }
+    }
+  }
+}

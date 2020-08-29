@@ -107,3 +107,54 @@
     }
   }
 }
+
+@media (max-width: 575px) {
+  .footer {
+    margin-top: 15px;
+    .feedback {
+      right: 5%;
+      width: 90px;
+      height: 90px;
+      .mainIcon {
+        right: -10%;
+        .fa-comment-dots {
+          @include feedbackIconsStyle(50px, 10px);
+        }
+      }
+      .helperIcon {
+        &_active {
+          &:nth-child(2) {
+            top: 5%;
+          }
+          &:nth-child(3) {
+            top: 32%;
+            left: 20%;
+          }
+          &:nth-child(4) {
+            left: 5%;
+          }
+        }
+      }
+      .helperIcon1 {
+        .fa-instagram {
+          @include feedbackIconsStyle(30px, 5px);
+        }
+      }
+      .helperIcon2 {
+        .fa-vk {
+          @include feedbackIconsStyle(27px, 5px);
+        }
+      }
+      .helperIcon3 {
+        .fa-facebook {
+          @include feedbackIconsStyle(30px, 5px);
+        }
+      }
+    }
+    .upArrow {
+      .fa-chevron-up {
+        font-size: 50px;
+      }
+    }
+  }
+}

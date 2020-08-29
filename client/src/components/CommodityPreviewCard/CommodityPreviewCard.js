@@ -24,7 +24,7 @@ const CommodityPreviewCard = ({
   return (
     <div className='previewCard col-lg-6' style={{ padding: '0 8px' }}>
       <div className='preview'>
-        <div className='preview__content flexWrap'>
+        <div className={`preview__content ${window.screen.width > 575 ? 'flexWrap' : 'flexWrapColumn'}`}>
           <div className='preview__content-rating'>
             <RatingInMedal rating={rating.general} />
           </div>
@@ -45,7 +45,7 @@ const CommodityPreviewCard = ({
         <div className='preview__detail flexWrap'>
           <div className='preview__detail-more'>
             <Link className='btn' to={`/Goods/commodity-${id}`} onClick={() => scrollToTop()}>
-              Читать подробнее
+              {window.screen.width > 575 ? 'Читать подробнее': 'Подробнее'}
             </Link>
           </div>
           <div className='preview__detail-buy flexWrap'>

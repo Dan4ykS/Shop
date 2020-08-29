@@ -3,9 +3,18 @@
   &__content {
     border: 2px solid $mainColor;
     border-radius: 15px;
-    padding: 30px 70px;
+    padding: 1.5rem 2rem;
   }
   &_registration {
     margin-top: 15%;
+  }
+}
+
+@media (max-width: 575px) {
+  .authPage {
+    margin-top: 30%;
+     &__content {
+       padding: 3rem 0.1rem
+     }
   }
 }
