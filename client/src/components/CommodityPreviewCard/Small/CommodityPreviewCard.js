@@ -36,10 +36,10 @@ const CommodityPreviewCard = ({
             <img src={createValidImgSrc(previewImgSrc)} alt={previewImgAlt} />
           </div>
           <div className='preview__content-moreInfo hiddenElem'>
-            <div>{trimText(title, window.screen.width > 575 ? 20 : 40)}</div>
+            <div>{trimText(title, window.screen.width > 575 ? 20 : 30)}</div>
             <div>{author}</div>
             <div>
-              <TextWithBr text={shortDescr} maxlength={window.screen.width > 575 ? 40 : 150} />
+              <TextWithBr text={shortDescr} maxlength={window.screen.width > 575 ? 40 : 120} />
             </div>
             <Link to={`/Goods/commodity-${id}`} onClick={() => scrollToTop()}>
               Читать Подробнее

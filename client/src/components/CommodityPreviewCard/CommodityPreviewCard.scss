@@ -170,10 +170,17 @@
       height: 800px;
       &-info {
         width: 100%;
+        height: 300px;
+        div {
+          &:first-child {
+            font-size: 25px;
+          }
+        }
       }
       &-img {
         width: 100%;
         height: 500px;
+        padding: 0 20px;
         img {
           height: 450px;
         }

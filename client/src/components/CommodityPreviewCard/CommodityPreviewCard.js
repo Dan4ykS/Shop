@@ -8,6 +8,7 @@ import { createValidImgSrc, scrollToTop } from '../../utils/workWithBrowser';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRubleSign } from '@fortawesome/free-solid-svg-icons';
+import { trimText } from '../TextWithBr/utils';
 
 const CommodityPreviewCard = ({
   data: {
@@ -32,7 +33,7 @@ const CommodityPreviewCard = ({
             <img src={createValidImgSrc(previewImgSrc)} alt={previewImgAlt} />
           </div>
           <div className='preview__content-info'>
-            <div>{title}</div>
+            <div>{trimText(title, window.screen.width > 375 ? null : 35)}</div>
             <div>
               <RenderGenresData genres={genres} />
             </div>
@@ -45,7 +46,7 @@ const CommodityPreviewCard = ({
         <div className='preview__detail flexWrap'>
           <div className='preview__detail-more'>
             <Link className='btn' to={`/Goods/commodity-${id}`} onClick={() => scrollToTop()}>
-              {window.screen.width > 575 ? 'Читать подробнее': 'Подробнее'}
+              {window.screen.width > 575 ? 'Читать подробнее' : 'Подробнее'}
             </Link>
           </div>
           <div className='preview__detail-buy flexWrap'>
