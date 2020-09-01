@@ -98,15 +98,15 @@ const AccountPage = ({
                 <div className='formGroup'>
                   <input
                     type='text'
-                    className='formControl'
+                    className='formControl fullName'
                     value={localUserFullName?.trimStart()}
                     onChange={(e) => validateInput(e, updateLocalFullName)}
                   />
                   <div className='invalidFeedback'>Поле обязательно и не должно быть пустым</div>
                 </div>
                 <div className='formGroup row'>
-                  <label className='col-sm-3 formControlLable'>Логин:</label>
-                  <div className='col-sm-9 userLogin'>
+                  <label className='col-3 formControlLable'>Логин:</label>
+                  <div className='col-9 userLogin'>
                     <input
                       type='text'
                       className='formControl'
@@ -117,8 +117,8 @@ const AccountPage = ({
                   </div>
                 </div>
                 <div className='formGroup row'>
-                  <label className='col-sm-3 formControlLable'>Почта:</label>
-                  <div className='col-sm-9 userEmail'>
+                  <label className='col-3 formControlLable'>Почта:</label>
+                  <div className='col-9 userEmail'>
                     <input
                       type='text'
                       className='formControl'

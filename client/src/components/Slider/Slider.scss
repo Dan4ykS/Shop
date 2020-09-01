@@ -134,9 +134,15 @@
       transform: translateX(-50%);
     }
     &__item {
+      padding: 0 8px;
+      &-imgWrapper {
+        &_bougthGoods {
+          height: 350px;
+        }
+      }
       &_main {
         img {
-           height: 200px;
+          height: 200px;
         }
         .btn-slide {
           left: 50%;
@@ -152,17 +158,18 @@
         right: 0;
       }
     }
-     &__prevBtn {
+    &__prevBtn {
       &_main {
         margin: 0;
-        left:  0;
+        left: 0;
       }
     }
-    &__nextBtn, &__prevBtn {
+    &__nextBtn,
+    &__prevBtn {
       padding: 0;
       background-color: transparent;
     }
-     &_main {
+    &_main {
       height: 200px;
     }
   }

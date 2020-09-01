@@ -39,9 +39,11 @@ const LoginPage = ({ actions: { authorization }, history }) => {
               />
               <div className='invalidFeedback'>Неверный пароль</div>
             </div>
-            <Link to='/helpLogin' className='authorization__forgotPassword'>
-              Забыли пароль?
-            </Link>
+            <div className='authorization__forgotPassword'>
+              <Link to='/helpLogin'>
+                Забыли пароль?
+              </Link>
+            </div>
           </div>
           <div className='btnGroup_center'>
             <button type='submit' className='btn'>

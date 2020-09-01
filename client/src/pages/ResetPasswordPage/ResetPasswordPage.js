@@ -19,7 +19,7 @@ const ResetPasswordPage = ({ userData: { error, token, loading } }) => {
     >
       <div className='row reset justify-content-center'>
         <ReactTitle title={`${STORE_NAME} | Восстановление проля`} />
-        <form className='col-6 reset__form' onSubmit={(e) => resetPassword(e, 'create', token)}>
+        <form className='col-lg-6 reset__form' onSubmit={(e) => resetPassword(e, 'create', token)}>
           <h2>Восстановление пароля</h2>
           <div className='formGroup password'>
             <span className='showPasswordIcon showPasswordIcon_crosOut'>
@@ -40,7 +40,7 @@ const ResetPasswordPage = ({ userData: { error, token, loading } }) => {
             Изменить пароль
           </button>
         </form>
-        <div className='col-6 reset__successMsg hiddenElem'>
+        <div className='col-lg-6 reset__successMsg hiddenElem'>
           <p>Ваш пароль был успешно изменен!</p>
           <div className='text-center'>
             <Link to='/' className='btn btn-primary text-center'>

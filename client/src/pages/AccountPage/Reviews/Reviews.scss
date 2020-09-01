@@ -24,3 +24,22 @@
     }
   }
 }
+
+
+@media (max-width: 575px) {
+  .accountPage__reviews {
+    &-item {
+      padding: 15px 10px
+    }
+    .review {
+      &__header {
+        &-title {
+          font-size: 20px;
+        }
+      }
+      &__text {
+        margin-top: 10px;
+      }
+    }
+  }
+}

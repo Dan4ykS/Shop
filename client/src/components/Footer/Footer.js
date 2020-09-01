@@ -5,14 +5,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faCommentDots, faCopyright } from '@fortawesome/free-solid-svg-icons';
 import { faInstagram, faVk, faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { feedbackMouseLeave, feedbackMouseEnter, showFooterHidenElements } from './utils';
+import { withRouter } from 'react-router';
 
-const Footer = () => {
+const Footer = ({ history }) => {
+  const authPageRotes = ['Login', 'Registration', 'helpLogin', 'resetPassword'],
+    location = history.location.pathname.split('/')[1];
+
+  console.log(location);
   useEffect(() => {
     showFooterHidenElements();
   }, []);
 
   return (
-    <footer className='footer'>
+    <footer className={`footer ${authPageRotes.includes(location) ? 'footer_fixed' : ''}`}>
       <div className='footer__content flexWrap_center'>
         <FontAwesomeIcon icon={faCopyright} />
         <span>WebBook {new Date().getFullYear()}</span>
@@ -42,4 +47,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default withRouter(Footer);

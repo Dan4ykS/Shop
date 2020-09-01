@@ -12,8 +12,12 @@ const CartCommudityDetail = ({ data: { id, imgSrc, title, price, copies, alt, au
   return (
     <div className='cartItem'>
       <div className='row'>
-        <img className='cartItem__img col-2' src={createValidImgSrc(imgSrc)} alt={alt} />
-        <div className='col-10'>
+        <img
+          className={`cartItem__img ${window.screen.width > 575 ? 'col-lg-2' : 'hiddenElem'}`}
+          src={createValidImgSrc(imgSrc)}
+          alt={alt}
+        />
+        <div className='col-lg-10'>
           <div className='cartItem__info flexWrapColumn'>
             <div className='cartItem__info-titleAndGenres'>
               <Link to={`/Goods/commodity-${id}`} className='title'>

@@ -40,3 +40,31 @@
     }
   }
 }
+
+@media (max-width: 575px) {
+  .cartItem {
+    .col-lg-10 {
+      padding: 0;
+    }
+    &__info {
+      padding: 0;
+      height: 220px;
+      &-titleAndGenres {
+        .title {
+          font-size: 25px;
+        }
+      }
+    }
+
+    &__copies {
+      .btn {
+        height: 30px;
+        width: 80px;
+      }
+      input {
+        height: 50px;
+        width: 50px;
+      }
+    }
+  }
+}

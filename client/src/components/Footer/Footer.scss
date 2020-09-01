@@ -16,6 +16,12 @@
       margin-left: 15px;
     }
   }
+  &_fixed {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
   .upArrow {
     position: fixed;
     bottom: 3%;

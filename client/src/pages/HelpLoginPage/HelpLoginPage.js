@@ -8,7 +8,7 @@ const HelpLoginPage = () => {
   return (
     <div className='row reset justify-content-center'>
       <ReactTitle title={`${STORE_NAME} | Восстановление пароля`} />
-      <form className='col-6 reset__form' onSubmit={(e) => resetPassword(e, 'req')}>
+      <form className='col-lg-6 reset__form' onSubmit={(e) => resetPassword(e, 'req')}>
         <h2>Восстановление пароля</h2>
         <div className='formGroup'>
           <input
@@ -25,7 +25,7 @@ const HelpLoginPage = () => {
           Восстановить пароль
         </button>
       </form>
-      <div className='col-6 reset__successMsg hiddenElem'>
+      <div className='col-lg-6 reset__successMsg hiddenElem'>
         <p>Письмо для восстановления пароля отправлено на ваш email</p>
         <div className='btnGroup_center'>
           <Link to='/' className='btn btn-primary text-center'>

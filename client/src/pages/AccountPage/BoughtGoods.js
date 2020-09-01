@@ -25,8 +25,8 @@ const BoughtGoods = ({ userData: { boughtGoods } }) => {
       <div className='blockTitle'>Купленные книги</div>
       <Slider
         content={arrForSlider}
-        slidesToShow={2}
-        slidesToScroll={boughtGoods.length > 4 ? 2 : 1}
+        slidesToShow={window.screen.width > 575 ? 2 : 1}
+        slidesToScroll={boughtGoods.length > 4 ? 2 : window.screen.width > 575 ? 1 : 1}
         hasDots={false}
         classNames={boughtGoods.length <= 2 ? fewElements : manyElements}
       />

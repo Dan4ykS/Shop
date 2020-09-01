@@ -75,3 +75,14 @@
     width: 40%;
   }
 }
+
+@media (max-width: 575px) {
+  .accountPage {
+    font-size: 17px;
+    padding: 0;
+    .fullName {
+      text-align: center;
+      margin-top: 20px;
+    }
+  }
+}

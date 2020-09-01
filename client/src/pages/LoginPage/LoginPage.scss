@@ -2,12 +2,18 @@
   margin-top: 20px;
   &__forgotPassword {
     font-size: 15px;
-    display: block;
-    display: block;
     text-align: right;
     padding-right: 15px;
     &:hover {
       text-decoration: none;
     }
+  }
+}
+
+@media (max-width: 575px) {
+  .authorization{
+   &__forgotPassword {
+     font-size: 12px;
+   }
   }
 }

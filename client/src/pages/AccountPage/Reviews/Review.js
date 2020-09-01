@@ -22,7 +22,8 @@ const Review = ({
     },
     funcsForUpdate = {
       updateUserReviews,
-    };
+    },
+    clientWidth = window.screen.width;
 
   return (
     <form
@@ -30,10 +31,10 @@ const Review = ({
       onSubmit={(e) => updateReviews(e, dataForUpdate, funcsForUpdate)}
       data-remove={false}
     >
-      <div className='accountPage__reviews-item-img flexWrapColumn_center col-2'>
+      <div className={`accountPage__reviews-item-img flexWrapColumn_center col-2 ${clientWidth > 575 ? '': 'hiddenElem'}`}>
         <img src={createValidImgSrc(commodityImg)} alt={`avatar-${userName}`} />
       </div>
-      <div className='accountPage__reviews-item-content col-10'>
+      <div className='accountPage__reviews-item-content col-lg-10'>
         <div className='review__header flexWrap_SB'>
           <div className='review__header-title'>Книга "{commodityTitle}"</div>
           <div className='review__header-rating'>

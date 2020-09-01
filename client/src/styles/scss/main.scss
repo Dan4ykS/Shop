@@ -86,7 +86,16 @@ h6 {
 }
 
 @media (max-width: 575px) {
+  body {
+    font-size: 15px;
+  }
   .content {
     min-height: 91vh;
+  }
+  .userAvatar {
+    margin: 0 auto;
+  }
+  .blockTitle {
+    font-size: 28px;
   }
 }

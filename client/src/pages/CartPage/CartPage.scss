@@ -23,3 +23,16 @@
     background-color: $mainColor;
   }
 }
+
+@media (max-width: 575px) {
+  .cartPage {
+    .totalPrice {
+      &__wrapper {
+        width: 100%;
+      }
+      &__text {
+        padding: 0 28px;
+      }
+    }
+  }
+}
