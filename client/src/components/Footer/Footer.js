@@ -11,7 +11,6 @@ const Footer = ({ history }) => {
   const authPageRotes = ['Login', 'Registration', 'helpLogin', 'resetPassword'],
     location = history.location.pathname.split('/')[1];
 
-  console.log(location);
   useEffect(() => {
     showFooterHidenElements();
   }, []);
