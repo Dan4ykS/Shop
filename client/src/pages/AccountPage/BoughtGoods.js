@@ -7,10 +7,10 @@ const BoughtGoods = ({ userData: { boughtGoods } }) => {
     return null;
   }
   const arrForSlider = boughtGoods.map(({ previewImg, rating, id }) => ({
-      slideImgSrc: previewImg,
-      slideDetail: { rating: rating },
-      slideLink: `/Goods/commodity-${id}`,
-    })),
+    slideImgSrc: previewImg,
+    slideDetail: { rating: rating },
+    slideLink: `/Goods/commodity-${id}`,
+  })),
     fewElements = {
       sliderNextBtn: 'hiddenElem',
       sliderPrevBtn: 'hiddenElem',
@@ -18,15 +18,16 @@ const BoughtGoods = ({ userData: { boughtGoods } }) => {
     },
     manyElements = {
       sliderItemImgWrapper: 'slider__item-imgWrapper slider__item-imgWrapper_bougthGoods',
-    };
+    },
+    screenWidth = window.screen.width;
 
   return (
     <>
       <div className='blockTitle'>Купленные книги</div>
       <Slider
         content={arrForSlider}
-        slidesToShow={window.screen.width > 575 ? 2 : 1}
-        slidesToScroll={boughtGoods.length > 4 ? 2 : window.screen.width > 575 ? 1 : 1}
+        slidesToShow={screenWidth > 575 ? 2 : 1}
+        slidesToScroll={boughtGoods.length > 4 && screenWidth > 575 ? 2 : 1}
         hasDots={false}
         classNames={boughtGoods.length <= 2 ? fewElements : manyElements}
       />

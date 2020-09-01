@@ -29,10 +29,18 @@
     .totalPrice {
       &__wrapper {
         width: 100%;
+        position: relative;
       }
       &__text {
-        padding: 0 28px;
+       padding: 0;
+       text-align: center;
+       width: 70%;
       }
+      &__btn {
+        display: flex;
+        width: 30%;
+      }
+      
     }
   }
 }

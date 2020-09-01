@@ -11,7 +11,7 @@ const FullPrice = ({ shopingCart: { totalPrice }, userData: { token }, actions: 
   return (
     <>
       <span></span>
-      <div className='totalPrice flexWrap_FE'>
+      <div className={`totalPrice ${window.screen.width > 575 ? 'flexWrap_FE' : 'flexWrap'}`}>
         <div className='totalPrice__wrapper flexWrap'>
           <div className='totalPrice__text'>
             Общая стоимость: {totalPrice} <FontAwesomeIcon icon={faRubleSign} />
