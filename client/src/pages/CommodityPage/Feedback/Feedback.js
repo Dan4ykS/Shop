@@ -33,13 +33,8 @@ const Feedback = ({
 
   useEffect(() => {
     findUserReview(userName, reviews);
-    return () => {
-      if (userReview) {
-        clearUserReview();
-      }
-    };
-    // eslint-disable-next-line
-  }, []);
+    return () => clearUserReview();
+  }, [userName, reviews, clearUserReview, findUserReview]);
 
   useEffect(() => {
     updateLocalReview(userReview?.review ?? '');
