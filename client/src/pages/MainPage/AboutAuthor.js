@@ -3,6 +3,7 @@ import LoadingData from '../../components/LoadingData';
 import { connectToStore } from '../../utils/workWithRedux';
 import { fetchAdminData } from '../../actions/userData';
 import { createValidImgSrc } from '../../utils/workWithBrowser';
+import TextWithBr from '../../components/TextWithBr/TextWithBr';
 
 const AboutAuthor = ({
   userData: {
@@ -23,13 +24,11 @@ const AboutAuthor = ({
           <div className='userAvatar'>
             <img src={createValidImgSrc(avatar)} alt='adminAvatar' />
           </div>
-          <p>
-            {fullName}
-          </p>
+          <p>{fullName}</p>
         </div>
         <div className='col-lg-8 flexWrapColumn_FS'>
           <h2>Создатель сайта "WebBook"</h2>
-          <p>{about}</p>
+          <TextWithBr text={about} />
         </div>
       </div>
     </LoadingData>
