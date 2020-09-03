@@ -9,7 +9,7 @@ import { findGoods } from '../../utils/workWithApiRequests';
 const Search = ({ actions: { fetchGoods }, history }) => {
   const [value, updateValue] = useState('');
   return (
-    <form className='search' onSubmit={(e) => findGoods(e, history, value, fetchGoods)}>
+    <form className='search' onSubmit={(e) => findGoods(e, history, value.trim(), fetchGoods)}>
       <input
         type='text'
         placeholder='Поиск по авторам, книгам ...'

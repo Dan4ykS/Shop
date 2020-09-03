@@ -25,7 +25,7 @@ const GoodsPage = ({ actions: { fetchGoods }, history }) => {
     pageHeader = <h2>Самые популярные товары !</h2>;
   } else if (path.includes('/Goods/serch=')) {
     const query = path.split('=')[1];
-    configDataForAction = { type: 'search', strForSerch: query };
+    configDataForAction = { type: 'search', strForSearch: query };
     pageHeader = <h2>Результаты поиска по запросу "{query}"</h2>;
     ComponentWithoutData = () => <h2>Извините, но по запросу "{query}" ничего небыло найдено</h2>;
   } else {
