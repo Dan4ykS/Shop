@@ -219,6 +219,11 @@
       }
     }
     &__detail {
+      .flexWrap_center {
+        svg {
+          margin-left: 5px;
+        }
+      }
       &-more {
         .btn {
           display: flex;
