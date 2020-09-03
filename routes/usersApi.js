@@ -10,8 +10,6 @@ router.post('/createUser', controller.createUser);
 
 router.get('/getUsers', authAdmin, controller.getUsers);
 
-router.get('/getUserData', auth, controller.getUserData);
-
 router.get('/getUserBoughtGoods', auth, controller.getUserBoughtGoods);
 
 router.get('/getUserReviews', auth, controller.getUserReviews);
@@ -35,7 +33,5 @@ router.post('/resetPassword', controller.resetPassword);
 router.patch('/createNewPassword', auth, controller.createNewPassword);
 
 router.patch('/updateUserData', auth, uploadFile.single('avatar'), controller.updateUserData);
-
-router.delete('/removeUser/:id', authAdmin, controller.removeUser);
 
 module.exports = router;

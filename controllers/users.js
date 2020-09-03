@@ -52,8 +52,8 @@ module.exports.getUserBoughtGoods = async ({ user: { userId } }, res) => {
 module.exports.getUserReviews = async ({ user: { userId } }, res) => {
   try {
     const user = await Users.findById(userId);
-    const userDataWithReview = await createPopuldatedData(user, 'reviews');
-    await createPopuldatedData(userDataWithReview, 'reviews.commodityId');
+    const userDataWithReviews = await createPopuldatedData(user, 'reviews');
+    await createPopuldatedData(userDataWithReviews, 'reviews.commodityId');
     res.json(convertDataForClient({ reviews: user.reviews }, 'user'));
   } catch (error) {
     errorHandler(res, error);
@@ -75,8 +75,8 @@ module.exports.authUser = async ({ body: { userName, password } }, res) => {
       await createPopuldatedData(user, 'boughtGoods');
     }
     if (user.reviews.length) {
-      const userDataWithReview = await createPopuldatedData(user, 'reviews');
-      await createPopuldatedData(userDataWithReview, 'reviews.commodityId');
+      const userDataWithReviews = await createPopuldatedData(user, 'reviews');
+      await createPopuldatedData(userDataWithReviews, 'reviews.commodityId');
     }
     res.json({ userData: convertDataForClient(user.toObject(), 'user'), token });
   } catch (error) {
@@ -94,8 +94,8 @@ module.exports.isValid = async (req, res) => {
       await createPopuldatedData(user, 'boughtGoods');
     }
     if (user.reviews.length) {
-      const userDataWithReview = await createPopuldatedData(user, 'reviews');
-      await createPopuldatedData(userDataWithReview, 'reviews.commodityId');
+      const userDataWithReviews = await createPopuldatedData(user, 'reviews');
+      await createPopuldatedData(userDataWithReviews, 'reviews.commodityId');
     }
     const newToken = createJwtToken({ userId: user.id }, '1d');
     res.json({ userData: convertDataForClient(user.toObject(), 'user'), newToken });
@@ -215,51 +215,6 @@ module.exports.updateUserData = async ({ body, user: { userId }, file }, res) =>
     if (newAvatar?.avatar && getValidFileName(oldUserData.avatar) !== 'defaultAvatar.png') {
       deleteFile(getValidFileName(oldUserData.avatar));
     }
-  } catch (error) {
-    errorHandler(res, error);
-  }
-};
-
-module.exports.removeUser = async ({ params: { id } }, res) => {
-  try {
-    const oldUser = await Users.findByIdAndDelete(id);
-    res.status(200).json({ message: `Данные пользователя с id: ${id} удалены` });
-    const userReviews = await Reviews.find({ user: id });
-    if (userReviews.length > 0) {
-      userReviews.forEach(async (review) => {
-        const reviewData = await Reviews.findByIdAndRemove(review._id.toString());
-        await updateCommodityRating(reviewData.commodity, 0, reviewData?.rating);
-      });
-    }
-    if (oldUser?.avatar && getValidFileName(oldUser.avatar) !== 'defaultAvatar.png') {
-      deleteFile(getValidFileName(oldUser.avatar));
-    }
-  } catch (error) {
-    errorHandler(res, error);
-  }
-};
-
-module.exports.getUserData = async ({ user: { userId } }, res) => {
-  try {
-    const userData = await Users.findById(userId),
-      userReviews = [];
-
-    if (userData.reviews.length) {
-      const reviewData = (await createPopuldatedData(userData, 'reviews')).reviews;
-      reviewData.forEach((review) => {
-        userReviews.push({
-          reviewId: review._id,
-          reviewer: userData.fullName,
-          reviewerAvatar: userData.avatar,
-          reviewDate: review.date,
-          review: review.review,
-        });
-      });
-    }
-
-    delete userData.cart;
-    delete userData.password;
-    res.json(convertDataForClient({ ...userData.toObject(), reviews: userReviews }));
   } catch (error) {
     errorHandler(res, error);
   }

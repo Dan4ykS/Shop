@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport(
     },
   },
   {
-    from: 'Best shop on React <dan4yks.shop@gmail.com>',
+    from: 'Магазин Web Book <dan4yks.shop@gmail.com>',
   }
 );
 

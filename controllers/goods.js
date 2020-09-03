@@ -237,7 +237,7 @@ module.exports.removeCommodity = async ({ params: { id } }, res) => {
   try {
     const oldCommodityData = await Goods.findByIdAndDelete(id);
     res.status(200).json({ message: `товар с id:${id} удален` });
-    await Reviews.deleteMany({ commodity: id });
+    await Reviews.deleteMany({ commodityId: id });
     const genres = await Genres.find({ goods: id }),
       author = await Authors.findOne({ goods: id }),
       tags = await Tags.find({ goods: id });
