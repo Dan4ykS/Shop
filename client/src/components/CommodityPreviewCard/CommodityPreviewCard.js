@@ -22,10 +22,12 @@ const CommodityPreviewCard = ({
     rating,
   },
 }) => {
+  const screenWidth = window.screen.width;
+
   return (
-    <div className='previewCard col-lg-6' style={{ padding: '0 8px' }}>
+    <div className='previewCard col-lg-6' style={{ padding: `0 ${screenWidth > 575 ? '8': '20'}` }}>
       <div className='preview'>
-        <div className={`preview__content ${window.screen.width > 575 ? 'flexWrap' : 'flexWrapColumn'}`}>
+        <div className={`preview__content ${screenWidth > 575 ? 'flexWrap' : 'flexWrapColumn'}`}>
           <div className='preview__content-rating'>
             <RatingInMedal rating={rating.general} />
           </div>
@@ -33,7 +35,7 @@ const CommodityPreviewCard = ({
             <img src={createValidImgSrc(previewImgSrc)} alt={previewImgAlt} />
           </div>
           <div className='preview__content-info'>
-            <div>{trimText(title, window.screen.width > 375 ? null : 35)}</div>
+            <div>{trimText(title, screenWidth > 375 ? null : 35)}</div>
             <div>
               <RenderGenresData genres={genres} />
             </div>
@@ -46,7 +48,7 @@ const CommodityPreviewCard = ({
         <div className='preview__detail flexWrap'>
           <div className='preview__detail-more'>
             <Link className='btn' to={`/Goods/commodity-${id}`} onClick={() => scrollToTop()}>
-              {window.screen.width > 575 ? 'Читать подробнее' : 'Подробнее'}
+              {screenWidth > 575 ? 'Читать подробнее' : 'Подробнее'}
             </Link>
           </div>
           <div className='preview__detail-buy flexWrap'>

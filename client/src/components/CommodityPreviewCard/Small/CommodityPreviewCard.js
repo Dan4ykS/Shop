@@ -21,8 +21,10 @@ const CommodityPreviewCard = ({
     rating,
   },
 }) => {
+  const screenWidth = window.screen.width;
+
   return (
-    <div className='previewCard col-lg-3' style={{ padding: '0 8px' }}>
+    <div className='previewCard col-lg-3' style={{ padding: `0 ${screenWidth > 575 ? '8' : '20'}` }}>
       <div className='preview preview_small'>
         <div
           className='preview__content preview__content_small'
@@ -36,10 +38,10 @@ const CommodityPreviewCard = ({
             <img src={createValidImgSrc(previewImgSrc)} alt={previewImgAlt} />
           </div>
           <div className='preview__content-moreInfo hiddenElem'>
-            <div>{trimText(title, window.screen.width > 575 ? 20 : 30)}</div>
+            <div>{trimText(title, screenWidth > 575 ? 20 : 30)}</div>
             <div>{author}</div>
             <div>
-              <TextWithBr text={shortDescr} maxlength={window.screen.width > 575 ? 40 : 120} />
+              <TextWithBr text={shortDescr} maxlength={screenWidth > 575 ? 40 : 120} />
             </div>
             <Link to={`/Goods/commodity-${id}`} onClick={() => scrollToTop()}>
               Читать Подробнее
