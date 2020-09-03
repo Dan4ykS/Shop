@@ -68,8 +68,8 @@ const CommodityPage = ({
           routeForRedirect: '/',
         }}
       >
-        <div className='commodityPage__info row'>
-          <div className='commodityPage__info-img col-lg-5' onMouseEnter={() => hideMoreRatingInfo()}>
+        <div className='commodityPage__info row justify-content-center'>
+          <div className='commodityPage__info-img col-lg-5 col-8' onMouseEnter={() => hideMoreRatingInfo()}>
             <img src={createValidImgSrc(img?.imgSrc)} alt={img?.imgAlt ?? 'img'} />
           </div>
           <div className='commodityPage__info-detail col-lg-7'>
