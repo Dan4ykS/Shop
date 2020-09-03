@@ -24,7 +24,7 @@ const CommodityPreviewCard = ({
   const screenWidth = window.screen.width;
 
   return (
-    <div className='previewCard col-lg-3' style={{ padding: `0 ${screenWidth > 575 ? '8' : '30'}` }}>
+    <div className='previewCard col-lg-3' style={{ padding: `0 ${screenWidth > 575 ? '8px' : '25px'}` }}>
       <div className='preview preview_small'>
         <div
           className='preview__content preview__content_small'
