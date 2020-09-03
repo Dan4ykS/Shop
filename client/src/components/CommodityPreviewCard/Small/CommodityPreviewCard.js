@@ -41,7 +41,7 @@ const CommodityPreviewCard = ({
             <div>{trimText(title, screenWidth > 575 ? 20 : 30)}</div>
             <div>{author}</div>
             <div>
-              <TextWithBr text={shortDescr} maxlength={screenWidth > 575 ? 40 : 120} />
+              <TextWithBr text={shortDescr} maxlength={screenWidth > 575 ? 40 : 110} />
             </div>
             <Link to={`/Goods/commodity-${id}`} onClick={() => scrollToTop()}>
               Читать Подробнее

@@ -7,16 +7,13 @@ import { faInstagram, faVk, faFacebook } from '@fortawesome/free-brands-svg-icon
 import { feedbackMouseLeave, feedbackMouseEnter, showFooterHidenElements } from './utils';
 import { withRouter } from 'react-router';
 
-const Footer = ({ history }) => {
-  const authPageRotes = ['Login', 'Registration', 'helpLogin', 'resetPassword'],
-    location = history.location.pathname.split('/')[1];
-
+const Footer = () => {
   useEffect(() => {
     showFooterHidenElements();
   }, []);
 
   return (
-    <footer className={`footer ${authPageRotes.includes(location) ? 'footer_fixed' : ''}`}>
+    <footer className='footer'>
       <div className='footer__content flexWrap_center'>
         <FontAwesomeIcon icon={faCopyright} />
         <span>WebBook {new Date().getFullYear()}</span>

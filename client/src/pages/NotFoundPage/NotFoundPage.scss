@@ -1,4 +1,4 @@
-@import '../../styles/scss/variables.scss';
+@import "../../styles/scss/variables.scss";
 
 .notFoundPage {
   position: absolute;
@@ -20,11 +20,21 @@
       &:first-child {
         top: 20%;
         left: 35%;
-        color: $textColor
+        color: $textColor;
       }
     }
   }
   .btnGroup_center {
     margin: 0;
+  }
+}
+
+@media (max-width: 575px) {
+  .notFoundPage {
+    &__item {
+      height: 300px;
+      width: 100vw;
+      font-size: 35px;
+    }
   }
 }
