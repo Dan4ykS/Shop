@@ -12,6 +12,9 @@ const MainSlider = () => {
         },
         {
           slideImgSrc: '/static/secondSlide.jpg',
+        },
+        {
+          slideImgSrc: '/static/thirdSlide.jpg',
           slideLink: '/Goods',
         },
       ]}
