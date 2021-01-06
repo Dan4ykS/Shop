@@ -4,3 +4,4 @@ package-lock.json
 client/package-lock.json
 uploads/*
 !uploads/.gitkeep
+*.txt

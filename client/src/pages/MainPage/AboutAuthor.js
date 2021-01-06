@@ -1,9 +1,9 @@
 import React from 'react';
 import LoadingData from '../../components/LoadingData';
+import TextWithBr from '../../components/TextWithBr/TextWithBr';
 import { connectToStore } from '../../utils/workWithRedux';
 import { fetchAdminData } from '../../actions/userData';
 import { createValidImgSrc } from '../../utils/workWithBrowser';
-import TextWithBr from '../../components/TextWithBr/TextWithBr';
 
 const AboutAuthor = ({
   userData: {
