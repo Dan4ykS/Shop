@@ -1,5 +1,4 @@
 const express = require('express');
-const vhost = require('vhost');
 const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
@@ -12,9 +11,8 @@ const mongoose = require('mongoose');
 const config = require('./config/config');
 const path = require('path');
 
-const main = express();
 const app = express();
-const port = process.env.NODE_ENV === 'production' ? 80 : config.PORT;
+const port = process.env.NODE_ENV === 'production' ? 81 : config.PORT;
 
 app.use(cors());
 app.use(helmet());
@@ -34,7 +32,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-main.use(vhost('shop.dan4yk.ru', app));
 
 (async () => {
   try {
@@ -44,7 +41,7 @@ main.use(vhost('shop.dan4yk.ru', app));
       useCreateIndex: true,
       useFindAndModify: false,
     });
-    main.listen(port, () => {
+    app.listen(port, () => {
       console.log(`Запуск сервера на порту ${port}...`);
     });
   } catch (err) {
